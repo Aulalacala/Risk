@@ -1,0 +1,18 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Risk" Class="UsuariosBaseDatosDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=VAIO-PC\SQL2008;Initial Catalog=Risk;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="RiskConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tUsuarios" Member="tUsuarios">
+    <Type Name="tUsuario">
+      <Column Name="IdUsuario" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(150)" CanBeNull="true" />
+      <Column Name="Usuario" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="Clave" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Activo" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Administrador" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Bloqueado" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Tlf1" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Tlf2" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+      <Column Name="Observaciones" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>
