@@ -1,0 +1,390 @@
+/*
+	*********************************************************************************************************************
+	Custom Bootstrap Theme - Project: Loan Pricing - Acceleris
+	Design & Front development: ElEquipoE
+	Tasks: Html / Css / jQuery
+	Client: The Analytics Boutique
+	Version: 1.0
+	********************************************************************************************************************
+*/
+/* *********************************************************************************************************************
+ * IMPORTS
+ */
+/* *********************************************************************************************************************
+ * VARS
+ */
+/* *********************************************************************************************************************
+ * BOOTSTRAP CSS THEME & REPLACEMENTS
+ */
+a {
+  color: #8098a7; }
+  a:hover, a:focus {
+    color: #64c5da; }
+
+.btn {
+  padding: 13px 18px;
+  -webkit-transition: all 0.3s ease;
+  -moz-transition: all 0.3s ease;
+  -ms-transition: all 0.3s ease;
+  -o-transition: all 0.3s ease;
+  transition: all 0.3s ease; }
+  .btn.pull-right {
+    margin-left: 6px; }
+
+.btn-default {
+  color: #999999;
+  background-color: #f8f8f8;
+  border-color: #ececec; }
+
+.btn-default:hover,
+.btn-default:focus,
+.btn-default.focus,
+.btn-default:active,
+.btn-default.active {
+  color: #999999;
+  background-color: #ececec;
+  border-color: #ececec; }
+
+.btn-primary {
+  background-color: #64c5da;
+  border-color: #64c5da; }
+
+.btn-primary:hover,
+.btn-primary:focus,
+.btn-primary.focus,
+.btn-primary:active,
+.btn-primary.active {
+  background-color: #53b0c4;
+  border-color: #53b0c4; }
+
+.btn-warning {
+  background-color: #e4c04f;
+  border-color: #e4c04f; }
+
+.btn-warning:hover,
+.btn-warning:focus,
+.btn-warning.focus,
+.btn-warning:active,
+.btn-warning.active {
+  background-color: #dab339;
+  border-color: #dab339; }
+
+.nav .open > a,
+.nav .open > a:hover,
+.nav .open > a:focus {
+  background-color: transparent;
+  border-color: transparent; }
+
+.nav > li > a:hover,
+.nav > li > a:focus {
+  background-color: transparent; }
+
+.dropdown-menu > .disabled > a,
+.dropdown-menu > .disabled > a *,
+.dropdown-menu > .disabled > a:hover,
+.dropdown-menu > .disabled > a:focus {
+  color: #ccc; }
+
+.dropdown-menu {
+  padding: 10px 20px;
+  border: 0;
+  -webkit-box-shadow: 0 0 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.175); }
+  .dropdown-menu > li > a {
+    color: #999999; }
+    .dropdown-menu > li > a i {
+      margin-right: 4px;
+      padding-top: 2px;
+      vertical-align: top;
+      font-size: 16px;
+      color: #8098a7; }
+    .dropdown-menu > li > a:hover, .dropdown-menu > li > a:focus {
+      color: #64c5da; }
+
+.panel {
+  margin: 15px 0;
+  border-color: #ececec;
+  -webkit-box-shadow: none;
+  box-shadow: none; }
+  .panel .panel-body {
+    padding: 18px; }
+
+.form-control {
+  width: auto;
+  margin-bottom: 5px;
+  display: inline-block;
+  color: #999999;
+  border: 1px solid #cbcbcb;
+  border-radius: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none; }
+
+.form-control:focus {
+  border: 2px solid #64c5da;
+  outline: 0;
+  -webkit-box-shadow: none;
+  box-shadow: none; }
+
+input:focus::-webkit-input-placeholder {
+  color: transparent; }
+
+input:focus:-moz-placeholder {
+  color: transparent; }
+
+input:focus::-moz-placeholder {
+  color: transparent; }
+
+input:focus:-ms-input-placeholder {
+  color: transparent; }
+
+select.form-control {
+  background: #f7fafc url("../images/shared/select-arrow.png") no-repeat;
+  background-size: 20px;
+  background-position: right 3px center;
+  -webkit-appearance: none;
+  -moz-appearance: none; }
+
+select::-ms-expand {
+  display: none; }
+
+select:focus > option:checked,
+select:hover > option:checked,
+select option:checked,
+select option:hover {
+  color: #fff;
+  background-color: #8098a7 !important;
+  box-shadow: 0 0 10px 100px #8098a7 inset; }
+
+.checkbox-inline {
+  padding-left: 5px; }
+
+.checkbox-group .checkbox {
+  display: inline-block;
+  margin-right: 25px; }
+
+.checkbox {
+  padding-left: 20px; }
+  .checkbox label {
+    display: inline-block;
+    position: relative;
+    padding-left: 5px; }
+    .checkbox label::before {
+      content: '';
+      display: inline-block;
+      position: absolute;
+      width: 17px;
+      height: 17px;
+      left: 0;
+      margin-left: -20px;
+      border: 2px solid #e2e9ee;
+      border-radius: 3px;
+      background-color: #fff; }
+    .checkbox label::after {
+      display: inline-block;
+      position: absolute;
+      width: 16px;
+      height: 16px;
+      left: 0;
+      top: 0;
+      margin-left: -20px;
+      padding-left: 3px;
+      padding-top: 1px;
+      font-size: 11px; }
+  .checkbox input[type="checkbox"] {
+    opacity: 0;
+    filter: alpha(opacity=0);
+    z-index: 1; }
+    .checkbox input[type="checkbox"]:checked + label::after {
+      font-family: 'FontAwesome';
+      content: "\f00c";
+      color: #fff; }
+    .checkbox input[type="checkbox"]:checked + label::before {
+      background-color: #64c5da;
+      border-color: #64c5da; }
+    .checkbox input[type="checkbox"]:disabled + label {
+      opacity: 0.6;
+      filter: alpha(opacity=60); }
+      .checkbox input[type="checkbox"]:disabled + label::before {
+        background-color: #ccc;
+        cursor: not-allowed; }
+
+.radiobutton-group label {
+  display: inline-block;
+  position: relative;
+  padding-left: 5px; }
+  .radiobutton-group label::before {
+    content: '';
+    display: inline-block;
+    position: absolute;
+    width: 17px;
+    height: 17px;
+    left: 0;
+    margin-left: -20px;
+    border: 2px solid #e2e9ee;
+    border-radius: 50%;
+    background-color: #fff; }
+  .radiobutton-group label::after {
+    display: inline-block;
+    position: absolute;
+    content: ' ';
+    width: 11px;
+    height: 11px;
+    left: 3px;
+    top: 3px;
+    margin-left: -20px;
+    border-radius: 50%;
+    background-color: #8098a7;
+    -moz-transform: scale(0);
+    -o-transform: scale(0);
+    -ms-transform: scale(0);
+    -webkit-transform: scale(0);
+    transform: scale(0);
+    -webkit-transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    -moz-transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    -ms-transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    -o-transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: transform 0.2s cubic-bezier(0.165, 0.84, 0.44, 1); }
+.radiobutton-group input[type="radio"] {
+  margin-left: 30px;
+  outline: none;
+  z-index: 1;
+  opacity: 0;
+  filter: alpha(opacity=0); }
+  .radiobutton-group input[type="radio"]:checked + label::after {
+    -moz-transform: scale(1);
+    -o-transform: scale(1);
+    -ms-transform: scale(1);
+    -webkit-transform: scale(1);
+    transform: scale(1); }
+  .radiobutton-group input[type="radio"]:disabled + label {
+    opacity: 0.6;
+    filter: alpha(opacity=60); }
+    .radiobutton-group input[type="radio"]:disabled + label::before {
+      cursor: not-allowed; }
+  .radiobutton-group input[type="radio"]:first-of-type {
+    margin-left: 5px; }
+
+.table {
+  border-color: #cbcbcb; }
+  .table tbody > tr > th {
+    color: #64c5da; }
+    .table tbody > tr > th a {
+      color: #64c5da; }
+  .table .td-large {
+    min-width: 150px; }
+  .table div.collapsed {
+    padding: 0 9px; }
+    .table div.collapsed table {
+      margin: 9px 0; }
+    .table div.collapsed tr.bg-warning {
+      background-color: transparent;
+      font-weight: bold; }
+    .table div.collapsed td.warning {
+      padding: 4px 8px; }
+
+.table > thead > tr > th,
+.table > tbody > tr > th,
+.table > tfoot > tr > th,
+.table > thead > tr > td,
+.table > tbody > tr > td,
+.table > tfoot > tr > td {
+  padding: 8px;
+  line-height: 1.42857143;
+  vertical-align: middle;
+  border-top: 1px solid #cbcbcb; }
+
+.alert {
+  padding: 9px;
+  margin-bottom: 10px; }
+  .alert .close {
+    font-weight: normal;
+    line-height: 1;
+    text-shadow: none;
+    opacity: 0.6; }
+
+.alert-dismissable, .alert-dismissible {
+  padding-right: 35px; }
+
+.alert-warning {
+  color: #fff;
+  background-color: #e4c04f;
+  border-color: #e4c04f; }
+
+.pagination > li > a,
+.pagination > li > span {
+  color: #999999; }
+  .pagination > li > a:hover, .pagination > li > a:focus,
+  .pagination > li > span:hover,
+  .pagination > li > span:focus {
+    color: #333;
+    background-color: #eee;
+    border-color: #cbcbcb; }
+
+.pagination > .active > a,
+.pagination > .active > span,
+.pagination > .active > a:hover,
+.pagination > .active > span:hover,
+.pagination > .active > a:focus,
+.pagination > .active > span:focus {
+  color: #fff;
+  background-color: #64c5da;
+  border-color: #64c5da; }
+
+.nav-tabs {
+  border-bottom: 0; }
+  .nav-tabs li.active a {
+    font-size: 18px; }
+  .nav-tabs > li > a:hover {
+    border-color: transparent; }
+
+.list-group-item {
+  border-left: 0;
+  border-right: 0; }
+  .list-group-item h4, .list-group-item p {
+    margin: 0;
+    font-size: 14px; }
+  .list-group-item h4 {
+    font-weight: bold; }
+  .list-group-item:first-child {
+    padding-top: 20px; }
+
+.datepicker .table-condensed {
+  margin: 10px 0; }
+  .datepicker .table-condensed > tbody > tr > td {
+    padding: 5px 8px; }
+
+.datepicker table tr td.active,
+.datepicker table tr td.active.disabled,
+.datepicker table tr td.active.disabled:hover,
+.datepicker table tr td.active:hover,
+.datepicker table tr td span.active,
+.datepicker table tr td span.active.disabled,
+.datepicker table tr td span.active.disabled:hover,
+.datepicker table tr td span.active:hover,
+.datepicker table tr td.today.active {
+  background-color: #64c5da !important;
+  background-image: none;
+  background-repeat: repeat-x;
+  border: 0;
+  text-shadow: none;
+  color: #fff !important; }
+
+.datepicker table tr td.today,
+.datepicker table tr td.today.disabled,
+.datepicker table tr td.today.disabled:hover,
+.datepicker table tr td.today:hover {
+  background-color: transparent !important;
+  background-image: none;
+  background-repeat: repeat-x;
+  border: 0;
+  text-shadow: none;
+  color: #e4c04f; }
+
+.datepicker .next,
+.datepicker .prev {
+  content: '>';
+  background-color: #64c5da;
+  color: #fff; }
+  .datepicker .next:hover,
+  .datepicker .prev:hover {
+    background-color: #53b0c4; }

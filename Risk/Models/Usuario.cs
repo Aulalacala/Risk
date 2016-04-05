@@ -8,30 +8,10 @@ namespace Risk.Models
     public class Usuario
     {
 
-        public string _usuario
-        {
-            get
-            {
-                return _usuario;
-            }
+        public string _usuario { get; set; }
+            
 
-            set
-            {
-                _usuario = value;
-            }
-        }
+        public string _clave { get; set; }
 
-        public string _clave
-        {
-            get
-            {
-                return _clave;
-            }
-
-            set
-            {
-                _clave = value;
-            }
-        }
     }
 }

@@ -1,0 +1,48 @@
+/*
+	*********************************************************************************************************************
+	Custom RESPONSIVE SASS - Project: Loan Pricing - Acceleris
+	Design & Front development: ElEquipoE
+	Tasks: Html / Css / jQuery
+	Client: The Analytics Boutique
+	Version: 1.0
+	********************************************************************************************************************
+*/
+/* *********************************************************************************************************************
+ * IMPORTS
+ */
+/* *********************************************************************************************************************
+ * VARS
+ */
+/* *********************************************************************************************************************
+ * >1200 SCREENS 
+ */
+@media screen and (min-width: 1200px) {
+  .row-no-padding [class*="col-"] {
+    padding-left: 0 !important;
+    padding-right: 0 !important; }
+
+  .table tbody > tr > td {
+    width: 100px; } }
+/* *********************************************************************************************************************
+ * 1024 TO 1280 SCREENS 
+ */
+@media screen and (min-width: 1024px) and (max-width: 1199px) {
+  .table .td-large {
+    min-width: initial; } }
+/* *********************************************************************************************************************
+ * PORTRAIT TABLET TO LANDSCAPE AND DESKTOP  - 768 TO 992
+ */
+@media screen and (min-width: 768px) and (max-width: 992px) {
+  .logo-loan {
+    margin-top: 36px; }
+    .logo-loan img {
+      width: 180px; }
+
+  .row div.no-padding {
+    padding: 0 15px !important; }
+
+  .status-box {
+    float: none !important; } }
+/* *********************************************************************************************************************
+ * LANDSCAPE MOBILES AND DOWN  < 767
+ */
