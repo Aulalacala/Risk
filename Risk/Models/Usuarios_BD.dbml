@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Risk" Class="UsuariosBaseDatosDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Risk" Class="Usuarios_BDDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=VAIO-PC\SQL2008;Initial Catalog=Risk;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="RiskConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.tUsuarios" Member="tUsuarios">
     <Type Name="tUsuario">

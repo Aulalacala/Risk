@@ -23,7 +23,7 @@ namespace Risk.Models
 	
 	
 	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Risk")]
-	public partial class UsuariosBaseDatosDataContext : System.Data.Linq.DataContext
+	public partial class Usuarios_BDDataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
@@ -35,31 +35,31 @@ namespace Risk.Models
     partial void DeletetUsuario(tUsuario instance);
     #endregion
 		
-		public UsuariosBaseDatosDataContext() : 
+		public Usuarios_BDDataContext() : 
 				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["RiskConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public UsuariosBaseDatosDataContext(string connection) : 
+		public Usuarios_BDDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public UsuariosBaseDatosDataContext(System.Data.IDbConnection connection) : 
+		public Usuarios_BDDataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public UsuariosBaseDatosDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public Usuarios_BDDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public UsuariosBaseDatosDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public Usuarios_BDDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
