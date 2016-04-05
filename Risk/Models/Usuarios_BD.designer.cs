@@ -11,18 +11,18 @@
 
 namespace Risk.Models
 {
-	using System.Data.Linq;
-	using System.Data.Linq.Mapping;
-	using System.Data;
-	using System.Collections.Generic;
-	using System.Reflection;
-	using System.Linq;
-	using System.Linq.Expressions;
-	using System.ComponentModel;
-	using System;
-	
-	
-	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Risk")]
+    using System.Data.Linq;
+    using System.Data.Linq.Mapping;
+    using System.Data;
+    using System.Collections.Generic;
+    using System.Reflection;
+    using System.Linq;
+    using System.Linq.Expressions;
+    using System.ComponentModel;
+    using System;
+    using System.ComponentModel.DataAnnotations;
+
+    [global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Risk")]
 	public partial class Usuarios_BDDataContext : System.Data.Linq.DataContext
 	{
 		
@@ -196,7 +196,8 @@ namespace Risk.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Clave", DbType="NVarChar(100)")]
-		public string Clave
+        [DataType(DataType.Password)]
+        public string Clave
 		{
 			get
 			{

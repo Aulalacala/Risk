@@ -1,0 +1,114 @@
+﻿@using Risk.Models
+@{
+    ViewBag.Title = "Risks";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Risks</h2>
+
+<div class="panel Incidencias_lista_divPagina">
+    <div class="panel-body">
+
+        @using (Html.BeginForm("BusquedaRiks", "Assign", FormMethod.Post))
+        {
+            @Html.AntiForgeryToken()
+
+        <!-- TITLE & BUTTONS -->
+            <span class="title">SEARCH CRITERIA</span>
+            <input type="submit" class="btn btn-primary pull-right" name="BtnBuscarRisk" value="SEARCH" onclick="show_image()" id="BtnBuscarRisk" />
+            <div class="clearfix"></div>
+            <div class="divider"></div>
+
+        <!-- SEARCH FORM -->
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-12">
+
+                    <!-- DIVIDER -->
+                    <div class="divider-30"></div>
+
+                    <!-- ROW FILTER -->
+                    <div class="row row-no-padding">
+                        <div class="col-lg-2 col-md-2">
+                            <span class="form-left-label" id="labelFilters">Filters</span>
+                        </div>
+
+                        <div class="col-lg-10 col-md-10">
+                            <input type="text" class="form-control w50" name="filter"/>
+                        </div>
+                    </div>
+
+                    <!-- ROW CATEGORIA -->
+                    <div class="row row-no-padding">
+                        <div class="col-lg-2 col-md-2">
+                            <span class="form-left-label" id="labelCategoria">Categoría</span>
+                        </div>
+
+                        <div class="col-lg-10 col-md-10">
+                            <select class="form-control w50" name="selectCategoria" id="selectCategoria">
+                                <option selected="selected" value="0"> </option>
+                                @{
+                                    List<tRiesgos_Categoria> listCategorias = ViewBag.listCategorias;
+                                    foreach (var categoria in listCategorias)
+                                    {
+                                        <option value="@categoria.IdCategoria">@categoria.Categoria </option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- ROW CLASIFICACIÓN 1 -->
+                    <div class="row row-no-padding">
+                        <div class="col-lg-2 col-md-2">
+                            <span class="form-left-label" id="labelClasif1">Clasificación 1</span>
+                        </div>
+
+                        <div class="col-lg-10 col-md-10">
+                            <select class="form-control w50" name="selectClasif1" id="selectClasif1">
+                                <option selected="selected" value="0"> </option>
+                                @{
+                                    List<tRiesgos_Clasificaciones> listClasif1= ViewBag.listClasif1;
+                                    foreach (var clasif1 in listClasif1)
+                                    {
+                                        <option value="@clasif1.IdEstructura">@clasif1.Nombre </option>
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- ROW CLASIFICACIÓN 2 -->
+                    <div class="row row-no-padding">
+                        <div class="col-lg-2 col-md-2">
+                            <span class="form-left-label" id="labelClasif2">Clasificación 2</span>
+                        </div>
+
+                        <div class="col-lg-10 col-md-10">
+                            <select class="form-control w50" name="selectClasif2" id="selectClasif2">
+                                <option selected="selected" value="0"> </option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- ROW CLASIFICACIÓN 3 -->
+                    <div class="row row-no-padding">
+                        <div class="col-lg-2 col-md-2">
+                            <span class="form-left-label" id="labelClasif1">Clasificación 3</span>
+                        </div>
+
+                        <div class="col-lg-10 col-md-10">
+                            <select class="form-control w50" name="selectClasif3" id="selectClasif3">
+                                <option selected="selected" value="0"> </option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <!-- DIVIDER -->
+                    <div class="divider-20"></div>
+
+                </div>
+            </div> <!-- END SEARCH FORM -->
+        }
+    </div>
+
+</div> <!-- END SEARCH CRITERIA PANEL -->

@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Risk" Class="Riesgos_BDDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=VAIO-PC\SQL2008;Initial Catalog=Risk;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="RiskConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.tRiesgos" Member="tRiesgos">
+    <Type Name="tRiesgo">
+      <Column Name="IdRiesgo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CodRiesgoGenerico" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CodRiesgo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CodRiesgoLocalizado" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="IdCategoria" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdClasificacion1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdClasificacion2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdClasificacion3" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Descripcion" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Ejemplo" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Justificacion" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="IdSegmentacion1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdResponsable" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdSupervisor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdControlesOportunidad" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdControlesEfectividad" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Vigencia" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tRiesgos_Categorias" Member="tRiesgos_Categorias">
+    <Type Name="tRiesgos_Categoria">
+      <Column Name="IdCategoria" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Categoria" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Orden" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tRiesgos_Clasificaciones" Member="tRiesgos_Clasificaciones">
+    <Type Name="tRiesgos_Clasificaciones">
+      <Column Name="IdEstructura" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CodNivel" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Nivel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idPadre" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Orden" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CodCompleto" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

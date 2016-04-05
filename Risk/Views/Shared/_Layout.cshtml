@@ -1,40 +1,158 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    <link href="~/Content/Site.css" rel="stylesheet" type="text/css" />
-    <link href="~/Content/bootstrap.min.css" rel="stylesheet" type="text/css" />
-    <script src="~/Scripts/modernizr-2.6.2.js"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1" />
+    <title></title>
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="~/Content/css/style.css" type="text/css" media="screen" />
+    <link rel="stylesheet" href="~/Content/css/responsive.css" type="text/css" media="screen" />
+
+    <!-- ICONS -->
+    <link rel="shortcut icon" href="~/Content/images/shared/favico.ico" />
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
+
+    <div class="wrapper" id="rating">
+        <!-- HEADER -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation">
+
+            <!-- LOGO & COLLAPSE -->
             <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <a class="navbar-brand" href="index.html"><img src="~/Content/images/shared/logo.png" class="logo" alt="The Analytics Boutique"><img src="~/Content/images/shared/logo-collapsed.png" class="logo-collapsed" alt="The Analytics Boutique"></a>
+                <a href="#" class="collapse-menu-bt"><i class="fa fa-bars"></i></a>
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                </ul>
+
+            <!-- LOGO LOAN -->
+            <div class="logo-loan">
+                <img src="~/Content/images/shared/logo-loan.png" alt="Loan Pricing Acceleris">
             </div>
+
+            <!-- USER TOOLS -->
+            <ul class="nav user-tools navbar-right">
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-bell-o fa-fw"></i> <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-alerts">
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-warning fa-fw"></i> 3 Alerts
+                                    <span class="pull-right text-muted small">15 minutes ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a href="#">
+                                <div>
+                                    <i class="fa fa-envelope fa-fw"></i> Message Sent
+                                    <span class="pull-right text-muted small">1 hour ago</span>
+                                </div>
+                            </a>
+                        </li>
+                        <li class="divider"></li>
+                        <li>
+                            <a class="text-center" href="#">
+                                <strong>See All Alerts</strong>
+                                <i class="fa fa-angle-right"></i>
+                            </a>
+                        </li>
+                    </ul>
+                </li>
+
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-angle-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+                        <li><a href="#"><i class="fa fa-user-plus fa-fw"></i> User Profile</a></li>
+                        <li><a href="#"><i class="fa fa-envelope fa-fw"></i> Inbox</a></li>
+                        <li class="disabled"><a href="#"><i class="fa fa-gear fa-fw"></i> Settings</a></li>
+                        <li class="divider"></li>
+                        <li><a href="login.html"><i class="fa fa-power-off fa-fw"></i> Logout</a></li>
+                    </ul>
+                </li>
+
+                @{
+                    Risk.Models.tUsuario tUsuario = (Risk.Models.tUsuario)HttpContext.Current.Session["tUsuario"];
+                }
+                <li class="user"><strong>@tUsuario.Usuario</strong></li>
+
+            </ul> <!-- END USER TOOLS -->
+
+        </nav> <!-- HEADER -->
+        <!-- SIDEBAR MENU -->
+        <div class="menu" id="menu" role="navigation">
+
+            <ul class="nav nav-first-level">
+                <li>
+                    <a href="#"><i class="fa fa-chain fa-fw"></i> <span>ASSIGN</span> <i class="arrow fa fa-chevron-down"></i></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href=@Url.Action("Structure", "Assign")><i class="fa fa-circle-o fa-fw"></i> Structure</a></li>
+                        <li><a href=@Url.Action("Risks", "Assign")><i class="fa fa-circle-o fa-fw"></i> Risks</a></li>
+                        <li><a href=@Url.Action("KRISIndicators", "Assign")><i class="fa fa-circle-o fa-fw"></i> KRIS Indicators</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#"><i class="fa fa-chain fa-fw"></i> <span>MITIGATION</span> <i class="arrow fa fa-chevron-down"></i></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="#"><i class="fa fa-circle-o fa-fw"></i> Controls</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o fa-fw"></i> Action Plan</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o fa-fw"></i> BPC</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o fa-fw"></i> Insurance</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o fa-fw"></i> Risk Management Compliance</a></li>
+                    </ul>
+                </li>
+
+                <li><a href="#"><i class="fa fa-signal fa-fw"></i> <span>SIMULATION</span></a></li>
+                <li><a href="#"><i class="fa fa-signal fa-fw"></i> <span>REPORTS</span></a></li>
+
+                <li>
+                    <a href="#"><i class="fa fa-chain fa-fw"></i> <span>CONFIGURATION</span> <i class="arrow fa fa-chevron-down"></i></a>
+                    <ul class="nav nav-second-level">
+                        <li><a href="#"><i class="fa fa-circle-o fa-fw"></i> Configuration Master</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o fa-fw"></i> Load Structure</a></li>
+                        <li><a href="#"><i class="fa fa-circle-o fa-fw"></i> Connection DataBase</a></li>
+                        <li>
+                            <a href="#"><i class="fa fa-circle-o fa-fw"></i> Data Administration <i class="arrow-second fa fa-chevron-down"></i></a>
+                            <ul class="nav nav-third-level">
+                                <li><a href="#"><i class="fa fa-circle-o fa-fw"></i> Data Clean Orphans</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o fa-fw"></i> Restore Views in DataBase</a></li>
+                                <li><a href="#"><i class="fa fa-circle-o fa-fw"></i> Create Help Risks</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </li>
+
+                <li><a href="#"><i class="fa fa-signal fa-fw"></i> <span>DASH BOARD</span></a></li>
+                <li><a href="#"><i class="fa fa-signal fa-fw"></i> <span>ACTION BOARD</span></a></li>
+
+            </ul>
+        </div> <!-- END SIDEBAR MENU -->
+
+
+        <div class="content container-fluid">
+            @RenderBody()
         </div>
     </div>
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    <!-- SCROLL TO TOP -->
+    <a href="#" class="scrollup"><i class="fa fa-angle-up fa-2x"></i></a>
 
-    <script src="~/Scripts/jquery-1.10.2.min.js"></script>
-    <script src="~/Scripts/bootstrap.min.js"></script>
+    <!-- SCRIPTS -->
+    <script type="text/javascript" src="~/Content/js/jquery/jquery-2.1.1.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/jquery/jquery.browser.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/jquery/jquery.easing.1.3.js"></script>
+    <script type="text/javascript" src="~/Content/js/bootstrap/bootstrap.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/bootstrap/bootstrap-metis.menu.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/bootstrap/bootstrap-datepicker.min.js"></script>
+    <script type="text/javascript" src="~/Content/js/mdetect/mdetect.js"></script>
+    <script type="text/javascript" src="~/Content/js/fastclick/fastclick.js"></script>
+    <script type="text/javascript" src="~/Content/js/scripts.js"></script>
+    <script type="text/javascript" src="~/Content/js/scripts2.js"></script>
 </body>
 </html>
