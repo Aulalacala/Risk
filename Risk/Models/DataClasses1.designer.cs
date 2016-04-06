@@ -23,7 +23,7 @@ namespace Risk.Models
 	
 	
 	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Risk")]
-	public partial class Riesgos_BDDataContext : System.Data.Linq.DataContext
+	public partial class DataClasses1DataContext : System.Data.Linq.DataContext
 	{
 		
 		private static System.Data.Linq.Mapping.MappingSource mappingSource = new AttributeMappingSource();
@@ -33,39 +33,45 @@ namespace Risk.Models
     partial void InserttRiesgo(tRiesgo instance);
     partial void UpdatetRiesgo(tRiesgo instance);
     partial void DeletetRiesgo(tRiesgo instance);
-    partial void InserttRiesgos_Categoria(tRiesgos_Categoria instance);
-    partial void UpdatetRiesgos_Categoria(tRiesgos_Categoria instance);
-    partial void DeletetRiesgos_Categoria(tRiesgos_Categoria instance);
-    partial void InserttRiesgos_Clasificaciones(tRiesgos_Clasificaciones instance);
-    partial void UpdatetRiesgos_Clasificaciones(tRiesgos_Clasificaciones instance);
-    partial void DeletetRiesgos_Clasificaciones(tRiesgos_Clasificaciones instance);
+    partial void InserttRiesgos_ControlOportunidad(tRiesgos_ControlOportunidad instance);
+    partial void UpdatetRiesgos_ControlOportunidad(tRiesgos_ControlOportunidad instance);
+    partial void DeletetRiesgos_ControlOportunidad(tRiesgos_ControlOportunidad instance);
+    partial void InserttRiesgos_Clasificaciones1(tRiesgos_Clasificaciones1 instance);
+    partial void UpdatetRiesgos_Clasificaciones1(tRiesgos_Clasificaciones1 instance);
+    partial void DeletetRiesgos_Clasificaciones1(tRiesgos_Clasificaciones1 instance);
+    partial void InserttRiesgos_Clasificaciones2(tRiesgos_Clasificaciones2 instance);
+    partial void UpdatetRiesgos_Clasificaciones2(tRiesgos_Clasificaciones2 instance);
+    partial void DeletetRiesgos_Clasificaciones2(tRiesgos_Clasificaciones2 instance);
+    partial void InserttRiesgos_Clasificaciones3(tRiesgos_Clasificaciones3 instance);
+    partial void UpdatetRiesgos_Clasificaciones3(tRiesgos_Clasificaciones3 instance);
+    partial void DeletetRiesgos_Clasificaciones3(tRiesgos_Clasificaciones3 instance);
     #endregion
 		
-		public Riesgos_BDDataContext() : 
+		public DataClasses1DataContext() : 
 				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["RiskConnectionString"].ConnectionString, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public Riesgos_BDDataContext(string connection) : 
+		public DataClasses1DataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public Riesgos_BDDataContext(System.Data.IDbConnection connection) : 
+		public DataClasses1DataContext(System.Data.IDbConnection connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public Riesgos_BDDataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public DataClasses1DataContext(string connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
 		}
 		
-		public Riesgos_BDDataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
+		public DataClasses1DataContext(System.Data.IDbConnection connection, System.Data.Linq.Mapping.MappingSource mappingSource) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
@@ -79,27 +85,35 @@ namespace Risk.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<tRiesgos_Categoria> tRiesgos_Categorias
+		public System.Data.Linq.Table<tRiesgos_ControlOportunidad> tRiesgos_ControlOportunidads
 		{
 			get
 			{
-				return this.GetTable<tRiesgos_Categoria>();
+				return this.GetTable<tRiesgos_ControlOportunidad>();
 			}
 		}
 		
-		public System.Data.Linq.Table<tRiesgos_Clasificaciones> tRiesgos_Clasificaciones
+		public System.Data.Linq.Table<tRiesgos_Clasificaciones1> tRiesgos_Clasificaciones1s
 		{
 			get
 			{
-				return this.GetTable<tRiesgos_Clasificaciones>();
+				return this.GetTable<tRiesgos_Clasificaciones1>();
 			}
 		}
 		
-		public System.Data.Linq.Table<qRiesgosNombre> qRiesgosNombres
+		public System.Data.Linq.Table<tRiesgos_Clasificaciones2> tRiesgos_Clasificaciones2s
 		{
 			get
 			{
-				return this.GetTable<qRiesgosNombre>();
+				return this.GetTable<tRiesgos_Clasificaciones2>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tRiesgos_Clasificaciones3> tRiesgos_Clasificaciones3s
+		{
+			get
+			{
+				return this.GetTable<tRiesgos_Clasificaciones3>();
 			}
 		}
 	}
@@ -122,11 +136,11 @@ namespace Risk.Models
 		
 		private System.Nullable<int> _IdCategoria;
 		
-		private System.Nullable<int> _IdClasificacion1;
+		private int _IdClasificacion1;
 		
-		private System.Nullable<int> _IdClasificacion2;
+		private int _IdClasificacion2;
 		
-		private System.Nullable<int> _IdClasificacion3;
+		private int _IdClasificacion3;
 		
 		private string _Descripcion;
 		
@@ -140,11 +154,15 @@ namespace Risk.Models
 		
 		private System.Nullable<int> _IdSupervisor;
 		
-		private System.Nullable<int> _IdControlesOportunidad;
+		private int _IdControlesOportunidad;
 		
 		private System.Nullable<int> _IdControlesEfectividad;
 		
 		private string _Vigencia;
+		
+		private EntitySet<tRiesgos_ControlOportunidad> _tRiesgos_ControlOportunidads;
+		
+		private EntitySet<tRiesgos_Clasificaciones1> _tRiesgos_Clasificaciones1s;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -162,11 +180,11 @@ namespace Risk.Models
     partial void OnNombreChanged();
     partial void OnIdCategoriaChanging(System.Nullable<int> value);
     partial void OnIdCategoriaChanged();
-    partial void OnIdClasificacion1Changing(System.Nullable<int> value);
+    partial void OnIdClasificacion1Changing(int value);
     partial void OnIdClasificacion1Changed();
-    partial void OnIdClasificacion2Changing(System.Nullable<int> value);
+    partial void OnIdClasificacion2Changing(int value);
     partial void OnIdClasificacion2Changed();
-    partial void OnIdClasificacion3Changing(System.Nullable<int> value);
+    partial void OnIdClasificacion3Changing(int value);
     partial void OnIdClasificacion3Changed();
     partial void OnDescripcionChanging(string value);
     partial void OnDescripcionChanged();
@@ -180,7 +198,7 @@ namespace Risk.Models
     partial void OnIdResponsableChanged();
     partial void OnIdSupervisorChanging(System.Nullable<int> value);
     partial void OnIdSupervisorChanged();
-    partial void OnIdControlesOportunidadChanging(System.Nullable<int> value);
+    partial void OnIdControlesOportunidadChanging(int value);
     partial void OnIdControlesOportunidadChanged();
     partial void OnIdControlesEfectividadChanging(System.Nullable<int> value);
     partial void OnIdControlesEfectividadChanged();
@@ -190,6 +208,8 @@ namespace Risk.Models
 		
 		public tRiesgo()
 		{
+			this._tRiesgos_ControlOportunidads = new EntitySet<tRiesgos_ControlOportunidad>(new Action<tRiesgos_ControlOportunidad>(this.attach_tRiesgos_ControlOportunidads), new Action<tRiesgos_ControlOportunidad>(this.detach_tRiesgos_ControlOportunidads));
+			this._tRiesgos_Clasificaciones1s = new EntitySet<tRiesgos_Clasificaciones1>(new Action<tRiesgos_Clasificaciones1>(this.attach_tRiesgos_Clasificaciones1s), new Action<tRiesgos_Clasificaciones1>(this.detach_tRiesgos_Clasificaciones1s));
 			OnCreated();
 		}
 		
@@ -314,7 +334,7 @@ namespace Risk.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdClasificacion1", DbType="Int")]
-		public System.Nullable<int> IdClasificacion1
+		public int IdClasificacion1
 		{
 			get
 			{
@@ -334,7 +354,7 @@ namespace Risk.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdClasificacion2", DbType="Int")]
-		public System.Nullable<int> IdClasificacion2
+		public int IdClasificacion2
 		{
 			get
 			{
@@ -354,7 +374,7 @@ namespace Risk.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdClasificacion3", DbType="Int")]
-		public System.Nullable<int> IdClasificacion3
+		public int IdClasificacion3
 		{
 			get
 			{
@@ -493,8 +513,8 @@ namespace Risk.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdControlesOportunidad", DbType="Int")]
-		public System.Nullable<int> IdControlesOportunidad
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdControlesOportunidad", DbType="Int NOT NULL")]
+		public int IdControlesOportunidad
 		{
 			get
 			{
@@ -553,6 +573,32 @@ namespace Risk.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tRiesgo_tRiesgos_ControlOportunidad", Storage="_tRiesgos_ControlOportunidads", ThisKey="IdControlesOportunidad", OtherKey="IdControlOportunidad")]
+		public EntitySet<tRiesgos_ControlOportunidad> tRiesgos_ControlOportunidads
+		{
+			get
+			{
+				return this._tRiesgos_ControlOportunidads;
+			}
+			set
+			{
+				this._tRiesgos_ControlOportunidads.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tRiesgo_tRiesgos_Clasificaciones1", Storage="_tRiesgos_Clasificaciones1s", ThisKey="IdClasificacion1", OtherKey="IdEstructura")]
+		public EntitySet<tRiesgos_Clasificaciones1> tRiesgos_Clasificaciones1s
+		{
+			get
+			{
+				return this._tRiesgos_Clasificaciones1s;
+			}
+			set
+			{
+				this._tRiesgos_Clasificaciones1s.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -572,73 +618,104 @@ namespace Risk.Models
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
+		
+		private void attach_tRiesgos_ControlOportunidads(tRiesgos_ControlOportunidad entity)
+		{
+			this.SendPropertyChanging();
+			entity.tRiesgo = this;
+		}
+		
+		private void detach_tRiesgos_ControlOportunidads(tRiesgos_ControlOportunidad entity)
+		{
+			this.SendPropertyChanging();
+			entity.tRiesgo = null;
+		}
+		
+		private void attach_tRiesgos_Clasificaciones1s(tRiesgos_Clasificaciones1 entity)
+		{
+			this.SendPropertyChanging();
+			entity.tRiesgo = this;
+		}
+		
+		private void detach_tRiesgos_Clasificaciones1s(tRiesgos_Clasificaciones1 entity)
+		{
+			this.SendPropertyChanging();
+			entity.tRiesgo = null;
+		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tRiesgos_Categorias")]
-	public partial class tRiesgos_Categoria : INotifyPropertyChanging, INotifyPropertyChanged
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tRiesgos_ControlOportunidad")]
+	public partial class tRiesgos_ControlOportunidad : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private int _IdCategoria;
+		private int _IdControlOportunidad;
 		
-		private string _Categoria;
+		private string _Oportunidad;
 		
 		private System.Nullable<int> _Orden;
+		
+		private EntityRef<tRiesgo> _tRiesgo;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
     partial void OnCreated();
-    partial void OnIdCategoriaChanging(int value);
-    partial void OnIdCategoriaChanged();
-    partial void OnCategoriaChanging(string value);
-    partial void OnCategoriaChanged();
+    partial void OnIdControlOportunidadChanging(int value);
+    partial void OnIdControlOportunidadChanged();
+    partial void OnOportunidadChanging(string value);
+    partial void OnOportunidadChanged();
     partial void OnOrdenChanging(System.Nullable<int> value);
     partial void OnOrdenChanged();
     #endregion
 		
-		public tRiesgos_Categoria()
+		public tRiesgos_ControlOportunidad()
 		{
+			this._tRiesgo = default(EntityRef<tRiesgo>);
 			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdCategoria", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int IdCategoria
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdControlOportunidad", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdControlOportunidad
 		{
 			get
 			{
-				return this._IdCategoria;
+				return this._IdControlOportunidad;
 			}
 			set
 			{
-				if ((this._IdCategoria != value))
+				if ((this._IdControlOportunidad != value))
 				{
-					this.OnIdCategoriaChanging(value);
+					if (this._tRiesgo.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdControlOportunidadChanging(value);
 					this.SendPropertyChanging();
-					this._IdCategoria = value;
-					this.SendPropertyChanged("IdCategoria");
-					this.OnIdCategoriaChanged();
+					this._IdControlOportunidad = value;
+					this.SendPropertyChanged("IdControlOportunidad");
+					this.OnIdControlOportunidadChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Categoria", DbType="NVarChar(50)")]
-		public string Categoria
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Oportunidad", DbType="NVarChar(50)")]
+		public string Oportunidad
 		{
 			get
 			{
-				return this._Categoria;
+				return this._Oportunidad;
 			}
 			set
 			{
-				if ((this._Categoria != value))
+				if ((this._Oportunidad != value))
 				{
-					this.OnCategoriaChanging(value);
+					this.OnOportunidadChanging(value);
 					this.SendPropertyChanging();
-					this._Categoria = value;
-					this.SendPropertyChanged("Categoria");
-					this.OnCategoriaChanged();
+					this._Oportunidad = value;
+					this.SendPropertyChanged("Oportunidad");
+					this.OnOportunidadChanged();
 				}
 			}
 		}
@@ -659,6 +736,40 @@ namespace Risk.Models
 					this._Orden = value;
 					this.SendPropertyChanged("Orden");
 					this.OnOrdenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tRiesgo_tRiesgos_ControlOportunidad", Storage="_tRiesgo", ThisKey="IdControlOportunidad", OtherKey="IdControlesOportunidad", IsForeignKey=true)]
+		public tRiesgo tRiesgo
+		{
+			get
+			{
+				return this._tRiesgo.Entity;
+			}
+			set
+			{
+				tRiesgo previousValue = this._tRiesgo.Entity;
+				if (((previousValue != value) 
+							|| (this._tRiesgo.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tRiesgo.Entity = null;
+						previousValue.tRiesgos_ControlOportunidads.Remove(this);
+					}
+					this._tRiesgo.Entity = value;
+					if ((value != null))
+					{
+						value.tRiesgos_ControlOportunidads.Add(this);
+						this._IdControlOportunidad = value.IdControlesOportunidad;
+					}
+					else
+					{
+						this._IdControlOportunidad = default(int);
+					}
+					this.SendPropertyChanged("tRiesgo");
 				}
 			}
 		}
@@ -685,7 +796,254 @@ namespace Risk.Models
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tRiesgos_Clasificaciones")]
-	public partial class tRiesgos_Clasificaciones : INotifyPropertyChanging, INotifyPropertyChanged
+	public partial class tRiesgos_Clasificaciones1 : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdEstructura;
+		
+		private string _CodNivel;
+		
+		private string _Nombre;
+		
+		private System.Nullable<int> _Nivel;
+		
+		private System.Nullable<int> _idPadre;
+		
+		private System.Nullable<int> _Orden;
+		
+		private string _CodCompleto;
+		
+		private EntityRef<tRiesgo> _tRiesgo;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdEstructuraChanging(int value);
+    partial void OnIdEstructuraChanged();
+    partial void OnCodNivelChanging(string value);
+    partial void OnCodNivelChanged();
+    partial void OnNombreChanging(string value);
+    partial void OnNombreChanged();
+    partial void OnNivelChanging(System.Nullable<int> value);
+    partial void OnNivelChanged();
+    partial void OnidPadreChanging(System.Nullable<int> value);
+    partial void OnidPadreChanged();
+    partial void OnOrdenChanging(System.Nullable<int> value);
+    partial void OnOrdenChanged();
+    partial void OnCodCompletoChanging(string value);
+    partial void OnCodCompletoChanged();
+    #endregion
+		
+		public tRiesgos_Clasificaciones1()
+		{
+			this._tRiesgo = default(EntityRef<tRiesgo>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEstructura", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdEstructura
+		{
+			get
+			{
+				return this._IdEstructura;
+			}
+			set
+			{
+				if ((this._IdEstructura != value))
+				{
+					if (this._tRiesgo.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnIdEstructuraChanging(value);
+					this.SendPropertyChanging();
+					this._IdEstructura = value;
+					this.SendPropertyChanged("IdEstructura");
+					this.OnIdEstructuraChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodNivel", DbType="NVarChar(10)")]
+		public string CodNivel
+		{
+			get
+			{
+				return this._CodNivel;
+			}
+			set
+			{
+				if ((this._CodNivel != value))
+				{
+					this.OnCodNivelChanging(value);
+					this.SendPropertyChanging();
+					this._CodNivel = value;
+					this.SendPropertyChanged("CodNivel");
+					this.OnCodNivelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="NVarChar(250)")]
+		public string Nombre
+		{
+			get
+			{
+				return this._Nombre;
+			}
+			set
+			{
+				if ((this._Nombre != value))
+				{
+					this.OnNombreChanging(value);
+					this.SendPropertyChanging();
+					this._Nombre = value;
+					this.SendPropertyChanged("Nombre");
+					this.OnNombreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nivel", DbType="Int")]
+		public System.Nullable<int> Nivel
+		{
+			get
+			{
+				return this._Nivel;
+			}
+			set
+			{
+				if ((this._Nivel != value))
+				{
+					this.OnNivelChanging(value);
+					this.SendPropertyChanging();
+					this._Nivel = value;
+					this.SendPropertyChanged("Nivel");
+					this.OnNivelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idPadre", DbType="Int")]
+		public System.Nullable<int> idPadre
+		{
+			get
+			{
+				return this._idPadre;
+			}
+			set
+			{
+				if ((this._idPadre != value))
+				{
+					this.OnidPadreChanging(value);
+					this.SendPropertyChanging();
+					this._idPadre = value;
+					this.SendPropertyChanged("idPadre");
+					this.OnidPadreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int")]
+		public System.Nullable<int> Orden
+		{
+			get
+			{
+				return this._Orden;
+			}
+			set
+			{
+				if ((this._Orden != value))
+				{
+					this.OnOrdenChanging(value);
+					this.SendPropertyChanging();
+					this._Orden = value;
+					this.SendPropertyChanged("Orden");
+					this.OnOrdenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodCompleto", DbType="NVarChar(250)")]
+		public string CodCompleto
+		{
+			get
+			{
+				return this._CodCompleto;
+			}
+			set
+			{
+				if ((this._CodCompleto != value))
+				{
+					this.OnCodCompletoChanging(value);
+					this.SendPropertyChanging();
+					this._CodCompleto = value;
+					this.SendPropertyChanged("CodCompleto");
+					this.OnCodCompletoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tRiesgo_tRiesgos_Clasificaciones1", Storage="_tRiesgo", ThisKey="IdEstructura", OtherKey="IdClasificacion1", IsForeignKey=true)]
+		public tRiesgo tRiesgo
+		{
+			get
+			{
+				return this._tRiesgo.Entity;
+			}
+			set
+			{
+				tRiesgo previousValue = this._tRiesgo.Entity;
+				if (((previousValue != value) 
+							|| (this._tRiesgo.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tRiesgo.Entity = null;
+						previousValue.tRiesgos_Clasificaciones1s.Remove(this);
+					}
+					this._tRiesgo.Entity = value;
+					if ((value != null))
+					{
+						value.tRiesgos_Clasificaciones1s.Add(this);
+						this._IdEstructura = value.IdClasificacion1;
+					}
+					else
+					{
+						this._IdEstructura = default(int);
+					}
+					this.SendPropertyChanged("tRiesgo");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tRiesgos_Clasificaciones")]
+	public partial class tRiesgos_Clasificaciones2 : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
 		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
@@ -724,7 +1082,7 @@ namespace Risk.Models
     partial void OnCodCompletoChanged();
     #endregion
 		
-		public tRiesgos_Clasificaciones()
+		public tRiesgos_Clasificaciones2()
 		{
 			OnCreated();
 		}
@@ -890,118 +1248,87 @@ namespace Risk.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.qRiesgosNombres")]
-	public partial class qRiesgosNombre
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tRiesgos_Clasificaciones")]
+	public partial class tRiesgos_Clasificaciones3 : INotifyPropertyChanging, INotifyPropertyChanged
 	{
 		
-		private int _IdRiesgo;
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
 		
-		private string _CodRiesgo;
+		private int _IdEstructura;
 		
-		private string _CodRiesgoGenerico;
-		
-		private string _CodRiesgoLocalizado;
+		private string _CodNivel;
 		
 		private string _Nombre;
 		
-		private string _Descripcion;
-		
-		private string _Ejemplo;
-		
-		private string _Categoria;
-		
-		private string _Clasif1;
-		
-		private string _Clasif2;
-		
-		private string _Clasif3;
-		
-		private System.Nullable<int> _IdCategoria;
-		
-		private System.Nullable<int> _IdClasificacion1;
-		
-		private System.Nullable<int> _IdClasificacion2;
-		
-		private System.Nullable<int> _IdClasificacion3;
-		
 		private System.Nullable<int> _Nivel;
 		
-		private string _Justificacion;
+		private System.Nullable<int> _idPadre;
 		
-		private System.Nullable<int> _IdSegmentacion1;
+		private System.Nullable<int> _Orden;
 		
-		private System.Nullable<int> _IdResponsable;
+		private string _CodCompleto;
 		
-		private System.Nullable<int> _IdSupervisor;
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdEstructuraChanging(int value);
+    partial void OnIdEstructuraChanged();
+    partial void OnCodNivelChanging(string value);
+    partial void OnCodNivelChanged();
+    partial void OnNombreChanging(string value);
+    partial void OnNombreChanged();
+    partial void OnNivelChanging(System.Nullable<int> value);
+    partial void OnNivelChanged();
+    partial void OnidPadreChanging(System.Nullable<int> value);
+    partial void OnidPadreChanged();
+    partial void OnOrdenChanging(System.Nullable<int> value);
+    partial void OnOrdenChanged();
+    partial void OnCodCompletoChanging(string value);
+    partial void OnCodCompletoChanged();
+    #endregion
 		
-		private System.Nullable<int> _IdControlesOportunidad;
-		
-		private System.Nullable<int> _IdControlesEfectividad;
-		
-		public qRiesgosNombre()
+		public tRiesgos_Clasificaciones3()
 		{
+			OnCreated();
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdRiesgo", DbType="Int NOT NULL")]
-		public int IdRiesgo
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEstructura", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdEstructura
 		{
 			get
 			{
-				return this._IdRiesgo;
+				return this._IdEstructura;
 			}
 			set
 			{
-				if ((this._IdRiesgo != value))
+				if ((this._IdEstructura != value))
 				{
-					this._IdRiesgo = value;
+					this.OnIdEstructuraChanging(value);
+					this.SendPropertyChanging();
+					this._IdEstructura = value;
+					this.SendPropertyChanged("IdEstructura");
+					this.OnIdEstructuraChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodRiesgo", DbType="NVarChar(50)")]
-		public string CodRiesgo
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodNivel", DbType="NVarChar(10)")]
+		public string CodNivel
 		{
 			get
 			{
-				return this._CodRiesgo;
+				return this._CodNivel;
 			}
 			set
 			{
-				if ((this._CodRiesgo != value))
+				if ((this._CodNivel != value))
 				{
-					this._CodRiesgo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodRiesgoGenerico", DbType="NVarChar(50)")]
-		public string CodRiesgoGenerico
-		{
-			get
-			{
-				return this._CodRiesgoGenerico;
-			}
-			set
-			{
-				if ((this._CodRiesgoGenerico != value))
-				{
-					this._CodRiesgoGenerico = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodRiesgoLocalizado", DbType="NVarChar(250)")]
-		public string CodRiesgoLocalizado
-		{
-			get
-			{
-				return this._CodRiesgoLocalizado;
-			}
-			set
-			{
-				if ((this._CodRiesgoLocalizado != value))
-				{
-					this._CodRiesgoLocalizado = value;
+					this.OnCodNivelChanging(value);
+					this.SendPropertyChanging();
+					this._CodNivel = value;
+					this.SendPropertyChanged("CodNivel");
+					this.OnCodNivelChanged();
 				}
 			}
 		}
@@ -1017,167 +1344,11 @@ namespace Risk.Models
 			{
 				if ((this._Nombre != value))
 				{
+					this.OnNombreChanging(value);
+					this.SendPropertyChanging();
 					this._Nombre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descripcion", DbType="NVarChar(250)")]
-		public string Descripcion
-		{
-			get
-			{
-				return this._Descripcion;
-			}
-			set
-			{
-				if ((this._Descripcion != value))
-				{
-					this._Descripcion = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ejemplo", DbType="NVarChar(250)")]
-		public string Ejemplo
-		{
-			get
-			{
-				return this._Ejemplo;
-			}
-			set
-			{
-				if ((this._Ejemplo != value))
-				{
-					this._Ejemplo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Categoria", DbType="NVarChar(50)")]
-		public string Categoria
-		{
-			get
-			{
-				return this._Categoria;
-			}
-			set
-			{
-				if ((this._Categoria != value))
-				{
-					this._Categoria = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Clasif1", DbType="NVarChar(250)")]
-		public string Clasif1
-		{
-			get
-			{
-				return this._Clasif1;
-			}
-			set
-			{
-				if ((this._Clasif1 != value))
-				{
-					this._Clasif1 = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Clasif2", DbType="NVarChar(250)")]
-		public string Clasif2
-		{
-			get
-			{
-				return this._Clasif2;
-			}
-			set
-			{
-				if ((this._Clasif2 != value))
-				{
-					this._Clasif2 = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Clasif3", DbType="NVarChar(250)")]
-		public string Clasif3
-		{
-			get
-			{
-				return this._Clasif3;
-			}
-			set
-			{
-				if ((this._Clasif3 != value))
-				{
-					this._Clasif3 = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdCategoria", DbType="Int")]
-		public System.Nullable<int> IdCategoria
-		{
-			get
-			{
-				return this._IdCategoria;
-			}
-			set
-			{
-				if ((this._IdCategoria != value))
-				{
-					this._IdCategoria = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdClasificacion1", DbType="Int")]
-		public System.Nullable<int> IdClasificacion1
-		{
-			get
-			{
-				return this._IdClasificacion1;
-			}
-			set
-			{
-				if ((this._IdClasificacion1 != value))
-				{
-					this._IdClasificacion1 = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdClasificacion2", DbType="Int")]
-		public System.Nullable<int> IdClasificacion2
-		{
-			get
-			{
-				return this._IdClasificacion2;
-			}
-			set
-			{
-				if ((this._IdClasificacion2 != value))
-				{
-					this._IdClasificacion2 = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdClasificacion3", DbType="Int")]
-		public System.Nullable<int> IdClasificacion3
-		{
-			get
-			{
-				return this._IdClasificacion3;
-			}
-			set
-			{
-				if ((this._IdClasificacion3 != value))
-				{
-					this._IdClasificacion3 = value;
+					this.SendPropertyChanged("Nombre");
+					this.OnNombreChanged();
 				}
 			}
 		}
@@ -1193,104 +1364,92 @@ namespace Risk.Models
 			{
 				if ((this._Nivel != value))
 				{
+					this.OnNivelChanging(value);
+					this.SendPropertyChanging();
 					this._Nivel = value;
+					this.SendPropertyChanged("Nivel");
+					this.OnNivelChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Justificacion", DbType="NVarChar(MAX)")]
-		public string Justificacion
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idPadre", DbType="Int")]
+		public System.Nullable<int> idPadre
 		{
 			get
 			{
-				return this._Justificacion;
+				return this._idPadre;
 			}
 			set
 			{
-				if ((this._Justificacion != value))
+				if ((this._idPadre != value))
 				{
-					this._Justificacion = value;
+					this.OnidPadreChanging(value);
+					this.SendPropertyChanging();
+					this._idPadre = value;
+					this.SendPropertyChanged("idPadre");
+					this.OnidPadreChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSegmentacion1", DbType="Int")]
-		public System.Nullable<int> IdSegmentacion1
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int")]
+		public System.Nullable<int> Orden
 		{
 			get
 			{
-				return this._IdSegmentacion1;
+				return this._Orden;
 			}
 			set
 			{
-				if ((this._IdSegmentacion1 != value))
+				if ((this._Orden != value))
 				{
-					this._IdSegmentacion1 = value;
+					this.OnOrdenChanging(value);
+					this.SendPropertyChanging();
+					this._Orden = value;
+					this.SendPropertyChanged("Orden");
+					this.OnOrdenChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdResponsable", DbType="Int")]
-		public System.Nullable<int> IdResponsable
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodCompleto", DbType="NVarChar(250)")]
+		public string CodCompleto
 		{
 			get
 			{
-				return this._IdResponsable;
+				return this._CodCompleto;
 			}
 			set
 			{
-				if ((this._IdResponsable != value))
+				if ((this._CodCompleto != value))
 				{
-					this._IdResponsable = value;
+					this.OnCodCompletoChanging(value);
+					this.SendPropertyChanging();
+					this._CodCompleto = value;
+					this.SendPropertyChanged("CodCompleto");
+					this.OnCodCompletoChanged();
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSupervisor", DbType="Int")]
-		public System.Nullable<int> IdSupervisor
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
 		{
-			get
+			if ((this.PropertyChanging != null))
 			{
-				return this._IdSupervisor;
-			}
-			set
-			{
-				if ((this._IdSupervisor != value))
-				{
-					this._IdSupervisor = value;
-				}
+				this.PropertyChanging(this, emptyChangingEventArgs);
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdControlesOportunidad", DbType="Int")]
-		public System.Nullable<int> IdControlesOportunidad
+		protected virtual void SendPropertyChanged(String propertyName)
 		{
-			get
+			if ((this.PropertyChanged != null))
 			{
-				return this._IdControlesOportunidad;
-			}
-			set
-			{
-				if ((this._IdControlesOportunidad != value))
-				{
-					this._IdControlesOportunidad = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdControlesEfectividad", DbType="Int")]
-		public System.Nullable<int> IdControlesEfectividad
-		{
-			get
-			{
-				return this._IdControlesEfectividad;
-			}
-			set
-			{
-				if ((this._IdControlesEfectividad != value))
-				{
-					this._IdControlesEfectividad = value;
-				}
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

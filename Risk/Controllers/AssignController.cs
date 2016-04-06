@@ -28,6 +28,7 @@ namespace Risk.Controllers
 
             Dictionary<int, string> dicClasificacion1 = BD_Riesgos.listadoClasif1();
             ViewBag.dicClasificacion1 = dicClasificacion1;   
+
             return View();
         }
 

@@ -20,5 +20,11 @@
         <elementListCompartment Id="e4cf88d0-694a-46ff-bb80-6d82579957e8" absoluteBounds="3.265, 2.835, 2.4699999999999998, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="f5f47135-6764-43e9-9fec-89730a9d7f81" absoluteBounds="6.125, 0.5, 2, 5.0400211588541657">
+      <DataClassMoniker Name="/Riesgos_BDDataContext/qRiesgosNombre" />
+      <nestedChildShapes>
+        <elementListCompartment Id="cd8edd4f-92d9-476d-8a06-4803d46afbfe" absoluteBounds="6.14, 0.96, 1.9700000000000002, 4.4800211588541661" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>
