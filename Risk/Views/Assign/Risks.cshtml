@@ -33,7 +33,7 @@
                         </div>
 
                         <div class="col-lg-10 col-md-10">
-                            <input type="text" class="form-control w50" name="filter"/>
+                            <input type="text" class="form-control w50" name="filter" />
                         </div>
                     </div>
 
@@ -97,18 +97,29 @@
                         </div>
 
                         <div class="col-lg-10 col-md-10">
-                            <select class="form-control w50"  name="comboDinamico" id="selectClasif_3">
+                            <select class="form-control w50" name="comboDinamico" id="selectClasif_3">
                                 <option selected="selected" value="0"> </option>
                             </select>
                         </div>
                     </div>
-                    
+
                     <!-- DIVIDER -->
                     <div class="divider-20"></div>
 
                 </div>
             </div> <!-- END SEARCH FORM -->
-        }
+                                    }
+
+
     </div>
 
 </div> <!-- END SEARCH CRITERIA PANEL -->
+
+
+<!-- RESULTS -->
+<div class="panel"> 
+    <div class="panel-body">
+        @Html.Partial("~/Views/PartialViews/TablaDatos.cshtml")
+    </div>
+</div>
+<!-- END RESULTS -->
