@@ -6,6 +6,7 @@ using System.Web.Mvc;
 using Risk.Controllers;
 using Risk.Models;
 using System.Web.Script.Serialization;
+using Newtonsoft.Json;
 
 namespace Risk.Controllers
 {
@@ -22,12 +23,11 @@ namespace Risk.Controllers
 
         public ActionResult Risks()
         {
-            List<tRiesgos_Categoria> listCategorias = BD_Riesgos.listadoCategorias();
-            ViewBag.listCategorias = listCategorias;
+            Dictionary<int, string> dicCategorias = BD_Riesgos.listadoCategorias();
+            ViewBag.dicCategorias = dicCategorias;
 
-            List<tRiesgos_Clasificaciones> listClasif1 = BD_Riesgos.listadoClasif1();
-            ViewBag.listClasif1 = listClasif1;
-
+            Dictionary<int, string> dicClasificacion1 = BD_Riesgos.listadoClasif1();
+            ViewBag.dicClasificacion1 = dicClasificacion1;   
             return View();
         }
 
@@ -38,10 +38,9 @@ namespace Risk.Controllers
 
         public string recuperaListClasif(int idEstructura)
         {
-            List<tRiesgos_Clasificaciones> listClasi2 = BD_Riesgos.listadoClasif2(idEstructura);
-
-            var json = new JavaScriptSerializer().Serialize(listClasi2);
-            return json;
+            Dictionary<int, string> dicClasificacion2 = BD_Riesgos.listadoClasifDinamic(idEstructura);
+            var j = JsonConvert.SerializeObject(dicClasificacion2);
+            return j;
         }
         
     }

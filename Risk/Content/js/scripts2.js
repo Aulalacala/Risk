@@ -3,17 +3,16 @@
 
 //Clasificaciones Buscador
 
-var arrayClasif;
-//$.ajaxSetup({ 'async': false });
+$("select[name=comboDinamico]").change(function () {
+    var opcionSelect = $(this).val();
+    var numeroCombo = parseInt($(this).attr("id").split("_")[1]) + 1;
 
-$("#selectClasif1").change(function () {
-    var selectClasif1 = $("#selectClasif1").val();
+    $("select[id=selectClasif_" + numeroCombo + "]").empty();
 
-    $.getJSON("/Assign/recuperaListClasif?idEstructura=" + selectClasif1, function (data) {
-        arrayClasif = data;
+    $.getJSON("/Assign/recuperaListClasif?idEstructura=" + opcionSelect, function (data) {
 
-        $.each(data, function(){
-            $("#selectClasif2").append("<option value=\""+ data.IdEstructura +"\">"+ data.Nombre +"</option>");
+        $.each(data, function (Key, Value) {
+            $("select[id=selectClasif_" +numeroCombo+"]").append("<option value=\"" + Key + "\">" + Value + "</option>");
         });
 
     });

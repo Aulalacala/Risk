@@ -47,10 +47,10 @@
                             <select class="form-control w50" name="selectCategoria" id="selectCategoria">
                                 <option selected="selected" value="0"> </option>
                                 @{
-                                    List<tRiesgos_Categoria> listCategorias = ViewBag.listCategorias;
-                                    foreach (var categoria in listCategorias)
+                                    Dictionary<int, string> dicCategorias = ViewBag.dicCategorias;
+                                    foreach (var categoria in dicCategorias)
                                     {
-                                        <option value="@categoria.IdCategoria">@categoria.Categoria </option>
+                                        <option value="@categoria.Key">@categoria.Value </option>
                                     }
                                 }
                             </select>
@@ -64,13 +64,13 @@
                         </div>
 
                         <div class="col-lg-10 col-md-10">
-                            <select class="form-control w50" name="selectClasif1" id="selectClasif1">
+                            <select class="form-control w50" name="comboDinamico" id="selectClasif_1">
                                 <option selected="selected" value="0"> </option>
                                 @{
-                                    List<tRiesgos_Clasificaciones> listClasif1= ViewBag.listClasif1;
-                                    foreach (var clasif1 in listClasif1)
+                                    Dictionary<int, string> dicClasificacion1 = ViewBag.dicClasificacion1;
+                                    foreach (var clasif1 in dicClasificacion1)
                                     {
-                                        <option value="@clasif1.IdEstructura">@clasif1.Nombre </option>
+                                        <option value="@clasif1.Key">@clasif1.Value </option>
                                     }
                                 }
                             </select>
@@ -84,7 +84,7 @@
                         </div>
 
                         <div class="col-lg-10 col-md-10">
-                            <select class="form-control w50" name="selectClasif2" id="selectClasif2">
+                            <select class="form-control w50" name="comboDinamico" id="selectClasif_2">
                                 <option selected="selected" value="0"> </option>
                             </select>
                         </div>
@@ -97,7 +97,7 @@
                         </div>
 
                         <div class="col-lg-10 col-md-10">
-                            <select class="form-control w50" name="selectClasif3" id="selectClasif3">
+                            <select class="form-control w50"  name="comboDinamico" id="selectClasif_3">
                                 <option selected="selected" value="0"> </option>
                             </select>
                         </div>

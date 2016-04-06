@@ -9,13 +9,13 @@ namespace Risk.Controllers
     {
         Riesgos_BDDataContext riesgosBD = new Riesgos_BDDataContext();
 
-        public List<tRiesgos_Categoria> listadoCategorias()
+        public Dictionary<int, string>  listadoCategorias()
         {
 
-            List<tRiesgos_Categoria> listCategorias = new List<tRiesgos_Categoria>();
+            Dictionary<int, string> dicCategorias = new Dictionary<int, string>();
             try
             {
-                listCategorias = riesgosBD.tRiesgos_Categorias.ToList();
+                dicCategorias = riesgosBD.tRiesgos_Categorias.ToDictionary(r => r.IdCategoria, r => r.Categoria);
             }
             catch (Exception)
             {
@@ -23,16 +23,17 @@ namespace Risk.Controllers
                 return null;
             }
 
-            return listCategorias;
+            return dicCategorias;
         }
 
-        public List<tRiesgos_Clasificaciones> listadoClasif1()
+
+        public Dictionary<int, string> listadoClasif1()
         {
 
-            List<tRiesgos_Clasificaciones> listClasif1 = new List<tRiesgos_Clasificaciones>();
+            Dictionary<int, string> dicClasif1 = new Dictionary<int, string>();
             try
             {
-                listClasif1 = riesgosBD.tRiesgos_Clasificaciones.Where(r => r.Nivel == 2).ToList();
+                dicClasif1 = riesgosBD.tRiesgos_Clasificaciones.Where(r => r.Nivel == 2).ToDictionary(r => r.IdEstructura, r => r.CodCompleto + " " + r.Nombre);
             }
             catch (Exception)
             {
@@ -40,15 +41,16 @@ namespace Risk.Controllers
                 return null;
             }
 
-            return listClasif1;
+            return dicClasif1;
         }
 
-        public List<tRiesgos_Clasificaciones> listadoClasif2(int idEstructura)
+        public Dictionary<int, string> listadoClasifDinamic(int idEstructura)
         {
-            List<tRiesgos_Clasificaciones> listClasif2 = new List<tRiesgos_Clasificaciones>();
+            Dictionary<int, string> dicClasif2 = new Dictionary<int, string>();
+            
             try
             {
-                listClasif2 = riesgosBD.tRiesgos_Clasificaciones.Where(r => r.idPadre == idEstructura).ToList();
+                dicClasif2 = riesgosBD.tRiesgos_Clasificaciones.Where(r => r.idPadre == idEstructura).ToDictionary(r => r.IdEstructura, r => r.CodCompleto + " " + r.Nombre);
             }
             catch (Exception)
             {
@@ -56,7 +58,7 @@ namespace Risk.Controllers
                 return null;
             }
 
-            return listClasif2;
+            return dicClasif2;
         }
 
 
