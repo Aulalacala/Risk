@@ -14,35 +14,138 @@ namespace Risk.Controllers
     {
 
         BD_Riesgos BD_Riesgos = new BD_Riesgos();
-        
-        // GET: Assign
+
+        #region View Structure
+        // Vista inicial Structure GET -----------------------------------------------------------
         public ActionResult Structure()
         {
             return View();
         }
+        #endregion
 
+        #region View KrisIndicators
+        // Vista inicial GET KrisIndicators ----------------------------------------------
+        public ActionResult KRISIndicators()
+        {
+            return View();
+        }
+        #endregion
+
+        #region View Risk
+        // Vista inicial GET Risk ---------------------------------------------------
         public ActionResult Risks()
         {
             Dictionary<int, string> dicCategorias = BD_Riesgos.listadoCategorias();
             ViewBag.dicCategorias = dicCategorias;
 
             Dictionary<int, string> dicClasificacion1 = BD_Riesgos.listadoClasif1();
-            ViewBag.dicClasificacion1 = dicClasificacion1;   
+            ViewBag.dicClasificacion1 = dicClasificacion1;
+
+            ViewBag.datos =  recuperarDatosQRiesgosNombre();
 
             return View();
         }
 
-        public ActionResult KRISIndicators()
-        {
-            return View();
-        }
 
+        // Recuperar clasificaciones segun idEstructura, llamada desde metodo jquery en fichero Scripts2.js ---------------
         public string recuperaListClasif(int idEstructura)
         {
             Dictionary<int, string> dicClasificacion2 = BD_Riesgos.listadoClasifDinamic(idEstructura);
             var j = JsonConvert.SerializeObject(dicClasificacion2);
             return j;
         }
-        
+
+
+        // Recuperar datos contenido tabla ------------------------------
+
+            public Dictionary<int,List<string>> recuperarDatosQRiesgosNombre()
+        {
+
+            Dictionary<int, List<string>> datosContenido = new Dictionary<int, List<string>>();
+            List<String> listadatos = new List<string>();
+
+
+            try
+            {
+                Dictionary<int, qRiesgosNombre> datosBD = BD_Riesgos.datosQRiesgosNombre();
+
+                foreach (var riesgoNombre in datosBD.Values)
+                {
+                   
+                   listadatos.Add(riesgoNombre.ToString());
+                    
+                }
+
+                datosContenido = datosBD.ToDictionary(r => r.Key, r=> listadatos);             
+
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+
+            return datosContenido;
+        }
+
+
+        // Recuperar datos para tabla ----------------------------------
+        //public Dictionary<int, List<string>> recuperarDatosQRiesgosNombre(string zona)
+        //{
+            
+
+        //    switch (zona)
+        //    {
+        //        case "thead":
+
+        //            break;
+
+        //        case "tbody":
+        //            Dictionary<int, qRiesgosNombre> datosBD = BD_Riesgos.datosQRiesgosNombre();
+
+        //            Dictionary<int, List<string>> datosQRiesgosNombre = new Dictionary<int, List<string>>();
+        //            List<String> listadatos = new List<string>();
+
+        //            foreach (var riesgoNombre in datosBD.Values)
+        //            {
+        //                if (!riesgoNombre.ToString().Contains("Id"))
+        //                {
+        //                    listadatos.Add(riesgoNombre.ToString());
+        //                }
+        //            }
+
+        //            datosQRiesgosNombre = 
+        //            break;
+
+        //    }
+
+
+
+
+       
+        //    try
+        //    {
+        //        Dictionary<int, qRiesgosNombre> datosBD = BD_Riesgos.datosQRiesgosNombre();
+
+        //        foreach (var riesgoNombre in datosBD.Values)
+        //        {
+        //            if (!riesgoNombre.ToString().Contains("Id"))
+        //            {
+        //                listadatos.Add(riesgoNombre.ToString());
+        //            }
+        //        }
+
+        //        datosQRiesgosNombre.Add()
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        return null;
+        //    }
+        //    return datosQRiesgosNombre;
+        //}
+
+        #endregion
+
     }
 }

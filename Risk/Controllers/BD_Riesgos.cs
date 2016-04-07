@@ -3,13 +3,21 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using Risk.Models;
+using System.Data;
+using System.Data.Linq;
+using System.Data.Linq.Mapping;
+
 namespace Risk.Controllers
 {
     public class BD_Riesgos
     {
         Riesgos_BDDataContext riesgosBD = new Riesgos_BDDataContext();
+        private object context;
 
-        public Dictionary<int, string>  listadoCategorias()
+
+        // Cargar todas las categorias en un dictionary ----------------------------------------------
+
+        public Dictionary<int, string> listadoCategorias()
         {
 
             Dictionary<int, string> dicCategorias = new Dictionary<int, string>();
@@ -27,6 +35,7 @@ namespace Risk.Controllers
         }
 
 
+        // Cargar clasificaciones de nivel 2 (A,B,C,D) -------------------------------------------------
         public Dictionary<int, string> listadoClasif1()
         {
 
@@ -44,10 +53,14 @@ namespace Risk.Controllers
             return dicClasif1;
         }
 
+
+
+        // Cargar clasificaciones de riesgos de nivel 3 y 4 segun idEstructura del padre ---------------------
+        // Uso del metodo para carga dinamica mediante jquery ------------------------------------------------
         public Dictionary<int, string> listadoClasifDinamic(int idEstructura)
         {
             Dictionary<int, string> dicClasif2 = new Dictionary<int, string>();
-            
+
             try
             {
                 dicClasif2 = riesgosBD.tRiesgos_Clasificaciones.Where(r => r.idPadre == idEstructura).ToDictionary(r => r.IdEstructura, r => r.CodCompleto + " " + r.Nombre);
@@ -61,6 +74,75 @@ namespace Risk.Controllers
             return dicClasif2;
         }
 
+
+
+        //Recuperar THEAD tabla Datos Risk-----------------
+
+        public List<string> nombresColTabla()
+        {
+            List<string> nombreColumnas = new List<string>();
+
+            try
+            {
+                qRiesgosNombre qriesgos = new qRiesgosNombre();
+
+
+                
+
+                nombreColumnas = typeof( qriesgos ).GetProperties().Select(r => r.Name).ToList();
+                nombreColumnas = typeof( qRiesgosNombre).GetProperties().Select(r => r.Name).ToList();
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+
+            return nombreColumnas;
+        }
+
+        #region Metodo generico pruebas
+        //public List<string> nombresColTabla(string tabla)
+        //{
+        //    List<string> nombreColumnas = new List<string>();
+
+        //    try
+        //    {
+        //        //nombreColumnas = typeof(tabla2).GetProperties().Select(r => r.Name).ToList();
+
+
+        //        nombreColumnas = typeof(tabla2).GetProperties().Select(r => r.Name).ToList();
+
+
+        //    }
+        //    catch (Exception)
+        //    {
+
+        //        return null;
+        //    }
+
+        //    return nombreColumnas;
+        //}
+        #endregion
+
+        //Recuperar TBODY tabla Datos Risk------------------------
+
+        public Dictionary<int, qRiesgosNombre> datosQRiesgosNombre()
+        {
+            Dictionary<int, qRiesgosNombre> datosQRiesgosNombre = new Dictionary<int, qRiesgosNombre>();
+
+            try
+            {
+                datosQRiesgosNombre = riesgosBD.qRiesgosNombres.ToDictionary(r => r.IdRiesgo, r => r);
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+
+            return datosQRiesgosNombre;
+        }
 
     }
 }

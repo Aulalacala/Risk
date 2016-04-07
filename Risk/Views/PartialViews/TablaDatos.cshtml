@@ -1,4 +1,10 @@
 ﻿
+
+@{ 
+    Dictionary<int, string> datos = (Dictionary<int, string>)ViewBag.datos;
+}
+
+
 <!-- SCRIPTS -->
 <script type="text/javascript" src="~/Content/js/jquery/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="~/Content/js/jquery/jquery.browser.min.js"></script>
@@ -20,6 +26,8 @@
 <div class="clearfix"></div>
 <div class="divider"></div>
 
+
+
 <!-- RESULTS TABLE -->
 <div class="row">
     <div class="col-lg-12 col-md-12">
@@ -32,106 +40,25 @@
             <div class="divDelGrid table-responsive">
 
                 <table rules="rows" id="ContentPlaceHolder1_Grid_List_Instances" class="table">
+                    <thead>
+                        <tr>
+                            <th class="td-large"></th>
+                        </tr>
+                    </thead>
                     <tbody>
-                        <tr>
-                            <th class="td-large"><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$Grid_List_Instances','Sort$BP_Name')">BP_NAME</a></th>
-                            <th class="td-large"><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$Grid_List_Instances','Sort$BP_Group')">BP_GROUP</a></th>
-                            <th><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$Grid_List_Instances','Sort$BP_Number')">BP_NUMBER</a></th>
-                            <th><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$Grid_List_Instances','Sort$Date_Rating')">DATE_RATING</a></th>
-                            <th><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$Grid_List_Instances','Sort$Status')">STATUS</a></th>
-                            <th class="td-large"><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$Grid_List_Instances','Sort$Model')">MODEL</a></th>
-                            <th style="text-align: right;">EDIT</th>
-                        </tr>
-                        <tr>
-                            <td class="td-large">Chemical &amp; Allied Industries</td>
-                            <td class="td-large">WG Wearne Limited</td>
-                            <td>1000042744</td>
-                            <td>19/11/2015</td>
-                            <td>Live</td>
-                            <td class="td-large">Project Finance (2)</td>
-                            <td style="text-align: right;"><input src="images/shared/edit.png" onclick="javascript:__doPostBack('ctl00$ContentPlaceHolder1$Grid_List_Instances','Select$0');return false;" type="image"></td>
-                        </tr>
-                        <tr>
-                            <td class="td-large">Agro Industries</td>
-                            <td class="td-large">At Source Handmade Foods (Pty) Ltd</td>
-                            <td>1000044264</td>
-                            <td>02/11/2015</td>
-                            <td>Dead</td>
-                            <td class="td-large">Small and Medium Enterprises (1)</td>
-                            <td style="text-align: right;"><input src="images/shared/edit.png" onclick="javascript:__doPostBack('ctl00$ContentPlaceHolder1$Grid_List_Instances','Select$1');return false;" type="image"></td>
-                        </tr>
-                        <tr>
-                            <td class="td-large">Agro Industries</td>
-                            <td class="td-large">At Source Handmade Foods (Pty) Ltd</td>
-                            <td>1000044264</td>
-                            <td>02/11/2015</td>
-                            <td>Testing</td>
-                            <td class="td-large">Small and Medium Enterprises (1)</td>
-                            <td style="text-align: right;"><input src="images/shared/edit.png" onclick="javascript:__doPostBack('ctl00$ContentPlaceHolder1$Grid_List_Instances','Select$2');return false;" type="image"></td>
-                        </tr>
-                        <tr>
-                            <td class="td-large">Metal, Transport &amp; Machinery Products</td>
-                            <td class="td-large">Zealous Pressure Casting (Pty) Ltd</td>
-                            <td>1000000670</td>
-                            <td>23/10/2015</td>
-                            <td>Live</td>
-                            <td class="td-large">Project Finance (2)</td>
-                            <td style="text-align: right;"><input src="images/shared/edit.png" onclick="javascript:__doPostBack('ctl00$ContentPlaceHolder1$Grid_List_Instances','Select$3');return false;" type="image"></td>
-                        </tr>
-                        <tr>
-                            <td class="td-large">Chemical &amp; Allied Industries</td>
-                            <td class="td-large">Mpact Polymers (Pty) Ltd Mpact Polymers</td>
-                            <td>1000058484</td>
-                            <td>23/10/2015</td>
-                            <td>Quarantined</td>
-                            <td class="td-large">Small and Medium Enterprises (1)</td>
-                            <td style="text-align: right;"><input src="images/shared/edit.png" onclick="javascript:__doPostBack('ctl00$ContentPlaceHolder1$Grid_List_Instances','Select$4');return false;" type="image"></td>
-                        </tr>
-                        <tr>
-                            <td class="td-large">Chemical &amp; Allied Industries</td>
-                            <td class="td-large">Paper Cake Trading 115 CC ta Mak Plastics</td>
-                            <td>1000019836</td>
-                            <td>23/10/2015</td>
-                            <td>Default</td>
-                            <td class="td-large">Small and Medium Enterprises (1)</td>
-                            <td style="text-align: right;"><input src="images/shared/edit.png" onclick="javascript:__doPostBack('ctl00$ContentPlaceHolder1$Grid_List_Instances','Select$5');return false;" type="image"></td>
-                        </tr>
-                        <tr>
-                            <td class="td-large">Healthcare</td>
-                            <td class="td-large">Health Pops CC TA Own Brand</td>
-                            <td>1000027109</td>
-                            <td>23/10/2015</td>
-                            <td>Live</td>
-                            <td class="td-large">Small and Medium Enterprises (1)</td>
-                            <td style="text-align: right;"><input src="images/shared/edit.png" onclick="javascript:__doPostBack('ctl00$ContentPlaceHolder1$Grid_List_Instances','Select$6');return false;" type="image"></td>
-                        </tr>
-                        <tr>
-                            <td class="td-large">Chemical &amp; Allied Industries</td>
-                            <td class="td-large">Mpact Polymers (Pty) Ltd Mpact Polymers</td>
-                            <td>1000058484</td>
-                            <td>23/10/2015</td>
-                            <td>Live</td>
-                            <td class="td-large">Small and Medium Enterprises (1)</td>
-                            <td style="text-align: right;"><input src="images/shared/edit.png" onclick="javascript:__doPostBack('ctl00$ContentPlaceHolder1$Grid_List_Instances','Select$7');return false;" type="image"></td>
-                        </tr>
-                        <tr>
-                            <td class="td-large">Chemical &amp; Allied Industries</td>
-                            <td class="td-large">Paper Cake Trading 115 CC ta Mak Plastics</td>
-                            <td>1000019836</td>
-                            <td>05/10/2015</td>
-                            <td>Dead</td>
-                            <td class="td-large">Project Finance (2)</td>
-                            <td style="text-align: right;"><input src="images/shared/edit.png" onclick="javascript:__doPostBack('ctl00$ContentPlaceHolder1$Grid_List_Instances','Select$8');return false;" type="image"></td>
-                        </tr>
-                        <tr>
-                            <td class="td-large">Chemical &amp; Allied Industries</td>
-                            <td class="td-large">Mpact Polymers (Pty) Ltd Mpact Polymers</td>
-                            <td>1000058484</td>
-                            <td>04/10/2015</td>
-                            <td>Closed</td>
-                            <td class="td-large">Small and Medium Enterprises (1)</td>
-                            <td style="text-align: right;"><input src="images/shared/edit.png" onclick="javascript:__doPostBack('ctl00$ContentPlaceHolder1$Grid_List_Instances','Select$9');return false;" type="image"></td>
-                        </tr>
+                       @{
+                           foreach (var item in datos)
+                           {
+                            <tr>
+                                <td class="td-large">@item.Value</td>
+
+                                <td style="text-align: right;"></td>
+                            </tr>
+                           }
+
+                    }
+                                         
+ 
                         @*<tr>
                             <td colspan="7" style="text-align: center;">
 
