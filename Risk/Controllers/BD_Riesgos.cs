@@ -91,7 +91,8 @@ namespace Risk.Controllers
                         foreach (var item in tabla.RowType.DataMembers)
                         {
                             nombreColumnas.Add(item.Name);
-                        }                       
+                        }
+
                     }
                 }
             }
@@ -129,27 +130,44 @@ namespace Risk.Controllers
 
         //Recuperar TBODY tabla Datos Risk------------------------
 
-        public Dictionary<int, qRiesgosNombre> datosQRiesgosNombre()
+        public Dictionary<int, List<object>> datosQRiesgosNombre()
         {
             Dictionary<int, qRiesgosNombre> datosQRiesgosNombre = new Dictionary<int, qRiesgosNombre>();
+            List<qRiesgosNombre> list = new List<qRiesgosNombre>();
+
+            Dictionary<int, List<object>> listaDatosFinal = new Dictionary<int, List<object>>();
 
             try
             {
+                // Carga de todos los riesgos <IdRiesgo, riesgo>
                 datosQRiesgosNombre = riesgosBD.qRiesgosNombres.ToDictionary(r => r.IdRiesgo, r => r);
 
+                // Recorrer el dictionary 
                 foreach (var riesgo in datosQRiesgosNombre)
                 {
-                    List<qRiesgosNombre> list = riesgosBD.qRiesgosNombres.Where(r => r.IdRiesgo == riesgo.Key).ToList();
-                    foreach (var attr in list)
+                    List<object> camposRiesgo = new List<object>();
+                    List<string> nombreCols = nombresColTabla("dbo.qRiesgosNombres");
+
+                    // Lista con los riesgos por IdRiesgo desde el dictionary
+                    list = riesgosBD.qRiesgosNombres.Where(r => r.IdRiesgo == riesgo.Key).ToList();
+
+                    foreach (var col in nombreCols)
                     {
-                        List<string> l = attr.
-                    }
+                        foreach (var attr in list)
+                        {
+                            // Lista con las propiedad de cada riesgo
+                            camposRiesgo.Clear();
+
+                            System.Reflection.PropertyInfo x = attr.GetType().GetProperty(col);
+                            string name = (string)((x.GetValue(attr, null))).ToString();
+
+                            
+
+                            camposRiesgo.Add(name);
+                        }
+                    }                 
+                    listaDatosFinal.Add(riesgo.Key, camposRiesgo);
                 }
-
-
-             
-
-
             }
             catch (Exception)
             {
@@ -157,7 +175,7 @@ namespace Risk.Controllers
                 return null;
             }
 
-            return datosQRiesgosNombre;
+            return listaDatosFinal;
         }
 
     }

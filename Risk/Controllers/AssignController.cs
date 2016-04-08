@@ -42,7 +42,7 @@ namespace Risk.Controllers
             ViewBag.dicClasificacion1 = dicClasificacion1;
 
             ViewBag.datosthead = BD_Riesgos.nombresColTabla("dbo.qRiesgosNombres");
-            ViewBag.datostbody = recuperarDatosQRiesgosNombre();
+            ViewBag.datostbody = BD_Riesgos.datosQRiesgosNombre();
 
             return View();
         }
@@ -63,23 +63,23 @@ namespace Risk.Controllers
         {
 
             Dictionary<int, List<string>> datosContenido = new Dictionary<int, List<string>>();
-            List<String> listadatos = new List<string>();
+            //List<String> listadatos = new List<string>();
             try
             {
-                Dictionary<int, qRiesgosNombre> datosBD = BD_Riesgos.datosQRiesgosNombre();
+               //datosContenido = BD_Riesgos.datosQRiesgosNombre();
 
 
 
-                foreach (qRiesgosNombre riesgo in datosBD.Values)
-                {
-                    var propiedades = riesgo.GetType().GetProperties();
-                    foreach (var item in propiedades)
-                    {
-                        listadatos.Add(item.Name);
-                    }
-                }
+                //foreach (qRiesgosNombre riesgo in datosBD.Values)
+                //{
+                //    var propiedades = riesgo.GetType().GetProperties();
+                //    foreach (var item in propiedades)
+                //    {
+                //        listadatos.Add(item.Name);
+                //    }
+                //}
 
-                datosContenido = datosBD.ToDictionary(r => r.Key, r=> listadatos);             
+                //datosContenido = datosBD.ToDictionary(r => r.Key, r=> listadatos);             
 
             }
             catch (Exception)

@@ -1,7 +1,7 @@
 ﻿
 
 @{
-    Dictionary<int, List<string>> datos = (Dictionary<int, List<string>>)ViewBag.datostbody;
+    Dictionary<int, List<object>> datos = (Dictionary<int, List<object>>)ViewBag.datostbody;
     List<string> datostHead = (List<string>)ViewBag.datosthead;
 }
 
@@ -55,14 +55,14 @@
                     <tbody>
 
                             @{
-                                foreach (var item in datos)
+                                foreach (var item2 in datos)
                                 {
                                     <tr>
                                     @{
-                                        foreach (var itemlista in item.Value)
+                                        foreach (var itemlista in item2.Value)
                                         {
                                         <td class="td-large">@itemlista.ToString()</td>
-                                        <td style="text-align: right;">BTEDITAR @item.Key</td>
+                                        <td style="text-align: right;">BTEDITAR @item2.Key</td>
                                             }
                                         }
                                     </tr>
