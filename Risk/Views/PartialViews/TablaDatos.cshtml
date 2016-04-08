@@ -1,7 +1,8 @@
 ﻿
 
-@{ 
-    Dictionary<int, string> datos = (Dictionary<int, string>)ViewBag.datos;
+@{
+    Dictionary<int, List<string>> datos = (Dictionary<int, List<string>>)ViewBag.datostbody;
+    List<string> datostHead = (List<string>)ViewBag.datosthead;
 }
 
 
@@ -42,45 +43,58 @@
                 <table rules="rows" id="ContentPlaceHolder1_Grid_List_Instances" class="table">
                     <thead>
                         <tr>
-                            <th class="td-large"></th>
+                            @{
+                                foreach (var item in datostHead)
+                                {
+                                    <th class="td-large">@item.ToString()</th>
+                                }
+                            }
                         </tr>
+
                     </thead>
                     <tbody>
-                       @{
-                           foreach (var item in datos)
-                           {
-                            <tr>
-                                <td class="td-large">@item.Value</td>
 
-                                <td style="text-align: right;"></td>
-                            </tr>
-                           }
+                            @{
+                                foreach (var item in datos)
+                                {
+                                    <tr>
+                                    @{
+                                        foreach (var itemlista in item.Value)
+                                        {
+                                        <td class="td-large">@itemlista.ToString()</td>
+                                        <td style="text-align: right;">BTEDITAR @item.Key</td>
+                                            }
+                                        }
+                                    </tr>
 
-                    }
-                                         
- 
+                                }
+                            }
+
+
+
+
                         @*<tr>
-                            <td colspan="7" style="text-align: center;">
+                                <td colspan="7" style="text-align: center;">
 
-                                 PAGINATION 
-                                <ul class="pagination pagination-sm">
-                                    <li class="disabled">
-                                        <a href="#" aria-label="Previous">
-                                            <span aria-hidden="true">&laquo;</span>
-                                        </a>
-                                    </li>
-                                    <li class="active"><a href="#">1</a></li>
-                                    <li><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$Grid_List_Instances','Page$2')">2</a></li>
-                                    <li><a href="#">3</a></li>
-                                    <li>
-                                        <a href="#" aria-label="Next">
-                                            <span aria-hidden="true">&raquo;</span>
-                                        </a>
-                                    </li>
-                                </ul>
+                                     PAGINATION
+                                    <ul class="pagination pagination-sm">
+                                        <li class="disabled">
+                                            <a href="#" aria-label="Previous">
+                                                <span aria-hidden="true">&laquo;</span>
+                                            </a>
+                                        </li>
+                                        <li class="active"><a href="#">1</a></li>
+                                        <li><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$Grid_List_Instances','Page$2')">2</a></li>
+                                        <li><a href="#">3</a></li>
+                                        <li>
+                                            <a href="#" aria-label="Next">
+                                                <span aria-hidden="true">&raquo;</span>
+                                            </a>
+                                        </li>
+                                    </ul>
 
-                            </td>
-                        </tr>*@
+                                </td>
+                            </tr>*@
                     </tbody>
                 </table>
 

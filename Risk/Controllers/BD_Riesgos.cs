@@ -74,30 +74,32 @@ namespace Risk.Controllers
             return dicClasif2;
         }
 
-
-
         //Recuperar THEAD tabla Datos Risk-----------------
 
-        public List<string> nombresColTabla()
+        public List<string> nombresColTabla(string nombreTabla)
         {
             List<string> nombreColumnas = new List<string>();
 
             try
             {
-                qRiesgosNombre qriesgos = new qRiesgosNombre();
+                var schema = riesgosBD.Mapping.GetTables();
 
-
-                
-
-                nombreColumnas = typeof( qriesgos ).GetProperties().Select(r => r.Name).ToList();
-                nombreColumnas = typeof( qRiesgosNombre).GetProperties().Select(r => r.Name).ToList();
+                foreach (var tabla in riesgosBD.Mapping.GetTables())
+                {
+                    if (tabla.TableName.Equals(nombreTabla))
+                    {
+                        foreach (var item in tabla.RowType.DataMembers)
+                        {
+                            nombreColumnas.Add(item.Name);
+                        }                       
+                    }
+                }
             }
             catch (Exception)
             {
 
                 return null;
             }
-
             return nombreColumnas;
         }
 
@@ -134,6 +136,20 @@ namespace Risk.Controllers
             try
             {
                 datosQRiesgosNombre = riesgosBD.qRiesgosNombres.ToDictionary(r => r.IdRiesgo, r => r);
+
+                foreach (var riesgo in datosQRiesgosNombre)
+                {
+                    List<qRiesgosNombre> list = riesgosBD.qRiesgosNombres.Where(r => r.IdRiesgo == riesgo.Key).ToList();
+                    foreach (var attr in list)
+                    {
+                        List<string> l = attr.
+                    }
+                }
+
+
+             
+
+
             }
             catch (Exception)
             {

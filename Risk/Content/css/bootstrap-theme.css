@@ -270,6 +270,8 @@ select option:hover {
     color: #64c5da; }
     .table tbody > tr > th a {
       color: #64c5da; }
+    .table thead  > tr > th{
+          color: #64c5da;}
   .table .td-large {
     min-width: 150px; }
   .table div.collapsed {
