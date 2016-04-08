@@ -42,7 +42,9 @@ namespace Risk.Controllers
             ViewBag.dicClasificacion1 = dicClasificacion1;
 
             ViewBag.datosthead = BD_Riesgos.nombresColTabla("dbo.qRiesgosNombres");
-            ViewBag.datostbody = BD_Riesgos.datosQRiesgosNombre();
+            ViewBag.datostbody = BD_Riesgos.datosTabla("dbo.qRiesgosNombres");
+
+            
 
             return View();
         }
