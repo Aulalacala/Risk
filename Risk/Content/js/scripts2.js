@@ -22,22 +22,17 @@ $("select[ref=comboDinamico]").change(function () {
 
 $("select").change(function () {
     var selects = [];
-
+    var query = "riesgosBD.qRiesgosNombres.Where(r=>";
 
     $("select").each(function () {
+        var valorParam = $(this).val();
+        var columTablaParam = $(this).attr("filtro");
+
+        valorParam != 0 ? query += "r."+ columTablaParam +"="+valorParam: query = query;
         selects.push($(this).val());
     })
 
 
-    $.post("/Assign/BusquedaRiks", { 'seleccionados[]': selects }, function (data) {
-
-
+    $.post("/Assign/BusquedaRiks", { 'query': query }, function (data) {
     },"json");
-
-
-    //$.getJSON("/Assign/BusquedaRiks?seleccionados=" + selects, function (data) {
-
-    //})
-
-
 })

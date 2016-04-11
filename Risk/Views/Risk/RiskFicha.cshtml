@@ -1,0 +1,18 @@
+﻿@using Risk.Models
+@{
+    ViewBag.Title = "RiskFicha";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>RiskFicha</h2>
+@{ 
+    qRiesgosNombre riesgoRecup = (Risk.Models.qRiesgosNombre)ViewBag.riesgoRecup; 
+}
+@riesgoRecup.CodRiesgo <br/>
+@riesgoRecup.Descripcion<br />
+@riesgoRecup.Nombre<br />
+@riesgoRecup.Categoria
+
+
+
+

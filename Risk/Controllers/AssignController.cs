@@ -96,20 +96,14 @@ namespace Risk.Controllers
             return datosContenido;
         }
 
-        //public ActionResult BusquedaRiks(string filtro, int categoria, int clasificacion1, int clasificacion2, int clasificacion3)
-        //{
-        //    TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(filtro, categoria, clasificacion1, clasificacion2, clasificacion3);
-
-        //    return RedirectToAction("Risks", "Assign");
-        //}
-
-
-        public ActionResult BusquedaRiks(string [] seleccionados)
+        public ActionResult BusquedaRiks(string filtro, int categoria, int clasificacion1, int clasificacion2, int clasificacion3)
         {
-            //TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(filtro, categoria, clasificacion1, clasificacion2, clasificacion3);
+            TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(filtro, categoria, clasificacion1, clasificacion2, clasificacion3);
 
             return RedirectToAction("Risks", "Assign");
         }
+
+
 
 
         // Recuperar datos para tabla ----------------------------------
