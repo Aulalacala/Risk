@@ -33,7 +33,7 @@
                         </div>
 
                         <div class="col-lg-10 col-md-10">
-                            <input type="text" class="form-control w50" name="filter" />
+                            <input type="text" class="form-control w50" name="filtro" />
                         </div>
                     </div>
 
@@ -44,7 +44,7 @@
                         </div>
 
                         <div class="col-lg-10 col-md-10">
-                            <select class="form-control w50" name="selectCategoria" id="selectCategoria">
+                            <select class="form-control w50" name="categoria" id="selectCategoria">
                                 <option selected="selected" value="0"> </option>
                                 @{
                                     Dictionary<int, string> dicCategorias = ViewBag.dicCategorias;
@@ -64,7 +64,7 @@
                         </div>
 
                         <div class="col-lg-10 col-md-10">
-                            <select class="form-control w50" name="comboDinamico" id="selectClasif_1">
+                            <select class="form-control w50" name="clasificacion1" ref="comboDinamico" id="selectClasif_1" sig="selectClasif_2">
                                 <option selected="selected" value="0"> </option>
                                 @{
                                     Dictionary<int, string> dicClasificacion1 = ViewBag.dicClasificacion1;
@@ -84,7 +84,7 @@
                         </div>
 
                         <div class="col-lg-10 col-md-10">
-                            <select class="form-control w50" name="comboDinamico" id="selectClasif_2">
+                            <select class="form-control w50" name="clasificacion2" ref="comboDinamico" id="selectClasif_2" sig="selectClasif_3">
                                 <option selected="selected" value="0"> </option>
                             </select>
                         </div>
@@ -97,7 +97,7 @@
                         </div>
 
                         <div class="col-lg-10 col-md-10">
-                            <select class="form-control w50" name="comboDinamico" id="selectClasif_3">
+                            <select class="form-control w50" name="clasificacion3" ref="comboDinamico" id="selectClasif_3">
                                 <option selected="selected" value="0"> </option>
                             </select>
                         </div>

@@ -1,7 +1,8 @@
 ﻿
 
 @{
-    Dictionary<int, List<object>> datos = (Dictionary<int, List<object>>)ViewBag.datostbody;
+
+    Dictionary<int, List<object>> datos = (Dictionary<int, List<object>>)TempData["datostbody"];
     List<string> datostHead = (List<string>)ViewBag.datosthead;
 }
 

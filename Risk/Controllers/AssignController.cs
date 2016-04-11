@@ -42,9 +42,12 @@ namespace Risk.Controllers
             ViewBag.dicClasificacion1 = dicClasificacion1;
 
             ViewBag.datosthead = BD_Riesgos.nombresColTabla("dbo.qRiesgosNombres");
-            ViewBag.datostbody = BD_Riesgos.datosTabla("dbo.qRiesgosNombres");
 
-            
+            if (TempData["datostbody"] == null)
+            {
+                TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre();
+
+            }
 
             return View();
         }
@@ -93,11 +96,26 @@ namespace Risk.Controllers
             return datosContenido;
         }
 
+        //public ActionResult BusquedaRiks(string filtro, int categoria, int clasificacion1, int clasificacion2, int clasificacion3)
+        //{
+        //    TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(filtro, categoria, clasificacion1, clasificacion2, clasificacion3);
+
+        //    return RedirectToAction("Risks", "Assign");
+        //}
+
+
+        public ActionResult BusquedaRiks(string [] seleccionados)
+        {
+            //TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(filtro, categoria, clasificacion1, clasificacion2, clasificacion3);
+
+            return RedirectToAction("Risks", "Assign");
+        }
+
 
         // Recuperar datos para tabla ----------------------------------
         //public Dictionary<int, List<string>> recuperarDatosQRiesgosNombre(string zona)
         //{
-            
+
 
         //    switch (zona)
         //    {
@@ -127,7 +145,7 @@ namespace Risk.Controllers
 
 
 
-       
+
         //    try
         //    {
         //        Dictionary<int, qRiesgosNombre> datosBD = BD_Riesgos.datosQRiesgosNombre();
