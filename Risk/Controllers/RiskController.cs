@@ -15,11 +15,8 @@ namespace Risk.Controllers
         // GET: Risk
         public ActionResult RiskFicha(int id)
         {
-
             qRiesgosNombre riesgoRecup=  BD_Riesgos.recuperarRiesgo(id);
             ViewBag.riesgoRecup = riesgoRecup;
-
-
             return View();
         }
     }

@@ -38,73 +38,116 @@
         <div class="divider-30"></div>
 
         <!-- TABLE DIV -->
-        <div id="ContentPlaceHolder1_UpdatePanel1">
-            <div class="divDelGrid table-responsive">
-
-                <table rules="rows" id="ContentPlaceHolder1_Grid_List_Instances" class="table">
-                    <thead>
-                        <tr>
-                            @{
-                                foreach (var item in datostHead)
-                                {
-                                    <th class="td-large">@item.ToString()</th>
-                                }
-                            }
-                        </tr>
-
-                    </thead>
-                    <tbody>
-
-                        @{
-                            foreach (var item2 in datos)
-                            {
-                                <tr>
-                                    @{
-                                        foreach (var itemlista in item2.Value)
-                                        {
-                                            <td class="td-large">@itemlista.ToString()</td>
-
-                                        }
-                                        <td style="text-align: right;">
-                                            <a href="@Url.Action("RiskFicha", "Risk", new { id= item2.Key}) " id="@item2.Key"><i class="glyphicon glyphicon-pencil"></i></a>
-                                        </td>
-
-                                    }
-                                </tr>
-
-                              }
-                        }
-
-
-
-
-                        @*<tr>
-                                <td colspan="7" style="text-align: center;">
-
-                                     PAGINATION
-                                    <ul class="pagination pagination-sm">
-                                        <li class="disabled">
-                                            <a href="#" aria-label="Previous">
-                                                <span aria-hidden="true">&laquo;</span>
-                                            </a>
-                                        </li>
-                                        <li class="active"><a href="#">1</a></li>
-                                        <li><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$Grid_List_Instances','Page$2')">2</a></li>
-                                        <li><a href="#">3</a></li>
-                                        <li>
-                                            <a href="#" aria-label="Next">
-                                                <span aria-hidden="true">&raquo;</span>
-                                            </a>
-                                        </li>
-                                    </ul>
-
-                                </td>
-                            </tr>*@
-                    </tbody>
-                </table>
-
-            </div>
-        </div> <!-- END TABLE DIV -->
 
     </div>
+
+    <div id="ContentPlaceHolder1_UpdatePanel1">
+        <div class="divDelGrid table-responsive">
+
+            <table rules="rows" id="ContentPlaceHolder1_Grid_List_Instances" class="table">
+                <thead>
+                    <tr>
+                        @{
+                            var count = 0;
+                            foreach (var item in datostHead)
+                            {
+                                <th class="td-large"><a href="@Url.Action("SortColumn", "Assign", new {columna= count})">@item.ToString()</a></th>
+                            }
+                            count++;
+                        }
+                    </tr>
+
+                </thead>
+                <tbody>
+
+                    @{
+                        foreach (var item2 in datos)
+                        {
+                            <tr>
+                                @{
+                                    foreach (var itemlista in item2.Value)
+                                    {
+                                        <td class="td-large">@itemlista.ToString()</td>
+
+                                    }
+                                    <td style="text-align: right;">
+                                        <a href="@Url.Action("RiskFicha", "Risk", new { id= item2.Key}) " id="@item2.Key"><i class="glyphicon glyphicon-pencil"></i></a>
+                                    </td>
+
+                                }
+                            </tr>
+
+                                    }
+                    }
+
+
+
+
+                    @*<tr>
+                            <td colspan="7" style="text-align: center;">
+
+                                 PAGINATION
+                                <ul class="pagination pagination-sm">
+                                    <li class="disabled">
+                                        <a href="#" aria-label="Previous">
+                                            <span aria-hidden="true">&laquo;</span>
+                                        </a>
+                                    </li>
+                                    <li class="active"><a href="#">1</a></li>
+                                    <li><a href="javascript:__doPostBack('ctl00$ContentPlaceHolder1$Grid_List_Instances','Page$2')">2</a></li>
+                                    <li><a href="#">3</a></li>
+                                    <li>
+                                        <a href="#" aria-label="Next">
+                                            <span aria-hidden="true">&raquo;</span>
+                                        </a>
+                                    </li>
+                                </ul>
+
+                            </td>
+                        </tr>*@
+                </tbody>
+            </table>
+
+        </div>
+    </div> <!-- END TABLE DIV -->
+
+
 </div> <!-- END RESULTS TABLE -->
+<script>
+
+
+
+    $(document).ready(function () {
+
+        $('#ContentPlaceHolder1_Grid_List_Instances').DataTable({
+            "language": {
+                "sProcessing": "Procesando...",
+                "sLengthMenu": "Mostrar _MENU_ registros",
+                "sZeroRecords": "No se encontraron resultados",
+                "sEmptyTable": "Ningún dato disponible en esta tabla",
+                "sInfo": "",
+                "sInfoEmpty": "",
+                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
+                "sInfoPostFix": "",
+                "sSearch": "Buscar:",
+                "sUrl": "",
+                "sInfoThousands": ",",
+                "sLoadingRecords": "Cargando...",
+                "oPaginate": {
+                    "sFirst": "Primero",
+                    "sLast": "Último",
+                    "sNext": "Siguiente",
+                    "sPrevious": "Anterior"
+                },
+                "oAria": {
+                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
+                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
+                },
+                "order": [[0, "asc"]],
+
+
+            }
+        })
+
+    });
+</script>

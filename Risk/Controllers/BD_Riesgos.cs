@@ -90,9 +90,11 @@ namespace Risk.Controllers
                     {
                         foreach (var item in tabla.RowType.DataMembers)
                         {
-                            nombreColumnas.Add(item.Name);
+                            if (!item.Name.Contains("Id"))
+                            {
+                                nombreColumnas.Add(item.Name);
+                            }                        
                         }
-
                     }
                 }
             }
@@ -231,8 +233,6 @@ namespace Risk.Controllers
 
                     // Lista con los riesgos por IdRiesgo desde el dictionary
 
-
-
                     list = riesgosBD.qRiesgosNombres.Where(r => r.IdRiesgo == riesgo.Key).ToList();
 
                     foreach (var col in nombreCols)
@@ -287,8 +287,6 @@ namespace Risk.Controllers
 
                     // Lista con los riesgos por IdRiesgo desde el dictionary
 
-
-
                     list = riesgosBD.qRiesgosNombres.Where(r => r.IdRiesgo == riesgo.Key).ToList();
 
                     foreach (var col in nombreCols)
@@ -311,6 +309,8 @@ namespace Risk.Controllers
                             camposRiesgo.Add(name);
                         }
                     }
+
+
                     listaDatosFinal.Add(riesgo.Key, camposRiesgo);
                 }
             }

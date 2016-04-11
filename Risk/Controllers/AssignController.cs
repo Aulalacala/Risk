@@ -62,39 +62,6 @@ namespace Risk.Controllers
         }
 
 
-        // Recuperar datos contenido tabla ------------------------------
-
-            public Dictionary<int,List<string>> recuperarDatosQRiesgosNombre()
-        {
-
-            Dictionary<int, List<string>> datosContenido = new Dictionary<int, List<string>>();
-            //List<String> listadatos = new List<string>();
-            try
-            {
-               //datosContenido = BD_Riesgos.datosQRiesgosNombre();
-
-
-
-                //foreach (qRiesgosNombre riesgo in datosBD.Values)
-                //{
-                //    var propiedades = riesgo.GetType().GetProperties();
-                //    foreach (var item in propiedades)
-                //    {
-                //        listadatos.Add(item.Name);
-                //    }
-                //}
-
-                //datosContenido = datosBD.ToDictionary(r => r.Key, r=> listadatos);             
-
-            }
-            catch (Exception)
-            {
-
-                return null;
-            }
-
-            return datosContenido;
-        }
 
         public ActionResult BusquedaRiks(string filtro, int categoria, int clasificacion1, int clasificacion2, int clasificacion3)
         {
@@ -106,61 +73,20 @@ namespace Risk.Controllers
 
 
 
-        // Recuperar datos para tabla ----------------------------------
-        //public Dictionary<int, List<string>> recuperarDatosQRiesgosNombre(string zona)
-        //{
 
+        //Ordenar columnas
+        public ActionResult SortColumn(int columna)
+        {
+            Dictionary<int, List<object>> filasActuales = (Dictionary<int, List<object>>)TempData["datostbody"];
+            Dictionary<int, List<object>> filasOrdenadas = new Dictionary<int, List<object>>();
 
-        //    switch (zona)
-        //    {
-        //        case "thead":
+            foreach (var riesgo in filasActuales)
+            {
+                //riesgo.Value[columna];
+            }
 
-        //            break;
-
-        //        case "tbody":
-        //            Dictionary<int, qRiesgosNombre> datosBD = BD_Riesgos.datosQRiesgosNombre();
-
-        //            Dictionary<int, List<string>> datosQRiesgosNombre = new Dictionary<int, List<string>>();
-        //            List<String> listadatos = new List<string>();
-
-        //            foreach (var riesgoNombre in datosBD.Values)
-        //            {
-        //                if (!riesgoNombre.ToString().Contains("Id"))
-        //                {
-        //                    listadatos.Add(riesgoNombre.ToString());
-        //                }
-        //            }
-
-        //            datosQRiesgosNombre = 
-        //            break;
-
-        //    }
-
-
-
-
-
-        //    try
-        //    {
-        //        Dictionary<int, qRiesgosNombre> datosBD = BD_Riesgos.datosQRiesgosNombre();
-
-        //        foreach (var riesgoNombre in datosBD.Values)
-        //        {
-        //            if (!riesgoNombre.ToString().Contains("Id"))
-        //            {
-        //                listadatos.Add(riesgoNombre.ToString());
-        //            }
-        //        }
-
-        //        datosQRiesgosNombre.Add()
-        //    }
-        //    catch (Exception)
-        //    {
-
-        //        return null;
-        //    }
-        //    return datosQRiesgosNombre;
-        //}
+            return RedirectToAction("Risks", "Assign");
+        }
 
         #endregion
 
