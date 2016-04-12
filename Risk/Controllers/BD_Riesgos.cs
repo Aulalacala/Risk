@@ -76,35 +76,78 @@ namespace Risk.Controllers
 
         //Recuperar THEAD tabla Datos Risk-----------------
 
-        public List<string> nombresColTabla(string nombreTabla)
+
+
+
+
+
+
+        public Dictionary<string, string> nombresColTabla(string nombreTabla, string colVer, string colTitulos)
         {
             List<string> nombreColumnas = new List<string>();
+            Dictionary<string, string> nombreColumnasModif = new Dictionary<string, string>();
 
+           
             try
             {
-                var schema = riesgosBD.Mapping.GetTables();
+                //DataContext DataContext = new DataContext("Data Source=SONY-PC\\SQL2008EXPR;Initial Catalog=Risk;Persist Security Info=True;User ID=sa;Password=aula1111");
+                MetaTable TablaDBO = riesgosBD.Mapping.GetTables().Where(t => t.TableName == nombreTabla).Select(t => t).SingleOrDefault();
 
-                foreach (var tabla in riesgosBD.Mapping.GetTables())
+                if (string.IsNullOrEmpty(colVer)) //como estan TODOS en la BD
                 {
-                    if (tabla.TableName.Equals(nombreTabla))
+                    foreach (var item in TablaDBO.RowType.DataMembers)
                     {
-                        foreach (var item in tabla.RowType.DataMembers)
+                        if (!item.Name.Contains("Id"))
                         {
-                            if (!item.Name.Contains("Id"))
-                            {
-                                nombreColumnas.Add(item.Name);
-                            }                        
+                            nombreColumnas.Add(item.Name);
+                            nombreColumnasModif.Add(item.Name, item.Name);
                         }
                     }
                 }
+                else if(string.IsNullOrEmpty(colTitulos)) //como estan en la BD=> los que quiere el USUARIO
+                {
+                    List<string> ver = colVer.Split(',').ToList();
+
+                    foreach (var item in TablaDBO.RowType.DataMembers)
+                    {
+                        foreach (var colVerItem in ver)
+                        {
+                            if (item.Name.Equals(colVerItem))
+                            {
+                                nombreColumnas.Add(item.Name);
+                                nombreColumnasModif.Add(item.Name, item.Name);
+                            }
+                        }                       
+                    }
+                }
+                else //los que quiere el USUARIO modificado el nombre
+                {
+                    List<string> ver = colVer.Split(',').ToList();
+                    List<string> titulos = colTitulos.Split(',').ToList();
+
+                    foreach (var item in TablaDBO.RowType.DataMembers)
+                    {
+                        for (int i = 0; i < ver.Count; i++)
+                        {
+                            if (item.Name.Equals(ver[i]))
+                            {
+                                nombreColumnasModif.Add(item.Name, titulos[i]);
+
+                            }
+                        }
+                    }
+                }   
+                   
             }
             catch (Exception)
             {
 
                 return null;
             }
-            return nombreColumnas;
+            return nombreColumnasModif;
         }
+
+
 
 
         public string recuperaNombreColPK(string nombreTabla)
@@ -213,7 +256,7 @@ namespace Risk.Controllers
 
         //Recuperar TBODY tabla Datos Risk  || CON TABLA DEFINIDA ------------------------
 
-        public Dictionary<int, List<object>> datosQRiesgosNombre()
+        public Dictionary<int, List<object>> datosQRiesgosNombre(string colVer, string colTitulos)
         {
             Dictionary<int, qRiesgosNombre> datosQRiesgosNombre = new Dictionary<int, qRiesgosNombre>();
             List<qRiesgosNombre> list = new List<qRiesgosNombre>();
@@ -229,20 +272,20 @@ namespace Risk.Controllers
                 foreach (var riesgo in datosQRiesgosNombre)
                 {
                     List<object> camposRiesgo = new List<object>();
-                    List<string> nombreCols = nombresColTabla("dbo.qRiesgosNombres");
+                    Dictionary<string,string> nombreCols = nombresColTabla("dbo.qRiesgosNombres", colVer,colTitulos);
 
                     // Lista con los riesgos por IdRiesgo desde el dictionary
 
                     list = riesgosBD.qRiesgosNombres.Where(r => r.IdRiesgo == riesgo.Key).ToList();
 
                     foreach (var col in nombreCols)
-                    {
+                    {                     
                         foreach (var attr in list)
                         {
                             // Lista con las propiedad de cada riesgo
 
                             string name;
-                            System.Reflection.PropertyInfo x = attr.GetType().GetProperty(col);
+                            System.Reflection.PropertyInfo x = attr.GetType().GetProperty(col.Key);
 
                             if (x.GetValue(attr, null) == null)
                             {
@@ -267,7 +310,7 @@ namespace Risk.Controllers
             return listaDatosFinal;
         }
 
-        public Dictionary<int, List<object>> datosQRiesgosNombre(string filtro, int categoria, int clasificacion1, int clasificacion2, int clasificacion3)
+        public Dictionary<int, List<object>> datosQRiesgosNombre(string filtro, int categoria, int clasificacion1, int clasificacion2, int clasificacion3, string colVer, string colTitulos)
         {
             Dictionary<int, qRiesgosNombre> datosQRiesgosNombre = new Dictionary<int, qRiesgosNombre>();
             List<qRiesgosNombre> list = new List<qRiesgosNombre>();
@@ -276,17 +319,24 @@ namespace Risk.Controllers
 
             try
             {
-                // Carga de todos los riesgos <IdRiesgo, riesgo>
-                datosQRiesgosNombre = riesgosBD.qRiesgosNombres.Where(r => r.Nombre.Contains(filtro) && r.IdCategoria == categoria && r.IdClasificacion1 == clasificacion1 && r.IdClasificacion2 == clasificacion2 && r.IdClasificacion3 == clasificacion3).ToDictionary(r => r.IdRiesgo, r => r);
+                // Filtrado por parametro filtro
+                datosQRiesgosNombre = !string.IsNullOrEmpty(filtro) ?  riesgosBD.qRiesgosNombres.Where(r => r.Nombre.Contains(filtro)).ToDictionary(r => r.IdRiesgo, r => r) : riesgosBD.qRiesgosNombres.ToDictionary(r => r.IdRiesgo, r => r);
+                // Filtrado por parametro categoria
+                datosQRiesgosNombre = (categoria != 0) ? datosQRiesgosNombre.Where(r => r.Value.IdCategoria == categoria).ToDictionary(r => r.Value.IdRiesgo, r => r.Value) : datosQRiesgosNombre;
+                // Filtrado por parametro Clasificacion1
+                datosQRiesgosNombre = (clasificacion1 != 0) ? datosQRiesgosNombre.Where(r => r.Value.IdClasificacion1 == clasificacion1).ToDictionary(r => r.Value.IdRiesgo, r => r.Value) : datosQRiesgosNombre;
+                // Filtrado por parametro Clasificacion2
+                datosQRiesgosNombre = (clasificacion2 != 0) ? datosQRiesgosNombre.Where(r => r.Value.IdClasificacion2 == clasificacion2).ToDictionary(r => r.Value.IdRiesgo, r => r.Value) : datosQRiesgosNombre;
+                // Filtrado por parametro Clasificacion3
+                datosQRiesgosNombre = (clasificacion3 != 0) ? datosQRiesgosNombre.Where(r => r.Value.IdClasificacion3 == clasificacion3).ToDictionary(r => r.Value.IdRiesgo, r => r.Value) : datosQRiesgosNombre;
 
                 // Recorrer el dictionary 
                 foreach (var riesgo in datosQRiesgosNombre)
                 {
                     List<object> camposRiesgo = new List<object>();
-                    List<string> nombreCols = nombresColTabla("dbo.qRiesgosNombres");
+                    Dictionary<string, string> nombreCols = nombresColTabla("dbo.qRiesgosNombres", colVer, colTitulos);
 
                     // Lista con los riesgos por IdRiesgo desde el dictionary
-
                     list = riesgosBD.qRiesgosNombres.Where(r => r.IdRiesgo == riesgo.Key).ToList();
 
                     foreach (var col in nombreCols)
@@ -296,7 +346,7 @@ namespace Risk.Controllers
                             // Lista con las propiedad de cada riesgo
 
                             string name;
-                            System.Reflection.PropertyInfo x = attr.GetType().GetProperty(col);
+                            System.Reflection.PropertyInfo x = attr.GetType().GetProperty(col.Key);
 
                             if (x.GetValue(attr, null) == null)
                             {
@@ -309,8 +359,6 @@ namespace Risk.Controllers
                             camposRiesgo.Add(name);
                         }
                     }
-
-
                     listaDatosFinal.Add(riesgo.Key, camposRiesgo);
                 }
             }

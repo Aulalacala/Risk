@@ -11,6 +11,8 @@ $("select[ref=comboDinamico]").change(function () {
 
     $.getJSON("/Assign/recuperaListClasif?idEstructura=" + opcionSelect, function (data) {
 
+        $("select[id=" + comboAPintar + "]").append("<option selected='selected' value='0'></option>");
+
         $.each(data, function (Key, Value) {
             $("select[id=" + comboAPintar + "]").append("<option value=\"" + Key + "\">" + Value + "</option>");
         });
@@ -20,19 +22,19 @@ $("select[ref=comboDinamico]").change(function () {
 
 //Carga Tabla de riesgos según parámetros de búsqueda
 
-$("select").change(function () {
-    var selects = [];
-    var query = "riesgosBD.qRiesgosNombres.Where(r=>";
+//$("select").change(function () {
+//    var selects = [];
+//    var query = "riesgosBD.qRiesgosNombres.Where(r=>";
 
-    $("select").each(function () {
-        var valorParam = $(this).val();
-        var columTablaParam = $(this).attr("filtro");
+//    $("select").each(function () {
+//        var valorParam = $(this).val();
+//        var columTablaParam = $(this).attr("filtro");
 
-        valorParam != 0 ? query += "r."+ columTablaParam +"="+valorParam: query = query;
-        selects.push($(this).val());
-    })
+//        valorParam != 0 ? query += "r."+ columTablaParam +"="+valorParam: query = query;
+//        selects.push($(this).val());
+//    })
 
 
-    $.post("/Assign/BusquedaRiks", { 'query': query }, function (data) {
-    },"json");
-})
+//    $.post("/Assign/BusquedaRiks", { 'query': query }, function (data) {
+//    },"json");
+//})

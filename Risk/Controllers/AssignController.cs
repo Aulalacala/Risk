@@ -14,6 +14,8 @@ namespace Risk.Controllers
     {
 
         BD_Riesgos BD_Riesgos = new BD_Riesgos();
+        string colVer = "CodRiesgo,Nombre,Categoria,Clasif1,Clasif2,Clasif3";
+        string colTitulos = "Código Riesgo,Nombre, Categoría,Clasificación1,Clasificación2,Clasificación3";
 
         #region View Structure
         // Vista inicial Structure GET -----------------------------------------------------------
@@ -41,12 +43,11 @@ namespace Risk.Controllers
             Dictionary<int, string> dicClasificacion1 = BD_Riesgos.listadoClasif1();
             ViewBag.dicClasificacion1 = dicClasificacion1;
 
-            ViewBag.datosthead = BD_Riesgos.nombresColTabla("dbo.qRiesgosNombres");
+            ViewBag.datosthead = BD_Riesgos.nombresColTabla("dbo.qRiesgosNombres", colVer, colTitulos);
 
             if (TempData["datostbody"] == null)
             {
-                TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre();
-
+                TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(colVer, colTitulos);
             }
 
             return View();
@@ -65,7 +66,7 @@ namespace Risk.Controllers
 
         public ActionResult BusquedaRiks(string filtro, int categoria, int clasificacion1, int clasificacion2, int clasificacion3)
         {
-            TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(filtro, categoria, clasificacion1, clasificacion2, clasificacion3);
+            TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(filtro, categoria, clasificacion1, clasificacion2, clasificacion3, colVer, colTitulos);
 
             return RedirectToAction("Risks", "Assign");
         }

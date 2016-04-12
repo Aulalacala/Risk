@@ -1,38 +1,29 @@
-﻿
-
-@{
-
+﻿@{
     Dictionary<int, List<object>> datos = (Dictionary<int, List<object>>)TempData["datostbody"];
-    List<string> datostHead = (List<string>)ViewBag.datosthead;
+    Dictionary<string,string> datostHead = (Dictionary<string, string>)ViewBag.datosthead;
 }
 
 
 <!-- SCRIPTS -->
+
 <script type="text/javascript" src="~/Content/js/jquery/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="~/Content/js/jquery/jquery.browser.min.js"></script>
 <script type="text/javascript" src="~/Content/js/jquery/jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="~/Content/js/bootstrap/bootstrap.min.js"></script>
-<script type="text/javascript" src="~/Content/js/bootstrap/bootstrap-metis.menu.min.js"></script>
-<script type="text/javascript" src="~/Content/js/bootstrap/bootstrap-datepicker.min.js"></script>
-<script type="text/javascript" src="~/Content/js/mdetect/mdetect.js"></script>
-<script type="text/javascript" src="~/Content/js/fastclick/fastclick.js"></script>
-<script type="text/javascript" src="~/Content/js/scripts.js"></script>
-<script type="text/javascript" src="~/Content/js/scripts2.js"></script>
+
 <script type="text/javascript" src="~/Content/datetables/jquery.dataTables.min.js"></script>
 
 
 
 <!-- TITLE & BUTTONS -->
 <span class="title bigger">INSTANCES SEARCH</span>
-<span class="pull-right" id="ContentPlaceHolder1_lblNRows">Results: <strong class="darker">XX</strong></span>
 <div class="clearfix"></div>
 <div class="divider"></div>
 
 
 
 <!-- RESULTS TABLE -->
-<div class="row">
-    <div class="col-lg-12 col-md-12">
+<div>
+    <div>
 
         <!-- DIVIDER -->
         <div class="divider-30"></div>
@@ -41,17 +32,21 @@
 
     </div>
 
-    <div id="ContentPlaceHolder1_UpdatePanel1">
-        <div class="divDelGrid table-responsive">
+    <div>
+        <div>
 
-            <table rules="rows" id="ContentPlaceHolder1_Grid_List_Instances" class="table">
+            <table id="tablaDatos" >
                 <thead>
                     <tr>
                         @{
+
+                            <td text-align="right">
+                              Editar 
+                            </td>
                             var count = 0;
                             foreach (var item in datostHead)
                             {
-                                <th class="td-large"><a href="@Url.Action("SortColumn", "Assign", new {columna= count})">@item.ToString()</a></th>
+                                <th>@item.Value.ToString()</th>
                             }
                             count++;
                         }
@@ -61,18 +56,20 @@
                 <tbody>
 
                     @{
-                        foreach (var item2 in datos)
+                        foreach (var fila in datos)
                         {
                             <tr>
                                 @{
-                                    foreach (var itemlista in item2.Value)
+                                    <td text-align="right">
+                                        <a href="@Url.Action("RiskFicha", "Risk", new { id= fila.Key}) " id="@fila.Key"><i class="glyphicon glyphicon-pencil"></i></a>
+                                    </td>
+
+                                    foreach (var columna in fila.Value)
                                     {
-                                        <td class="td-large">@itemlista.ToString()</td>
+                                        <td>@columna.ToString()</td>
 
                                     }
-                                    <td style="text-align: right;">
-                                        <a href="@Url.Action("RiskFicha", "Risk", new { id= item2.Key}) " id="@item2.Key"><i class="glyphicon glyphicon-pencil"></i></a>
-                                    </td>
+                                
 
                                 }
                             </tr>
@@ -119,35 +116,7 @@
 
     $(document).ready(function () {
 
-        $('#ContentPlaceHolder1_Grid_List_Instances').DataTable({
-            "language": {
-                "sProcessing": "Procesando...",
-                "sLengthMenu": "Mostrar _MENU_ registros",
-                "sZeroRecords": "No se encontraron resultados",
-                "sEmptyTable": "Ningún dato disponible en esta tabla",
-                "sInfo": "",
-                "sInfoEmpty": "",
-                "sInfoFiltered": "(filtrado de un total de _MAX_ registros)",
-                "sInfoPostFix": "",
-                "sSearch": "Buscar:",
-                "sUrl": "",
-                "sInfoThousands": ",",
-                "sLoadingRecords": "Cargando...",
-                "oPaginate": {
-                    "sFirst": "Primero",
-                    "sLast": "Último",
-                    "sNext": "Siguiente",
-                    "sPrevious": "Anterior"
-                },
-                "oAria": {
-                    "sSortAscending": ": Activar para ordenar la columna de manera ascendente",
-                    "sSortDescending": ": Activar para ordenar la columna de manera descendente"
-                },
-                "order": [[0, "asc"]],
-
-
-            }
-        })
+        $('#tablaDatos').DataTable( )
 
     });
 </script>
