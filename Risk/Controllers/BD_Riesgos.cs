@@ -67,7 +67,7 @@ namespace Risk.Controllers {
 
 
 
-
+//TODO:Cambiar metodo, solo hay dos opciones, todos los campos o filtrados
         public Dictionary<string, string> nombresColTabla(string nombreTabla, string colVer, string colTitulos) {
             List<string> nombreColumnas = new List<string>();
             Dictionary<string, string> nombreColumnasModif = new Dictionary<string, string>();
@@ -243,7 +243,7 @@ namespace Risk.Controllers {
                 //datosQRiesgosNombre.Select(nombreCols)
                 List<string> ver = colVer.Split(',').ToList();
 
-
+//TODO:recuperar columnas especificas select name, user, pass from bla;
                 //var result = riesgosBD.qRiesgosNombres.ToList().ForEach()   .Select(r => r).SingleOrDefault();
 
                 var r2 = (from i in riesgosBD.qRiesgosNombres
