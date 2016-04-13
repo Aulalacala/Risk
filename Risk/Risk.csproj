@@ -270,6 +270,7 @@
     <Content Include="Views\Assign\Structure.cshtml" />
     <Content Include="Views\PartialViews\TablaDatos.cshtml" />
     <Content Include="Views\Risk\RiskFicha.cshtml" />
+    <Content Include="Views\Risk\PartialViewsRisk\General.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

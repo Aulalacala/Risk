@@ -4,15 +4,44 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>RiskFicha</h2>
-@{ 
-    qRiesgosNombre riesgoRecup = (Risk.Models.qRiesgosNombre)ViewBag.riesgoRecup; 
+@{
+    qRiesgosNombre riesgoRecup = (Risk.Models.qRiesgosNombre)ViewBag.riesgoRecup;
 }
-@riesgoRecup.CodRiesgo <br/>
-@riesgoRecup.Descripcion<br />
-@riesgoRecup.Nombre<br />
-@riesgoRecup.Categoria
+
+<style>
+    #menu li{
+     display: block;
+     margin-right:5%;
+    }
+
+    h4 a:link{
+        color:#64c5da;
+        text-decoration:none;
+    }
+</style>
+
+<!-- MAIN CONTENT -->
+
+    <!-- TITLE & SUBTITLE -->
+    <h2>RISK FICHA</h2>
+    <h3 class="darker"><strong>@riesgoRecup.CodRiesgo</strong></h3>
+
+   
+    <div id="menu">
+        <hr />
+        <ul class="nav nav-pills">
+            <li class="disabled"><h4><strong><a href="#">General</a></strong></h4></li>
+            <li class="disabled"><h4><strong><a href="#">Operational Impact</a></strong></h4></li>
+            <li class="disabled"><h4><strong><a href="#">Reputational Impact</a></strong></h4></li>
+            <li class="disabled"><h4><strong><a href="#">Scoope</a></strong></h4></li>
+            <li class="disabled"><h4><strong><a href="#">Historical</a></strong></h4></li>
+            <li class="disabled"><h4><strong><a href="#">Graphic</a></strong></h4></li>
+        </ul>
+        <hr />
+        
+    </div>
 
 
+  
 
 
