@@ -20,7 +20,6 @@ namespace Risk.Models
 	using System.Linq.Expressions;
 	using System.ComponentModel;
 	using System;
-    
 	
 	
 	[global::System.Data.Linq.Mapping.DatabaseAttribute(Name="Risk")]
@@ -214,7 +213,7 @@ namespace Risk.Models
 			}
 		}
 		
-        [global::System.Data.Linq.Mapping.ColumnAttribute(Name ="CodRiesgoGenerco", Storage="_CodRiesgoGenerico", DbType="NVarChar(50)")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodRiesgoGenerico", DbType="NVarChar(50)")]
 		public string CodRiesgoGenerico
 		{
 			get

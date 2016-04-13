@@ -8,9 +8,11 @@ using System.Data.Linq;
 using System.Data.Linq.Mapping;
 
 namespace Risk.Controllers {
+
+
     public class BD_Riesgos {
         Riesgos_BDDataContext riesgosBD = new Riesgos_BDDataContext();
-        private object context;
+
 
         #region AssignController
         // Cargar todas las categorias en un dictionary ----------------------------------------------
@@ -61,59 +63,41 @@ namespace Risk.Controllers {
         }
 
         //Recuperar THEAD tabla Datos Risk-----------------
-
-
-
-
-
-
-//TODO:Cambiar metodo, solo hay dos opciones, todos los campos o filtrados
+        //TODO:Cambiar metodo, solo hay dos opciones, todos los campos o filtrados
         public Dictionary<string, string> nombresColTabla(string nombreTabla, string colVer, string colTitulos) {
-            List<string> nombreColumnas = new List<string>();
             Dictionary<string, string> nombreColumnasModif = new Dictionary<string, string>();
 
-
             try {
-                //DataContext DataContext = new DataContext("Data Source=SONY-PC\\SQL2008EXPR;Initial Catalog=Risk;Persist Security Info=True;User ID=sa;Password=aula1111");
                 MetaTable TablaDBO = riesgosBD.Mapping.GetTables().Where(t => t.TableName == nombreTabla).Select(t => t).SingleOrDefault();
 
-                if (string.IsNullOrEmpty(colVer)) //como estan TODOS en la BD
+                List<string> ver = new List<string>();
+                List<string> titulos = new List<string>();
+
+                if (string.IsNullOrEmpty(colVer) && string.IsNullOrEmpty(colTitulos)) //como estan TODOS en la BD
                 {
                     foreach (var item in TablaDBO.RowType.DataMembers) {
                         if (!item.Name.Contains("Id")) {
-                            nombreColumnas.Add(item.Name);
                             nombreColumnasModif.Add(item.Name, item.Name);
                         }
                     }
-                } else if (string.IsNullOrEmpty(colTitulos)) //como estan en la BD=> los que quiere el USUARIO
-                  {
-                    List<string> ver = colVer.Split(',').ToList();
+                } else {
 
+                    ver = colVer.Split(',').ToList();
 
-
-
-                    foreach (var item in TablaDBO.RowType.DataMembers) {
-                        foreach (var colVerItem in ver) {
-                            if (item.Name.Equals(colVerItem)) {
-                                nombreColumnas.Add(item.Name);
-                                nombreColumnasModif.Add(item.Name, item.Name);
-                            }
-                        }
+                    if (string.IsNullOrEmpty(colTitulos)) {
+                        titulos = ver;
+                    } else {
+                        titulos = colTitulos.Split(',').ToList();
                     }
-                } else //los que quiere el USUARIO modificado el nombre
-                  {
-                    List<string> ver = colVer.Split(',').ToList();
-                    List<string> titulos = colTitulos.Split(',').ToList();
 
-                    foreach (var item in TablaDBO.RowType.DataMembers) {
-                        for (int i = 0; i < ver.Count; i++) {
-                            if (item.Name.Equals(ver[i])) {
-                                nombreColumnasModif.Add(item.Name, titulos[i]);
-
-                            }
+                    foreach (var columnVer in ver) {
+                        if (TablaDBO.RowType.DataMembers.Where(r => r.Name.Equals(columnVer)).Select(r => r).SingleOrDefault() != null) {
+                            nombreColumnasModif.Add(columnVer, titulos[ver.IndexOf(columnVer)]);
                         }
+
                     }
                 }
+
 
             } catch (Exception) {
 
@@ -145,6 +129,129 @@ namespace Risk.Controllers {
 
 
 
+        //Recuperar TBODY tabla Datos Risk  || CON TABLA DEFINIDA ------------------------
+
+        //public Dictionary<int, List<object>> datosQRiesgosNombre(string colVer, string colTitulos) {
+
+        //    Dictionary<int, List<object>> listaDatosFinal = new Dictionary<int, List<object>>();
+
+        //    try {
+
+        //        // Cargar de las columnas a mostrar
+        //        Dictionary<string, string> nombreCols = nombresColTabla("dbo.qRiesgosNombres", colVer, colTitulos);
+
+        //        foreach (var riesgo in riesgosBD.qRiesgosNombres.ToList()) {
+
+        //            List<object> camposRiesgo = new List<object>();
+
+        //            foreach (var col in nombreCols) {
+
+        //                string name;
+        //                System.Reflection.PropertyInfo x = riesgo.GetType().GetProperty(col.Key);
+
+        //                if (x.GetValue(riesgo, null) == null) {
+        //                    name = "null";
+        //                } else {
+        //                    name = (string)((x.GetValue(riesgo, null))).ToString();
+        //                }
+        //                camposRiesgo.Add(name);
+
+        //            }
+        //            listaDatosFinal.Add(riesgo.IdRiesgo, camposRiesgo);
+        //        }
+
+
+        //        //TODO:recuperar columnas especificas select name, user, pass from bla;
+        //        //List<qRiesgosNombre> nueva = new List<qRiesgosNombre>();
+        //        //List<string> ver = colVer.Split(',').ToList();         
+        //        //var result = riesgosBD.qRiesgosNombres.ToList().ForEach()   .Select(r => r).SingleOrDefault();
+        //        //var r2 = (from i in riesgosBD.qRiesgosNombres
+        //        //         select new {
+        //        //                campo1 = i.GetType().GetProperty(ver[0]).GetValue(i),
+        //        //          }
+        //        //          ).ToList();
+
+
+
+        //    } catch (Exception) {
+
+        //        return null;
+        //    }
+
+        //    return listaDatosFinal;
+        //}
+
+
+
+
+        //Recuperar TBODY tabla Datos Risk  || CON TABLA DEFINIDA ------------------------
+
+        public Dictionary<int, List<object>> datosQRiesgosNombre(string colVer, string colTitulos, string filtro = null, int categoria = 0, int clasificacion1 = 0, int clasificacion2 = 0, int clasificacion3 = 0) {
+
+            Dictionary<int, qRiesgosNombre> datosQRiesgosNombre = new Dictionary<int, qRiesgosNombre>();
+            List<qRiesgosNombre> list = new List<qRiesgosNombre>();
+            Dictionary<int, List<object>> listaDatosFinal = new Dictionary<int, List<object>>();
+
+            try {
+
+                datosQRiesgosNombre = riesgosBD.qRiesgosNombres.ToDictionary(r => r.IdRiesgo, r => r);
+
+                if (!string.IsNullOrEmpty(filtro)) {
+                    datosQRiesgosNombre = datosQRiesgosNombre.Where(r => r.Value.Nombre.Contains(filtro)).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
+                }
+
+                if (categoria != 0) {
+                    datosQRiesgosNombre = datosQRiesgosNombre.Where(r => r.Value.IdCategoria == categoria).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
+                }
+
+                if (clasificacion1 != 0) {
+                    datosQRiesgosNombre.Where(r => r.Value.IdClasificacion1 == clasificacion1).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
+                }
+
+                if (clasificacion2 != 0) {
+                    datosQRiesgosNombre.Where(r => r.Value.IdClasificacion2 == clasificacion2).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
+                }
+
+                if (clasificacion3 != 0) {
+                    datosQRiesgosNombre.Where(r => r.Value.IdClasificacion3 == clasificacion3).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
+                }
+
+
+
+                // Cargar de las columnas a mostrar
+                Dictionary<string, string> nombreCols = nombresColTabla("dbo.qRiesgosNombres", colVer, colTitulos);
+
+                foreach (var riesgo in datosQRiesgosNombre) {
+
+                    List<object> camposRiesgo = new List<object>();
+
+                    foreach (var col in nombreCols) {
+
+                        string name;
+                        System.Reflection.PropertyInfo x = riesgo.Value.GetType().GetProperty(col.Key);
+
+                        if (x.GetValue(riesgo.Value, null) == null) {
+                            name = "null";
+                        } else {
+                            name = (string)((x.GetValue(riesgo.Value, null))).ToString();
+                        }
+                        camposRiesgo.Add(name);
+
+                    }
+                    listaDatosFinal.Add(riesgo.Key, camposRiesgo);
+                }
+
+
+            } catch (Exception) {
+
+                return null;
+            }
+
+            return listaDatosFinal;
+        }
+
+
+
         //Recuperar TBODY tabla Datos Risk  || CON TABLA DINAMICA ------------------------
 
         //      public Dictionary<int, List<object>> datosTabla(string nombreTabla)
@@ -166,12 +273,6 @@ namespace Risk.Controllers {
         //              //Rellenar el dictionary "todoslosObjetos" key=id, value=objeto=tupla
         //              //Pasar el objeto a la lista de camposRiesgo
         //              //Montar el dictionary listadatosFinal key=id.value value=lista camposRiesgo
-
-
-
-
-
-
 
         //              //    // Recorrer el dictionary 
         //              //        foreach (var riesgo in todosLosObjetos)
@@ -216,131 +317,6 @@ namespace Risk.Controllers {
 
         //          return listaDatosFinal;
         //      }
-
-
-
-
-        //Recuperar TBODY tabla Datos Risk  || CON TABLA DEFINIDA ------------------------
-
-
-
-        //Recuperar TBODY tabla Datos Risk  || CON TABLA DEFINIDA ------------------------
-
-        public Dictionary<int, List<object>> datosQRiesgosNombre(string colVer, string colTitulos) {
-
-            Dictionary<int, qRiesgosNombre> datosQRiesgosNombre = new Dictionary<int, qRiesgosNombre>();
-
-            List<qRiesgosNombre> list = new List<qRiesgosNombre>();
-
-            Dictionary<int, List<object>> listaDatosFinal = new Dictionary<int, List<object>>();
-
-            try {
-                // Carga de todos los riesgos <IdRiesgo, riesgo>
-                datosQRiesgosNombre = riesgosBD.qRiesgosNombres.ToDictionary(r => r.IdRiesgo, r => r);
-
-                Dictionary<string, string> nombreCols = nombresColTabla("dbo.qRiesgosNombres", colVer, colTitulos);
-                List<qRiesgosNombre> nueva = new List<qRiesgosNombre>();
-                //datosQRiesgosNombre.Select(nombreCols)
-                List<string> ver = colVer.Split(',').ToList();
-
-//TODO:recuperar columnas especificas select name, user, pass from bla;
-                //var result = riesgosBD.qRiesgosNombres.ToList().ForEach()   .Select(r => r).SingleOrDefault();
-
-                var r2 = (from i in riesgosBD.qRiesgosNombres
-                         select new {
-                                campo1 = i.GetType().GetProperty(ver[0]).GetValue(i),
-                          }
-                          ).ToList();
-
-          
-
-
-                // Recorrer el dictionary 
-                foreach (var riesgo in datosQRiesgosNombre) {
-                    List<object> camposRiesgo = new List<object>();
-
-
-                    // Lista con los riesgos por IdRiesgo desde el dictionary
-
-                    list = riesgosBD.qRiesgosNombres.Where(r => r.IdRiesgo == riesgo.Key).ToList();
-
-                    foreach (var col in nombreCols) {
-                        foreach (var attr in list) {
-                            // Lista con las propiedad de cada riesgo
-
-                            string name;
-                            System.Reflection.PropertyInfo x = attr.GetType().GetProperty(col.Key);
-
-                            if (x.GetValue(attr, null) == null) {
-                                name = "null";
-                            } else {
-                                name = (string)((x.GetValue(attr, null))).ToString();
-                            }
-                            camposRiesgo.Add(name);
-                        }
-                    }
-                    listaDatosFinal.Add(riesgo.Key, camposRiesgo);
-                }
-            } catch (Exception) {
-
-                return null;
-            }
-
-            return listaDatosFinal;
-        }
-
-        public Dictionary<int, List<object>> datosQRiesgosNombre(string filtro, int categoria, int clasificacion1, int clasificacion2, int clasificacion3, string colVer, string colTitulos) {
-            Dictionary<int, qRiesgosNombre> datosQRiesgosNombre = new Dictionary<int, qRiesgosNombre>();
-            List<qRiesgosNombre> list = new List<qRiesgosNombre>();
-
-            Dictionary<int, List<object>> listaDatosFinal = new Dictionary<int, List<object>>();
-
-            try {
-                // Filtrado por parametro filtro
-                datosQRiesgosNombre = !string.IsNullOrEmpty(filtro) ? riesgosBD.qRiesgosNombres.Where(r => r.Nombre.Contains(filtro)).ToDictionary(r => r.IdRiesgo, r => r) : riesgosBD.qRiesgosNombres.ToDictionary(r => r.IdRiesgo, r => r);
-                // Filtrado por parametro categoria
-                datosQRiesgosNombre = (categoria != 0) ? datosQRiesgosNombre.Where(r => r.Value.IdCategoria == categoria).ToDictionary(r => r.Value.IdRiesgo, r => r.Value) : datosQRiesgosNombre;
-                // Filtrado por parametro Clasificacion1
-                datosQRiesgosNombre = (clasificacion1 != 0) ? datosQRiesgosNombre.Where(r => r.Value.IdClasificacion1 == clasificacion1).ToDictionary(r => r.Value.IdRiesgo, r => r.Value) : datosQRiesgosNombre;
-                // Filtrado por parametro Clasificacion2
-                datosQRiesgosNombre = (clasificacion2 != 0) ? datosQRiesgosNombre.Where(r => r.Value.IdClasificacion2 == clasificacion2).ToDictionary(r => r.Value.IdRiesgo, r => r.Value) : datosQRiesgosNombre;
-                // Filtrado por parametro Clasificacion3
-                datosQRiesgosNombre = (clasificacion3 != 0) ? datosQRiesgosNombre.Where(r => r.Value.IdClasificacion3 == clasificacion3).ToDictionary(r => r.Value.IdRiesgo, r => r.Value) : datosQRiesgosNombre;
-
-                // Recorrer el dictionary 
-                foreach (var riesgo in datosQRiesgosNombre) {
-                    List<object> camposRiesgo = new List<object>();
-                    Dictionary<string, string> nombreCols = nombresColTabla("dbo.qRiesgosNombres", colVer, colTitulos);
-
-                    // Lista con los riesgos por IdRiesgo desde el dictionary
-                    list = riesgosBD.qRiesgosNombres.Where(r => r.IdRiesgo == riesgo.Key).ToList();
-
-                    foreach (var col in nombreCols) {
-                        foreach (var attr in list) {
-                            // Lista con las propiedad de cada riesgo
-
-                            string name;
-                            System.Reflection.PropertyInfo x = attr.GetType().GetProperty(col.Key);
-
-                            if (x.GetValue(attr, null) == null) {
-                                name = "null";
-                            } else {
-                                name = (string)((x.GetValue(attr, null))).ToString();
-                            }
-                            camposRiesgo.Add(name);
-                        }
-                    }
-                    listaDatosFinal.Add(riesgo.Key, camposRiesgo);
-                }
-            } catch (Exception) {
-
-                return null;
-            }
-
-            return listaDatosFinal;
-        }
-
-
 
         #endregion
 
