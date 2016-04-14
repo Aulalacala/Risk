@@ -20,21 +20,14 @@ $("select[ref=comboDinamico]").change(function () {
     });
 })
 
-//Carga Tabla de riesgos según parámetros de búsqueda
-
-//$("select").change(function () {
-//    var selects = [];
-//    var query = "riesgosBD.qRiesgosNombres.Where(r=>";
-
-//    $("select").each(function () {
-//        var valorParam = $(this).val();
-//        var columTablaParam = $(this).attr("filtro");
-
-//        valorParam != 0 ? query += "r."+ columTablaParam +"="+valorParam: query = query;
-//        selects.push($(this).val());
-//    })
 
 
-//    $.post("/Assign/BusquedaRiks", { 'query': query }, function (data) {
-//    },"json");
-//})
+/* ************************************************************************************************************** */
+// Risk/RiskFicha
+
+// Menu RiskFicha. Carga dinámica de partialsViews cuando click en Menu
+
+$(".menuRisk").click(function () {
+    var ruta = "http://localhost:1525/Risk/" + $(this).text().replace(' ', '');
+    $('#partialViewsRisk').load(ruta + { 'id' : $('#IdRiesgo').val() });
+})

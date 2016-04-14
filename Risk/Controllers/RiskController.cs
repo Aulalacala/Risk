@@ -19,5 +19,11 @@ namespace Risk.Controllers
             ViewBag.riesgoRecup = riesgoRecup;
             return View();
         }
+
+        public ActionResult General( int id) {
+            // Recuperar ese riesgo y pintar los datos
+
+            return PartialView();
+        }
     }
 }

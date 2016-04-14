@@ -9,39 +9,46 @@
 }
 
 <style>
-    #menu li{
-     display: block;
-     margin-right:5%;
+    #menu li {
+        display: block;
+        margin-right: 5%;
     }
 
-    h4 a:link{
-        color:#64c5da;
-        text-decoration:none;
+    h4 a:focus {
+        font-weight: bold;
+    }
+
+    h4 a:link {
+        color: #64c5da;
+        text-decoration: none;
     }
 </style>
 
 <!-- MAIN CONTENT -->
+<!-- TITLE & SUBTITLE -->
+<h2>RISK FICHA</h2>
+<h3 class="darker"><strong>@riesgoRecup.CodRiesgo</strong></h3>
 
-    <!-- TITLE & SUBTITLE -->
-    <h2>RISK FICHA</h2>
-    <h3 class="darker"><strong>@riesgoRecup.CodRiesgo</strong></h3>
 
-   
-    <div id="menu">
-        <hr />
-        <ul class="nav nav-pills">
-            <li class="disabled"><h4><strong><a href="#">General</a></strong></h4></li>
-            <li class="disabled"><h4><strong><a href="#">Operational Impact</a></strong></h4></li>
-            <li class="disabled"><h4><strong><a href="#">Reputational Impact</a></strong></h4></li>
-            <li class="disabled"><h4><strong><a href="#">Scoope</a></strong></h4></li>
-            <li class="disabled"><h4><strong><a href="#">Historical</a></strong></h4></li>
-            <li class="disabled"><h4><strong><a href="#">Graphic</a></strong></h4></li>
-        </ul>
-        <hr />
-        
+<input id="IdRiesgo" type="hidden" value="@riesgoRecup.IdRiesgo"/>
+
+<div id="menu">
+    <hr />
+    <ul class="nav nav-pills">
+        <li><h4><a class="menuRisk" id="General">General</a></h4></li>
+        <li><h4><a class="menuRisk" id="OperationalImpact">Operational Impact</a></h4></li>
+        <li><h4><a class="menuRisk" id="ReputationalImpact">Reputational Impact</a></h4></li>
+        <li><h4><a class="menuRisk" id="Scoope">Scoope</a></h4></li>
+        <li><h4><a class="menuRisk" id="Historical">Historical</a></h4></li>
+        <li><h4><a class="menuRisk" id="Graphic">Graphic</a></h4></li>
+    </ul>
+    <hr />
+
+</div>
+
+<div class="panel">
+    <div id="partialViewsRisk" class="panel-body">
     </div>
-
-
-  
+</div>
 
 
