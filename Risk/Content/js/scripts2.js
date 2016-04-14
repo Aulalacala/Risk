@@ -27,7 +27,19 @@ $("select[ref=comboDinamico]").change(function () {
 
 // Menu RiskFicha. Carga dinámica de partialsViews cuando click en Menu
 
-$(".menuRisk").click(function () {
-    var ruta = "http://localhost:1525/Risk/" + $(this).text().replace(' ', '');
-    $('#partialViewsRisk').load(ruta, { 'id' : $('#IdRiesgo').val() });
+
+
+$('a[id^="mnu_"]').click(function () {
+
+    $('#mnu li').removeClass('active');
+    $(this).parent().addClass('active');
+
+    $('#mnu li a').attr('aria-expanded', 'false');
+    $(this).attr('aria-expanded', 'true');
+
+    var id = $(this).attr("id").replace('mnu_', '');
+    var ruta = "http://localhost:1525/Risk/" + id;
+
+    $('#contenidoDinamico').load(ruta, { 'id': $('#IdRiesgo').val() });
 })
+
