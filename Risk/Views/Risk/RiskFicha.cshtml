@@ -5,10 +5,13 @@
 }
 
 @{
-    qRiesgosNombre riesgoRecup = (Risk.Models.qRiesgosNombre)ViewBag.riesgoRecup;
+    //qRiesgosNombre riesgoRecup = (Risk.Models.qRiesgosNombre)ViewBag.riesgoRecup;
+    qRiesgosNombre riesgoRecup = (qRiesgosNombre)Session["riesgo"];
 }
 
-
+<script type="text/javascript" src="~/Content/js/jquery/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="~/Content/js/jquery/jquery.browser.min.js"></script>
+<script type="text/javascript" src="~/Content/js/jquery/jquery.easing.1.3.js"></script>
 <!-- MAIN CONTENT -->
 <!-- TITLE & SUBTITLE -->
 <h2>RISK FICHA</h2>
@@ -113,6 +116,6 @@
 <script>
 $(document).ready(function () {
     var ruta = "http://localhost:1525/Risk/General";
-    $('#contenidoDinamico').load(ruta, { 'id': $('#IdRiesgo').val() });
+    $('#contenidoDinamico').load(ruta);
 })
 </script>

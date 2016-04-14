@@ -1,12 +1,51 @@
-﻿  <!-- GENERAL DATA RATING PANEL -->
+﻿@using Risk.Models
+
+@{
+    qRiesgosNombre riesgoRecup = (qRiesgosNombre)Session["riesgo"];
+}
+
+@riesgoRecup.IdRiesgo
+
+<!-- GENERAL DATA RATING PANEL -->
 <!-- TITLE & BUTTONS -->
-<span class="title">GENERAL DATA RATING</span>
-<button type="button" class="btn btn-primary pull-right">SAVE</button>
-<button type="button" class="btn btn-default pull-right">DELETE</button>
-<button type="button" class="btn btn-default pull-right">NEW</button>
-<button type="button" class="btn btn-default pull-right">EXIT</button>
-<div class="clearfix"></div>
-<div class="divider"></div>
+
+@using (Html.BeginForm("GeneralFormulario", "Risk", FormMethod.Post)) {
+    @Html.AntiForgeryToken()
+
+    <span class="title">DATA SHEET</span>
+
+    <div id="botonera" class="pull-right">
+        <input type="submit" class="btn btn-primary" name="BtnDelete" value="DELETE" id="BtnDelete" />
+        <input type="submit" class="btn btn-primary" name="BtnNew" value="NEW" id="BtnNew" />
+        <input type="submit" class="btn btn-primary" name="BtnSave" value="SAVE" id="BtnSave" />
+        <input type="submit" class="btn btn-primary" name="BtnExit" value="EXIT" id="BtnExit" />
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="divider"></div>
+
+
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+
+            <!-- COLUMNA IZQUIERDA-->
+            <div class="col-lg-6 col-md-6">
+            
+            
+           
+            </div>
+
+
+
+            <!-- COLUMNA DERECHA-->
+            <div class="col-lg-6 col-md-6">
+
+
+            </div>
+        </div>
+    </div>
+}
+
 
 
 

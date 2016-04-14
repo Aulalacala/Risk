@@ -40,6 +40,6 @@ $('a[id^="mnu_"]').click(function () {
     var id = $(this).attr("id").replace('mnu_', '');
     var ruta = "http://localhost:1525/Risk/" + id;
 
-    $('#contenidoDinamico').load(ruta, { 'id': $('#IdRiesgo').val() });
+    $('#contenidoDinamico').load(ruta);
 })
 
