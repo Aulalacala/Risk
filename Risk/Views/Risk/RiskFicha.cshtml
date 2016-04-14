@@ -30,25 +30,60 @@
 <h3 class="darker"><strong>@riesgoRecup.CodRiesgo</strong></h3>
 
 
-<input id="IdRiesgo" type="hidden" value="@riesgoRecup.IdRiesgo"/>
+<input id="IdRiesgo" type="hidden" value="@riesgoRecup.IdRiesgo" />
 
 <div id="menu">
     <hr />
     <ul class="nav nav-pills">
-        <li><h4><a class="menuRisk" id="General">General</a></h4></li>
-        <li><h4><a class="menuRisk" id="OperationalImpact">Operational Impact</a></h4></li>
-        <li><h4><a class="menuRisk" id="ReputationalImpact">Reputational Impact</a></h4></li>
-        <li><h4><a class="menuRisk" id="Scoope">Scoope</a></h4></li>
-        <li><h4><a class="menuRisk" id="Historical">Historical</a></h4></li>
-        <li><h4><a class="menuRisk" id="Graphic">Graphic</a></h4></li>
+        <li><h4><a class="menuRisk" id="General" href="#">General</a></h4></li>
+        <li><h4><a class="menuRisk" id="OperationalImpact" href="#">Operational Impact</a></h4></li>
+        <li><h4><a class="menuRisk" id="ReputationalImpact" href="#">Reputational Impact</a></h4></li>
+        <li><h4><a class="menuRisk" id="Scoope" href="#">Scoope</a></h4></li>
+        <li><h4><a class="menuRisk" id="Historical" href="#">Historical</a></h4></li>
+        <li><h4><a class="menuRisk" id="Graphic" href="#">Graphic</a></h4></li>
     </ul>
     <hr />
 
+</div>
+
+
+<!-- GENERAL DATA OF RISK -->
+<div class="panel">
+    <div class="panel-body">
+        <!-- TITLE & ATTRIBUTES -->
+        <span class="title">GENERAL DATA RISK</span>
+        <div class="clearfix"></div>
+        <div class="divider"></div>
+
+        <!-- FORM -->
+        <div class="row">
+
+            <!-- COLUMN LEFT -->
+            <div class="col-lg-6 col-md-8">
+
+                <!-- DIVIDER -->
+                <div class="divider-30"></div>
+
+                <!-- ROW BP -->
+                <div class="row no-field">
+                    <div class="col-lg-3 col-md-4">
+                        <span class="form-left-label"><b>NAME</b></span>
+                    </div>
+
+                    <div class="col-lg-9 col-md-8">
+                        <span>@riesgoRecup.Nombre</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 
 <div class="panel">
     <div id="partialViewsRisk" class="panel-body">
     </div>
 </div>
+
+
 
 

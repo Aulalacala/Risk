@@ -29,5 +29,5 @@ $("select[ref=comboDinamico]").change(function () {
 
 $(".menuRisk").click(function () {
     var ruta = "http://localhost:1525/Risk/" + $(this).text().replace(' ', '');
-    $('#partialViewsRisk').load(ruta + { 'id' : $('#IdRiesgo').val() });
+    $('#partialViewsRisk').load(ruta, { 'id' : $('#IdRiesgo').val() });
 })

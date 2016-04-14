@@ -20,7 +20,8 @@ namespace Risk.Controllers
             return View();
         }
 
-        public ActionResult General( int id) {
+        public ActionResult General(int id) {
+
             // Recuperar ese riesgo y pintar los datos
 
             return PartialView();
