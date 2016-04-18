@@ -21,28 +21,22 @@ namespace Risk.Controllers
 
         // GET: Risk
         public ActionResult RiskFicha(int id)
-        {
-            qRiesgosNombre riesgoRecup = BD_Riesgos.recuperarRiesgo(id);
-            Session["riesgo"] = riesgoRecup;
-            //ViewBag.riesgoRecup = riesgoRecup;
-
-            FichaRiesgoVM fichaRiesgoVM = new FichaRiesgoVM();
-            fichaRiesgoVM.qRiesgosNombre_VM = riesgoRecup;
-
+        {         
+            FichaRiesgoVM fichaRiesgoVM = montaVM(id);
             return View(fichaRiesgoVM);
         }
 
-        public ActionResult General()
+        public ActionResult General(int id)
         {
-            // Recuperar ese riesgo y pintar los datos   
+            FichaRiesgoVM fichaRiesgoVM = montaVM(id);
 
-            qRiesgosNombre riesgoRecup = (qRiesgosNombre)Session["riesgo"];
+            Dictionary<int, string> dicCategorias = BD_Riesgos.listadoCategorias();
+            ViewBag.dicCategorias = dicCategorias;
 
+            Dictionary<int, string> dicClasificacion1 = BD_Riesgos.listadoClasif1();
+            ViewBag.dicClasificacion1 = dicClasificacion1;
 
-            FichaRiesgoVM fichaRiesgoVM = new FichaRiesgoVM();
-            fichaRiesgoVM.qRiesgosNombre_VM = riesgoRecup;
-
-            return PartialView();
+            return PartialView(fichaRiesgoVM);
         }
 
         public ActionResult Graphic()
@@ -89,6 +83,21 @@ namespace Risk.Controllers
             return jsonString;
         }
 
+        public FichaRiesgoVM montaVM(int id)
+        {
+            qRiesgosNombre riesgoRecup = BD_Riesgos.recuperarRiesgo(id);
+            FichaRiesgoVM fichaRiesgoVM = new FichaRiesgoVM();
+            fichaRiesgoVM.qRiesgosNombre_VM = riesgoRecup;
+            return fichaRiesgoVM;
+        }
 
+        public string recuperaListClasif(int idEstructura)
+        {
+            Dictionary<int, string> dicClasificacion2 = BD_Riesgos.listadoClasifDinamic(idEstructura);
+            ViewBag.dicClasificacion2 = dicClasificacion2;
+
+            var j = JsonConvert.SerializeObject(dicClasificacion2);
+            return j;
+        }
     }
 }

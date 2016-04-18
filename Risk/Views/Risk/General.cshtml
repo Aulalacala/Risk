@@ -30,19 +30,149 @@
 
     <div class="row">
         <div class="col-lg-12 col-md-12">
+            <br/>
 
             <!-- COLUMNA IZQUIERDA-->
             <div class="col-lg-6 col-md-6">
-                <br />
-                @*@Html.LabelFor(model => model.qRiesgosNombre_VM.Nombre)
-                @Html.EditorFor(model => model.qRiesgosNombre_VM.Nombre)
-                @Model.qRiesgosNombre_VM.Nombre*@
+
+                
+                <div class="row">
+                    <div class="col-lg-4 col-md-4">
+                        <span class="form-left-label">Example</span>
+                    </div>
+
+                    <div class="col-lg-8 col-md-8">
+                        @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Ejemplo, 5, 50, new { @class = "form-control", @readonly = "readonly",  @disabled = "disabled"  })
+                    </div>
+                </div>
+
+                <div class="row ">
+                    <div class="col-lg-4 col-md-4">
+                        <span class="form-left-label">Cause</span>
+                    </div>
+
+                    <div class="col-lg-8 col-md-8">
+                        @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Descripcion, 5, 50, new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-4 col-md-4">
+                        <span class="form-left-label">Justification for control improvement</span>
+                    </div>
+
+                    <div class="col-lg-8 col-md-8">
+                        @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Justificacion, 5, 50, new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
+                    </div>
+                </div>
+
+
             </div>
 
 
 
             <!-- COLUMNA DERECHA-->
             <div class="col-lg-6 col-md-6">
+
+                <!-- ROW CATEGORIA -->
+                <div class="row row-no-padding">
+                    <div class="col-lg-2 col-md-2">
+                        <span class="form-left-label" id="labelCategoria">Categoría</span>
+                    </div>
+
+                    <div class="col-lg-10 col-md-10s">
+                        <select class="form-control w100" name="categoria" id="selectCategoria" filtro="IdCategoria">                          
+                            @{
+                                Dictionary<int, string> dicCategorias = ViewBag.dicCategorias;
+                                foreach (var categoria in dicCategorias)
+                                {
+                                    if (categoria.Key.Equals(Model.qRiesgosNombre_VM.IdCategoria))
+                                    {
+                                        <option value="@categoria.Key" selected="selected">@categoria.Value </option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@categoria.Key">@categoria.Value </option>
+                                    }
+                                }
+                            }
+                        </select>
+                    </div>
+                </div>
+
+                <!-- ROW LEVEL 1 -->
+                <div class="row row-no-padding">
+                    <div class="col-lg-2 col-md-2">
+                        <span class="form-left-label" id="labelClasif1">Level 1</span>
+                    </div>
+
+                    <div class="col-lg-10 col-md-10">
+                        <select class="form-control w100" name="clasificacion1" ref="comboDinamico" id="selectClasif_1" sig="selectClasif_2">
+                            @{
+                                Dictionary<int, string> dicClasificacion1 = ViewBag.dicClasificacion1;
+                                foreach (var clasif1 in dicClasificacion1)
+                                {
+                                    if (clasif1.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion1))
+                                    {
+                                        <option value="@clasif1.Key" selected="selected">@clasif1.Value </option>
+                                    }
+                                    else
+                                    {
+                                        <option value="@clasif1.Key">@clasif1.Value </option>
+                                    }
+                                }
+                            }
+                        </select>
+                        <script>
+                            cargar();                         
+                        </script>
+                    </div>
+                </div>
+
+                <!-- ROW LEVEL 2 -->
+                <div class="row row-no-padding">
+                    <div class="col-lg-2 col-md-2">
+                        <span class="form-left-label" id="labelClasif2">Level 2</span>
+                    </div>
+
+                    <div class="col-lg-10 col-md-10">
+                        <select class="form-control w100" name="clasificacion2" ref="comboDinamico" id="selectClasif_2" sig="selectClasif_3">
+                            <option selected="selected" value="0"> </option>
+
+                            @{
+                                if (ViewBag.dicClasificacion2 != null)
+                                {
+                                    Dictionary<int, string> dicClasificacion2 = ViewBag.dicClasificacion2;
+                                    foreach (var clasif2 in dicClasificacion2)
+                                    {
+                                        if (clasif2.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion2))
+                                        {
+                                            <option value="@clasif2.Key" selected="selected">@clasif2.Value </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@clasif2.Key">@clasif2.Value </option>
+                                        }
+                                    }
+                                }
+                            }
+
+                        </select>
+                    </div>
+                </div>
+
+                <!-- ROW LEVEL 3 -->
+                <div class="row row-no-padding">
+                    <div class="col-lg-2 col-md-2">
+                        <span class="form-left-label" id="labelClasif1">Level 3</span>
+                    </div>
+
+                    <div class="col-lg-10 col-md-10">
+                        <select class="form-control w100" name="clasificacion3" ref="comboDinamico" id="selectClasif_3">
+                            <option selected="selected" value="0"> </option>
+                        </select>
+                    </div>
+                </div>
 
 
             </div>
