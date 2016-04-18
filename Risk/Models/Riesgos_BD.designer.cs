@@ -39,6 +39,15 @@ namespace Risk.Models
     partial void InserttRiesgos_Clasificaciones(tRiesgos_Clasificaciones instance);
     partial void UpdatetRiesgos_Clasificaciones(tRiesgos_Clasificaciones instance);
     partial void DeletetRiesgos_Clasificaciones(tRiesgos_Clasificaciones instance);
+    partial void InserttRiesgosEvaluaciones(tRiesgosEvaluaciones instance);
+    partial void UpdatetRiesgosEvaluaciones(tRiesgosEvaluaciones instance);
+    partial void DeletetRiesgosEvaluaciones(tRiesgosEvaluaciones instance);
+    partial void InserttEva_Frecuencia(tEva_Frecuencia instance);
+    partial void UpdatetEva_Frecuencia(tEva_Frecuencia instance);
+    partial void DeletetEva_Frecuencia(tEva_Frecuencia instance);
+    partial void InserttEva_Severidad(tEva_Severidad instance);
+    partial void UpdatetEva_Severidad(tEva_Severidad instance);
+    partial void DeletetEva_Severidad(tEva_Severidad instance);
     #endregion
 		
 		public Riesgos_BDDataContext() : 
@@ -100,6 +109,30 @@ namespace Risk.Models
 			get
 			{
 				return this.GetTable<qRiesgosNombre>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tRiesgosEvaluaciones> tRiesgosEvaluaciones
+		{
+			get
+			{
+				return this.GetTable<tRiesgosEvaluaciones>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tEva_Frecuencia> tEva_Frecuencia
+		{
+			get
+			{
+				return this.GetTable<tEva_Frecuencia>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tEva_Severidad> tEva_Severidad
+		{
+			get
+			{
+				return this.GetTable<tEva_Severidad>();
 			}
 		}
 	}
@@ -1291,6 +1324,936 @@ namespace Risk.Models
 				{
 					this._IdControlesEfectividad = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tRiesgosEvaluaciones")]
+	public partial class tRiesgosEvaluaciones : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdEvaluacion;
+		
+		private System.Nullable<int> _IdRiesgo;
+		
+		private System.Nullable<int> _IdNivel;
+		
+		private System.Nullable<System.DateTime> _Fecha;
+		
+		private bool _Activa;
+		
+		private bool _Ultima;
+		
+		private System.Nullable<int> _IdFrecAntes;
+		
+		private System.Nullable<int> _IdSeveAntes;
+		
+		private System.Nullable<int> _IdFrecDespues;
+		
+		private System.Nullable<int> _IdSeveDespues;
+		
+		private System.Nullable<int> _IdSevePeorAntes;
+		
+		private System.Nullable<int> _IdSevePeorDespues;
+		
+		private System.Nullable<int> _idEfectividad;
+		
+		private System.Nullable<double> _Efectividad;
+		
+		private System.Nullable<int> _IdFrecPlanDespues;
+		
+		private System.Nullable<int> _IdSevePlanDespues;
+		
+		private System.Nullable<int> _IdSevePeorPlanDespues;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdEvaluacionChanging(int value);
+    partial void OnIdEvaluacionChanged();
+    partial void OnIdRiesgoChanging(System.Nullable<int> value);
+    partial void OnIdRiesgoChanged();
+    partial void OnIdNivelChanging(System.Nullable<int> value);
+    partial void OnIdNivelChanged();
+    partial void OnFechaChanging(System.Nullable<System.DateTime> value);
+    partial void OnFechaChanged();
+    partial void OnActivaChanging(bool value);
+    partial void OnActivaChanged();
+    partial void OnUltimaChanging(bool value);
+    partial void OnUltimaChanged();
+    partial void OnIdFrecAntesChanging(System.Nullable<int> value);
+    partial void OnIdFrecAntesChanged();
+    partial void OnIdSeveAntesChanging(System.Nullable<int> value);
+    partial void OnIdSeveAntesChanged();
+    partial void OnIdFrecDespuesChanging(System.Nullable<int> value);
+    partial void OnIdFrecDespuesChanged();
+    partial void OnIdSeveDespuesChanging(System.Nullable<int> value);
+    partial void OnIdSeveDespuesChanged();
+    partial void OnIdSevePeorAntesChanging(System.Nullable<int> value);
+    partial void OnIdSevePeorAntesChanged();
+    partial void OnIdSevePeorDespuesChanging(System.Nullable<int> value);
+    partial void OnIdSevePeorDespuesChanged();
+    partial void OnidEfectividadChanging(System.Nullable<int> value);
+    partial void OnidEfectividadChanged();
+    partial void OnEfectividadChanging(System.Nullable<double> value);
+    partial void OnEfectividadChanged();
+    partial void OnIdFrecPlanDespuesChanging(System.Nullable<int> value);
+    partial void OnIdFrecPlanDespuesChanged();
+    partial void OnIdSevePlanDespuesChanging(System.Nullable<int> value);
+    partial void OnIdSevePlanDespuesChanged();
+    partial void OnIdSevePeorPlanDespuesChanging(System.Nullable<int> value);
+    partial void OnIdSevePeorPlanDespuesChanged();
+    #endregion
+		
+		public tRiesgosEvaluaciones()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEvaluacion", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdEvaluacion
+		{
+			get
+			{
+				return this._IdEvaluacion;
+			}
+			set
+			{
+				if ((this._IdEvaluacion != value))
+				{
+					this.OnIdEvaluacionChanging(value);
+					this.SendPropertyChanging();
+					this._IdEvaluacion = value;
+					this.SendPropertyChanged("IdEvaluacion");
+					this.OnIdEvaluacionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdRiesgo", DbType="Int")]
+		public System.Nullable<int> IdRiesgo
+		{
+			get
+			{
+				return this._IdRiesgo;
+			}
+			set
+			{
+				if ((this._IdRiesgo != value))
+				{
+					this.OnIdRiesgoChanging(value);
+					this.SendPropertyChanging();
+					this._IdRiesgo = value;
+					this.SendPropertyChanged("IdRiesgo");
+					this.OnIdRiesgoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdNivel", DbType="Int")]
+		public System.Nullable<int> IdNivel
+		{
+			get
+			{
+				return this._IdNivel;
+			}
+			set
+			{
+				if ((this._IdNivel != value))
+				{
+					this.OnIdNivelChanging(value);
+					this.SendPropertyChanging();
+					this._IdNivel = value;
+					this.SendPropertyChanged("IdNivel");
+					this.OnIdNivelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Fecha", DbType="DateTime")]
+		public System.Nullable<System.DateTime> Fecha
+		{
+			get
+			{
+				return this._Fecha;
+			}
+			set
+			{
+				if ((this._Fecha != value))
+				{
+					this.OnFechaChanging(value);
+					this.SendPropertyChanging();
+					this._Fecha = value;
+					this.SendPropertyChanged("Fecha");
+					this.OnFechaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Activa", DbType="Bit NOT NULL")]
+		public bool Activa
+		{
+			get
+			{
+				return this._Activa;
+			}
+			set
+			{
+				if ((this._Activa != value))
+				{
+					this.OnActivaChanging(value);
+					this.SendPropertyChanging();
+					this._Activa = value;
+					this.SendPropertyChanged("Activa");
+					this.OnActivaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ultima", DbType="Bit NOT NULL")]
+		public bool Ultima
+		{
+			get
+			{
+				return this._Ultima;
+			}
+			set
+			{
+				if ((this._Ultima != value))
+				{
+					this.OnUltimaChanging(value);
+					this.SendPropertyChanging();
+					this._Ultima = value;
+					this.SendPropertyChanged("Ultima");
+					this.OnUltimaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdFrecAntes", DbType="Int")]
+		public System.Nullable<int> IdFrecAntes
+		{
+			get
+			{
+				return this._IdFrecAntes;
+			}
+			set
+			{
+				if ((this._IdFrecAntes != value))
+				{
+					this.OnIdFrecAntesChanging(value);
+					this.SendPropertyChanging();
+					this._IdFrecAntes = value;
+					this.SendPropertyChanged("IdFrecAntes");
+					this.OnIdFrecAntesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSeveAntes", DbType="Int")]
+		public System.Nullable<int> IdSeveAntes
+		{
+			get
+			{
+				return this._IdSeveAntes;
+			}
+			set
+			{
+				if ((this._IdSeveAntes != value))
+				{
+					this.OnIdSeveAntesChanging(value);
+					this.SendPropertyChanging();
+					this._IdSeveAntes = value;
+					this.SendPropertyChanged("IdSeveAntes");
+					this.OnIdSeveAntesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdFrecDespues", DbType="Int")]
+		public System.Nullable<int> IdFrecDespues
+		{
+			get
+			{
+				return this._IdFrecDespues;
+			}
+			set
+			{
+				if ((this._IdFrecDespues != value))
+				{
+					this.OnIdFrecDespuesChanging(value);
+					this.SendPropertyChanging();
+					this._IdFrecDespues = value;
+					this.SendPropertyChanged("IdFrecDespues");
+					this.OnIdFrecDespuesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSeveDespues", DbType="Int")]
+		public System.Nullable<int> IdSeveDespues
+		{
+			get
+			{
+				return this._IdSeveDespues;
+			}
+			set
+			{
+				if ((this._IdSeveDespues != value))
+				{
+					this.OnIdSeveDespuesChanging(value);
+					this.SendPropertyChanging();
+					this._IdSeveDespues = value;
+					this.SendPropertyChanged("IdSeveDespues");
+					this.OnIdSeveDespuesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSevePeorAntes", DbType="Int")]
+		public System.Nullable<int> IdSevePeorAntes
+		{
+			get
+			{
+				return this._IdSevePeorAntes;
+			}
+			set
+			{
+				if ((this._IdSevePeorAntes != value))
+				{
+					this.OnIdSevePeorAntesChanging(value);
+					this.SendPropertyChanging();
+					this._IdSevePeorAntes = value;
+					this.SendPropertyChanged("IdSevePeorAntes");
+					this.OnIdSevePeorAntesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSevePeorDespues", DbType="Int")]
+		public System.Nullable<int> IdSevePeorDespues
+		{
+			get
+			{
+				return this._IdSevePeorDespues;
+			}
+			set
+			{
+				if ((this._IdSevePeorDespues != value))
+				{
+					this.OnIdSevePeorDespuesChanging(value);
+					this.SendPropertyChanging();
+					this._IdSevePeorDespues = value;
+					this.SendPropertyChanged("IdSevePeorDespues");
+					this.OnIdSevePeorDespuesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEfectividad", DbType="Int")]
+		public System.Nullable<int> idEfectividad
+		{
+			get
+			{
+				return this._idEfectividad;
+			}
+			set
+			{
+				if ((this._idEfectividad != value))
+				{
+					this.OnidEfectividadChanging(value);
+					this.SendPropertyChanging();
+					this._idEfectividad = value;
+					this.SendPropertyChanged("idEfectividad");
+					this.OnidEfectividadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Efectividad", DbType="Float")]
+		public System.Nullable<double> Efectividad
+		{
+			get
+			{
+				return this._Efectividad;
+			}
+			set
+			{
+				if ((this._Efectividad != value))
+				{
+					this.OnEfectividadChanging(value);
+					this.SendPropertyChanging();
+					this._Efectividad = value;
+					this.SendPropertyChanged("Efectividad");
+					this.OnEfectividadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdFrecPlanDespues", DbType="Int")]
+		public System.Nullable<int> IdFrecPlanDespues
+		{
+			get
+			{
+				return this._IdFrecPlanDespues;
+			}
+			set
+			{
+				if ((this._IdFrecPlanDespues != value))
+				{
+					this.OnIdFrecPlanDespuesChanging(value);
+					this.SendPropertyChanging();
+					this._IdFrecPlanDespues = value;
+					this.SendPropertyChanged("IdFrecPlanDespues");
+					this.OnIdFrecPlanDespuesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSevePlanDespues", DbType="Int")]
+		public System.Nullable<int> IdSevePlanDespues
+		{
+			get
+			{
+				return this._IdSevePlanDespues;
+			}
+			set
+			{
+				if ((this._IdSevePlanDespues != value))
+				{
+					this.OnIdSevePlanDespuesChanging(value);
+					this.SendPropertyChanging();
+					this._IdSevePlanDespues = value;
+					this.SendPropertyChanged("IdSevePlanDespues");
+					this.OnIdSevePlanDespuesChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSevePeorPlanDespues", DbType="Int")]
+		public System.Nullable<int> IdSevePeorPlanDespues
+		{
+			get
+			{
+				return this._IdSevePeorPlanDespues;
+			}
+			set
+			{
+				if ((this._IdSevePeorPlanDespues != value))
+				{
+					this.OnIdSevePeorPlanDespuesChanging(value);
+					this.SendPropertyChanging();
+					this._IdSevePeorPlanDespues = value;
+					this.SendPropertyChanged("IdSevePeorPlanDespues");
+					this.OnIdSevePeorPlanDespuesChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tEva_Frecuencia")]
+	public partial class tEva_Frecuencia : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdEvaFrecuencia;
+		
+		private string _Frecuencia;
+		
+		private string _Descrip;
+		
+		private string _Riesgo;
+		
+		private System.Nullable<double> _Matriz;
+		
+		private System.Nullable<double> _FrecMedia;
+		
+		private System.Nullable<int> _Orden;
+		
+		private string _Color;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdEvaFrecuenciaChanging(int value);
+    partial void OnIdEvaFrecuenciaChanged();
+    partial void OnFrecuenciaChanging(string value);
+    partial void OnFrecuenciaChanged();
+    partial void OnDescripChanging(string value);
+    partial void OnDescripChanged();
+    partial void OnRiesgoChanging(string value);
+    partial void OnRiesgoChanged();
+    partial void OnMatrizChanging(System.Nullable<double> value);
+    partial void OnMatrizChanged();
+    partial void OnFrecMediaChanging(System.Nullable<double> value);
+    partial void OnFrecMediaChanged();
+    partial void OnOrdenChanging(System.Nullable<int> value);
+    partial void OnOrdenChanged();
+    partial void OnColorChanging(string value);
+    partial void OnColorChanged();
+    #endregion
+		
+		public tEva_Frecuencia()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEvaFrecuencia", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdEvaFrecuencia
+		{
+			get
+			{
+				return this._IdEvaFrecuencia;
+			}
+			set
+			{
+				if ((this._IdEvaFrecuencia != value))
+				{
+					this.OnIdEvaFrecuenciaChanging(value);
+					this.SendPropertyChanging();
+					this._IdEvaFrecuencia = value;
+					this.SendPropertyChanged("IdEvaFrecuencia");
+					this.OnIdEvaFrecuenciaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Frecuencia", DbType="NVarChar(50)")]
+		public string Frecuencia
+		{
+			get
+			{
+				return this._Frecuencia;
+			}
+			set
+			{
+				if ((this._Frecuencia != value))
+				{
+					this.OnFrecuenciaChanging(value);
+					this.SendPropertyChanging();
+					this._Frecuencia = value;
+					this.SendPropertyChanged("Frecuencia");
+					this.OnFrecuenciaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Descrip", DbType="NVarChar(250)")]
+		public string Descrip
+		{
+			get
+			{
+				return this._Descrip;
+			}
+			set
+			{
+				if ((this._Descrip != value))
+				{
+					this.OnDescripChanging(value);
+					this.SendPropertyChanging();
+					this._Descrip = value;
+					this.SendPropertyChanged("Descrip");
+					this.OnDescripChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Riesgo", DbType="NVarChar(250)")]
+		public string Riesgo
+		{
+			get
+			{
+				return this._Riesgo;
+			}
+			set
+			{
+				if ((this._Riesgo != value))
+				{
+					this.OnRiesgoChanging(value);
+					this.SendPropertyChanging();
+					this._Riesgo = value;
+					this.SendPropertyChanged("Riesgo");
+					this.OnRiesgoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Matriz", DbType="Float")]
+		public System.Nullable<double> Matriz
+		{
+			get
+			{
+				return this._Matriz;
+			}
+			set
+			{
+				if ((this._Matriz != value))
+				{
+					this.OnMatrizChanging(value);
+					this.SendPropertyChanging();
+					this._Matriz = value;
+					this.SendPropertyChanged("Matriz");
+					this.OnMatrizChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FrecMedia", DbType="Float")]
+		public System.Nullable<double> FrecMedia
+		{
+			get
+			{
+				return this._FrecMedia;
+			}
+			set
+			{
+				if ((this._FrecMedia != value))
+				{
+					this.OnFrecMediaChanging(value);
+					this.SendPropertyChanging();
+					this._FrecMedia = value;
+					this.SendPropertyChanged("FrecMedia");
+					this.OnFrecMediaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int")]
+		public System.Nullable<int> Orden
+		{
+			get
+			{
+				return this._Orden;
+			}
+			set
+			{
+				if ((this._Orden != value))
+				{
+					this.OnOrdenChanging(value);
+					this.SendPropertyChanging();
+					this._Orden = value;
+					this.SendPropertyChanged("Orden");
+					this.OnOrdenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Color", DbType="NVarChar(50)")]
+		public string Color
+		{
+			get
+			{
+				return this._Color;
+			}
+			set
+			{
+				if ((this._Color != value))
+				{
+					this.OnColorChanging(value);
+					this.SendPropertyChanging();
+					this._Color = value;
+					this.SendPropertyChanged("Color");
+					this.OnColorChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tEva_Severidad")]
+	public partial class tEva_Severidad : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdEvaSeveridad;
+		
+		private string _Severidad;
+		
+		private string _Impacto;
+		
+		private System.Nullable<double> _Matriz;
+		
+		private System.Nullable<double> _Media;
+		
+		private System.Nullable<double> _LimSuperior;
+		
+		private System.Nullable<double> _Matriz2;
+		
+		private System.Nullable<int> _Orden;
+		
+		private string _Color;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdEvaSeveridadChanging(int value);
+    partial void OnIdEvaSeveridadChanged();
+    partial void OnSeveridadChanging(string value);
+    partial void OnSeveridadChanged();
+    partial void OnImpactoChanging(string value);
+    partial void OnImpactoChanged();
+    partial void OnMatrizChanging(System.Nullable<double> value);
+    partial void OnMatrizChanged();
+    partial void OnMediaChanging(System.Nullable<double> value);
+    partial void OnMediaChanged();
+    partial void OnLimSuperiorChanging(System.Nullable<double> value);
+    partial void OnLimSuperiorChanged();
+    partial void OnMatriz2Changing(System.Nullable<double> value);
+    partial void OnMatriz2Changed();
+    partial void OnOrdenChanging(System.Nullable<int> value);
+    partial void OnOrdenChanged();
+    partial void OnColorChanging(string value);
+    partial void OnColorChanged();
+    #endregion
+		
+		public tEva_Severidad()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEvaSeveridad", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdEvaSeveridad
+		{
+			get
+			{
+				return this._IdEvaSeveridad;
+			}
+			set
+			{
+				if ((this._IdEvaSeveridad != value))
+				{
+					this.OnIdEvaSeveridadChanging(value);
+					this.SendPropertyChanging();
+					this._IdEvaSeveridad = value;
+					this.SendPropertyChanged("IdEvaSeveridad");
+					this.OnIdEvaSeveridadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Severidad", DbType="NVarChar(50)")]
+		public string Severidad
+		{
+			get
+			{
+				return this._Severidad;
+			}
+			set
+			{
+				if ((this._Severidad != value))
+				{
+					this.OnSeveridadChanging(value);
+					this.SendPropertyChanging();
+					this._Severidad = value;
+					this.SendPropertyChanged("Severidad");
+					this.OnSeveridadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Impacto", DbType="NVarChar(250)")]
+		public string Impacto
+		{
+			get
+			{
+				return this._Impacto;
+			}
+			set
+			{
+				if ((this._Impacto != value))
+				{
+					this.OnImpactoChanging(value);
+					this.SendPropertyChanging();
+					this._Impacto = value;
+					this.SendPropertyChanged("Impacto");
+					this.OnImpactoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Matriz", DbType="Float")]
+		public System.Nullable<double> Matriz
+		{
+			get
+			{
+				return this._Matriz;
+			}
+			set
+			{
+				if ((this._Matriz != value))
+				{
+					this.OnMatrizChanging(value);
+					this.SendPropertyChanging();
+					this._Matriz = value;
+					this.SendPropertyChanged("Matriz");
+					this.OnMatrizChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Media", DbType="Float")]
+		public System.Nullable<double> Media
+		{
+			get
+			{
+				return this._Media;
+			}
+			set
+			{
+				if ((this._Media != value))
+				{
+					this.OnMediaChanging(value);
+					this.SendPropertyChanging();
+					this._Media = value;
+					this.SendPropertyChanged("Media");
+					this.OnMediaChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LimSuperior", DbType="Float")]
+		public System.Nullable<double> LimSuperior
+		{
+			get
+			{
+				return this._LimSuperior;
+			}
+			set
+			{
+				if ((this._LimSuperior != value))
+				{
+					this.OnLimSuperiorChanging(value);
+					this.SendPropertyChanging();
+					this._LimSuperior = value;
+					this.SendPropertyChanged("LimSuperior");
+					this.OnLimSuperiorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Matriz2", DbType="Float")]
+		public System.Nullable<double> Matriz2
+		{
+			get
+			{
+				return this._Matriz2;
+			}
+			set
+			{
+				if ((this._Matriz2 != value))
+				{
+					this.OnMatriz2Changing(value);
+					this.SendPropertyChanging();
+					this._Matriz2 = value;
+					this.SendPropertyChanged("Matriz2");
+					this.OnMatriz2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int")]
+		public System.Nullable<int> Orden
+		{
+			get
+			{
+				return this._Orden;
+			}
+			set
+			{
+				if ((this._Orden != value))
+				{
+					this.OnOrdenChanging(value);
+					this.SendPropertyChanging();
+					this._Orden = value;
+					this.SendPropertyChanged("Orden");
+					this.OnOrdenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Color", DbType="NVarChar(50)")]
+		public string Color
+		{
+			get
+			{
+				return this._Color;
+			}
+			set
+			{
+				if ((this._Color != value))
+				{
+					this.OnColorChanging(value);
+					this.SendPropertyChanging();
+					this._Color = value;
+					this.SendPropertyChanged("Color");
+					this.OnColorChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

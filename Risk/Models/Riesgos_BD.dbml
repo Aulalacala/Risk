@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Risk" Class="Riesgos_BDDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="WebSettings" ConnectionString="Data Source=JVALLEJO-PC\sql2008;Initial Catalog=Risk;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="RiskConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="WebSettings" ConnectionString="Data Source=SONY-PC\SQL2008EXPR;Initial Catalog=Risk;Persist Security Info=True;User ID=sa" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="RiskConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.tRiesgos" Member="tRiesgos">
     <Type Name="tRiesgo">
       <Column Name="IdRiesgo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -64,6 +64,52 @@
       <Column Name="IdSupervisor" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="IdControlesOportunidad" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="IdControlesEfectividad" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tRiesgosEvaluaciones" Member="tRiesgosEvaluaciones">
+    <Type Name="tRiesgosEvaluaciones">
+      <Column Name="IdEvaluacion" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdRiesgo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdNivel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Fecha" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Activa" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="Ultima" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdFrecAntes" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdSeveAntes" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdFrecDespues" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdSeveDespues" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdSevePeorAntes" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdSevePeorDespues" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idEfectividad" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Efectividad" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="IdFrecPlanDespues" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdSevePlanDespues" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdSevePeorPlanDespues" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tEva_Frecuencia" Member="tEva_Frecuencia">
+    <Type Name="tEva_Frecuencia">
+      <Column Name="IdEvaFrecuencia" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Frecuencia" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Descrip" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Riesgo" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Matriz" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="FrecMedia" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Orden" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Color" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tEva_Severidad" Member="tEva_Severidad">
+    <Type Name="tEva_Severidad">
+      <Column Name="IdEvaSeveridad" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Severidad" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Impacto" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Matriz" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Media" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="LimSuperior" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Matriz2" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Orden" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Color" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>
