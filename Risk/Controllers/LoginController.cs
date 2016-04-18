@@ -57,6 +57,10 @@ namespace Risk.Controllers
                         return View("Login");
                     }
                 }
+            } else
+            {
+                var errors = ModelState.SelectMany(x => x.Value.Errors.Select(z => z.Exception));
+                return View("Login");
             }
 
 

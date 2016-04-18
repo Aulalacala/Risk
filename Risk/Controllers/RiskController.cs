@@ -64,14 +64,12 @@ namespace Risk.Controllers
             SqlCommandBuilder builder;
             string jsonString = string.Empty;
            
-
-
             using (conexionBD = new SqlConnection(ConfigurationManager.ConnectionStrings["RiskConnectionString"].ConnectionString))
             {
                 try
                 {
                     conexionBD.Open();
-                    adaptador = new SqlDataAdapter("SELECT * FROM GraficoYear", conexionBD);
+                    adaptador = new SqlDataAdapter("SELECT year, value FROM GraficoYear", conexionBD);
                     builder= new SqlCommandBuilder(adaptador);
                     adaptador.Fill(miDataSet, "GraficoYear");
 

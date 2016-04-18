@@ -176,7 +176,8 @@ namespace Risk.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usuario", DbType="NVarChar(15)")]
-		public string Usuario
+        [Required(ErrorMessage = "User required")]
+        public string Usuario
 		{
 			get
 			{
@@ -197,6 +198,8 @@ namespace Risk.Models
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Clave", DbType="NVarChar(100)")]
         [DataType(DataType.Password)]
+        [Required(ErrorMessage = "Password required")]
+
         public string Clave
 		{
 			get
