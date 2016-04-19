@@ -57,8 +57,8 @@
       <Column Name="Color" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.[qRiesgos_Evaluaciones _Valores]" Member="qRiesgos_Evaluaciones__Valores">
-    <Type Name="qRiesgos_Evaluaciones__Valores">
+  <Table Name="dbo.[qRiesgos_Evaluaciones _Valores]" Member="qRiesgos_Evaluaciones_Valores">
+    <Type Name="qRiesgos_Evaluaciones_Valores">
       <Column Name="IdRiesgo" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Ultima" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="IdFrecAntes" Type="System.Int32" DbType="Int" CanBeNull="true" />
@@ -145,6 +145,20 @@
       <Column Name="Oportunidad" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="IdControlesEfectividad" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Efectividad" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tRiesgos_ControlOportunidad" Member="tRiesgos_ControlOportunidad">
+    <Type Name="tRiesgos_ControlOportunidad">
+      <Column Name="IdControlOportunidad" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Oportunidad" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Orden" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tRiesgos_ControlEfectividad" Member="tRiesgos_ControlEfectividad">
+    <Type Name="tRiesgos_ControlEfectividad">
+      <Column Name="IdControlEfectividad" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Efectividad" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Orden" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

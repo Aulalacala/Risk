@@ -1,13 +1,8 @@
 ﻿@using Risk.Models
-@model Risk.ViewModels.FichaRiesgoVM
+@model Risk.Models.qRiesgosNombres
 @{
     ViewBag.Title = "RiskFicha";
     Layout = "~/Views/Shared/_Layout.cshtml";
-}
-
-@{
-//qRiesgosNombre riesgoRecup = (Risk.Models.qRiesgosNombre)ViewBag.riesgoRecup;
-//qRiesgosNombre riesgoRecup = (qRiesgosNombre)Session["riesgo"];
 }
 
 <script type="text/javascript" src="~/Content/js/jquery/jquery-2.1.1.min.js"></script>
@@ -24,11 +19,10 @@
 <!-- MAIN CONTENT -->
 <!-- TITLE & SUBTITLE -->
 <h2>RISK FICHA</h2>
-<h3 class="darker"><strong>@Model.qRiesgosNombre_VM.CodRiesgo</strong></h3>
+<h3 class="darker"><strong>@Model.CodRiesgo</strong></h3>
 
 
-<input id="IdRiesgo" type="hidden" value="@Model.qRiesgosNombre_VM.IdRiesgo" />
-
+<input id="IdRiesgo" type="hidden" value="@Model.IdRiesgo" />
 
 
 <!-- GENERAL DATA OF RISK -->
@@ -55,26 +49,26 @@
                     </div>
 
                     <div class="col-lg-9 col-md-8">
-                                <span>@Model.qRiesgosNombre_VM.CodRiesgoLocalizado</span>
-                            </div>
-                        </div>
-                        <div class="row no-field">
-                            <div class="col-lg-3 col-md-4">
-                                <span class="form-left-label"><b>NAME</b></span>
-                            </div>
+                        <span>@Model.CodRiesgoLocalizado</span>
+                    </div>
+                </div>
+                <div class="row no-field">
+                    <div class="col-lg-3 col-md-4">
+                        <span class="form-left-label"><b>NAME</b></span>
+                    </div>
 
-                            <div class="col-lg-9 col-md-8">
-                                <span>@Model.qRiesgosNombre_VM.Nombre</span>
-                            </div>
-                        </div>
-                        <div class="row no-field">
-                            <div class="col-lg-3 col-md-4">
-                                <span class="form-left-label"><b>DESCRIPTION</b></span>
-                            </div>
+                    <div class="col-lg-9 col-md-8">
+                        <span>@Model.Nombre</span>
+                    </div>
+                </div>
+                <div class="row no-field">
+                    <div class="col-lg-3 col-md-4">
+                        <span class="form-left-label"><b>DESCRIPTION</b></span>
+                    </div>
 
-                            <div class="col-lg-9 col-md-8">
-                                <span>@Model.qRiesgosNombre_VM.Descripcion</span>
-                            </div>
+                    <div class="col-lg-9 col-md-8">
+                        <span>@Model.Descripcion</span>
+                    </div>
                 </div>
 
             </div>
@@ -120,6 +114,6 @@
     $(document).ready(function () {
         var id = $('#IdRiesgo').val();
         var ruta = "http://localhost:1525/Risk/General/";
-        $('#contenidoDinamico').load(ruta, {"id":id});
+        $('#contenidoDinamico').load(ruta, { "id": id });
     })
 </script>

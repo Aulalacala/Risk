@@ -291,10 +291,10 @@ namespace Risk.Controllers
         }
 
 
-        public qRiesgos_Evaluaciones__Valores recuperaEvaluaciones(int id)
+        public qRiesgos_Evaluaciones_Valores recuperaEvaluaciones(int id)
         {
-            qRiesgos_Evaluaciones__Valores datosEvaluaciones = new qRiesgos_Evaluaciones__Valores();
-            datosEvaluaciones = riesgosBD.qRiesgos_Evaluaciones__Valores.Where(r => r.IdRiesgo == id && r.Ultima == true).SingleOrDefault();
+            qRiesgos_Evaluaciones_Valores datosEvaluaciones = new qRiesgos_Evaluaciones_Valores();
+            datosEvaluaciones = riesgosBD.qRiesgos_Evaluaciones_Valores.Where(r => r.IdRiesgo == id && r.Ultima == true).SingleOrDefault();
             return datosEvaluaciones;
         }
 

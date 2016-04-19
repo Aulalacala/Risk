@@ -22,33 +22,13 @@ namespace Risk.Controllers
         // GET: Risk
         public ActionResult RiskFicha(int id)
         {         
-            FichaRiesgoVM fichaRiesgoVM = montaVM(id);
-            return View(fichaRiesgoVM);
+            qRiesgosNombres riesgoRecup = BD_Riesgos.recuperarRiesgo(id);
+            return View(riesgoRecup);
         }
 
         public ActionResult General(int id)
         {
             FichaRiesgoVM fichaRiesgoVM = montaVM(id);
-            //Dropdowns
-            Dictionary<int, string> dicCategorias = BD_Riesgos.listadoCategorias();
-            ViewBag.dicCategorias = dicCategorias;
-
-            Dictionary<int, string> dicClasificacion1 = BD_Riesgos.listadoClasif1();
-            ViewBag.dicClasificacion1 = dicClasificacion1;
-
-            Dictionary<int, string> dicClasificacion2 = BD_Riesgos.listadoClasifDinamic(Convert.ToInt32(fichaRiesgoVM.qRiesgosNombre_VM.IdClasificacion1));
-            ViewBag.dicClasificacion2 = dicClasificacion2;
-
-            Dictionary<int, string> dicClasificacion3 = BD_Riesgos.listadoClasifDinamic(Convert.ToInt32(fichaRiesgoVM.qRiesgosNombre_VM.IdClasificacion2));
-            ViewBag.dicClasificacion3 = dicClasificacion3;
-
-
-            //Financial Impact
-
-
-
-
-
             return PartialView(fichaRiesgoVM);
         }
 
@@ -99,11 +79,17 @@ namespace Risk.Controllers
         public FichaRiesgoVM montaVM(int id)
         {
             qRiesgosNombres riesgoRecup = BD_Riesgos.recuperarRiesgo(id);
-            qRiesgos_Evaluaciones__Valores evaluaciones = BD_Riesgos.recuperaEvaluaciones(id);
+            qRiesgos_Evaluaciones_Valores evaluaciones = BD_Riesgos.recuperaEvaluaciones(id);
 
             FichaRiesgoVM fichaRiesgoVM = new FichaRiesgoVM();
             fichaRiesgoVM.qRiesgosNombre_VM = riesgoRecup;
             fichaRiesgoVM.qRiesgos_Evaluaciones_Valores_VM = evaluaciones;
+
+            DropDownModel dropdowns = new DropDownModel();
+            dropdowns.dicClasificacion2= dropdowns.listadoClasifDinamic(Convert.ToInt32(fichaRiesgoVM.qRiesgosNombre_VM.IdClasificacion1));
+            dropdowns.dicClasificacion3 = dropdowns.listadoClasifDinamic(Convert.ToInt32(fichaRiesgoVM.qRiesgosNombre_VM.IdClasificacion2));
+
+            fichaRiesgoVM.dropDowns = dropdowns;
 
             return fichaRiesgoVM;
         }

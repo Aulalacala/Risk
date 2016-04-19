@@ -82,7 +82,7 @@
                         <div class="col-lg-10 col-md-10s">
                             <select class="form-control w100" name="categoria" id="selectCategoria" filtro="IdCategoria">
                                 @{
-                                    Dictionary<int, string> dicCategorias = ViewBag.dicCategorias;
+                                    Dictionary<int, string> dicCategorias = Model.dropDowns.dicCategorias;
                                     foreach (var categoria in dicCategorias)
                                     {
                                         if (categoria.Key.Equals(Model.qRiesgosNombre_VM.IdCategoria))
@@ -117,7 +117,7 @@
                         <div class="col-lg-10 col-md-10">
                             <select class="form-control w100" name="clasificacion1" ref="comboDinamico" id="selectClasif_1" sig="selectClasif_2">
                                 @{
-                                    Dictionary<int, string> dicClasificacion1 = ViewBag.dicClasificacion1;
+                                    Dictionary<int, string> dicClasificacion1 = Model.dropDowns.dicClasificacion1;
                                     foreach (var clasif1 in dicClasificacion1)
                                     {
                                         if (clasif1.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion1))
@@ -144,7 +144,7 @@
                         <div class="col-lg-10 col-md-10">
                             <select class="form-control w100" name="clasificacion2" ref="comboDinamico" id="selectClasif_2" sig="selectClasif_3">
                                 @{
-                                    Dictionary<int, string> dicClasificacion2 = ViewBag.dicClasificacion2;
+                                    Dictionary<int, string> dicClasificacion2 = Model.dropDowns.dicClasificacion2;
                                     foreach (var clasif2 in dicClasificacion2)
                                     {
                                         if (clasif2.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion2))
@@ -170,7 +170,7 @@
                         <div class="col-lg-10 col-md-10">
                             <select class="form-control w100" name="clasificacion3" ref="comboDinamico" id="selectClasif_3">
                                 @{
-                                    Dictionary<int, string> dicClasificacion3 = ViewBag.dicClasificacion3;
+                                    Dictionary<int, string> dicClasificacion3 = Model.dropDowns.dicClasificacion3;
                                     foreach (var clasif3 in dicClasificacion3)
                                     {
                                         if (clasif3.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion3))
@@ -260,11 +260,24 @@
                         </div>
                     </div>
                 </div>
-                oportunidad => @Model.qRiesgosNombre_VM.Oportunidad
-                <br />
-                efectividad => @Model.qRiesgosNombre_VM.Efectividad
-               
 
+
+                <select class="form-control w100" name="clasificacion3" ref="comboDinamico" id="selectClasif_3">
+                    @{
+                        Dictionary<int, string> datosOportunidad = Model.dropDowns.datosOportunidad;
+                        foreach (var oportunidad in datosOportunidad)
+                        {
+                            if (oportunidad.Key.Equals(Model.qRiesgosNombre_VM.IdControlesOportunidad))
+                            {
+                                <option value="@oportunidad.Key" selected="selected">@oportunidad.Value </option>
+                            }
+                            else
+                            {
+                                <option value="@oportunidad.Key">@oportunidad.Value </option>
+                            }
+                        }
+                    }
+                </select>
             </div>
         </div>
     </div>

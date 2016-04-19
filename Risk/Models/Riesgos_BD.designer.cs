@@ -48,6 +48,12 @@ namespace Risk.Models
     partial void InserttRiesgos_Categorias(tRiesgos_Categorias instance);
     partial void UpdatetRiesgos_Categorias(tRiesgos_Categorias instance);
     partial void DeletetRiesgos_Categorias(tRiesgos_Categorias instance);
+    partial void InserttRiesgos_ControlOportunidad(tRiesgos_ControlOportunidad instance);
+    partial void UpdatetRiesgos_ControlOportunidad(tRiesgos_ControlOportunidad instance);
+    partial void DeletetRiesgos_ControlOportunidad(tRiesgos_ControlOportunidad instance);
+    partial void InserttRiesgos_ControlEfectividad(tRiesgos_ControlEfectividad instance);
+    partial void UpdatetRiesgos_ControlEfectividad(tRiesgos_ControlEfectividad instance);
+    partial void DeletetRiesgos_ControlEfectividad(tRiesgos_ControlEfectividad instance);
     #endregion
 		
 		public Riesgos_BDDataContext() : 
@@ -112,11 +118,11 @@ namespace Risk.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<qRiesgos_Evaluaciones__Valores> qRiesgos_Evaluaciones__Valores
+		public System.Data.Linq.Table<qRiesgos_Evaluaciones_Valores> qRiesgos_Evaluaciones_Valores
 		{
 			get
 			{
-				return this.GetTable<qRiesgos_Evaluaciones__Valores>();
+				return this.GetTable<qRiesgos_Evaluaciones_Valores>();
 			}
 		}
 		
@@ -141,6 +147,22 @@ namespace Risk.Models
 			get
 			{
 				return this.GetTable<qRiesgosNombres>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tRiesgos_ControlOportunidad> tRiesgos_ControlOportunidad
+		{
+			get
+			{
+				return this.GetTable<tRiesgos_ControlOportunidad>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tRiesgos_ControlEfectividad> tRiesgos_ControlEfectividad
+		{
+			get
+			{
+				return this.GetTable<tRiesgos_ControlEfectividad>();
 			}
 		}
 	}
@@ -1282,7 +1304,7 @@ namespace Risk.Models
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[qRiesgos_Evaluaciones _Valores]")]
-	public partial class qRiesgos_Evaluaciones__Valores
+	public partial class qRiesgos_Evaluaciones_Valores
 	{
 		
 		private System.Nullable<int> _IdRiesgo;
@@ -1343,7 +1365,7 @@ namespace Risk.Models
 		
 		private string _ColorSevePeorPlanDespues;
 		
-		public qRiesgos_Evaluaciones__Valores()
+		public qRiesgos_Evaluaciones_Valores()
 		{
 		}
 		
@@ -2829,6 +2851,226 @@ namespace Risk.Models
 				{
 					this._Efectividad = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tRiesgos_ControlOportunidad")]
+	public partial class tRiesgos_ControlOportunidad : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdControlOportunidad;
+		
+		private string _Oportunidad;
+		
+		private System.Nullable<int> _Orden;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdControlOportunidadChanging(int value);
+    partial void OnIdControlOportunidadChanged();
+    partial void OnOportunidadChanging(string value);
+    partial void OnOportunidadChanged();
+    partial void OnOrdenChanging(System.Nullable<int> value);
+    partial void OnOrdenChanged();
+    #endregion
+		
+		public tRiesgos_ControlOportunidad()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdControlOportunidad", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdControlOportunidad
+		{
+			get
+			{
+				return this._IdControlOportunidad;
+			}
+			set
+			{
+				if ((this._IdControlOportunidad != value))
+				{
+					this.OnIdControlOportunidadChanging(value);
+					this.SendPropertyChanging();
+					this._IdControlOportunidad = value;
+					this.SendPropertyChanged("IdControlOportunidad");
+					this.OnIdControlOportunidadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Oportunidad", DbType="NVarChar(50)")]
+		public string Oportunidad
+		{
+			get
+			{
+				return this._Oportunidad;
+			}
+			set
+			{
+				if ((this._Oportunidad != value))
+				{
+					this.OnOportunidadChanging(value);
+					this.SendPropertyChanging();
+					this._Oportunidad = value;
+					this.SendPropertyChanged("Oportunidad");
+					this.OnOportunidadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int")]
+		public System.Nullable<int> Orden
+		{
+			get
+			{
+				return this._Orden;
+			}
+			set
+			{
+				if ((this._Orden != value))
+				{
+					this.OnOrdenChanging(value);
+					this.SendPropertyChanging();
+					this._Orden = value;
+					this.SendPropertyChanged("Orden");
+					this.OnOrdenChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tRiesgos_ControlEfectividad")]
+	public partial class tRiesgos_ControlEfectividad : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdControlEfectividad;
+		
+		private string _Efectividad;
+		
+		private System.Nullable<int> _Orden;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdControlEfectividadChanging(int value);
+    partial void OnIdControlEfectividadChanged();
+    partial void OnEfectividadChanging(string value);
+    partial void OnEfectividadChanged();
+    partial void OnOrdenChanging(System.Nullable<int> value);
+    partial void OnOrdenChanged();
+    #endregion
+		
+		public tRiesgos_ControlEfectividad()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdControlEfectividad", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdControlEfectividad
+		{
+			get
+			{
+				return this._IdControlEfectividad;
+			}
+			set
+			{
+				if ((this._IdControlEfectividad != value))
+				{
+					this.OnIdControlEfectividadChanging(value);
+					this.SendPropertyChanging();
+					this._IdControlEfectividad = value;
+					this.SendPropertyChanged("IdControlEfectividad");
+					this.OnIdControlEfectividadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Efectividad", DbType="NVarChar(50)")]
+		public string Efectividad
+		{
+			get
+			{
+				return this._Efectividad;
+			}
+			set
+			{
+				if ((this._Efectividad != value))
+				{
+					this.OnEfectividadChanging(value);
+					this.SendPropertyChanging();
+					this._Efectividad = value;
+					this.SendPropertyChanged("Efectividad");
+					this.OnEfectividadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int")]
+		public System.Nullable<int> Orden
+		{
+			get
+			{
+				return this._Orden;
+			}
+			set
+			{
+				if ((this._Orden != value))
+				{
+					this.OnOrdenChanging(value);
+					this.SendPropertyChanging();
+					this._Orden = value;
+					this.SendPropertyChanged("Orden");
+					this.OnOrdenChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}
