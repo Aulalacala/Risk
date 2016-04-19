@@ -64,6 +64,8 @@
       <Column Name="IdSupervisor" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="IdControlesOportunidad" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="IdControlesEfectividad" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Member="Oportunidad" Type="System.String" CanBeNull="false" />
+      <Column Member="Efectividad" Type="System.String" CanBeNull="false" />
     </Type>
   </Table>
   <Table Name="dbo.tRiesgosEvaluaciones" Member="tRiesgosEvaluaciones">

@@ -979,6 +979,10 @@ namespace Risk.Models
 		
 		private System.Nullable<int> _IdControlesEfectividad;
 		
+		private string _Oportunidad;
+		
+		private string _Efectividad;
+		
 		public qRiesgosNombre()
 		{
 		}
@@ -1331,6 +1335,38 @@ namespace Risk.Models
 				if ((this._IdControlesEfectividad != value))
 				{
 					this._IdControlesEfectividad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Oportunidad", CanBeNull=false)]
+		public string Oportunidad
+		{
+			get
+			{
+				return this._Oportunidad;
+			}
+			set
+			{
+				if ((this._Oportunidad != value))
+				{
+					this._Oportunidad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Efectividad", CanBeNull=false)]
+		public string Efectividad
+		{
+			get
+			{
+				return this._Efectividad;
+			}
+			set
+			{
+				if ((this._Efectividad != value))
+				{
+					this._Efectividad = value;
 				}
 			}
 		}
