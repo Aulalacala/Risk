@@ -37,11 +37,8 @@ namespace Risk.Controllers
         // Vista inicial GET Risk ---------------------------------------------------
         public ActionResult Risks()
         {
-            Dictionary<int, string> dicCategorias = BD_Riesgos.listadoCategorias();
-            ViewBag.dicCategorias = dicCategorias;
 
-            Dictionary<int, string> dicClasificacion1 = BD_Riesgos.listadoClasif1();
-            ViewBag.dicClasificacion1 = dicClasificacion1;
+            DropDownModel dropdowns = new DropDownModel();
 
             ViewBag.datosthead = BD_Riesgos.nombresColTabla("dbo.qRiesgosNombres", colVer, colTitulos);
 
@@ -50,14 +47,15 @@ namespace Risk.Controllers
                 TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(colVer, colTitulos);
             }
 
-            return View();
+            return View(dropdowns);
         }
 
 
         // Recuperar clasificaciones segun idEstructura, llamada desde metodo jquery en fichero Scripts2.js ---------------
         public string recuperaListClasif(int idEstructura)
         {
-            Dictionary<int, string> dicClasificacion2 = BD_Riesgos.listadoClasifDinamic(idEstructura);
+            DropDownModel dropdown = new DropDownModel();
+            Dictionary<int, string> dicClasificacion2 = dropdown.listadoClasifDinamic(idEstructura);
             var j = JsonConvert.SerializeObject(dicClasificacion2);
             return j;
         }

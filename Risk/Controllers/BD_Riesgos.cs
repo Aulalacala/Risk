@@ -18,58 +18,58 @@ namespace Risk.Controllers
 
         #region AssignController
         // Cargar todas las categorias en un dictionary ----------------------------------------------
-        public Dictionary<int, string> listadoCategorias()
-        {
+        //public Dictionary<int, string> listadoCategorias()
+        //{
 
-            Dictionary<int, string> dicCategorias = new Dictionary<int, string>();
-            try
-            {
-                dicCategorias = riesgosBD.tRiesgos_Categorias.ToDictionary(r => r.IdCategoria, r => r.Categoria);
-            }
-            catch (Exception)
-            {
+        //    Dictionary<int, string> dicCategorias = new Dictionary<int, string>();
+        //    try
+        //    {
+        //        dicCategorias = riesgosBD.tRiesgos_Categorias.ToDictionary(r => r.IdCategoria, r => r.Categoria);
+        //    }
+        //    catch (Exception)
+        //    {
 
-                return null;
-            }
+        //        return null;
+        //    }
 
-            return dicCategorias;
-        }
+        //    return dicCategorias;
+        //}
 
 
-        // Cargar clasificaciones de nivel 2 (A,B,C,D) -------------------------------------------------
-        public Dictionary<int, string> listadoClasif1()
-        {
+        //// Cargar clasificaciones de nivel 2 (A,B,C,D) -------------------------------------------------
+        //public Dictionary<int, string> listadoClasif1()
+        //{
 
-            Dictionary<int, string> dicClasif1 = new Dictionary<int, string>();
-            try
-            {
-                dicClasif1 = riesgosBD.tRiesgos_Clasificaciones.Where(r => r.Nivel == 2).ToDictionary(r => r.IdEstructura, r => r.CodCompleto + " " + r.Nombre);
-            }
-            catch (Exception)
-            {
+        //    Dictionary<int, string> dicClasif1 = new Dictionary<int, string>();
+        //    try
+        //    {
+        //        dicClasif1 = riesgosBD.tRiesgos_Clasificaciones.Where(r => r.Nivel == 2).ToDictionary(r => r.IdEstructura, r => r.CodCompleto + " " + r.Nombre);
+        //    }
+        //    catch (Exception)
+        //    {
 
-                return null;
-            }
+        //        return null;
+        //    }
 
-            return dicClasif1;
-        }
+        //    return dicClasif1;
+        //}
 
-        // Cargar clasificaciones de riesgos de nivel 3 y 4 segun idEstructura del padre ---------------------
-        // Uso del metodo para carga dinamica mediante jquery ------------------------------------------------
-        public Dictionary<int, string> listadoClasifDinamic(int idEstructura)
-        {
-            Dictionary<int, string> dicClasif2 = new Dictionary<int, string>();
-            try
-            {
-                dicClasif2 = riesgosBD.tRiesgos_Clasificaciones.Where(r => r.idPadre == idEstructura).ToDictionary(r => r.IdEstructura, r => r.CodCompleto + " " + r.Nombre);
-            }
-            catch (Exception)
-            {
+        //// Cargar clasificaciones de riesgos de nivel 3 y 4 segun idEstructura del padre ---------------------
+        //// Uso del metodo para carga dinamica mediante jquery ------------------------------------------------
+        //public Dictionary<int, string> listadoClasifDinamic(int idEstructura)
+        //{
+        //    Dictionary<int, string> dicClasif2 = new Dictionary<int, string>();
+        //    try
+        //    {
+        //        dicClasif2 = riesgosBD.tRiesgos_Clasificaciones.Where(r => r.idPadre == idEstructura).ToDictionary(r => r.IdEstructura, r => r.CodCompleto + " " + r.Nombre);
+        //    }
+        //    catch (Exception)
+        //    {
 
-                return null;
-            }
-            return dicClasif2;
-        }
+        //        return null;
+        //    }
+        //    return dicClasif2;
+        //}
 
         //Recuperar THEAD tabla Datos Risk-----------------
         public Dictionary<string, string> nombresColTabla(string nombreTabla, string colVer, string colTitulos)

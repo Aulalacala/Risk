@@ -63,7 +63,7 @@ namespace Risk.Controllers
                     DataTable miTabla = miDataSet.Tables["GraficoYear"];
                     jsonString = JsonConvert.SerializeObject(miTabla);
 
-                }
+                }     
                 catch (SqlException ex)
                 {
                 }

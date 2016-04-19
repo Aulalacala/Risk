@@ -256,29 +256,71 @@
                             @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePeorDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePeorDespues })
                         </div>
                         <div class="col-lg-3 col-md-3">
-                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePeorPlanDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePeorPlanDespues})
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePeorPlanDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePeorPlanDespues })
+                        </div>
+                    </div>
+
+               
+                    <div class="col-lg-12 col-md-12">
+                    <hr/>
+                    </div>
+                    <!--OPORTUNIDAD-->
+                    <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-5 col-md-5">
+                            <span class="form-left-label">Opportunity for control improvement</span>
+                        </div>
+                        <div class="col-lg-7 col-md-7">
+
+                            <select class="form-control w100" id="selectOportunidad">
+                                @{
+                                    Dictionary<int, string> datosOportunidad = Model.dropDowns.datosOportunidad;
+                                    foreach (var oportunidad in datosOportunidad)
+                                    {
+                                        if (oportunidad.Key.Equals(Model.qRiesgosNombre_VM.IdControlesOportunidad))
+                                        {
+                                            <option value="@oportunidad.Key" selected="selected">@oportunidad.Value </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@oportunidad.Key">@oportunidad.Value </option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+
+                    <!--EFECTIVIDAD-->
+                    <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-5 col-md-5">
+                            <span class="form-left-label">Existing control</span>
+                        </div>
+                        <div class="col-lg-7 col-md-7">
+
+                            <select class="form-control w100" id="selectEfectividad">
+                                @{
+                                    Dictionary<int, string> datosEfectividad = Model.dropDowns.datosEfectividad;
+                                    foreach (var efectividad in datosEfectividad)
+                                    {
+                                        if (efectividad.Key.Equals(Model.qRiesgosNombre_VM.IdControlesEfectividad))
+                                        {
+                                            <option value="@efectividad.Key" selected="selected">@efectividad.Value </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@efectividad.Key">@efectividad.Value </option>
+                                        }
+                                    }
+                                }
+                            </select>
                         </div>
                     </div>
                 </div>
 
 
-                <select class="form-control w100" name="clasificacion3" ref="comboDinamico" id="selectClasif_3">
-                    @{
-                        Dictionary<int, string> datosOportunidad = Model.dropDowns.datosOportunidad;
-                        foreach (var oportunidad in datosOportunidad)
-                        {
-                            if (oportunidad.Key.Equals(Model.qRiesgosNombre_VM.IdControlesOportunidad))
-                            {
-                                <option value="@oportunidad.Key" selected="selected">@oportunidad.Value </option>
-                            }
-                            else
-                            {
-                                <option value="@oportunidad.Key">@oportunidad.Value </option>
-                            }
-                        }
-                    }
-                </select>
+
             </div>
         </div>
     </div>
-  }
+                                    }

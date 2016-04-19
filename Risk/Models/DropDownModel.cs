@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -81,6 +82,14 @@ namespace Risk.Models
                 return null;
             }
             return dicClasif2;
+        }
+
+        // Recuperar clasificaciones segun idEstructura, llamada desde metodo jquery en fichero Scripts2.js ---------------
+        public string recuperaListClasif(int idEstructura)
+        {
+            Dictionary<int, string> dicClasificacion2 = listadoClasifDinamic(idEstructura);
+            var j = JsonConvert.SerializeObject(dicClasificacion2);
+            return j;
         }
     }
 }
