@@ -205,14 +205,14 @@ namespace Risk.Controllers
         public Dictionary<int, List<object>> datosQRiesgosNombre(string colVer, string colTitulos, string filtro = null, int categoria = 0, int clasificacion1 = 0, int clasificacion2 = 0, int clasificacion3 = 0)
         {
 
-            Dictionary<int, qRiesgosNombre> datosQRiesgosNombre = new Dictionary<int, qRiesgosNombre>();
+            Dictionary<int, qRiesgosNombres> datosQRiesgosNombre = new Dictionary<int, qRiesgosNombres>();
             Dictionary<int, List<object>> listaDatosFinal = new Dictionary<int, List<object>>();
 
             //MetaTable TablaDBO = riesgosBD.Mapping.GetTables().Where(t => t.TableName == "dbo.qRiesgosNombres").Select(t => t).SingleOrDefault();
 
             //MetaModel model = TablaDBO.Model;
 
-            Type tipo = typeof(qRiesgosNombre);
+            Type tipo = typeof(qRiesgosNombres);
 
             try
             {
@@ -283,9 +283,9 @@ namespace Risk.Controllers
 
 
         #region RiskController
-        public qRiesgosNombre recuperarRiesgo(int id)
+        public qRiesgosNombres recuperarRiesgo(int id)
         {
-            qRiesgosNombre riesgoRecup = new qRiesgosNombre();
+            qRiesgosNombres riesgoRecup = new qRiesgosNombres();
             riesgoRecup = riesgosBD.qRiesgosNombres.Where(r => r.IdRiesgo == id).SingleOrDefault();
             return riesgoRecup;
         }

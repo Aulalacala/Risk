@@ -54,7 +54,7 @@ namespace Risk.Controllers
 
         public ActionResult Graphic()
         {
-            qRiesgosNombre riesgoRecup = (qRiesgosNombre)Session["riesgo"];
+            qRiesgosNombres riesgoRecup = (qRiesgosNombres)Session["riesgo"];
 
             FichaRiesgoVM fichaRiesgoVM = new FichaRiesgoVM();
             fichaRiesgoVM.qRiesgosNombre_VM = riesgoRecup;
@@ -98,7 +98,7 @@ namespace Risk.Controllers
 
         public FichaRiesgoVM montaVM(int id)
         {
-            qRiesgosNombre riesgoRecup = BD_Riesgos.recuperarRiesgo(id);
+            qRiesgosNombres riesgoRecup = BD_Riesgos.recuperarRiesgo(id);
             qRiesgos_Evaluaciones__Valores evaluaciones = BD_Riesgos.recuperaEvaluaciones(id);
 
             FichaRiesgoVM fichaRiesgoVM = new FichaRiesgoVM();

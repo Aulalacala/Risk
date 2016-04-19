@@ -8,7 +8,7 @@ namespace Risk.ViewModels
 {
     public class FichaRiesgoVM
     {
-        public qRiesgosNombre qRiesgosNombre_VM { get; set; }
+        public qRiesgosNombres qRiesgosNombre_VM { get; set; }
         public qRiesgos_Evaluaciones__Valores qRiesgos_Evaluaciones_Valores_VM { get; set; }
     
     }
