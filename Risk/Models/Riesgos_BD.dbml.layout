@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 10.875" name="Riesgos_BD">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 15.875" name="Riesgos_BD">
   <DataContextMoniker Name="/Riesgos_BDDataContext" />
   <nestedChildShapes>
     <classShape Id="d68296e8-1aba-4b67-9483-2107630e1479" absoluteBounds="0.5, 0.5, 2, 4.2708154296875">
@@ -42,6 +42,12 @@
       <DataClassMoniker Name="/Riesgos_BDDataContext/tEva_Severidad" />
       <nestedChildShapes>
         <elementListCompartment Id="1aab52b2-4c7f-4100-a18f-7c31f2a6c918" absoluteBounds="5.14, 6.96, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="fff9791b-8b34-4911-a59e-1d9bacc7132b" absoluteBounds="3, 9.25, 2, 6.3861311848958326">
+      <DataClassMoniker Name="/Riesgos_BDDataContext/qRiesgos_Evaluaciones__Valores" />
+      <nestedChildShapes>
+        <elementListCompartment Id="2e2764b5-e264-4dfc-8efb-1dda90dea284" absoluteBounds="3.0149999999999997, 9.71, 1.9700000000000002, 5.826131184895833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

@@ -112,4 +112,37 @@
       <Column Name="Color" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.[qRiesgos_Evaluaciones _Valores]" Member="qRiesgos_Evaluaciones__Valores">
+    <Type Name="qRiesgos_Evaluaciones__Valores">
+      <Column Name="IdRiesgo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Ultima" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IdFrecAntes" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NombreFrecAntes" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ColorFrecAntes" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IdFrecDespues" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NombreFrecDespues" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ColorFrecDespues" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IdFrecPlanDespues" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NombreFrecPlanDespues" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ColorFrecPlanDespues" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IdSeveAntes" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NombreSeveAntes" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ColorSeveAntes" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IdSeveDespues" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NombreSeveDespues" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ColorSeveDespues" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IdSevePlanDespues" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NombreSevePlanDespues" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ColorSevePlanDespues" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IdSevePeorAntes" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NombreSevePeorAntes" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ColorSevePeorAntes" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IdSevePeorDespues" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NombreSevePeorDespues" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ColorSevePeorDespues" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IdSevePeorPlanDespues" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NombreSevePeorPlanDespues" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ColorSevePeorPlanDespues" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

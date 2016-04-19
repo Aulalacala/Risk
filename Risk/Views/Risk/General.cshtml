@@ -1,18 +1,13 @@
 ﻿@model Risk.ViewModels.FichaRiesgoVM
 @using Risk.Models
 
-@*@{
-    qRiesgosNombre riesgoRecup = (qRiesgosNombre)Session["riesgo"];
-}*@
-
-
-
-@*@riesgoRecup.IdRiesgo*@
+<script type="text/javascript" src="~/Content/js/scripts2.js"></script>
 
 <!-- GENERAL DATA RATING PANEL -->
 <!-- TITLE & BUTTONS -->
 
-@using (Html.BeginForm("GeneralFormulario", "Risk", FormMethod.Post)) {
+@using (Html.BeginForm("GeneralFormulario", "Risk", FormMethod.Post))
+{
     @Html.AntiForgeryToken()
 
     <span class="title">DATA SHEET</span>
@@ -30,19 +25,19 @@
 
     <div class="row">
         <div class="col-lg-12 col-md-12">
-            <br/>
+            <br />
 
             <!-- COLUMNA IZQUIERDA-->
             <div class="col-lg-6 col-md-6">
 
-                
+
                 <div class="row">
                     <div class="col-lg-4 col-md-4">
                         <span class="form-left-label">Example</span>
                     </div>
 
                     <div class="col-lg-8 col-md-8">
-                        @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Ejemplo, 5, 50, new { @class = "form-control", @readonly = "readonly",  @disabled = "disabled"  })
+                        @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Ejemplo, 5, 50, new { @class = "form-control", @readonly = "readonly", @disabled = "disabled" })
                     </div>
                 </div>
 
@@ -74,74 +69,81 @@
             <!-- COLUMNA DERECHA-->
             <div class="col-lg-6 col-md-6">
 
-                <!-- ROW CATEGORIA -->
-                <div class="row row-no-padding">
-                    <div class="col-lg-2 col-md-2">
-                        <span class="form-left-label" id="labelCategoria">Categoría</span>
+                <!--SEGMENTATION -->
+                <div id="segmentation" style="background-color:#eaf7fa" class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <span class="form-left-label"><b>SEGMENTATION</b></span>
                     </div>
+                    <diV>
+                        <div class="col-lg-2 col-md-2">
+                            <span class="form-left-label" id="labelCategoria">Categoría</span>
+                        </div>
 
-                    <div class="col-lg-10 col-md-10s">
-                        <select class="form-control w100" name="categoria" id="selectCategoria" filtro="IdCategoria">                          
-                            @{
-                                Dictionary<int, string> dicCategorias = ViewBag.dicCategorias;
-                                foreach (var categoria in dicCategorias)
-                                {
-                                    if (categoria.Key.Equals(Model.qRiesgosNombre_VM.IdCategoria))
+                        <div class="col-lg-10 col-md-10s">
+                            <select class="form-control w100" name="categoria" id="selectCategoria" filtro="IdCategoria">
+                                @{
+                                    Dictionary<int, string> dicCategorias = ViewBag.dicCategorias;
+                                    foreach (var categoria in dicCategorias)
                                     {
-                                        <option value="@categoria.Key" selected="selected">@categoria.Value </option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@categoria.Key">@categoria.Value </option>
-                                    }
-                                }
-                            }
-                        </select>
-                    </div>
-                </div>
-
-                <!-- ROW LEVEL 1 -->
-                <div class="row row-no-padding">
-                    <div class="col-lg-2 col-md-2">
-                        <span class="form-left-label" id="labelClasif1">Level 1</span>
-                    </div>
-
-                    <div class="col-lg-10 col-md-10">
-                        <select class="form-control w100" name="clasificacion1" ref="comboDinamico" id="selectClasif_1" sig="selectClasif_2">
-                            @{
-                                Dictionary<int, string> dicClasificacion1 = ViewBag.dicClasificacion1;
-                                foreach (var clasif1 in dicClasificacion1)
-                                {
-                                    if (clasif1.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion1))
-                                    {
-                                        <option value="@clasif1.Key" selected="selected">@clasif1.Value </option>
-                                    }
-                                    else
-                                    {
-                                        <option value="@clasif1.Key">@clasif1.Value </option>
+                                        if (categoria.Key.Equals(Model.qRiesgosNombre_VM.IdCategoria))
+                                        {
+                                            <option value="@categoria.Key" selected="selected">@categoria.Value </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@categoria.Key">@categoria.Value </option>
+                                        }
                                     }
                                 }
-                            }
-                        </select>
-                        <script>
-                            cargar();                         
-                        </script>
-                    </div>
+                            </select>
+                        </div>
+                    </diV>
                 </div>
 
-                <!-- ROW LEVEL 2 -->
-                <div class="row row-no-padding">
-                    <div class="col-lg-2 col-md-2">
-                        <span class="form-left-label" id="labelClasif2">Level 2</span>
+                <!-- DIVIDER -->
+                <div class="divider-30"></div>
+
+                <!--CATEGORIZATION -->
+                <div id="categorization" style="background-color:#eaf7fa" class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <span class="form-left-label"><b>RISK CATEGORIZATION</b></span>
+                    </div>
+                    <!-- ROW LEVEL 1 -->
+                    <div>
+                        <div class="col-lg-2 col-md-2">
+                            <span class="form-left-label" id="labelClasif1">Level 1</span>
+                        </div>
+
+                        <div class="col-lg-10 col-md-10">
+                            <select class="form-control w100" name="clasificacion1" ref="comboDinamico" id="selectClasif_1" sig="selectClasif_2">
+                                @{
+                                    Dictionary<int, string> dicClasificacion1 = ViewBag.dicClasificacion1;
+                                    foreach (var clasif1 in dicClasificacion1)
+                                    {
+                                        if (clasif1.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion1))
+                                        {
+                                            <option value="@clasif1.Key" selected="selected">@clasif1.Value </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@clasif1.Key">@clasif1.Value </option>
+                                        }
+                                    }
+                                }
+                            </select>
+
+                        </div>
                     </div>
 
-                    <div class="col-lg-10 col-md-10">
-                        <select class="form-control w100" name="clasificacion2" ref="comboDinamico" id="selectClasif_2" sig="selectClasif_3">
-                            <option selected="selected" value="0"> </option>
+                    <!-- ROW LEVEL 2 -->
+                    <div>
+                        <div class="col-lg-2 col-md-2">
+                            <span class="form-left-label" id="labelClasif2">Level 2</span>
+                        </div>
 
-                            @{
-                                if (ViewBag.dicClasificacion2 != null)
-                                {
+                        <div class="col-lg-10 col-md-10">
+                            <select class="form-control w100" name="clasificacion2" ref="comboDinamico" id="selectClasif_2" sig="selectClasif_3">
+                                @{
                                     Dictionary<int, string> dicClasificacion2 = ViewBag.dicClasificacion2;
                                     foreach (var clasif2 in dicClasificacion2)
                                     {
@@ -155,33 +157,111 @@
                                         }
                                     }
                                 }
-                            }
-
-                        </select>
+                            </select>
+                        </div>
                     </div>
+
+                    <!-- ROW LEVEL 3 -->
+                    <div>
+                        <div class="col-lg-2 col-md-2">
+                            <span class="form-left-label" id="labelClasif1">Level 3</span>
+                        </div>
+
+                        <div class="col-lg-10 col-md-10">
+                            <select class="form-control w100" name="clasificacion3" ref="comboDinamico" id="selectClasif_3">
+                                @{
+                                    Dictionary<int, string> dicClasificacion3 = ViewBag.dicClasificacion3;
+                                    foreach (var clasif3 in dicClasificacion3)
+                                    {
+                                        if (clasif3.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion3))
+                                        {
+                                            <option value="@clasif3.Key" selected="selected">@clasif3.Value </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@clasif3.Key">@clasif3.Value </option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
                 </div>
 
-                <!-- ROW LEVEL 3 -->
-                <div class="row row-no-padding">
-                    <div class="col-lg-2 col-md-2">
-                        <span class="form-left-label" id="labelClasif1">Level 3</span>
+                <!-- DIVIDER -->
+                <div class="divider-30"></div>
+
+                <!-- FINANCIAL IMPACT -->
+                <div id="financialImpact" style="background-color:#eaf7fa" class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <span class="form-left-label"><b>FINANCIAL IMPACT</b></span>
                     </div>
 
-                    <div class="col-lg-10 col-md-10">
-                        <select class="form-control w100" name="clasificacion3" ref="comboDinamico" id="selectClasif_3">
-                            <option selected="selected" value="0"> </option>
-                        </select>
+                    <!--CABECERAS-->
+                    <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-3 col-md-3">
+                            <span class="form-left-label"></span>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <span class="form-left-label">Before Controls</span>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <span class="form-left-label">Current</span>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <span class="form-left-label">After action plans</span>
+                        </div>
+                    </div>
+
+                    <!--FRECUENCIA-->
+                    <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-3 col-md-3">
+                            <span class="form-left-label">Exp. Frec.</span>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreFrecAntes, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorFrecAntes})
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreFrecDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorFrecDespues})
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreFrecPlanDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorFrecPlanDespues })
+                        </div>
+                    </div>
+                    <!--SEVERIDAD-->
+                    <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-3 col-md-3">
+                            <span class="form-left-label">Exp. Sev.</span>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSeveAntes, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSeveAntes })
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSeveDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSeveDespues })
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePlanDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePlanDespues })
+                        </div>
+                    </div>
+                    <!--SEVERIDAD DESPUES PLAN-->
+                    <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-3 col-md-3">
+                            <span class="form-left-label">Max. Sev.</span>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePeorAntes, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePeorAntes })
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePeorDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePeorDespues })
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePeorPlanDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePeorPlanDespues})
+                        </div>
                     </div>
                 </div>
-
 
             </div>
         </div>
     </div>
-}
-
-
-
-
-
-
+  }

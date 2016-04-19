@@ -135,6 +135,14 @@ namespace Risk.Models
 				return this.GetTable<tEva_Severidad>();
 			}
 		}
+		
+		public System.Data.Linq.Table<qRiesgos_Evaluaciones__Valores> qRiesgos_Evaluaciones__Valores
+		{
+			get
+			{
+				return this.GetTable<qRiesgos_Evaluaciones__Valores>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tRiesgos")]
@@ -2254,6 +2262,537 @@ namespace Risk.Models
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[qRiesgos_Evaluaciones _Valores]")]
+	public partial class qRiesgos_Evaluaciones__Valores
+	{
+		
+		private System.Nullable<int> _IdRiesgo;
+		
+		private System.Nullable<bool> _Ultima;
+		
+		private System.Nullable<int> _IdFrecAntes;
+		
+		private string _NombreFrecAntes;
+		
+		private string _ColorFrecAntes;
+		
+		private System.Nullable<int> _IdFrecDespues;
+		
+		private string _NombreFrecDespues;
+		
+		private string _ColorFrecDespues;
+		
+		private System.Nullable<int> _IdFrecPlanDespues;
+		
+		private string _NombreFrecPlanDespues;
+		
+		private string _ColorFrecPlanDespues;
+		
+		private System.Nullable<int> _IdSeveAntes;
+		
+		private string _NombreSeveAntes;
+		
+		private string _ColorSeveAntes;
+		
+		private System.Nullable<int> _IdSeveDespues;
+		
+		private string _NombreSeveDespues;
+		
+		private string _ColorSeveDespues;
+		
+		private System.Nullable<int> _IdSevePlanDespues;
+		
+		private string _NombreSevePlanDespues;
+		
+		private string _ColorSevePlanDespues;
+		
+		private System.Nullable<int> _IdSevePeorAntes;
+		
+		private string _NombreSevePeorAntes;
+		
+		private string _ColorSevePeorAntes;
+		
+		private System.Nullable<int> _IdSevePeorDespues;
+		
+		private string _NombreSevePeorDespues;
+		
+		private string _ColorSevePeorDespues;
+		
+		private System.Nullable<int> _IdSevePeorPlanDespues;
+		
+		private string _NombreSevePeorPlanDespues;
+		
+		private string _ColorSevePeorPlanDespues;
+		
+		public qRiesgos_Evaluaciones__Valores()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdRiesgo", DbType="Int")]
+		public System.Nullable<int> IdRiesgo
+		{
+			get
+			{
+				return this._IdRiesgo;
+			}
+			set
+			{
+				if ((this._IdRiesgo != value))
+				{
+					this._IdRiesgo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Ultima", DbType="Bit")]
+		public System.Nullable<bool> Ultima
+		{
+			get
+			{
+				return this._Ultima;
+			}
+			set
+			{
+				if ((this._Ultima != value))
+				{
+					this._Ultima = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdFrecAntes", DbType="Int")]
+		public System.Nullable<int> IdFrecAntes
+		{
+			get
+			{
+				return this._IdFrecAntes;
+			}
+			set
+			{
+				if ((this._IdFrecAntes != value))
+				{
+					this._IdFrecAntes = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreFrecAntes", DbType="NVarChar(50)")]
+		public string NombreFrecAntes
+		{
+			get
+			{
+				return this._NombreFrecAntes;
+			}
+			set
+			{
+				if ((this._NombreFrecAntes != value))
+				{
+					this._NombreFrecAntes = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColorFrecAntes", DbType="NVarChar(50)")]
+		public string ColorFrecAntes
+		{
+			get
+			{
+				return this._ColorFrecAntes;
+			}
+			set
+			{
+				if ((this._ColorFrecAntes != value))
+				{
+					this._ColorFrecAntes = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdFrecDespues", DbType="Int")]
+		public System.Nullable<int> IdFrecDespues
+		{
+			get
+			{
+				return this._IdFrecDespues;
+			}
+			set
+			{
+				if ((this._IdFrecDespues != value))
+				{
+					this._IdFrecDespues = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreFrecDespues", DbType="NVarChar(50)")]
+		public string NombreFrecDespues
+		{
+			get
+			{
+				return this._NombreFrecDespues;
+			}
+			set
+			{
+				if ((this._NombreFrecDespues != value))
+				{
+					this._NombreFrecDespues = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColorFrecDespues", DbType="NVarChar(50)")]
+		public string ColorFrecDespues
+		{
+			get
+			{
+				return this._ColorFrecDespues;
+			}
+			set
+			{
+				if ((this._ColorFrecDespues != value))
+				{
+					this._ColorFrecDespues = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdFrecPlanDespues", DbType="Int")]
+		public System.Nullable<int> IdFrecPlanDespues
+		{
+			get
+			{
+				return this._IdFrecPlanDespues;
+			}
+			set
+			{
+				if ((this._IdFrecPlanDespues != value))
+				{
+					this._IdFrecPlanDespues = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreFrecPlanDespues", DbType="NVarChar(50)")]
+		public string NombreFrecPlanDespues
+		{
+			get
+			{
+				return this._NombreFrecPlanDespues;
+			}
+			set
+			{
+				if ((this._NombreFrecPlanDespues != value))
+				{
+					this._NombreFrecPlanDespues = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColorFrecPlanDespues", DbType="NVarChar(50)")]
+		public string ColorFrecPlanDespues
+		{
+			get
+			{
+				return this._ColorFrecPlanDespues;
+			}
+			set
+			{
+				if ((this._ColorFrecPlanDespues != value))
+				{
+					this._ColorFrecPlanDespues = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSeveAntes", DbType="Int")]
+		public System.Nullable<int> IdSeveAntes
+		{
+			get
+			{
+				return this._IdSeveAntes;
+			}
+			set
+			{
+				if ((this._IdSeveAntes != value))
+				{
+					this._IdSeveAntes = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreSeveAntes", DbType="NVarChar(50)")]
+		public string NombreSeveAntes
+		{
+			get
+			{
+				return this._NombreSeveAntes;
+			}
+			set
+			{
+				if ((this._NombreSeveAntes != value))
+				{
+					this._NombreSeveAntes = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColorSeveAntes", DbType="NVarChar(50)")]
+		public string ColorSeveAntes
+		{
+			get
+			{
+				return this._ColorSeveAntes;
+			}
+			set
+			{
+				if ((this._ColorSeveAntes != value))
+				{
+					this._ColorSeveAntes = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSeveDespues", DbType="Int")]
+		public System.Nullable<int> IdSeveDespues
+		{
+			get
+			{
+				return this._IdSeveDespues;
+			}
+			set
+			{
+				if ((this._IdSeveDespues != value))
+				{
+					this._IdSeveDespues = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreSeveDespues", DbType="NVarChar(50)")]
+		public string NombreSeveDespues
+		{
+			get
+			{
+				return this._NombreSeveDespues;
+			}
+			set
+			{
+				if ((this._NombreSeveDespues != value))
+				{
+					this._NombreSeveDespues = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColorSeveDespues", DbType="NVarChar(50)")]
+		public string ColorSeveDespues
+		{
+			get
+			{
+				return this._ColorSeveDespues;
+			}
+			set
+			{
+				if ((this._ColorSeveDespues != value))
+				{
+					this._ColorSeveDespues = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSevePlanDespues", DbType="Int")]
+		public System.Nullable<int> IdSevePlanDespues
+		{
+			get
+			{
+				return this._IdSevePlanDespues;
+			}
+			set
+			{
+				if ((this._IdSevePlanDespues != value))
+				{
+					this._IdSevePlanDespues = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreSevePlanDespues", DbType="NVarChar(50)")]
+		public string NombreSevePlanDespues
+		{
+			get
+			{
+				return this._NombreSevePlanDespues;
+			}
+			set
+			{
+				if ((this._NombreSevePlanDespues != value))
+				{
+					this._NombreSevePlanDespues = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColorSevePlanDespues", DbType="NVarChar(50)")]
+		public string ColorSevePlanDespues
+		{
+			get
+			{
+				return this._ColorSevePlanDespues;
+			}
+			set
+			{
+				if ((this._ColorSevePlanDespues != value))
+				{
+					this._ColorSevePlanDespues = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSevePeorAntes", DbType="Int")]
+		public System.Nullable<int> IdSevePeorAntes
+		{
+			get
+			{
+				return this._IdSevePeorAntes;
+			}
+			set
+			{
+				if ((this._IdSevePeorAntes != value))
+				{
+					this._IdSevePeorAntes = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreSevePeorAntes", DbType="NVarChar(50)")]
+		public string NombreSevePeorAntes
+		{
+			get
+			{
+				return this._NombreSevePeorAntes;
+			}
+			set
+			{
+				if ((this._NombreSevePeorAntes != value))
+				{
+					this._NombreSevePeorAntes = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColorSevePeorAntes", DbType="NVarChar(50)")]
+		public string ColorSevePeorAntes
+		{
+			get
+			{
+				return this._ColorSevePeorAntes;
+			}
+			set
+			{
+				if ((this._ColorSevePeorAntes != value))
+				{
+					this._ColorSevePeorAntes = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSevePeorDespues", DbType="Int")]
+		public System.Nullable<int> IdSevePeorDespues
+		{
+			get
+			{
+				return this._IdSevePeorDespues;
+			}
+			set
+			{
+				if ((this._IdSevePeorDespues != value))
+				{
+					this._IdSevePeorDespues = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreSevePeorDespues", DbType="NVarChar(50)")]
+		public string NombreSevePeorDespues
+		{
+			get
+			{
+				return this._NombreSevePeorDespues;
+			}
+			set
+			{
+				if ((this._NombreSevePeorDespues != value))
+				{
+					this._NombreSevePeorDespues = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColorSevePeorDespues", DbType="NVarChar(50)")]
+		public string ColorSevePeorDespues
+		{
+			get
+			{
+				return this._ColorSevePeorDespues;
+			}
+			set
+			{
+				if ((this._ColorSevePeorDespues != value))
+				{
+					this._ColorSevePeorDespues = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSevePeorPlanDespues", DbType="Int")]
+		public System.Nullable<int> IdSevePeorPlanDespues
+		{
+			get
+			{
+				return this._IdSevePeorPlanDespues;
+			}
+			set
+			{
+				if ((this._IdSevePeorPlanDespues != value))
+				{
+					this._IdSevePeorPlanDespues = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreSevePeorPlanDespues", DbType="NVarChar(50)")]
+		public string NombreSevePeorPlanDespues
+		{
+			get
+			{
+				return this._NombreSevePeorPlanDespues;
+			}
+			set
+			{
+				if ((this._NombreSevePeorPlanDespues != value))
+				{
+					this._NombreSevePeorPlanDespues = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColorSevePeorPlanDespues", DbType="NVarChar(50)")]
+		public string ColorSevePeorPlanDespues
+		{
+			get
+			{
+				return this._ColorSevePeorPlanDespues;
+			}
+			set
+			{
+				if ((this._ColorSevePeorPlanDespues != value))
+				{
+					this._ColorSevePeorPlanDespues = value;
+				}
 			}
 		}
 	}

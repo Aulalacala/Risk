@@ -21,21 +21,6 @@ $("select[ref=comboDinamico]").change(function () {
 })
 
 
-function cargar() {
-    var seleccionado = $('#selectClasif_1').val();
-    var comboAPintar = $('#selectClasif_1').attr("sig");
-    $("select[id=" + comboAPintar + "]").empty();
-
-    $.getJSON("/Risk/recuperaListClasif?idEstructura=" + seleccionado, function (data) {
-        //$("select[id=" + comboAPintar + "]").append("<option selected='selected' value='0'></option>");
-
-        //$.each(data, function (Key, Value) {
-        //    $("select[id=" + comboAPintar + "]").append("<option value=\"" + Key + "\">" + Value + "</option>");
-        //});
-    })
-}
-
-
 /* ************************************************************************************************************** */
 // Risk/RiskFicha
 

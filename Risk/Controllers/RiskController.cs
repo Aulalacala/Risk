@@ -29,12 +29,25 @@ namespace Risk.Controllers
         public ActionResult General(int id)
         {
             FichaRiesgoVM fichaRiesgoVM = montaVM(id);
-
+            //Dropdowns
             Dictionary<int, string> dicCategorias = BD_Riesgos.listadoCategorias();
             ViewBag.dicCategorias = dicCategorias;
 
             Dictionary<int, string> dicClasificacion1 = BD_Riesgos.listadoClasif1();
             ViewBag.dicClasificacion1 = dicClasificacion1;
+
+            Dictionary<int, string> dicClasificacion2 = BD_Riesgos.listadoClasifDinamic(Convert.ToInt32(fichaRiesgoVM.qRiesgosNombre_VM.IdClasificacion1));
+            ViewBag.dicClasificacion2 = dicClasificacion2;
+
+            Dictionary<int, string> dicClasificacion3 = BD_Riesgos.listadoClasifDinamic(Convert.ToInt32(fichaRiesgoVM.qRiesgosNombre_VM.IdClasificacion2));
+            ViewBag.dicClasificacion3 = dicClasificacion3;
+
+
+            //Financial Impact
+
+
+
+
 
             return PartialView(fichaRiesgoVM);
         }
@@ -49,7 +62,7 @@ namespace Risk.Controllers
             return PartialView();
         }
 
-
+        //OTROS MÉTODOS NECESARIOS
         public string pintaGrafico()
         {
             DataSet miDataSet = new DataSet();
@@ -86,18 +99,14 @@ namespace Risk.Controllers
         public FichaRiesgoVM montaVM(int id)
         {
             qRiesgosNombre riesgoRecup = BD_Riesgos.recuperarRiesgo(id);
+            qRiesgos_Evaluaciones__Valores evaluaciones = BD_Riesgos.recuperaEvaluaciones(id);
+
             FichaRiesgoVM fichaRiesgoVM = new FichaRiesgoVM();
             fichaRiesgoVM.qRiesgosNombre_VM = riesgoRecup;
+            fichaRiesgoVM.qRiesgos_Evaluaciones_Valores_VM = evaluaciones;
+
             return fichaRiesgoVM;
         }
 
-        public string recuperaListClasif(int idEstructura)
-        {
-            Dictionary<int, string> dicClasificacion2 = BD_Riesgos.listadoClasifDinamic(idEstructura);
-            ViewBag.dicClasificacion2 = dicClasificacion2;
-
-            var j = JsonConvert.SerializeObject(dicClasificacion2);
-            return j;
-        }
     }
 }
