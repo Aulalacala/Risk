@@ -14,6 +14,20 @@ namespace Risk.Controllers
     public class BD_Riesgos
     {
         Riesgos_BDDataContext riesgosBD = new Riesgos_BDDataContext();
+        private List<tEstructura> _datosEstructuraOrdenados = new List<tEstructura>();
+
+        public List<tEstructura> datosEstructuraOrdenados
+        {
+            get
+            {
+                return this._datosEstructuraOrdenados;
+            }
+            set
+            {
+                _datosEstructuraOrdenados = value;
+            }
+        }
+
 
 
         #region AssignController
@@ -298,6 +312,26 @@ namespace Risk.Controllers
             return datosEvaluaciones;
         }
 
+
+
+
+
+       
+
+
+        public void numeroFilasStructure(int id)
+        {
+            List<tEstructura> cuantosHay = riesgosBD.tEstructura.Where(r => r.idPadre == id).OrderBy(r => r.Orden).ToList();
+            if(cuantosHay.Count != 0)
+            {
+                for (int i = 0; i < cuantosHay.Count; i++)
+                {
+                    _datosEstructuraOrdenados.Add(cuantosHay[i]);
+                    numeroFilasStructure(cuantosHay[i].IdEstructura);
+                }
+            }
+    
+        }
 
     }
 

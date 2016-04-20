@@ -179,4 +179,16 @@
       <Column Name="Orden" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.tEstructura" Member="tEstructura">
+    <Type Name="tEstructura">
+      <Column Name="IdEstructura" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CodNivel" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Responsable" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="Nivel" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idPadre" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Orden" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="CodCompleto" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

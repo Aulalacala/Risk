@@ -192,8 +192,12 @@
     <Content Include="Content\morris\morris.js" />
     <Content Include="Content\morris\raphael.min.js" />
     <Content Include="Content\Site.css" />
+    <Content Include="Content\treed\treed.css" />
+    <Content Include="Content\treeView\bootstrap-treeview.css" />
+    <Content Include="Content\treeView\bootstrap-treeview.js" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="query.sql" />
     <Content Include="scripts\ai.0.15.0-build58334.js" />
     <Content Include="scripts\ai.0.15.0-build58334.min.js" />
     <Content Include="Content\fonts\fontawesome-webfont.eot" />

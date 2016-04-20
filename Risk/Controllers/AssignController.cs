@@ -21,8 +21,16 @@ namespace Risk.Controllers
         // Vista inicial Structure GET -----------------------------------------------------------
         public ActionResult Structure()
         {
-            return View();
+            BD_Riesgos.numeroFilasStructure(0);
+            List<tEstructura> datosEstructuraOrdenados = BD_Riesgos.datosEstructuraOrdenados;
+
+            ViewBag.datosEstructura = datosEstructuraOrdenados;
+
+            return View(datosEstructuraOrdenados);
         }
+
+
+
         #endregion
 
         #region View KrisIndicators
@@ -60,16 +68,11 @@ namespace Risk.Controllers
             return j;
         }
 
-
-
         public ActionResult BusquedaRiks(string filtro, int categoria, int clasificacion1, int clasificacion2, int clasificacion3)
         {
             TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(colVer, colTitulos, filtro, categoria, clasificacion1, clasificacion2, clasificacion3);
             return RedirectToAction("Risks", "Assign");
         }
-
-
-
 
 
         //Ordenar columnas

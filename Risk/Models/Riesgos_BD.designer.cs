@@ -60,6 +60,9 @@ namespace Risk.Models
     partial void InserttRiesgos_Segmentacion1(tRiesgos_Segmentacion1 instance);
     partial void UpdatetRiesgos_Segmentacion1(tRiesgos_Segmentacion1 instance);
     partial void DeletetRiesgos_Segmentacion1(tRiesgos_Segmentacion1 instance);
+    partial void InserttEstructura(tEstructura instance);
+    partial void UpdatetEstructura(tEstructura instance);
+    partial void DeletetEstructura(tEstructura instance);
     #endregion
 		
 		public Riesgos_BDDataContext() : 
@@ -185,6 +188,14 @@ namespace Risk.Models
 			get
 			{
 				return this.GetTable<tRiesgos_Segmentacion1>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tEstructura> tEstructura
+		{
+			get
+			{
+				return this.GetTable<tEstructura>();
 			}
 		}
 	}
@@ -3388,6 +3399,236 @@ namespace Risk.Models
 					this._Orden = value;
 					this.SendPropertyChanged("Orden");
 					this.OnOrdenChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tEstructura")]
+	public partial class tEstructura : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdEstructura;
+		
+		private string _CodNivel;
+		
+		private string _Nombre;
+		
+		private string _Responsable;
+		
+		private System.Nullable<int> _Nivel;
+		
+		private System.Nullable<int> _idPadre;
+		
+		private System.Nullable<int> _Orden;
+		
+		private string _CodCompleto;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdEstructuraChanging(int value);
+    partial void OnIdEstructuraChanged();
+    partial void OnCodNivelChanging(string value);
+    partial void OnCodNivelChanged();
+    partial void OnNombreChanging(string value);
+    partial void OnNombreChanged();
+    partial void OnResponsableChanging(string value);
+    partial void OnResponsableChanged();
+    partial void OnNivelChanging(System.Nullable<int> value);
+    partial void OnNivelChanged();
+    partial void OnidPadreChanging(System.Nullable<int> value);
+    partial void OnidPadreChanged();
+    partial void OnOrdenChanging(System.Nullable<int> value);
+    partial void OnOrdenChanged();
+    partial void OnCodCompletoChanging(string value);
+    partial void OnCodCompletoChanged();
+    #endregion
+		
+		public tEstructura()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEstructura", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdEstructura
+		{
+			get
+			{
+				return this._IdEstructura;
+			}
+			set
+			{
+				if ((this._IdEstructura != value))
+				{
+					this.OnIdEstructuraChanging(value);
+					this.SendPropertyChanging();
+					this._IdEstructura = value;
+					this.SendPropertyChanged("IdEstructura");
+					this.OnIdEstructuraChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodNivel", DbType="NVarChar(10)")]
+		public string CodNivel
+		{
+			get
+			{
+				return this._CodNivel;
+			}
+			set
+			{
+				if ((this._CodNivel != value))
+				{
+					this.OnCodNivelChanging(value);
+					this.SendPropertyChanging();
+					this._CodNivel = value;
+					this.SendPropertyChanged("CodNivel");
+					this.OnCodNivelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="NVarChar(250)")]
+		public string Nombre
+		{
+			get
+			{
+				return this._Nombre;
+			}
+			set
+			{
+				if ((this._Nombre != value))
+				{
+					this.OnNombreChanging(value);
+					this.SendPropertyChanging();
+					this._Nombre = value;
+					this.SendPropertyChanged("Nombre");
+					this.OnNombreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Responsable", DbType="NVarChar(250)")]
+		public string Responsable
+		{
+			get
+			{
+				return this._Responsable;
+			}
+			set
+			{
+				if ((this._Responsable != value))
+				{
+					this.OnResponsableChanging(value);
+					this.SendPropertyChanging();
+					this._Responsable = value;
+					this.SendPropertyChanged("Responsable");
+					this.OnResponsableChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nivel", DbType="Int")]
+		public System.Nullable<int> Nivel
+		{
+			get
+			{
+				return this._Nivel;
+			}
+			set
+			{
+				if ((this._Nivel != value))
+				{
+					this.OnNivelChanging(value);
+					this.SendPropertyChanging();
+					this._Nivel = value;
+					this.SendPropertyChanged("Nivel");
+					this.OnNivelChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idPadre", DbType="Int")]
+		public System.Nullable<int> idPadre
+		{
+			get
+			{
+				return this._idPadre;
+			}
+			set
+			{
+				if ((this._idPadre != value))
+				{
+					this.OnidPadreChanging(value);
+					this.SendPropertyChanging();
+					this._idPadre = value;
+					this.SendPropertyChanged("idPadre");
+					this.OnidPadreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int")]
+		public System.Nullable<int> Orden
+		{
+			get
+			{
+				return this._Orden;
+			}
+			set
+			{
+				if ((this._Orden != value))
+				{
+					this.OnOrdenChanging(value);
+					this.SendPropertyChanging();
+					this._Orden = value;
+					this.SendPropertyChanged("Orden");
+					this.OnOrdenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodCompleto", DbType="NVarChar(250)")]
+		public string CodCompleto
+		{
+			get
+			{
+				return this._CodCompleto;
+			}
+			set
+			{
+				if ((this._CodCompleto != value))
+				{
+					this.OnCodCompletoChanging(value);
+					this.SendPropertyChanging();
+					this._CodCompleto = value;
+					this.SendPropertyChanged("CodCompleto");
+					this.OnCodCompletoChanged();
 				}
 			}
 		}
