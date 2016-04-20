@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 15.875" name="Riesgos_BD">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12, 15.875" name="Riesgos_BD">
   <DataContextMoniker Name="/Riesgos_BDDataContext" />
   <nestedChildShapes>
     <classShape Id="67a14603-c7cd-4393-b4fe-f91fdca4343e" absoluteBounds="2.75, 2, 2.5, 2.1554996744791666">
@@ -50,16 +50,28 @@
         <elementListCompartment Id="0b429833-11ee-4b6b-8e95-44aae539098e" absoluteBounds="5.515, 0.96, 1.9700000000000002, 4.8646240234375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="2214ca55-95ae-4d62-925c-5bacd4b331d4" absoluteBounds="7.625, 6.625, 2, 1.3862939453125">
+    <classShape Id="2214ca55-95ae-4d62-925c-5bacd4b331d4" absoluteBounds="9.5, 6.5, 2, 1.3862939453125">
       <DataClassMoniker Name="/Riesgos_BDDataContext/tRiesgos_ControlOportunidad" />
       <nestedChildShapes>
-        <elementListCompartment Id="56f8356c-dde4-4483-b7be-0319d04b7eaa" absoluteBounds="7.64, 7.085, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="56f8356c-dde4-4483-b7be-0319d04b7eaa" absoluteBounds="9.515, 6.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="89d0e15a-3b57-4c21-86da-ecf4a012932f" absoluteBounds="7.75, 8.25, 2, 1.3862939453125">
+    <classShape Id="89d0e15a-3b57-4c21-86da-ecf4a012932f" absoluteBounds="9.625, 8.25, 2, 1.3862939453125">
       <DataClassMoniker Name="/Riesgos_BDDataContext/tRiesgos_ControlEfectividad" />
       <nestedChildShapes>
-        <elementListCompartment Id="8d160140-5a7c-4fb9-b180-dfabcb7888fe" absoluteBounds="7.765, 8.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="8d160140-5a7c-4fb9-b180-dfabcb7888fe" absoluteBounds="9.64, 8.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="04be7f4e-5161-4bb9-b4d9-aa944eceac27" absoluteBounds="9.625, 10, 2, 2.1554996744791666">
+      <DataClassMoniker Name="/Riesgos_BDDataContext/tResponsables" />
+      <nestedChildShapes>
+        <elementListCompartment Id="5a243760-57de-4a94-89b0-4df394aee528" absoluteBounds="9.64, 10.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="bd2ead7e-2170-448b-8f75-843118b16a23" absoluteBounds="9.75, 12.375, 2, 1.3862939453125">
+      <DataClassMoniker Name="/Riesgos_BDDataContext/tRiesgos_Segmentacion1" />
+      <nestedChildShapes>
+        <elementListCompartment Id="d147ee0f-c8a9-4e87-b35a-b644820bf425" absoluteBounds="9.765, 12.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

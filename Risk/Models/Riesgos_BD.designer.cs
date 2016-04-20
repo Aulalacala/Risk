@@ -54,6 +54,12 @@ namespace Risk.Models
     partial void InserttRiesgos_ControlEfectividad(tRiesgos_ControlEfectividad instance);
     partial void UpdatetRiesgos_ControlEfectividad(tRiesgos_ControlEfectividad instance);
     partial void DeletetRiesgos_ControlEfectividad(tRiesgos_ControlEfectividad instance);
+    partial void InserttResponsables(tResponsables instance);
+    partial void UpdatetResponsables(tResponsables instance);
+    partial void DeletetResponsables(tResponsables instance);
+    partial void InserttRiesgos_Segmentacion1(tRiesgos_Segmentacion1 instance);
+    partial void UpdatetRiesgos_Segmentacion1(tRiesgos_Segmentacion1 instance);
+    partial void DeletetRiesgos_Segmentacion1(tRiesgos_Segmentacion1 instance);
     #endregion
 		
 		public Riesgos_BDDataContext() : 
@@ -163,6 +169,22 @@ namespace Risk.Models
 			get
 			{
 				return this.GetTable<tRiesgos_ControlEfectividad>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tResponsables> tResponsables
+		{
+			get
+			{
+				return this.GetTable<tResponsables>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tRiesgos_Segmentacion1> tRiesgos_Segmentacion1
+		{
+			get
+			{
+				return this.GetTable<tRiesgos_Segmentacion1>();
 			}
 		}
 	}
@@ -3030,6 +3052,322 @@ namespace Risk.Models
 					this._Efectividad = value;
 					this.SendPropertyChanged("Efectividad");
 					this.OnEfectividadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int")]
+		public System.Nullable<int> Orden
+		{
+			get
+			{
+				return this._Orden;
+			}
+			set
+			{
+				if ((this._Orden != value))
+				{
+					this.OnOrdenChanging(value);
+					this.SendPropertyChanging();
+					this._Orden = value;
+					this.SendPropertyChanged("Orden");
+					this.OnOrdenChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tResponsables")]
+	public partial class tResponsables : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdResponsable;
+		
+		private string _Nombre;
+		
+		private string _Telefono;
+		
+		private string _Telefono2;
+		
+		private string _Email;
+		
+		private string _Departamento;
+		
+		private string _Cargo;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdResponsableChanging(int value);
+    partial void OnIdResponsableChanged();
+    partial void OnNombreChanging(string value);
+    partial void OnNombreChanged();
+    partial void OnTelefonoChanging(string value);
+    partial void OnTelefonoChanged();
+    partial void OnTelefono2Changing(string value);
+    partial void OnTelefono2Changed();
+    partial void OnEmailChanging(string value);
+    partial void OnEmailChanged();
+    partial void OnDepartamentoChanging(string value);
+    partial void OnDepartamentoChanged();
+    partial void OnCargoChanging(string value);
+    partial void OnCargoChanged();
+    #endregion
+		
+		public tResponsables()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdResponsable", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdResponsable
+		{
+			get
+			{
+				return this._IdResponsable;
+			}
+			set
+			{
+				if ((this._IdResponsable != value))
+				{
+					this.OnIdResponsableChanging(value);
+					this.SendPropertyChanging();
+					this._IdResponsable = value;
+					this.SendPropertyChanged("IdResponsable");
+					this.OnIdResponsableChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="NVarChar(100)")]
+		public string Nombre
+		{
+			get
+			{
+				return this._Nombre;
+			}
+			set
+			{
+				if ((this._Nombre != value))
+				{
+					this.OnNombreChanging(value);
+					this.SendPropertyChanging();
+					this._Nombre = value;
+					this.SendPropertyChanged("Nombre");
+					this.OnNombreChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telefono", DbType="NVarChar(50)")]
+		public string Telefono
+		{
+			get
+			{
+				return this._Telefono;
+			}
+			set
+			{
+				if ((this._Telefono != value))
+				{
+					this.OnTelefonoChanging(value);
+					this.SendPropertyChanging();
+					this._Telefono = value;
+					this.SendPropertyChanged("Telefono");
+					this.OnTelefonoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Telefono2", DbType="NVarChar(50)")]
+		public string Telefono2
+		{
+			get
+			{
+				return this._Telefono2;
+			}
+			set
+			{
+				if ((this._Telefono2 != value))
+				{
+					this.OnTelefono2Changing(value);
+					this.SendPropertyChanging();
+					this._Telefono2 = value;
+					this.SendPropertyChanged("Telefono2");
+					this.OnTelefono2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(50)")]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this.OnEmailChanging(value);
+					this.SendPropertyChanging();
+					this._Email = value;
+					this.SendPropertyChanged("Email");
+					this.OnEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Departamento", DbType="NVarChar(50)")]
+		public string Departamento
+		{
+			get
+			{
+				return this._Departamento;
+			}
+			set
+			{
+				if ((this._Departamento != value))
+				{
+					this.OnDepartamentoChanging(value);
+					this.SendPropertyChanging();
+					this._Departamento = value;
+					this.SendPropertyChanged("Departamento");
+					this.OnDepartamentoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Cargo", DbType="NVarChar(50)")]
+		public string Cargo
+		{
+			get
+			{
+				return this._Cargo;
+			}
+			set
+			{
+				if ((this._Cargo != value))
+				{
+					this.OnCargoChanging(value);
+					this.SendPropertyChanging();
+					this._Cargo = value;
+					this.SendPropertyChanged("Cargo");
+					this.OnCargoChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tRiesgos_Segmentacion1")]
+	public partial class tRiesgos_Segmentacion1 : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdSegmenta1;
+		
+		private string _Segmentacion;
+		
+		private System.Nullable<int> _Orden;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdSegmenta1Changing(int value);
+    partial void OnIdSegmenta1Changed();
+    partial void OnSegmentacionChanging(string value);
+    partial void OnSegmentacionChanged();
+    partial void OnOrdenChanging(System.Nullable<int> value);
+    partial void OnOrdenChanged();
+    #endregion
+		
+		public tRiesgos_Segmentacion1()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSegmenta1", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdSegmenta1
+		{
+			get
+			{
+				return this._IdSegmenta1;
+			}
+			set
+			{
+				if ((this._IdSegmenta1 != value))
+				{
+					this.OnIdSegmenta1Changing(value);
+					this.SendPropertyChanging();
+					this._IdSegmenta1 = value;
+					this.SendPropertyChanged("IdSegmenta1");
+					this.OnIdSegmenta1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Segmentacion", DbType="NVarChar(50)")]
+		public string Segmentacion
+		{
+			get
+			{
+				return this._Segmentacion;
+			}
+			set
+			{
+				if ((this._Segmentacion != value))
+				{
+					this.OnSegmentacionChanging(value);
+					this.SendPropertyChanging();
+					this._Segmentacion = value;
+					this.SendPropertyChanged("Segmentacion");
+					this.OnSegmentacionChanged();
 				}
 			}
 		}

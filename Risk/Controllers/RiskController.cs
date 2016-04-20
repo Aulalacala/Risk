@@ -86,8 +86,8 @@ namespace Risk.Controllers
             fichaRiesgoVM.qRiesgos_Evaluaciones_Valores_VM = evaluaciones;
 
             DropDownModel dropdowns = new DropDownModel();
-            dropdowns.dicClasificacion2= dropdowns.listadoClasifDinamic(Convert.ToInt32(fichaRiesgoVM.qRiesgosNombre_VM.IdClasificacion1));
-            dropdowns.dicClasificacion3 = dropdowns.listadoClasifDinamic(Convert.ToInt32(fichaRiesgoVM.qRiesgosNombre_VM.IdClasificacion2));
+            dropdowns.datosClasificacion2= dropdowns.listadoClasifDinamic(Convert.ToInt32(fichaRiesgoVM.qRiesgosNombre_VM.IdClasificacion1));
+            dropdowns.datosClasificacion3 = dropdowns.listadoClasifDinamic(Convert.ToInt32(fichaRiesgoVM.qRiesgosNombre_VM.IdClasificacion2));
 
             fichaRiesgoVM.dropDowns = dropdowns;
 

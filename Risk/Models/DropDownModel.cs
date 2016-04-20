@@ -9,14 +9,16 @@ namespace Risk.Models
     public class DropDownModel
     {
         private Riesgos_BDDataContext riesgosBD = new Riesgos_BDDataContext();
-        private Dictionary<int, string> _dicCategorias;
-        private Dictionary<int, string> _dicClasificacion1;
-        private Dictionary<int, string> _dicClasificacion2;
-        private Dictionary<int, string> _dicClasificacion3;
+        private Dictionary<int, string> _datosCategorias;
+        private Dictionary<int, string> _datosClasificacion1;
+        private Dictionary<int, string> _datosClasificacion2;
+        private Dictionary<int, string> _datosClasificacion3;
         private Dictionary<int, string> _datosOportunidad;
         private Dictionary<int, string> _datosEfectividad;
+        private Dictionary<int, string> _datosResponsables;
+        private Dictionary<int, string> _datosSegmentacion;
 
-        public Dictionary<int, string> dicCategorias
+        public Dictionary<int, string> datosCategorias
         {
             get
             {
@@ -24,11 +26,11 @@ namespace Risk.Models
             }
             set
             {
-                _dicCategorias = value;
+                _datosCategorias = value;
             }
         }
 
-        public Dictionary<int, string> dicClasificacion1
+        public Dictionary<int, string> datosClasificacion1
         {
             get
             {
@@ -36,12 +38,12 @@ namespace Risk.Models
             }
             set
             {
-                _dicClasificacion1 = value;
+                _datosClasificacion1 = value;
             }
         }
 
-        public Dictionary<int, string> dicClasificacion2 { get; set;}
-        public Dictionary<int, string> dicClasificacion3 { get; set; }
+        public Dictionary<int, string> datosClasificacion2 { get; set;}
+        public Dictionary<int, string> datosClasificacion3 { get; set; }
 
         public Dictionary<int, string> datosOportunidad
         {
@@ -67,6 +69,29 @@ namespace Risk.Models
             }
         }
 
+        public Dictionary<int, string> datosResponsables
+        {
+            get
+            {
+                return riesgosBD.tResponsables.ToDictionary(r => r.IdResponsable, r => r.Nombre);
+            }
+            set
+            {
+                _datosResponsables = value;
+            }
+        }
+
+        public Dictionary<int, string> datosSegmentacion
+        {
+            get
+            {
+                return riesgosBD.tRiesgos_Segmentacion1.ToDictionary(r => r.IdSegmenta1, r => r.Segmentacion);
+            }
+            set
+            {
+                _datosSegmentacion = value;
+            }
+        }
 
         //METODO CARGA DINÁMICA
         public Dictionary<int, string> listadoClasifDinamic(int idEstructura)

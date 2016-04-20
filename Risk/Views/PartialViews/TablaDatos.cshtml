@@ -10,6 +10,11 @@
 <script type="text/javascript" src="~/Content/js/jquery/jquery.browser.min.js"></script>
 <script type="text/javascript" src="~/Content/js/jquery/jquery.easing.1.3.js"></script>
 <script type="text/javascript" src="~/Content/datetables/jquery.dataTables.min.js"></script>
+<script type="text/javascript" src="~/Content/datetables/dataTables.responsive.min.js"></script>
+<script type="text/javascript" src="~/Content/datetables/dataTables.scroller.min.js"></script>
+
+<link rel="stylesheet" href="~/Content/datetables/responsive.dataTables.min.css" type="text/css" />
+<link rel="stylesheet" href="~/Content/datetables/scroller.dataTables.min.css" type="text/css" />
 
 
 
@@ -26,15 +31,13 @@
 
         <!-- DIVIDER -->
         <div class="divider-30"></div>
-
         <!-- TABLE DIV -->
-
     </div>
 
     <div>
-        <div class="divDelGrid center-block" style="width:95%">
+        <div class="divDelGrid center-block table-responsive" style="width:95%">
 
-            <table rules="rows" id="tablaDatosRiesgos" class="table">
+            <table rules="rows" id="tablaDatosRiesgos" class="table" >
                 <thead>
                     <tr>
                         @{
@@ -66,17 +69,11 @@
                                     foreach (var columna in fila.Value)
                                     {
                                         <td class="td-large">@columna.ToString()</td>
-
                                     }
-
-
                                 }
                             </tr>
-
                          }
                     }
-
-
                 </tbody>
             </table>
 
@@ -91,7 +88,11 @@
 
     $(document).ready(function () {
 
-        $('#tablaDatosRiesgos').DataTable()
-
+        var table = $('#tablaDatosRiesgos').DataTable({
+            responsive: true,
+            scrollY: 1000,
+            scrollCollapse: true,
+            scroller: true,
+        })
     });
 </script>

@@ -146,9 +146,15 @@
     <Content Include="Content\css\responsive.css" />
     <Content Include="Content\css\style.css" />
     <Content Include="Content\datetables\dataTables.bootstrap.css" />
+    <Content Include="Content\datetables\dataTables.fixedColumns.min.js" />
+    <Content Include="Content\datetables\dataTables.responsive.min.js" />
+    <Content Include="Content\datetables\dataTables.scroller.min.js" />
+    <Content Include="Content\datetables\fixedColumns.dataTables.min.css" />
     <Content Include="Content\datetables\jquery.dataTables.css" />
     <Content Include="Content\datetables\jquery.dataTables.min.css" />
     <Content Include="Content\datetables\jquery.dataTables.min.js" />
+    <Content Include="Content\datetables\responsive.dataTables.min.css" />
+    <Content Include="Content\datetables\scroller.dataTables.min.css" />
     <Content Include="Content\fonts\fontawesome-webfont.svg" />
     <Content Include="Content\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Content\fonts\nsp.svg" />
