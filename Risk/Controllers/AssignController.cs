@@ -24,8 +24,14 @@ namespace Risk.Controllers
         {
             BD_Riesgos.numeroFilasStructure(0);
             List<tEstructura> datosEstructuraOrdenados = BD_Riesgos.datosEstructuraOrdenados;
-
             ViewBag.datosEstructura = pintaLista(datosEstructuraOrdenados);
+
+            ViewBag.datosthead = BD_Riesgos.nombresColTabla("dbo.qRiesgosNombres", colVer, colTitulos);
+
+            if (TempData["datostbody"] == null)
+            {
+                TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(colVer, colTitulos);
+            }
 
             return View();
         }
@@ -109,16 +115,13 @@ namespace Risk.Controllers
         // Vista inicial GET Risk ---------------------------------------------------
         public ActionResult Risks()
         {
-
             DropDownModel dropdowns = new DropDownModel();
-
             ViewBag.datosthead = BD_Riesgos.nombresColTabla("dbo.qRiesgosNombres", colVer, colTitulos);
 
             if (TempData["datostbody"] == null)
             {
                 TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(colVer, colTitulos);
             }
-
             return View(dropdowns);
         }
 

@@ -425,6 +425,11 @@ table.dataTable td {
 .dataTables_wrapper.no-footer div.dataTables_scrollBody table {
   border-bottom: none;
 }
+
+.dataTables_scrollBody{
+    overflow: visible !important;
+}
+
 .dataTables_wrapper:after {
   visibility: hidden;
   display: block;

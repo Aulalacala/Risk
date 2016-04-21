@@ -16,15 +16,6 @@
 <link rel="stylesheet" href="~/Content/datetables/responsive.dataTables.min.css" type="text/css" />
 <link rel="stylesheet" href="~/Content/datetables/scroller.dataTables.min.css" type="text/css" />
 
-
-
-<!-- TITLE & BUTTONS -->
-<span class="title bigger">INSTANCES SEARCH</span>
-<div class="clearfix"></div>
-<div class="divider"></div>
-
-
-
 <!-- RESULTS TABLE -->
 <div class="row">
     <div class="col-lg-12 col-md-12">
@@ -83,16 +74,28 @@
 
 </div> <!-- END RESULTS TABLE -->
 <script>
-
-
-
     $(document).ready(function () {
+        var vista = window.location.href;
 
-        var table = $('#tablaDatosRiesgos').DataTable({
-            responsive: true,
-            scrollY: 1000,
-            scrollCollapse: true,
-            scroller: true,
-        })
+        if(window.location.href.indexOf("Structure") > -1) {
+            var table = $('#tablaDatosRiesgos').DataTable({
+                responsive: true,
+                scrollY: 300,
+                scrollCollapse: true,
+                scroller: true,
+                "bPaginate": false,
+                "bFilter": false,
+                "bInfo": false
+            })
+        } else {
+            var table = $('#tablaDatosRiesgos').DataTable({
+                responsive: true,
+                scrollY: 1000,
+                scrollCollapse: true,
+                scroller: true,
+            })
+        }
+
+       
     });
 </script>
