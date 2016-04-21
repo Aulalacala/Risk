@@ -7,6 +7,7 @@ using Risk.Controllers;
 using Risk.Models;
 using System.Web.Script.Serialization;
 using Newtonsoft.Json;
+using System.Text;
 
 namespace Risk.Controllers
 {
@@ -24,10 +25,73 @@ namespace Risk.Controllers
             BD_Riesgos.numeroFilasStructure(0);
             List<tEstructura> datosEstructuraOrdenados = BD_Riesgos.datosEstructuraOrdenados;
 
-            ViewBag.datosEstructura = datosEstructuraOrdenados;
+            ViewBag.datosEstructura = pintaLista(datosEstructuraOrdenados);
 
-            return View(datosEstructuraOrdenados);
+            return View();
         }
+
+        public string pintaLista(List<tEstructura> listaOrdenada)
+        {
+            StringBuilder listaString = new StringBuilder();
+
+
+            for (int i = 0; i < listaOrdenada.Count(); i++)
+            {
+
+                string tieneHijos = BD_Riesgos.compruebaTieneHijos(listaOrdenada[i].CodCompleto);
+
+                if (listaOrdenada[i].Nivel == 1)
+                {
+                    listaString.Append("<ul id='miEstructura'>"
+                                       + "<li>"
+                                       + "<input type='checkbox'"+ tieneHijos + "/>"
+                                       + "<a href='#' id='"+ listaOrdenada[i].CodCompleto +"'>" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "</a>"
+                                       + "<ul>");
+                }
+
+                if (listaOrdenada[i].Nivel == 2)
+                {
+
+                    
+
+                    listaString.Append("<li>" 
+                                       + "<input type='checkbox'" + tieneHijos + "/>"
+                                       + "<a href = '#' id = '"+ listaOrdenada[i].CodCompleto + "'>" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre  + "</a>"
+                                       + "<ul>");
+                }
+
+                if(listaOrdenada.Count()-1 != i )
+                {
+                    if (listaOrdenada[i].Nivel == 3 && listaOrdenada[i + 1].Nivel == 3)
+                    {
+
+                        listaString.Append("<li>"
+                                           + "<input type='checkbox'" + tieneHijos + "/>"
+                                           + "<a href = '#' id = '" + listaOrdenada[i].CodCompleto + "'>" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "</a>"
+                                           + "</li>");
+                    }
+
+                    else if (listaOrdenada[i].Nivel == 3 && listaOrdenada[i + 1].Nivel == 2)
+                    {
+                        listaString.Append("<li>"
+                                          + "<input type='checkbox'" + tieneHijos + "/>"
+                                           + "<a href = '#' id = '" + listaOrdenada[i].CodCompleto + "'>" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "</a>"
+                                           + "</li></ul></li>");
+                    }
+                }else
+                {
+                    listaString.Append("<li>"
+                                       + "<input type='checkbox'" + tieneHijos + "/>"
+                                       + "<a href = '#' id = '" + listaOrdenada[i].CodCompleto + "'>" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "</a>"
+                                       + "</li></ul></li>");
+                }
+            }
+            listaString.Append("</ul></li></ul>");
+            return listaString.ToString();
+        }
+
+
+
 
 
 

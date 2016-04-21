@@ -312,17 +312,10 @@ namespace Risk.Controllers
             return datosEvaluaciones;
         }
 
-
-
-
-
-       
-
-
         public void numeroFilasStructure(int id)
         {
             List<tEstructura> cuantosHay = riesgosBD.tEstructura.Where(r => r.idPadre == id).OrderBy(r => r.Orden).ToList();
-            if(cuantosHay.Count != 0)
+            if (cuantosHay.Count != 0)
             {
                 for (int i = 0; i < cuantosHay.Count; i++)
                 {
@@ -330,10 +323,20 @@ namespace Risk.Controllers
                     numeroFilasStructure(cuantosHay[i].IdEstructura);
                 }
             }
-    
+
         }
 
-    }
 
-    #endregion
+
+        #endregion
+
+        #region StructureController
+
+        public string compruebaTieneHijos(string codCompleto)
+        {
+            string tieneHijos="";
+            return tieneHijos = riesgosBD.tRiesgos.Where(r => r.CodRiesgo.Contains(codCompleto)).Any() ? tieneHijos = "checked" : tieneHijos = "";
+        }
+        #endregion
+    }
 }
