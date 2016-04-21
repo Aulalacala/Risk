@@ -3,7 +3,6 @@
     Dictionary<string, string> datostHead = (Dictionary<string, string>)ViewBag.datosthead;
 }
 
-
 <!-- SCRIPTS -->
 
 <script type="text/javascript" src="~/Content/js/jquery/jquery-2.1.1.min.js"></script>
@@ -16,86 +15,87 @@
 <link rel="stylesheet" href="~/Content/datetables/responsive.dataTables.min.css" type="text/css" />
 <link rel="stylesheet" href="~/Content/datetables/scroller.dataTables.min.css" type="text/css" />
 
-<!-- RESULTS TABLE -->
-<div class="row">
-    <div class="col-lg-12 col-md-12">
+@if (datos == null) { }
 
-        <!-- DIVIDER -->
-        <div class="divider-30"></div>
-        <!-- TABLE DIV -->
-    </div>
+else
+{
 
-    <div>
-        <div class="divDelGrid center-block table-responsive" style="width:95%">
+    <table rules="rows" id="tablaDatosRiesgos" class="table">
+        <thead>
+            <tr>
+                @{
 
-            <table rules="rows" id="tablaDatosRiesgos" class="table" >
-                <thead>
+                    <th text-align="right">
+                        Editar
+                    </th>
+
+                    foreach (var item in datostHead)
+                    {
+                        <th class="td-large">@item.Value.ToString()</th>
+                    }
+
+                }
+            </tr>
+
+        </thead>
+        <tbody>
+
+            @{
+                foreach (var fila in datos)
+                {
                     <tr>
                         @{
+                            <td text-align="right">
+                                <a href="@Url.Action("RiskFicha", "Risk", new { id = fila.Key }) " id="@fila.Key"><i class="glyphicon glyphicon-pencil"></i></a>
+                                <script>alert(@fila.Key)</script>
+                            </td>
 
-                            <th text-align="right">
-                                Editar
-                            </th>
-
-                            foreach (var item in datostHead)
+                            foreach (var columna in fila.Value)
                             {
-                                <th class="td-large">@item.Value.ToString()</th>
+                                <td class="td-large">@columna.ToString()</td>
                             }
-
                         }
                     </tr>
-
-                </thead>
-                <tbody>
-
-                    @{
-                        foreach (var fila in datos)
-                        {
-                            <tr>
-                                @{
-                                    <td text-align="right">
-                                        <a href="@Url.Action("RiskFicha", "Risk", new { id= fila.Key}) " id="@fila.Key"><i class="glyphicon glyphicon-pencil"></i></a>
-                                    </td>
-
-                                    foreach (var columna in fila.Value)
-                                    {
-                                        <td class="td-large">@columna.ToString()</td>
-                                    }
-                                }
-                            </tr>
-                         }
-                    }
-                </tbody>
-            </table>
-
-        </div>
-    </div> <!-- END TABLE DIV -->
+                            }
+            }
+        </tbody>
+    </table>
+                            }
 
 
-</div> <!-- END RESULTS TABLE -->
 <script>
     $(document).ready(function () {
-        var vista = window.location.href;
 
-        if(window.location.href.indexOf("Structure") > -1) {
+        $('#tablaDatosRiesgos tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            }
+            else {
+                table.$('tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+
+        if (window.location.href.indexOf("Structure") > -1) {
             var table = $('#tablaDatosRiesgos').DataTable({
                 responsive: true,
-                scrollY: 300,
-                scrollCollapse: true,
+                scrollY: 370,
+                scrollX: true,
                 scroller: true,
                 "bPaginate": false,
                 "bFilter": false,
-                "bInfo": false
+                "bInfo": false,
+
             })
         } else {
             var table = $('#tablaDatosRiesgos').DataTable({
                 responsive: true,
                 scrollY: 1000,
+                scrollX: true,
                 scrollCollapse: true,
                 scroller: true,
             })
         }
-
-       
     });
 </script>

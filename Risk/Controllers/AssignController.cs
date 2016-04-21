@@ -15,8 +15,8 @@ namespace Risk.Controllers
     {
 
         BD_Riesgos BD_Riesgos = new BD_Riesgos();
-        string colVer = "CodRiesgo,Nombre,Categoria,Clasif1,Clasif2,Clasif3";
-        string colTitulos = "Código Riesgo,Nombre, Categoría,Clasificación1,Clasificación2,Clasificación3";
+        string colVer = "CodRiesgo,Nombre,Categoria,Clasif1,Clasif2,Clasif3,CodRiesgoLocalizado";
+        string colTitulos = "Código Riesgo,Nombre,Categoría,Clasificación1,Clasificación2,Clasificación3,Código Localizado";
 
         #region View Structure
         // Vista inicial Structure GET -----------------------------------------------------------
@@ -30,17 +30,23 @@ namespace Risk.Controllers
 
             if (TempData["datostbody"] == null)
             {
-                TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(colVer, colTitulos);
+                TempData["datostbody"] = null;
             }
 
             return View();
         }
 
+        //Partial View Structure GET
+        public ActionResult Description()
+        {
+
+            return PartialView();
+        }
+
+        //Metodos de Structure
         public string pintaLista(List<tEstructura> listaOrdenada)
         {
             StringBuilder listaString = new StringBuilder();
-
-
             for (int i = 0; i < listaOrdenada.Count(); i++)
             {
 
@@ -50,23 +56,23 @@ namespace Risk.Controllers
                 {
                     listaString.Append("<ul id='miEstructura'>"
                                        + "<li>"
-                                       + "<input type='checkbox'"+ tieneHijos + "/>"
-                                       + "<a href='#' id='"+ listaOrdenada[i].CodCompleto +"'>" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "</a>"
+                                       + "<input type='checkbox'" + tieneHijos + "/>"
+                                       + "<a href='#' id='" + listaOrdenada[i].CodCompleto + "'>" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "</a>"
                                        + "<ul>");
                 }
 
                 if (listaOrdenada[i].Nivel == 2)
                 {
 
-                    
 
-                    listaString.Append("<li>" 
+
+                    listaString.Append("<li>"
                                        + "<input type='checkbox'" + tieneHijos + "/>"
-                                       + "<a href = '#' id = '"+ listaOrdenada[i].CodCompleto + "'>" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre  + "</a>"
+                                       + "<a href = '#' id = '" + listaOrdenada[i].CodCompleto + "'>" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "</a>"
                                        + "<ul>");
                 }
 
-                if(listaOrdenada.Count()-1 != i )
+                if (listaOrdenada.Count() - 1 != i)
                 {
                     if (listaOrdenada[i].Nivel == 3 && listaOrdenada[i + 1].Nivel == 3)
                     {
@@ -84,7 +90,8 @@ namespace Risk.Controllers
                                            + "<a href = '#' id = '" + listaOrdenada[i].CodCompleto + "'>" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "</a>"
                                            + "</li></ul></li>");
                     }
-                }else
+                }
+                else
                 {
                     listaString.Append("<li>"
                                        + "<input type='checkbox'" + tieneHijos + "/>"
@@ -96,7 +103,11 @@ namespace Risk.Controllers
             return listaString.ToString();
         }
 
-
+        public ActionResult recuperaRiesgos(string id)
+        {
+            TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(colVer, colTitulos, id);
+            return RedirectToAction("Structure", "Assign");
+        }
 
 
 
@@ -125,7 +136,6 @@ namespace Risk.Controllers
             return View(dropdowns);
         }
 
-
         // Recuperar clasificaciones segun idEstructura, llamada desde metodo jquery en fichero Scripts2.js ---------------
         public string recuperaListClasif(int idEstructura)
         {
@@ -141,20 +151,6 @@ namespace Risk.Controllers
             return RedirectToAction("Risks", "Assign");
         }
 
-
-        //Ordenar columnas
-        public ActionResult SortColumn(int columna)
-        {
-            Dictionary<int, List<object>> filasActuales = (Dictionary<int, List<object>>)TempData["datostbody"];
-            Dictionary<int, List<object>> filasOrdenadas = new Dictionary<int, List<object>>();
-
-            foreach (var riesgo in filasActuales)
-            {
-                //riesgo.Value[columna];
-            }
-
-            return RedirectToAction("Risks", "Assign");
-        }
 
         #endregion
 

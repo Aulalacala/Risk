@@ -165,52 +165,52 @@ namespace Risk.Controllers
 
         //Recuperar TBODY tabla Datos Risk  || CON TABLA DEFINIDA ------------------------
 
-        public Dictionary<int, List<object>> datosQRiesgosNombre(string nombreTabla, string colVer, string colTitulos)
-        {
+        //public Dictionary<int, List<object>> datosQRiesgosNombre(string nombreTabla, string colVer, string colTitulos)
+        //{
 
-            Dictionary<int, List<object>> listaDatosFinal = new Dictionary<int, List<object>>();
+        //    Dictionary<int, List<object>> listaDatosFinal = new Dictionary<int, List<object>>();
 
-            MetaTable TablaDBO = riesgosBD.Mapping.GetTables().Where(t => t.TableName == nombreTabla).Select(t => t).SingleOrDefault();
+        //    MetaTable TablaDBO = riesgosBD.Mapping.GetTables().Where(t => t.TableName == nombreTabla).Select(t => t).SingleOrDefault();
 
-            MetaModel model = TablaDBO.Model;
+        //    MetaModel model = TablaDBO.Model;
 
-            try
-            {
-                Dictionary<string, string> nombreCols = nombresColTabla(nombreTabla, colVer, colTitulos);
+        //    try
+        //    {
+        //        Dictionary<string, string> nombreCols = nombresColTabla(nombreTabla, colVer, colTitulos);
 
-                foreach (var riesgo in riesgosBD.qRiesgosNombres.ToList())
-                {
+        //        foreach (var riesgo in riesgosBD.qRiesgosNombres.ToList())
+        //        {
 
-                    List<object> camposRiesgo = new List<object>();
+        //            List<object> camposRiesgo = new List<object>();
 
-                    foreach (var col in nombreCols)
-                    {
+        //            foreach (var col in nombreCols)
+        //            {
 
-                        string name;
-                        System.Reflection.PropertyInfo x = riesgo.GetType().GetProperty(col.Key);
+        //                string name;
+        //                System.Reflection.PropertyInfo x = riesgo.GetType().GetProperty(col.Key);
 
-                        if (x.GetValue(riesgo, null) == null)
-                        {
-                            name = "null";
-                        }
-                        else
-                        {
-                            name = (string)((x.GetValue(riesgo, null))).ToString();
-                        }
-                        camposRiesgo.Add(name);
+        //                if (x.GetValue(riesgo, null) == null)
+        //                {
+        //                    name = "null";
+        //                }
+        //                else
+        //                {
+        //                    name = (string)((x.GetValue(riesgo, null))).ToString();
+        //                }
+        //                camposRiesgo.Add(name);
 
-                    }
-                    listaDatosFinal.Add(riesgo.IdRiesgo, camposRiesgo);
-                }
-            }
-            catch (Exception)
-            {
+        //            }
+        //            listaDatosFinal.Add(riesgo.IdRiesgo, camposRiesgo);
+        //        }
+        //    }
+        //    catch (Exception)
+        //    {
 
-                return null;
-            }
+        //        return null;
+        //    }
 
-            return listaDatosFinal;
-        }
+        //    return listaDatosFinal;
+        //}
 
 
 
@@ -230,12 +230,11 @@ namespace Risk.Controllers
 
             try
             {
-
                 datosQRiesgosNombre = riesgosBD.qRiesgosNombres.ToDictionary(r => r.IdRiesgo, r => r);
 
                 if (!string.IsNullOrEmpty(filtro))
                 {
-                    datosQRiesgosNombre = datosQRiesgosNombre.Where(r => r.Value.Nombre.Contains(filtro)).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
+                    datosQRiesgosNombre = datosQRiesgosNombre.Where(r => r.Value.Nombre.Contains(filtro) || r.Value.CodRiesgoLocalizado.Contains(filtro)).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
                 }
 
                 if (categoria != 0)

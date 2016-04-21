@@ -65,7 +65,7 @@ table.dataTable tbody tr {
   background-color: #ffffff;
 }
 table.dataTable tbody tr.selected {
-  background-color: #B0BED9;
+  background-color: #eaf7fa;
 }
 table.dataTable tbody th,
 table.dataTable tbody td {
@@ -426,9 +426,7 @@ table.dataTable td {
   border-bottom: none;
 }
 
-.dataTables_scrollBody{
-    overflow: visible !important;
-}
+
 
 .dataTables_wrapper:after {
   visibility: hidden;
@@ -436,7 +434,12 @@ table.dataTable td {
   content: "";
   clear: both;
   height: 0;
-}
+}or quality or service interruption	Poor quality of service	OH.10.01
+OH.10.01.04	Lack of resources/ inappropriate resources to deliver services (long sickness leaves, high demand for audits, lack of sufficient skills/ experience)	HR issues	Operational Risk	Employment practices and workplace safety	Relations, employee diversity and discrimination	OH.10.01
+OH.10.01.05	Long audit process (or inefficient in other ways)	Process/Practice Weakness	Operational Risk	Processes, Operations and Transactions	Inadequate processes	OH.10.01
+OH.10.01.06	Perception (among management/ staff) that internal audit service is not adding value or not delivering what it supposed to deliver	HR issues	Operational Risk	Processes, Operations and Transactions	Collection of data, transactions, and implementation planning	OH.10.01
+OH.05.01.01	Client default risk	External Business Environment	Credit	Accounts Receivable	null	OH.05.01
+OH.05.01.02	Supplier default risk	Suppliers	Credit	Risks caused by the insolvency of a third party, to which there is some type of dependence	null	OH.05.01
 
 @media screen and (max-width: 767px) {
   .dataTables_wrapper .dataTables_info,

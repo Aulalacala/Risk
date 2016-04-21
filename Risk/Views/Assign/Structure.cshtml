@@ -44,23 +44,67 @@
 
         <div class="row pull-left">
             <div class="col-lg-12 col-md-12">
-
+                <br /><br />
                 <!-- COLUMNA IZQUIERDA-->
                 <div class="col-lg-3 col-md-3">
                     @Html.Raw(ViewBag.datosEstructura)
                 </div>
 
                 <!-- COLUMNA DERECHA-->
-                <div class="col-lg-9 col-md-9">
-                    @Html.Partial("~/Views/PartialViews/TablaDatos.cshtml")
+                <div id="assignedRisks" style="border:1px solid #ececec; padding:10px" class="row col-lg-9 col-md-9">
+                    <div class="col-lg-9 col-md-9">
+                        <span class="form-left-label"><b>ASSIGNED RISK</b></span>
+                    </div>
+                    <div class="col-lg-12 col-md-12">
+                        <div class="divDelGrid table-responsive" style="width:100%">
+                            @Html.Partial("~/Views/PartialViews/TablaDatos.cshtml")
+                        </div>
+                    </div>
+                    <div class="divider"></div>
+
+                    <div class="col-lg-12 col-md-12 panel">
+                        <div id="partialViewsRisk" class="panel-body">
+                            <!-- TABS -->
+                            <div>
+                                <ul class="nav nav-tabs" id="mnu">
+                                    <li class="active">
+                                        <a aria-expanded="true" id="mnu_Description" data-toggle="tab" href="#">Description</a>
+                                    </li>
+                                    <li>
+                                        <a aria-expanded="false" id="mnu_FlowChart" data-toggle="tab" href="#">Flowchart</a>
+                                    </li>
+                                    <li>
+                                        <a aria-expanded="false" id="mnu_Graphs" data-toggle="tab" href="#">Graphs</a>
+                                    </li>
+                                    <li>
+                                        <a aria-expanded="false" id="mnu_Filters" data-toggle="tab" href="#">Filters</a>
+                                    </li>
+                                </ul>
+                                <hr />
+                            </div> <!-- END TABS -->
+                            <div id="contenidoDinamico">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
+<script>
+    //$(document).ready(function () {
+    //    //var id = $('.selected td').eq(1).text();
+    //    var ruta = "http://localhost:1525/Assign/Description/";
+    //    $('#contenidoDinamico').load(ruta);
+    //})
 
+    $('a').click(function () {
+        var id = $(this).attr("id")
+        $.getJSON("/Assign/recuperaRiesgos?id=" + id, function (data) { })
 
+    })
+</script>
 
 
 
