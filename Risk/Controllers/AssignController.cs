@@ -37,10 +37,19 @@ namespace Risk.Controllers
         }
 
         //Partial View Structure GET
-        public ActionResult Description()
+        public ActionResult Description(string id)
         {
+            if (!string.IsNullOrEmpty(id))
+            {
+                List<qEstructura_Contenidos_Def> datosDescripcion = BD_Riesgos.recuperaConteDefEstructura(Int32.Parse(id));
+                return PartialView(datosDescripcion);
+            }else
+            {
+                return PartialView();
+            }
 
-            return PartialView();
+          
+           
         }
 
         //Metodos de Structure
@@ -57,7 +66,7 @@ namespace Risk.Controllers
                     listaString.Append("<ul id='miEstructura'>"
                                        + "<li>"
                                        + "<input type='checkbox'" + tieneHijos + "/>"
-                                       + "<input type='submit' class='buttonStructure' name='codigo'  value='" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "'/>"                                     
+                                       + "<input type='submit' class='buttonStructure' name='codigo' id='"+ listaOrdenada[i].IdEstructura+ "' value='" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "' />"                                     
                                        + "<ul>");
                 }
 
@@ -100,12 +109,12 @@ namespace Risk.Controllers
             return listaString.ToString();
         }
 
-        public ActionResult recuperaRiesgos(string codigo)
+        public ActionResult recuperaRiesgos(string codigo, string id)
         {
 
-            string id = codigo.Split(' ')[0];
+            string id2 = codigo.Split(' ')[0];
             TempData["titulo"] = codigo;
-            TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(colVer, colTitulos, id);
+            TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(colVer, colTitulos, id2);
             return RedirectToAction("Structure", "Assign");
         }
 

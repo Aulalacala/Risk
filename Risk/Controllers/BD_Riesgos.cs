@@ -28,6 +28,8 @@ namespace Risk.Controllers
             }
         }
 
+      
+
 
 
         #region AssignController
@@ -291,6 +293,13 @@ namespace Risk.Controllers
             }
             return listaDatosFinal;
         }
+
+        public List<qEstructura_Contenidos_Def> recuperaConteDefEstructura(int id)
+        {
+            return riesgosBD.qEstructura_Contenidos_Def.Where(r => r.IdEstructura == id).ToList();
+        }
+
+
         #endregion
 
 
@@ -316,10 +325,12 @@ namespace Risk.Controllers
             List<tEstructura> cuantosHay = riesgosBD.tEstructura.Where(r => r.idPadre == id).OrderBy(r => r.Orden).ToList();
             if (cuantosHay.Count != 0)
             {
+                //ul
                 for (int i = 0; i < cuantosHay.Count; i++)
                 {
                     _datosEstructuraOrdenados.Add(cuantosHay[i]);
                     numeroFilasStructure(cuantosHay[i].IdEstructura);
+
                 }
             }
 

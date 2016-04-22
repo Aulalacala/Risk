@@ -49,6 +49,17 @@ $('a[id^="mnu_"]').click(function () {
 
 // Menu Partial Description. Carga dinámica de partialsViews cuando click en Menu
 
+//var codigo;
+
+$('input[name="codigo"]').click(function () {
+    var idEstructura = $(this).attr('id');
+    $('body').append('<input id="IdEstructura" type="hidden" value="' + idEstructura + '" />')
+    var ruta = "http://localhost:1525/Assign/Description";
+    $('#contenidoDinamico').load(ruta, { "id": idEstructura });
+
+})
+
+
 $('a[id^="str_"]').click(function () {
 
     $('#str li').removeClass('active');
@@ -58,9 +69,10 @@ $('a[id^="str_"]').click(function () {
     $(this).attr('aria-expanded', 'true');
 
     var pagina = $(this).attr("id").replace('str', '');
-    var id = $('#IdRiesgo').val();
+    var id = $('#IdEstructura').val();
+
     var ruta = "http://localhost:1525/Assign/" + pagina;
 
-    $('#contenidoDinamico').load(ruta);
+    $('#contenidoDinamico').load(ruta, { "id": id });
 })
 
