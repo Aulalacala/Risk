@@ -198,6 +198,14 @@ namespace Risk.Models
 				return this.GetTable<tEstructura>();
 			}
 		}
+		
+		public System.Data.Linq.Table<qEstructura_Contenidos_Def> qEstructura_Contenidos_Def
+		{
+			get
+			{
+				return this.GetTable<qEstructura_Contenidos_Def>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tRiesgos_Clasificaciones")]
@@ -3650,6 +3658,69 @@ namespace Risk.Models
 			if ((this.PropertyChanged != null))
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.qEstructura_Contenidos_Def")]
+	public partial class qEstructura_Contenidos_Def
+	{
+		
+		private System.Nullable<int> _IdEstructura;
+		
+		private string _Contenido;
+		
+		private string _Titulo;
+		
+		public qEstructura_Contenidos_Def()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEstructura", DbType="Int")]
+		public System.Nullable<int> IdEstructura
+		{
+			get
+			{
+				return this._IdEstructura;
+			}
+			set
+			{
+				if ((this._IdEstructura != value))
+				{
+					this._IdEstructura = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Contenido", DbType="NVarChar(MAX)")]
+		public string Contenido
+		{
+			get
+			{
+				return this._Contenido;
+			}
+			set
+			{
+				if ((this._Contenido != value))
+				{
+					this._Contenido = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Titulo", DbType="NVarChar(50)")]
+		public string Titulo
+		{
+			get
+			{
+				return this._Titulo;
+			}
+			set
+			{
+				if ((this._Titulo != value))
+				{
+					this._Titulo = value;
+				}
 			}
 		}
 	}

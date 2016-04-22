@@ -27,7 +27,7 @@ namespace Risk.Controllers
             ViewBag.datosEstructura = pintaLista(datosEstructuraOrdenados);
 
             ViewBag.datosthead = BD_Riesgos.nombresColTabla("dbo.qRiesgosNombres", colVer, colTitulos);
-
+           
             if (TempData["datostbody"] == null)
             {
                 TempData["datostbody"] = null;
@@ -57,18 +57,15 @@ namespace Risk.Controllers
                     listaString.Append("<ul id='miEstructura'>"
                                        + "<li>"
                                        + "<input type='checkbox'" + tieneHijos + "/>"
-                                       + "<a href='#' id='" + listaOrdenada[i].CodCompleto + "'>" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "</a>"
+                                       + "<input type='submit' class='buttonStructure' name='codigo'  value='" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "'/>"                                     
                                        + "<ul>");
                 }
 
                 if (listaOrdenada[i].Nivel == 2)
                 {
-
-
-
                     listaString.Append("<li>"
                                        + "<input type='checkbox'" + tieneHijos + "/>"
-                                       + "<a href = '#' id = '" + listaOrdenada[i].CodCompleto + "'>" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "</a>"
+                                       + "<input type='submit' class='buttonStructure' name='codigo'  value='" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "'/>"
                                        + "<ul>");
                 }
 
@@ -78,8 +75,8 @@ namespace Risk.Controllers
                     {
 
                         listaString.Append("<li>"
-                                           + "<input type='checkbox'" + tieneHijos + "/>"
-                                           + "<a href = '#' id = '" + listaOrdenada[i].CodCompleto + "'>" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "</a>"
+                                          + "<input type='checkbox'" + tieneHijos + "/>"
+                                           + "<input type='submit' class='buttonStructure' name='codigo'  value='" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "'/>"
                                            + "</li>");
                     }
 
@@ -87,7 +84,7 @@ namespace Risk.Controllers
                     {
                         listaString.Append("<li>"
                                           + "<input type='checkbox'" + tieneHijos + "/>"
-                                           + "<a href = '#' id = '" + listaOrdenada[i].CodCompleto + "'>" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "</a>"
+                                          + "<input type='submit' class='buttonStructure' name='codigo'  value='" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "'/>"
                                            + "</li></ul></li>");
                     }
                 }
@@ -95,7 +92,7 @@ namespace Risk.Controllers
                 {
                     listaString.Append("<li>"
                                        + "<input type='checkbox'" + tieneHijos + "/>"
-                                       + "<a href = '#' id = '" + listaOrdenada[i].CodCompleto + "'>" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "</a>"
+                                       + "<input type='submit' class='buttonStructure' name='codigo'  value='" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "'/>"
                                        + "</li></ul></li>");
                 }
             }
@@ -103,8 +100,11 @@ namespace Risk.Controllers
             return listaString.ToString();
         }
 
-        public ActionResult recuperaRiesgos(string id)
+        public ActionResult recuperaRiesgos(string codigo)
         {
+
+            string id = codigo.Split(' ')[0];
+            TempData["titulo"] = codigo;
             TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(colVer, colTitulos, id);
             return RedirectToAction("Structure", "Assign");
         }
@@ -128,7 +128,7 @@ namespace Risk.Controllers
         {
             DropDownModel dropdowns = new DropDownModel();
             ViewBag.datosthead = BD_Riesgos.nombresColTabla("dbo.qRiesgosNombres", colVer, colTitulos);
-
+            TempData["titulo"] = "INSTANCES SEARCH";
             if (TempData["datostbody"] == null)
             {
                 TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(colVer, colTitulos);

@@ -191,4 +191,11 @@
       <Column Name="CodCompleto" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.qEstructura_Contenidos_Def" Member="qEstructura_Contenidos_Def">
+    <Type Name="qEstructura_Contenidos_Def">
+      <Column Name="IdEstructura" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Contenido" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Titulo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

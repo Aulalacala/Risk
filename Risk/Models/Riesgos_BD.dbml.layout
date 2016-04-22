@@ -80,5 +80,11 @@
         <elementListCompartment Id="ad867a18-79ab-43d7-b347-6faeaf28dac3" absoluteBounds="8.14, 1.085, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
+    <classShape Id="f4f607f4-9c62-4b48-ae28-4a3a3564ee5c" absoluteBounds="8.125, 3.125, 2, 1.3862939453125">
+      <DataClassMoniker Name="/Riesgos_BDDataContext/qEstructura_Contenidos_Def" />
+      <nestedChildShapes>
+        <elementListCompartment Id="9d245674-91b8-4c3e-9f34-7bee72f6926d" absoluteBounds="8.14, 3.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
   </nestedChildShapes>
 </ordesignerObjectsDiagram>

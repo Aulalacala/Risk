@@ -43,3 +43,24 @@ $('a[id^="mnu_"]').click(function () {
     $('#contenidoDinamico').load(ruta, {"id" : id});
 })
 
+
+/* ************************************************************************************************************** */
+// Assign/Structure
+
+// Menu Partial Description. Carga dinámica de partialsViews cuando click en Menu
+
+$('a[id^="str_"]').click(function () {
+
+    $('#str li').removeClass('active');
+    $(this).parent().addClass('active');
+
+    $('#str li a').attr('aria-expanded', 'false');
+    $(this).attr('aria-expanded', 'true');
+
+    var pagina = $(this).attr("id").replace('str', '');
+    var id = $('#IdRiesgo').val();
+    var ruta = "http://localhost:1525/Assign/" + pagina;
+
+    $('#contenidoDinamico').load(ruta);
+})
+

@@ -3,6 +3,27 @@
     ViewBag.Title = "Structure";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
+
+<style>
+    .buttonStructure{
+        color: #8098a7;
+        border:0; padding:0; margin:5px;
+        background-color: white;
+
+    }
+
+        .buttonStructure:active{
+        color: black;
+        border:0; padding:0; margin:5px;
+        background-color: white;
+
+    }
+
+
+</style>
+
+
+
 <!-- SCRIPTS -->
 <script type="text/javascript" src="~/Content/js/jquery/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="~/Content/js/jquery/jquery.browser.min.js"></script>
@@ -42,21 +63,28 @@
         <div class="clearfix"></div>
         <div class="divider"></div>
 
-        <div class="row pull-left">
-            <div class="col-lg-12 col-md-12">
+        <div class="row">
+            <div class="col-lg-12 col-md-12" style="width:100%">
                 <br /><br />
                 <!-- COLUMNA IZQUIERDA-->
-                <div class="col-lg-3 col-md-3">
-                    @Html.Raw(ViewBag.datosEstructura)
+                <div class="col-lg-4 col-md-4 pull-left" style="margin:0;padding:0">
+                    @using (Html.BeginForm("recuperaRiesgos", "Assign", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        <div class="col-lg-12 col-md-12"  style="width:100%">
+                            @Html.Raw(ViewBag.datosEstructura)
+                        </div>
+
+                    }
                 </div>
 
                 <!-- COLUMNA DERECHA-->
-                <div id="assignedRisks" style="border:1px solid #ececec; padding:10px" class="row col-lg-9 col-md-9">
+                <div id="assignedRisks" style="border:1px solid #ececec; padding:10px" class="row col-lg-8 col-md-8">
                     <div class="col-lg-9 col-md-9">
-                        <span class="form-left-label"><b>ASSIGNED RISK</b></span>
+                       @* <span class="form-left-label"><b>ASSIGNED RISK</b></span>*@
                     </div>
-                    <div class="col-lg-12 col-md-12">
-                        <div class="divDelGrid table-responsive" style="width:100%">
+                    <div class="col-lg-12 col-md-12" style="width:100%; display:block">
+                        <div class="divDelGrid table-responsive">
                             @Html.Partial("~/Views/PartialViews/TablaDatos.cshtml")
                         </div>
                     </div>
@@ -66,23 +94,24 @@
                         <div id="partialViewsRisk" class="panel-body">
                             <!-- TABS -->
                             <div>
-                                <ul class="nav nav-tabs" id="mnu">
+                                <ul class="nav nav-tabs" id="str">
                                     <li class="active">
-                                        <a aria-expanded="true" id="mnu_Description" data-toggle="tab" href="#">Description</a>
+                                        <a aria-expanded="true" id="str_Description" data-toggle="tab" href="#">Description</a>
                                     </li>
                                     <li>
-                                        <a aria-expanded="false" id="mnu_FlowChart" data-toggle="tab" href="#">Flowchart</a>
+                                        <a aria-expanded="false" id="str_FlowChart" data-toggle="tab" href="#">Flowchart</a>
                                     </li>
                                     <li>
-                                        <a aria-expanded="false" id="mnu_Graphs" data-toggle="tab" href="#">Graphs</a>
+                                        <a aria-expanded="false" id="str_Graphs" data-toggle="tab" href="#">Graphs</a>
                                     </li>
                                     <li>
-                                        <a aria-expanded="false" id="mnu_Filters" data-toggle="tab" href="#">Filters</a>
+                                        <a aria-expanded="false" id="str_Filters" data-toggle="tab" href="#">Filters</a>
                                     </li>
                                 </ul>
                                 <hr />
                             </div> <!-- END TABS -->
                             <div id="contenidoDinamico">
+
                             </div>
                         </div>
                     </div>
@@ -92,20 +121,14 @@
     </div>
 </div>
 
+
 <script>
-    //$(document).ready(function () {
-    //    //var id = $('.selected td').eq(1).text();
-    //    var ruta = "http://localhost:1525/Assign/Description/";
-    //    $('#contenidoDinamico').load(ruta);
-    //})
-
-    $('a').click(function () {
-        var id = $(this).attr("id")
-        $.getJSON("/Assign/recuperaRiesgos?id=" + id, function (data) { })
-
+    $(document).ready(function () {
+        var id = $('#IdRiesgo').val();
+        var ruta = "http://localhost:1525/Assign/Description/";
+        $('#contenidoDinamico').load(ruta);
     })
 </script>
-
 
 
 <script>
