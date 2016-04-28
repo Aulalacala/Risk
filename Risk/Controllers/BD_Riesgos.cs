@@ -330,14 +330,9 @@ namespace Risk.Controllers
                 {
                     _datosEstructuraOrdenados.Add(cuantosHay[i]);
                     numeroFilasStructure(cuantosHay[i].IdEstructura);
-
                 }
             }
-
         }
-
-
-
         #endregion
 
         #region StructureController

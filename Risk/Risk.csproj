@@ -256,9 +256,11 @@
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RiskController.cs" />
+    <Compile Include="Controllers\StructureController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\TreeView.cs" />
     <Compile Include="Models\DropDownModel.cs" />
     <Compile Include="Models\Riesgos_BD.designer.cs">
       <AutoGen>True</AutoGen>
@@ -288,6 +290,7 @@
     <Content Include="Views\Risk\General.cshtml" />
     <Content Include="Views\Risk\Graphic.cshtml" />
     <Content Include="Views\Assign\Description.cshtml" />
+    <Content Include="Views\Structure\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
