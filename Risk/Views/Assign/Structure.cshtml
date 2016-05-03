@@ -85,9 +85,7 @@
                                 <a href=@Url.Action("recuperaRiesgos", "Assign", new { idEstructura = item.Id, name = item.Name}) name="partalView" id="@item.Id">@item.Name</a>
                             </text>)
                             )
-                        </div>
-
-                    
+                        </div>                    
                 </div>
 
                 <!-- COLUMNA DERECHA-->
@@ -134,12 +132,12 @@
 </div>
 
 
-<script>
+@*<script>
     $(document).ready(function () {
         var ruta = "http://localhost:1525/Assign/Description/";
         $('#contenidoDinamico').load(ruta);
     })
-</script>
+</script>*@
 
 
 <script>

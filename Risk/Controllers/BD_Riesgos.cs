@@ -285,12 +285,21 @@ namespace Risk.Controllers
 
         public DescriptionStructureModel recuperaConteDefEstructura(int id)
         {
-            List<qEstructura_Contenidos_Def> listado = riesgosBD.qEstructura_Contenidos_Def.Where(r => r.IdEstructura == id).ToList().forEach(x=>new DescriptionStructureModel
-            {
-                department = x.
-            })
+            DescriptionStructureModel description = new DescriptionStructureModel();
 
-            return riesgosBD.qEstructura_Contenidos_Def.Where(r => r.IdEstructura == id).Single();
+            riesgosBD.qEstructura_Contenidos_Def.Where(r => r.IdEstructura == id).ToList().ForEach(x =>
+            {
+                switch (x.Titulo)
+                {
+                    case "Department":
+                        description.department = x.Contenido;
+                        break;
+                }
+
+
+            });
+
+            return description;
         }
 
 

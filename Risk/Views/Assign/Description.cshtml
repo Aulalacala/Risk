@@ -1,11 +1,11 @@
-﻿@model Risk.Models.qEstructura_Contenidos_Def
+﻿@model Risk.Models.DescriptionStructureModel
 <div class="row">
     <div class="col-lg-12 col-md-12">
         <span class="form-left-label">Department</span>
     </div>
    
     <div class="col-lg-12 col-md-12">
-        @Html.TextAreaFor(model => model.Where(r=>r.Titulo == "Department"),2,117, new { @class = "form-control w100"})
+        @Html.TextAreaFor(model => model.department,2,117, new { @class = "form-control w100"})
         @*<textarea rows="2" cols="117"/>*@
     </div>
 
@@ -14,7 +14,7 @@
     </div>
 
     <div class="col-lg-12 col-md-12">
-        @Html.TextAreaFor(model => model.Where(r => r.Titulo == "Responsible"), 2, 117, new { @class = "form-control w100" })
+        @Html.TextAreaFor(model => model.responsible, 2, 117, new { @class = "form-control w100" })
         @*<textarea rows="2" cols="117" />*@
     </div>
 
@@ -23,7 +23,7 @@
     </div>
 
     <div class="col-lg-12 col-md-12">
-        @Html.TextAreaFor(model => model.Where(r => r.Titulo == "Activities"), 2, 117, new { @class = "form-control w100" })
+        @Html.TextAreaFor(model => model.activities, 2, 117, new { @class = "form-control w100" })
         @*<textarea rows="2" cols="117" />*@
     </div>
 
@@ -32,7 +32,7 @@
     </div>
 
     <div class="col-lg-12 col-md-12">
-        @Html.TextAreaFor(model => model.Where(r => r.Titulo == "IT Assets"), 2, 117, new { @class = "form-control w100" })
+        @Html.TextAreaFor(model => model.ITassets, 2, 117, new { @class = "form-control w100" })
         @*<textarea rows="2" cols="117" />*@
     </div>
 
@@ -41,7 +41,7 @@
     </div>
 
     <div class="col-lg-12 col-md-12">
-        @Html.TextAreaFor(model => model.Where(r => r.Titulo == "Controls"), 2, 117, new { @class = "form-control w100" })
+        @Html.TextAreaFor(model => model.controls, 2, 117, new { @class = "form-control w100" })
         @*<textarea rows="2" cols="117" />*@
     </div>
 </div>
