@@ -250,13 +250,14 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Codigos\TreeviewOLDController.cs" />
     <Compile Include="Controllers\AssignController.cs" />
     <Compile Include="Controllers\BD_Riesgos.cs" />
     <Compile Include="Controllers\EncritPass.cs" />
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RiskController.cs" />
-    <Compile Include="Controllers\StructureController.cs" />
+    <Compile Include="Controllers\TreeviewClass.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -300,6 +301,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\TreeviewOLD\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

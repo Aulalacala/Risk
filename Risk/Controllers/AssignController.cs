@@ -22,9 +22,8 @@ namespace Risk.Controllers
         // Vista inicial Structure GET -----------------------------------------------------------
         public ActionResult Structure()
         {
-            BD_Riesgos.numeroFilasStructure(0);
-            List<tEstructura> datosEstructuraOrdenados = BD_Riesgos.datosEstructuraOrdenados;
-            ViewBag.datosEstructura = pintaLista(datosEstructuraOrdenados);
+         
+            var locations = TreeviewClass.GetLocations(0);  
 
             ViewBag.datosthead = BD_Riesgos.nombresColTabla("dbo.qRiesgosNombres", colVer, colTitulos);
            
@@ -33,7 +32,7 @@ namespace Risk.Controllers
                 TempData["datostbody"] = null;
             }
 
-            return View();
+            return View(locations);
         }
 
         //Partial View Structure GET
@@ -46,75 +45,15 @@ namespace Risk.Controllers
             }else
             {
                 return PartialView();
-            }
-
-          
-           
+            }                
         }
 
-        //Metodos de Structure
-        public string pintaLista(List<tEstructura> listaOrdenada)
+        
+
+        public ActionResult recuperaRiesgos(string idEstructura, string name)
         {
-            StringBuilder listaString = new StringBuilder();
-            for (int i = 0; i < listaOrdenada.Count(); i++)
-            {
-
-                string tieneHijos = BD_Riesgos.compruebaTieneHijos(listaOrdenada[i].CodCompleto);
-
-                if (listaOrdenada[i].Nivel == 1)
-                {
-                    listaString.Append("<ul id='miEstructura'>"
-                                       + "<li>"
-                                       + "<input type='checkbox'" + tieneHijos + "/>"
-                                       + "<input type='submit' class='buttonStructure' name='codigo' id='"+ listaOrdenada[i].IdEstructura+ "' value='" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "' />"                                     
-                                       + "<ul>");
-                }
-
-                if (listaOrdenada[i].Nivel == 2)
-                {
-                    listaString.Append("<li>"
-                                       + "<input type='checkbox'" + tieneHijos + "/>"
-                                       + "<input type='submit' class='buttonStructure' name='codigo'  value='" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "'/>"
-                                       + "<ul>");
-                }
-
-                if (listaOrdenada.Count() - 1 != i)
-                {
-                    if (listaOrdenada[i].Nivel == 3 && listaOrdenada[i + 1].Nivel == 3)
-                    {
-
-                        listaString.Append("<li>"
-                                          + "<input type='checkbox'" + tieneHijos + "/>"
-                                           + "<input type='submit' class='buttonStructure' name='codigo'  value='" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "'/>"
-                                           + "</li>");
-                    }
-
-                    else if (listaOrdenada[i].Nivel == 3 && listaOrdenada[i + 1].Nivel == 2)
-                    {
-                        listaString.Append("<li>"
-                                          + "<input type='checkbox'" + tieneHijos + "/>"
-                                          + "<input type='submit' class='buttonStructure' name='codigo'  value='" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "'/>"
-                                           + "</li></ul></li>");
-                    }
-                }
-                else
-                {
-                    listaString.Append("<li>"
-                                       + "<input type='checkbox'" + tieneHijos + "/>"
-                                       + "<input type='submit' class='buttonStructure' name='codigo'  value='" + listaOrdenada[i].CodCompleto + " " + listaOrdenada[i].Nombre + "'/>"
-                                       + "</li></ul></li>");
-                }
-            }
-            listaString.Append("</ul></li></ul>");
-            return listaString.ToString();
-        }
-
-        public ActionResult recuperaRiesgos(string codigo, string id)
-        {
-
-            string id2 = codigo.Split(' ')[0];
-            TempData["titulo"] = codigo;
-            TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(colVer, colTitulos, id2);
+            TempData["titulo"] = name;
+            TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(colVer, colTitulos, null, 0,0,0,0,idEstructura);
             return RedirectToAction("Structure", "Assign");
         }
 

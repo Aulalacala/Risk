@@ -1,25 +1,27 @@
 ﻿@using Risk.Models
+@using Risk.Helpers
+@model List<Risk.Controllers.TreeViewLocation>
 @{
     ViewBag.Title = "Structure";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <style>
-    .buttonStructure{
+    .buttonStructure {
         color: #8098a7;
-        border:0; padding:0; margin:5px;
+        border: 0;
+        padding: 0;
+        margin: 5px;
         background-color: white;
-
     }
 
-        .buttonStructure:active{
-        color: black;
-        border:0; padding:0; margin:5px;
-        background-color: white;
-
-    }
-
-
+        .buttonStructure:active {
+            color: black;
+            border: 0;
+            padding: 0;
+            margin: 5px;
+            background-color: white;
+        }
 </style>
 
 
@@ -68,20 +70,30 @@
                 <br /><br />
                 <!-- COLUMNA IZQUIERDA-->
                 <div class="col-lg-4 col-md-4 pull-left" style="margin:0;padding:0">
-                    @using (Html.BeginForm("recuperaRiesgos", "Assign", FormMethod.Post))
-                    {
+                    
                         @Html.AntiForgeryToken()
-                        <div class="col-lg-12 col-md-12"  style="width:100%">
-                            @Html.Raw(ViewBag.datosEstructura)
+                        <div class="col-lg-12 col-md-12" style="width:100%">
+                            @(Html.TreeView(Model)
+                            .EmptyContent("No locations have been defined yet!")
+                            .Children(m => m.ChildLocations)
+                            .HtmlAttributes(new { id = "tree" })
+                            .ChildrenHtmlAttributes(new { @class = "subItem" })
+                            .ItemText(m => m.Name)
+                            .ItemTemplate(
+                            @<text>
+                                <input type="checkbox" @item.check />
+                                <a href=@Url.Action("recuperaRiesgos", "Assign", new { idEstructura = item.Id, name = item.Name})>@item.Name</a>
+                            </text>)
+                            )
                         </div>
 
-                    }
+                    
                 </div>
 
                 <!-- COLUMNA DERECHA-->
                 <div id="assignedRisks" style="border:1px solid #ececec; padding:10px" class="row col-lg-8 col-md-8">
                     <div class="col-lg-9 col-md-9">
-                       @* <span class="form-left-label"><b>ASSIGNED RISK</b></span>*@
+                        @* <span class="form-left-label"><b>ASSIGNED RISK</b></span>*@
                     </div>
                     <div class="col-lg-12 col-md-12" style="width:100%; display:block">
                         <div class="divDelGrid table-responsive">
@@ -161,7 +173,7 @@
                         $(this).children().children().toggle();
                     }
                 })
-                branch.children().children().children().children().toggle();
+                //branch.children().children().children().children().toggle();
                 //branch.children().children().toggle();
             });
             //fire event from the dynamically added icon
@@ -171,12 +183,12 @@
                 });
             });
             //fire event to open branch if the li contains an anchor instead of text
-            tree.find('.branch>a').each(function () {
-                $(this).on('click', function (e) {
-                    $(this).closest('li').click();
-                    e.preventDefault();
-                });
-            });
+            //tree.find('.branch>a').each(function () {
+            //    $(this).on('click', function (e) {
+            //        $(this).closest('li').click();
+            //        e.preventDefault();
+            //    });
+            //});
             //fire event to open branch if the li contains a button instead of text
             tree.find('.branch>button').each(function () {
                 $(this).on('click', function (e) {
@@ -188,7 +200,7 @@
     });
 
     //Initialization of treeview
-    $('#miEstructura').treed({ openedClass: 'glyphicon-chevron-right', closedClass: 'glyphicon-chevron-down' });
+    $('#tree').treed({ openedClass: 'glyphicon-chevron-right', closedClass: 'glyphicon-chevron-down' });
 
 </script>
 

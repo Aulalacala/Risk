@@ -14,22 +14,6 @@ namespace Risk.Controllers
     public class BD_Riesgos
     {
         Riesgos_BDDataContext riesgosBD = new Riesgos_BDDataContext();
-        private List<tEstructura> _datosEstructuraOrdenados = new List<tEstructura>();
-
-        public List<tEstructura> datosEstructuraOrdenados
-        {
-            get
-            {
-                return this._datosEstructuraOrdenados;
-            }
-            set
-            {
-                _datosEstructuraOrdenados = value;
-            }
-        }
-
-      
-
 
 
         #region AssignController
@@ -218,7 +202,7 @@ namespace Risk.Controllers
 
         //Recuperar TBODY tabla Datos Risk  || CON TABLA DEFINIDA ------------------------
 
-        public Dictionary<int, List<object>> datosQRiesgosNombre(string colVer, string colTitulos, string filtro = null, int categoria = 0, int clasificacion1 = 0, int clasificacion2 = 0, int clasificacion3 = 0)
+        public Dictionary<int, List<object>> datosQRiesgosNombre(string colVer, string colTitulos, string filtro = null, int categoria = 0, int clasificacion1 = 0, int clasificacion2 = 0, int clasificacion3 = 0, string idEstructura = null)
         {
 
             Dictionary<int, qRiesgosNombres> datosQRiesgosNombre = new Dictionary<int, qRiesgosNombres>();
@@ -236,7 +220,10 @@ namespace Risk.Controllers
 
                 if (!string.IsNullOrEmpty(filtro))
                 {
-                    datosQRiesgosNombre = datosQRiesgosNombre.Where(r => r.Value.Nombre.Contains(filtro) || r.Value.CodRiesgoLocalizado.Contains(filtro)).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
+                    datosQRiesgosNombre = datosQRiesgosNombre.Where(r => r.Value.Nombre.Contains(filtro)).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
+                    //r.Value.IdRiesgo.Equals(riesgosBD.tRelEstructuraRiesgos.Where(x=> x.IdEstructura == Convert.ToInt32(filtro)).ToList().ForEach(n=> { n}))
+
+                    //r.Value.CodRiesgoLocalizado.Contains(filtro)).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
                 }
 
                 if (categoria != 0)
@@ -257,6 +244,27 @@ namespace Risk.Controllers
                 if (clasificacion3 != 0)
                 {
                     datosQRiesgosNombre.Where(r => r.Value.IdClasificacion3 == clasificacion3).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
+                }
+
+                if (!string.IsNullOrEmpty(idEstructura))
+                {
+                    List<int> idRiesgos = riesgosBD.tRelEstructuraRiesgos.Where(x => x.IdEstructura == Convert.ToInt32(idEstructura)).Select(x => Convert.ToInt32(x.IdRiesgo)).ToList();
+
+                    if(idRiesgos == null)
+                    {
+                       idRiesgos = riesgosBD.tEstructura.Where(x => x.idPadre == Convert.ToInt32(idEstructura)).Select(x => Convert.ToInt32(x.IdEstructura)).ToList();
+                    }
+
+                    datosQRiesgosNombre.Clear();
+                    //List<qRiesgosNombres> riesgos = new List<qRiesgosNombres>();
+                    foreach (var id in idRiesgos)
+                    {
+                        datosQRiesgosNombre.Add(riesgosBD.qRiesgosNombres.Where(r => r.IdRiesgo == id).Select(r => r.IdRiesgo).SingleOrDefault(), riesgosBD.qRiesgosNombres.Where(r => r.IdRiesgo == id).Select(r => r).SingleOrDefault());
+                    }
+                    //riesgos.Add(riesgosBD.qRiesgosNombres.Where(r => r.IdRiesgo == id).Select(r => r).SingleOrDefault());
+
+
+                    //datosQRiesgosNombre.Where(r => r.Value.IdRiesgo == clasificacion3).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
                 }
 
                 // Cargar de las columnas a mostrar
@@ -320,28 +328,7 @@ namespace Risk.Controllers
             return datosEvaluaciones;
         }
 
-        public void numeroFilasStructure(int id)
-        {
-            List<tEstructura> cuantosHay = riesgosBD.tEstructura.Where(r => r.idPadre == id).OrderBy(r => r.Orden).ToList();
-            if (cuantosHay.Count != 0)
-            {
-                //ul
-                for (int i = 0; i < cuantosHay.Count; i++)
-                {
-                    _datosEstructuraOrdenados.Add(cuantosHay[i]);
-                    numeroFilasStructure(cuantosHay[i].IdEstructura);
-                }
-            }
-        }
-        #endregion
 
-        #region StructureController
-
-        public string compruebaTieneHijos(string codCompleto)
-        {
-            string tieneHijos="";
-            return tieneHijos = riesgosBD.tRiesgos.Where(r => r.CodRiesgo.Contains(codCompleto)).Any() ? tieneHijos = "checked" : tieneHijos = "";
-        }
         #endregion
     }
 }
