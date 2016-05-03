@@ -51,13 +51,12 @@ $('a[id^="mnu_"]').click(function () {
 
 //var codigo;
 
-//$('input[name="codigo"]').click(function () {
-//    var idEstructura = $(this).attr('id');
-//    $('body').append('<input id="IdEstructura" type="hidden" value="' + idEstructura + '" />')
-//    var ruta = "http://localhost:1525/Assign/Description";
-//    $('#contenidoDinamico').load(ruta, { "id": idEstructura });
-
-//})
+$('a[name="partalView"]').click(function () {
+    var idEstructura = $(this).attr('id');
+    //$('body').append('<input id="IdEstructura" type="hidden" value="' + idEstructura + '" />')
+    var ruta = "http://localhost:1525/Assign/Description";
+    $('#contenidoDinamico').load(ruta, { "id": idEstructura });
+})
 
 
 $('a[id^="str_"]').click(function () {

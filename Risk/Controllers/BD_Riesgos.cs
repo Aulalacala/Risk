@@ -14,7 +14,7 @@ namespace Risk.Controllers
     public class BD_Riesgos
     {
         Riesgos_BDDataContext riesgosBD = new Riesgos_BDDataContext();
-
+        public Dictionary<int, qRiesgosNombres> datosQ = new Dictionary<int, qRiesgosNombres>();
 
         #region AssignController
         // Cargar todas las categorias en un dictionary ----------------------------------------------
@@ -202,7 +202,7 @@ namespace Risk.Controllers
 
         //Recuperar TBODY tabla Datos Risk  || CON TABLA DEFINIDA ------------------------
 
-        public Dictionary<int, List<object>> datosQRiesgosNombre(string colVer, string colTitulos, string filtro = null, int categoria = 0, int clasificacion1 = 0, int clasificacion2 = 0, int clasificacion3 = 0, string idEstructura = null)
+        public Dictionary<int, List<object>> datosQRiesgosNombre(string colVer, string colTitulos, string filtro = null, int categoria = 0, int clasificacion1 = 0, int clasificacion2 = 0, int clasificacion3 = 0, int idEstructura = 0)
         {
 
             Dictionary<int, qRiesgosNombres> datosQRiesgosNombre = new Dictionary<int, qRiesgosNombres>();
@@ -220,10 +220,7 @@ namespace Risk.Controllers
 
                 if (!string.IsNullOrEmpty(filtro))
                 {
-                    datosQRiesgosNombre = datosQRiesgosNombre.Where(r => r.Value.Nombre.Contains(filtro)).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
-                    //r.Value.IdRiesgo.Equals(riesgosBD.tRelEstructuraRiesgos.Where(x=> x.IdEstructura == Convert.ToInt32(filtro)).ToList().ForEach(n=> { n}))
-
-                    //r.Value.CodRiesgoLocalizado.Contains(filtro)).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
+                    datosQRiesgosNombre = datosQRiesgosNombre.Where(r => r.Value.Nombre.Contains(filtro) || r.Value.CodRiesgoLocalizado.Contains(filtro)).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
                 }
 
                 if (categoria != 0)
@@ -246,25 +243,9 @@ namespace Risk.Controllers
                     datosQRiesgosNombre.Where(r => r.Value.IdClasificacion3 == clasificacion3).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
                 }
 
-                if (!string.IsNullOrEmpty(idEstructura))
+                if (idEstructura != 0)
                 {
-                    List<int> idRiesgos = riesgosBD.tRelEstructuraRiesgos.Where(x => x.IdEstructura == Convert.ToInt32(idEstructura)).Select(x => Convert.ToInt32(x.IdRiesgo)).ToList();
-
-                    if(idRiesgos == null)
-                    {
-                       idRiesgos = riesgosBD.tEstructura.Where(x => x.idPadre == Convert.ToInt32(idEstructura)).Select(x => Convert.ToInt32(x.IdEstructura)).ToList();
-                    }
-
-                    datosQRiesgosNombre.Clear();
-                    //List<qRiesgosNombres> riesgos = new List<qRiesgosNombres>();
-                    foreach (var id in idRiesgos)
-                    {
-                        datosQRiesgosNombre.Add(riesgosBD.qRiesgosNombres.Where(r => r.IdRiesgo == id).Select(r => r.IdRiesgo).SingleOrDefault(), riesgosBD.qRiesgosNombres.Where(r => r.IdRiesgo == id).Select(r => r).SingleOrDefault());
-                    }
-                    //riesgos.Add(riesgosBD.qRiesgosNombres.Where(r => r.IdRiesgo == id).Select(r => r).SingleOrDefault());
-
-
-                    //datosQRiesgosNombre.Where(r => r.Value.IdRiesgo == clasificacion3).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
+                    datosQRiesgosNombre = riesgosDescendientes(idEstructura);
                 }
 
                 // Cargar de las columnas a mostrar
@@ -302,10 +283,56 @@ namespace Risk.Controllers
             return listaDatosFinal;
         }
 
-        public List<qEstructura_Contenidos_Def> recuperaConteDefEstructura(int id)
+        public DescriptionStructureModel recuperaConteDefEstructura(int id)
         {
-            return riesgosBD.qEstructura_Contenidos_Def.Where(r => r.IdEstructura == id).ToList();
+            List<qEstructura_Contenidos_Def> listado = riesgosBD.qEstructura_Contenidos_Def.Where(r => r.IdEstructura == id).ToList().forEach(x=>new DescriptionStructureModel
+            {
+                department = x.
+            })
+
+            return riesgosBD.qEstructura_Contenidos_Def.Where(r => r.IdEstructura == id).Single();
         }
+
+
+
+
+        public Dictionary<int, qRiesgosNombres> riesgosDescendientes(int id)
+        {
+            List<tEstructura> cuantosHay = riesgosBD.tEstructura.Where(r => r.idPadre == id).OrderBy(r => r.Orden).ToList();
+            List<int> idRiesgos = new List<int>();
+
+
+            if (cuantosHay.Count() != 0)
+            {
+                idRiesgos = riesgosBD.tEstructura.Where(x => x.idPadre == Convert.ToInt32(id)).Select(x => Convert.ToInt32(x.IdEstructura)).ToList();
+                foreach (var idR in idRiesgos)
+                {
+                    riesgosDescendientes(idR);
+                }
+            }
+            else
+            {
+                idRiesgos = riesgosBD.tRelEstructuraRiesgos.Where(x => x.IdEstructura == Convert.ToInt32(id)).Select(x => Convert.ToInt32(x.IdRiesgo)).ToList();
+
+                try
+                {
+                    foreach (var idR in idRiesgos)
+                    {
+                        datosQ.Add(riesgosBD.qRiesgosNombres.Where(r => r.IdRiesgo == idR).Select(r => r.IdRiesgo).SingleOrDefault(), riesgosBD.qRiesgosNombres.Where(r => r.IdRiesgo == idR).Select(r => r).SingleOrDefault());
+                    }
+                }
+                catch (Exception)
+                {
+                }
+
+            }
+
+            return datosQ;
+
+        }
+
+
+
 
 
         #endregion

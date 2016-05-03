@@ -21,41 +21,42 @@ namespace Risk.Controllers
         #region View Structure
         // Vista inicial Structure GET -----------------------------------------------------------
         public ActionResult Structure()
-        {
-         
+        {        
             var locations = TreeviewClass.GetLocations(0);  
 
-            ViewBag.datosthead = BD_Riesgos.nombresColTabla("dbo.qRiesgosNombres", colVer, colTitulos);
-           
+            ViewBag.datosthead = BD_Riesgos.nombresColTabla("dbo.qRiesgosNombres", colVer, colTitulos);         
             if (TempData["datostbody"] == null)
             {
                 TempData["datostbody"] = null;
             }
-
             return View(locations);
         }
 
         //Partial View Structure GET
         public ActionResult Description(string id)
         {
+            qEstructura_Contenidos_Def datosDescripcion = new qEstructura_Contenidos_Def();
+
             if (!string.IsNullOrEmpty(id))
             {
-                List<qEstructura_Contenidos_Def> datosDescripcion = BD_Riesgos.recuperaConteDefEstructura(Int32.Parse(id));
-                return PartialView(datosDescripcion);
-            }else
-            {
-                return PartialView();
-            }                
+                datosDescripcion = BD_Riesgos.recuperaConteDefEstructura(Int32.Parse(id));
+                      
+            }
+
+            return PartialView(datosDescripcion);
+
         }
 
-        
 
-        public ActionResult recuperaRiesgos(string idEstructura, string name)
+        public ActionResult recuperaRiesgos(int idEstructura, string name)
         {
             TempData["titulo"] = name;
             TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(colVer, colTitulos, null, 0,0,0,0,idEstructura);
             return RedirectToAction("Structure", "Assign");
         }
+
+
+
 
 
 

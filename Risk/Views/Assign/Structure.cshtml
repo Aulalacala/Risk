@@ -82,7 +82,7 @@
                             .ItemTemplate(
                             @<text>
                                 <input type="checkbox" @item.check />
-                                <a href=@Url.Action("recuperaRiesgos", "Assign", new { idEstructura = item.Id, name = item.Name})>@item.Name</a>
+                                <a href=@Url.Action("recuperaRiesgos", "Assign", new { idEstructura = item.Id, name = item.Name}) name="partalView" id="@item.Id">@item.Name</a>
                             </text>)
                             )
                         </div>
