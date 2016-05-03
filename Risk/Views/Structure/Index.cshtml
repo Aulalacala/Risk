@@ -22,7 +22,7 @@
     .ItemText(m => m.Name)
     .ItemTemplate(
     @<text>
-        <a href="#@item.Id">@item.Name</a>
+        <input type="checkbox" @item.check/><a href="#@item.Id">@item.Name</a>
     </text>)
 )
 

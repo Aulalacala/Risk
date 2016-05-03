@@ -198,4 +198,11 @@
       <Column Name="Titulo" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.tRelEstructuraRiesgos" Member="tRelEstructuraRiesgos">
+    <Type Name="tRelEstructuraRiesgos">
+      <Column Name="IdEstruturaRiesgo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="IdEstructura" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdRiesgo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

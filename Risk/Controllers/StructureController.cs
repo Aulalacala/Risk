@@ -33,22 +33,14 @@ namespace Risk.Controllers
                         locations.Add(new TreeViewLocation
                         {
                             Id = cuantosHay[i].IdEstructura,
-                            Name = cuantosHay[i].Nombre.ToString(),
+                            Name = cuantosHay[i].CodCompleto.Substring(cuantosHay[i].CodCompleto.Length - 2, 2) + " " + cuantosHay[i].Nombre.ToString(),
+                            check = tienesHijos(cuantosHay[i].IdEstructura) == true ? "checked" : tienesHijosRiesgos(cuantosHay[i].IdEstructura),
                             ChildLocations = GetLocations(Convert.ToInt32(cuantosHay[i].IdEstructura))
                         });
-                        }
-                    else
-                    {
-                        locations.Add(new TreeViewLocation
-                        {
-                            Id = cuantosHay[i].IdEstructura,
-                            Name = cuantosHay[i].Nombre.ToString(),
-                        });
                     }
-                    //GetLocations(cuantosHay[i].IdEstructura);
                 }
             }
-            
+
             return locations;
         }
 
@@ -59,41 +51,16 @@ namespace Risk.Controllers
             return tieneHijos = riesgosBD.tEstructura.Where(r => r.idPadre == idPadre).Any() ? tieneHijos = true : tieneHijos = false;
         }
 
-        //public static List<TreeViewLocation> GetLocations()
-        //{
-        //    var locations = new List<TreeViewLocation>
-        //                        {
-        //                            new TreeViewLocation
-        //                                {
-        //                                Id=1,
-        //                                Name = "United States",
-        //                                    ChildLocations =
-        //                                        {
-        //                                            new TreeViewLocation
-        //                                                {
-        //                                                    Name = "Chicago",
-        //                                                    ChildLocations =
-        //                                                        {
-        //                                                            new TreeViewLocation {Name = "Rack 1"},
-        //                                                            new TreeViewLocation {Name = "Rack 2"},
-        //                                                            new TreeViewLocation {Name = "Rack 3"},
-        //                                                        }
-        //                                                },
-        //                                            new TreeViewLocation {Name = "Dallas"}
-        //                                        }
-        //                                },
-        //                            new TreeViewLocation
-        //                                {
-        //                                    Name = "Canada",
-        //                                    ChildLocations =
-        //                                        {
-        //                                            new TreeViewLocation {Name = "Ontario"},
-        //                                            new TreeViewLocation {Name = "Windsor"}
-        //                                        }
-        //                                }
-        //                        };
-        //    return locations;
-        //}
+        //PARA BUSCAR LOS HIJOS HAY QUE METER EL ID DE SU SANTO PADRE
+        public static string tienesHijosRiesgos(int idEstructura)
+        {
+            string tieneHijosString = "";
+            riesgosBD.tRelEstructuraRiesgos.Where(r => r.IdEstructura == idEstructura).ToList().ForEach(x =>
+            {
+                tieneHijosString = riesgosBD.qRiesgosNombres.Where(c => c.IdRiesgo == x.IdRiesgo).Any() ? tieneHijosString = "checked" : tieneHijosString = "";
+            });
+            return tieneHijosString;
+        }
     }
 
     public class TreeViewLocation
@@ -106,5 +73,6 @@ namespace Risk.Controllers
         public int Id { get; set; }
         public string Name { get; set; }
         public ICollection<TreeViewLocation> ChildLocations { get; set; }
+        public string check { get; set; }
     }
 }

@@ -63,6 +63,9 @@ namespace Risk.Models
     partial void InserttEstructura(tEstructura instance);
     partial void UpdatetEstructura(tEstructura instance);
     partial void DeletetEstructura(tEstructura instance);
+    partial void InserttRelEstructuraRiesgos(tRelEstructuraRiesgos instance);
+    partial void UpdatetRelEstructuraRiesgos(tRelEstructuraRiesgos instance);
+    partial void DeletetRelEstructuraRiesgos(tRelEstructuraRiesgos instance);
     #endregion
 		
 		public Riesgos_BDDataContext() : 
@@ -204,6 +207,14 @@ namespace Risk.Models
 			get
 			{
 				return this.GetTable<qEstructura_Contenidos_Def>();
+			}
+		}
+		
+		public System.Data.Linq.Table<tRelEstructuraRiesgos> tRelEstructuraRiesgos
+		{
+			get
+			{
+				return this.GetTable<tRelEstructuraRiesgos>();
 			}
 		}
 	}
@@ -3721,6 +3732,116 @@ namespace Risk.Models
 				{
 					this._Titulo = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tRelEstructuraRiesgos")]
+	public partial class tRelEstructuraRiesgos : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdEstruturaRiesgo;
+		
+		private System.Nullable<int> _IdEstructura;
+		
+		private System.Nullable<int> _IdRiesgo;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdEstruturaRiesgoChanging(int value);
+    partial void OnIdEstruturaRiesgoChanged();
+    partial void OnIdEstructuraChanging(System.Nullable<int> value);
+    partial void OnIdEstructuraChanged();
+    partial void OnIdRiesgoChanging(System.Nullable<int> value);
+    partial void OnIdRiesgoChanged();
+    #endregion
+		
+		public tRelEstructuraRiesgos()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEstruturaRiesgo", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdEstruturaRiesgo
+		{
+			get
+			{
+				return this._IdEstruturaRiesgo;
+			}
+			set
+			{
+				if ((this._IdEstruturaRiesgo != value))
+				{
+					this.OnIdEstruturaRiesgoChanging(value);
+					this.SendPropertyChanging();
+					this._IdEstruturaRiesgo = value;
+					this.SendPropertyChanged("IdEstruturaRiesgo");
+					this.OnIdEstruturaRiesgoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEstructura", DbType="Int")]
+		public System.Nullable<int> IdEstructura
+		{
+			get
+			{
+				return this._IdEstructura;
+			}
+			set
+			{
+				if ((this._IdEstructura != value))
+				{
+					this.OnIdEstructuraChanging(value);
+					this.SendPropertyChanging();
+					this._IdEstructura = value;
+					this.SendPropertyChanged("IdEstructura");
+					this.OnIdEstructuraChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdRiesgo", DbType="Int")]
+		public System.Nullable<int> IdRiesgo
+		{
+			get
+			{
+				return this._IdRiesgo;
+			}
+			set
+			{
+				if ((this._IdRiesgo != value))
+				{
+					this.OnIdRiesgoChanging(value);
+					this.SendPropertyChanging();
+					this._IdRiesgo = value;
+					this.SendPropertyChanged("IdRiesgo");
+					this.OnIdRiesgoChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

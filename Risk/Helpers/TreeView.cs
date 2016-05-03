@@ -5,6 +5,9 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.UI;
 using System.Web.WebPages;
+using Risk.Models;
+using Risk.Controllers;
+
 
 namespace Risk.Helpers
 {
@@ -32,6 +35,8 @@ namespace Risk.Helpers
         private IDictionary<string, object> _htmlAttributes = new Dictionary<string, object>();
         private IDictionary<string, object> _childHtmlAttributes = new Dictionary<string, object>();
         private Func<T, HelperResult> _itemTemplate;
+        public StructureController structureController;
+       
 
         public TreeView(HtmlHelper html, IEnumerable<T> items)
         {
@@ -200,9 +205,16 @@ namespace Risk.Helpers
 
         private TagBuilder GetLi(T item)
         {
+            //var check = new TagBuilder("input");
+            //check.Attributes.Add("type", "checkbox");
+            //structureController.tienesHijosRiesgos(item);
+
+            //riesgosBD.tRelEstructuraRiesgos.Where(r => r.IdEstructura == idEstructura).Any() ? tieneHijos = "checked" : tieneHijos = "";
+
+
             var li = new TagBuilder("li")
-                         {
-                             InnerHtml = _itemTemplate(item).ToHtmlString()
+                         {                                          
+                            InnerHtml = _itemTemplate(item).ToHtmlString()
                          };
 
             return li;
