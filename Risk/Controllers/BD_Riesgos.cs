@@ -253,31 +253,33 @@ namespace Risk.Controllers
 
                 foreach (var riesgo in datosQRiesgosNombre)
                 {
-
-                    List<object> camposRiesgo = new List<object>();
-
-                    foreach (var col in nombreCols)
+                    if (riesgo.Value != null)
                     {
+                        List<object> camposRiesgo = new List<object>();
 
-                        string name;
-                        System.Reflection.PropertyInfo x = riesgo.Value.GetType().GetProperty(col.Key);
+                        foreach (var col in nombreCols)
+                        {
 
-                        if (x.GetValue(riesgo.Value, null) == null)
-                        {
-                            name = "null";
+                            string name;
+                            System.Reflection.PropertyInfo x = riesgo.Value.GetType().GetProperty(col.Key);
+
+                            if (x.GetValue(riesgo.Value, null) == null)
+                            {
+                                name = "null";
+                            }
+                            else
+                            {
+                                name = (string)((x.GetValue(riesgo.Value, null))).ToString();
+                            }
+                            camposRiesgo.Add(name);
                         }
-                        else
-                        {
-                            name = (string)((x.GetValue(riesgo.Value, null))).ToString();
-                        }
-                        camposRiesgo.Add(name);
+                        listaDatosFinal.Add(riesgo.Key, camposRiesgo);
                     }
-                    listaDatosFinal.Add(riesgo.Key, camposRiesgo);
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
-
+                var exception = e;
                 return null;
             }
             return listaDatosFinal;
@@ -294,9 +296,25 @@ namespace Risk.Controllers
                     case "Department":
                         description.department = x.Contenido;
                         break;
+                    case "Responsible":
+                        description.responsible = x.Contenido;
+                        break;
+                    case "Activities":
+                        description.activities = x.Contenido;
+                        break;
+                    case "IT Assets":
+                        description.ITassets = x.Contenido;
+                        break;
+                    case "Controls":
+                        description.controls = x.Contenido;
+                        break;
+                    case "Inputs":
+                        description.inputs = x.Contenido;
+                        break;
+                    case "Outputs":
+                        description.outputs = x.Contenido;
+                        break;
                 }
-
-
             });
 
             return description;

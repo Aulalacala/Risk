@@ -193,8 +193,6 @@
     <Content Include="Content\morris\raphael.min.js" />
     <Content Include="Content\Site.css" />
     <Content Include="Content\treed\treed.css" />
-    <Content Include="Content\treeView\bootstrap-treeview.css" />
-    <Content Include="Content\treeView\bootstrap-treeview.js" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="query.sql" />
@@ -292,8 +290,6 @@
     <Content Include="Views\Risk\General.cshtml" />
     <Content Include="Views\Risk\Graphic.cshtml" />
     <Content Include="Views\Assign\Description.cshtml" />
-    <Content Include="Views\Structure\Index.cshtml" />
-    <Content Include="Views\Assign\TablaDatos2.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -303,7 +299,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\TreeviewOLD\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
