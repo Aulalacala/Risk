@@ -82,7 +82,8 @@
                             .ItemTemplate(
                             @<text>
                                 <input type="checkbox" @item.check />
-                                <a href=@Url.Action("recuperaRiesgos", "Assign", new { idEstructura = item.Id, name = item.Name}) name="partalView" id="@item.Id">@item.Name</a>
+                               @* <a href=@Url.Action("TablaDatos2", "Assign", new { idEstructura = item.Id, name = item.Name}) name="partalView" id="@item.Id">@item.Name</a>*@
+                              <a href=#@item.Id name="partalView" id="@item.Id">@item.Name</a>
                             </text>)
                             )
                         </div>                    
@@ -93,9 +94,11 @@
                     <div class="col-lg-9 col-md-9">
                         @* <span class="form-left-label"><b>ASSIGNED RISK</b></span>*@
                     </div>
-                    <div class="col-lg-12 col-md-12" style="width:100%; display:block">
-                        <div class="divDelGrid table-responsive">
-                            @Html.Partial("~/Views/PartialViews/TablaDatos.cshtml")
+                    <div class="col-lg-12 col-md-12" style="width:100%;">
+                        <div>
+                            <div class="divDelGrid table-responsive" id="contenidoTabla">
+                                @*@Html.Partial("~/Views/Assign/TablaDatos2.cshtml")*@
+                            </div>
                         </div>
                     </div>
                     <div class="divider"></div>

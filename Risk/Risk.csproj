@@ -293,6 +293,7 @@
     <Content Include="Views\Risk\Graphic.cshtml" />
     <Content Include="Views\Assign\Description.cshtml" />
     <Content Include="Views\Structure\Index.cshtml" />
+    <Content Include="Views\Assign\TablaDatos2.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

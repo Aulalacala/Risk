@@ -39,22 +39,19 @@ namespace Risk.Controllers
 
             if (!string.IsNullOrEmpty(id))
             {
-                description = BD_Riesgos.recuperaConteDefEstructura(Int32.Parse(id));
-                      
+                description = BD_Riesgos.recuperaConteDefEstructura(Int32.Parse(id));                   
             }
-
             return PartialView(description);
-
         }
 
 
-        public ActionResult recuperaRiesgos(int idEstructura, string name)
+        public ActionResult TablaDatos(string id)
         {
-            TempData["titulo"] = name;
+            //TempData["titulo"] = name;
             ViewBag.datosthead = BD_Riesgos.nombresColTabla("dbo.qRiesgosNombres", colVer, colTitulos);
-            TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(colVer, colTitulos, null, 0,0,0,0,idEstructura);
+            TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(colVer, colTitulos, null, 0,0,0,0,Convert.ToInt32(id));
             
-            return PartialView();
+            return PartialView("~/Views/PartialViews/TablaDatos.cshtml");
         }
 
 

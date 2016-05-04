@@ -53,10 +53,16 @@ $('a[id^="mnu_"]').click(function () {
 
 $('a[name="partalView"]').click(function () {
     var idEstructura = $(this).attr('id');
-    //$('body').append('<input id="IdEstructura" type="hidden" value="' + idEstructura + '" />')
     var ruta = "http://localhost:1525/Assign/Description";
     $('#contenidoDinamico').load(ruta, { "id": idEstructura });
+   
+
+
+    var ruta2 = "http://localhost:1525/Assign/TablaDatos";
+    $('#contenidoTabla').load(ruta2, { "id": idEstructura });
+
 })
+
 
 
 $('a[id^="str_"]').click(function () {

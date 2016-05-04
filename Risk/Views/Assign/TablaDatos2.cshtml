@@ -39,57 +39,57 @@
             </tr>
 
         </thead>
-        </table>
-        }
+    </table>
+                    }
 
-        else
-        {
+                    else
+                    {
 
         <!-- TITLE & BUTTONS -->
-        <span class="title bigger">@titulo</span>
-        <div class="clearfix"></div>
+                        <span class="title bigger">@titulo</span>
+                        <div class="clearfix"></div>
 
-        <table rules="rows" id="tablaDatosRiesgos" class="table">
-            <thead>
-                <tr>
-                    @{
-                        <th text-align="right">
-                            Editar
-                        </th>
-                        foreach (var item in datostHead)
-                        {
-                            <th class="td-large">@item.Value.ToString()</th>
-                        }
+                        <table rules="rows" id="tablaDatosRiesgos" class="table">
+                            <thead>
+                                <tr>
+                                    @{
+                                        <th text-align="right">
+                                            Editar
+                                        </th>
+                                        foreach (var item in datostHead)
+                                        {
+                                            <th class="td-large">@item.Value.ToString()</th>
+                                        }
 
-                    }
-                </tr>
+                                    }
+                                </tr>
 
-            </thead>
-            <tbody>
+                            </thead>
+                            <tbody>
 
-                @{
-                    foreach (var fila in datos)
-                    {
-                        <tr>
-                            @{
-                                <td text-align="right">
-                                    <a href="@Url.Action("RiskFicha", "Risk", new { id = fila.Key }) " id="@fila.Key"><i class="glyphicon glyphicon-pencil"></i></a>
-                                </td>
+                                @{
+                                    foreach (var fila in datos)
+                                    {
+                                        <tr>
+                                            @{
+                                                <td text-align="right">
+                                                    <a href="@Url.Action("RiskFicha", "Risk", new { id = fila.Key }) " id="@fila.Key"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                </td>
 
-                                foreach (var columna in fila.Value)
-                                {
-                                    <td class="td-large">@columna.ToString()</td>
+                                                foreach (var columna in fila.Value)
+                                                {
+                                                    <td class="td-large">@columna.ToString()</td>
+                                                }
+                                            }
+                                        </tr>
+                                                }
                                 }
-                            }
-                        </tr>
-                                }
-                }
-            </tbody>
-        </table>
-        }
+                            </tbody>
+                        </table>
+                                                }
 
 
-        <script>
+<script>
             $(document).ready(function () {
 
                 $('#tablaDatosRiesgos tbody').on('click', 'tr', function () {
@@ -102,19 +102,17 @@
                     }
                 });
 
-
-
                 if (window.location.href.indexOf("Structure") > -1) {
                     var table = $('#tablaDatosRiesgos').DataTable({
-                        //responsive: true,
-                        //scrollY: 370,
-                        //scrollX: true,
-                        //scrollCollapse: true,
-                        //scroller: true,
+                        responsive: true,
+                        scrollY: 370,
+                        scrollX: true,
+                        scroller: true,
+                        "bPaginate": true,
+                        "bFilter": false,
+                        "bInfo": false,
+
                     })
-
-           
-
                 } else {
                     var table = $('#tablaDatosRiesgos').DataTable({
                         responsive: true,
@@ -125,4 +123,5 @@
                     })
                 }
             });
-        </script>
+</script>
+
