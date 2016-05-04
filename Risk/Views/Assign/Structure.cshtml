@@ -38,14 +38,13 @@
 <script type="text/javascript" src="~/Content/js/scripts.js"></script>
 <script type="text/javascript" src="~/Content/js/scripts2.js"></script>
 <script type="text/javascript" src="~/Content/datetables/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="~/Content/treeView/bootstrap-treeview.js"></script>
+
 
 
 <link rel="stylesheet" href="~/Content/css/style.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="~/Content/css/responsive.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="~/Content/css/bootstrap-theme.css" type="text/css" media="screen" />
 <link rel="stylesheet" href="~/Content/datetables/jquery.dataTables.css" type="text/css" />
-<link rel="stylesheet" href="~/Content/treeView/bootstrap-treeview.css" type="text/css" />
 <link href="~/Content/datetables/dataTables.bootstrap.css" rel="stylesheet" type="text/css" />
 
 <link rel="stylesheet" href="~/Content/treed/treed.css" type="text/css" media="screen" />
@@ -69,8 +68,18 @@
             <div class="col-lg-12 col-md-12" style="width:100%">
                 <br /><br />
                 <!-- COLUMNA IZQUIERDA-->
-                <div class="col-lg-4 col-md-4 pull-left" style="margin:0;padding:0">
-                    
+               
+                    <div class="col-lg-4 col-md-4 pull-left" style="margin:0;padding:0">
+
+                        <div class="pull-right"  style="margin-right:120px">
+                            <a href="#" id="buttonMas" >
+                                <i class="fa fa-plus" aria-hidden="true" style="margin-right:15px"></i>
+                            </a>
+                            <a href="#" id="buttonMenos">
+                                <i class="fa fa-minus" aria-hidden="true"></i>
+                            </a>
+                        </div>
+
                         @Html.AntiForgeryToken()
                         <div class="col-lg-12 col-md-12" style="width:100%">
                             @(Html.TreeView(Model)
@@ -82,54 +91,51 @@
                             .ItemTemplate(
                             @<text>
                                 <input type="checkbox" @item.check />
-                               @* <a href=@Url.Action("TablaDatos2", "Assign", new { idEstructura = item.Id, name = item.Name}) name="partalView" id="@item.Id">@item.Name</a>*@
-                              <a href=#@item.Id name="partalView" id="@item.Id">@item.Name</a>
+                                <a href=#@item.Id name="partalView" id="@item.Id">@item.Name</a>
                             </text>)
                             )
-                        </div>                    
-                </div>
-
-                <!-- COLUMNA DERECHA-->
-                <div id="assignedRisks" style="border:1px solid #ececec; padding:10px" class="row col-lg-8 col-md-8">
-                    <div class="col-lg-9 col-md-9">
-                        @* <span class="form-left-label"><b>ASSIGNED RISK</b></span>*@
-                    </div>
-                    <div class="col-lg-12 col-md-12" style="width:100%;">
-                        <div>
-                            <div class="divDelGrid table-responsive" id="contenidoTabla">
-                                @*@Html.Partial("~/Views/Assign/TablaDatos2.cshtml")*@
-                            </div>
                         </div>
                     </div>
-                    <div class="divider"></div>
 
-                    <div class="col-lg-12 col-md-12 panel">
-                        <div id="partialViewsRisk" class="panel-body">
-                            <!-- TABS -->
+                    <!-- COLUMNA DERECHA-->
+                    <div id="assignedRisks" style="border:1px solid #ececec; padding:10px;" class="row col-lg-8 col-md-8" hidden>
+                        <div class="col-lg-9 col-md-9">
+                            @* <span class="form-left-label"><b>ASSIGNED RISK</b></span>*@<span class="form-left-label"><b></b></span>
+                        </div>
+                        <div class="col-lg-12 col-md-12" style="width:100%;">
                             <div>
-                                <ul class="nav nav-tabs" id="str">
-                                    <li class="active">
-                                        <a aria-expanded="true" id="str_Description" data-toggle="tab" href="#">Description</a>
-                                    </li>
-                                    <li>
-                                        <a aria-expanded="false" id="str_FlowChart" data-toggle="tab" href="#">Flowchart</a>
-                                    </li>
-                                    <li>
-                                        <a aria-expanded="false" id="str_Graphs" data-toggle="tab" href="#">Graphs</a>
-                                    </li>
-                                    <li>
-                                        <a aria-expanded="false" id="str_Filters" data-toggle="tab" href="#">Filters</a>
-                                    </li>
-                                </ul>
-                                <hr />
-                            </div> <!-- END TABS -->
-                            <div id="contenidoDinamico">
+                                <div class="divDelGrid table-responsive" id="contenidoTabla">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="divider"></div>
 
+                        <div class="col-lg-12 col-md-12 panel">
+                            <div id="partialViewsRisk" class="panel-body">
+                                <!-- TABS -->
+                                <div>
+                                    <ul class="nav nav-tabs" id="str">
+                                        <li class="active">
+                                            <a aria-expanded="true" id="str_Description" data-toggle="tab" href="#">Description</a>
+                                        </li>
+                                        <li>
+                                            <a aria-expanded="false" id="str_FlowChart" data-toggle="tab" href="#">Flowchart</a>
+                                        </li>
+                                        <li>
+                                            <a aria-expanded="false" id="str_Graphs" data-toggle="tab" href="#">Graphs</a>
+                                        </li>
+                                        <li>
+                                            <a aria-expanded="false" id="str_Filters" data-toggle="tab" href="#">Filters</a>
+                                        </li>
+                                    </ul>
+                                    <hr />
+                                </div> <!-- END TABS -->
+                                <div id="contenidoDinamico">
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
         </div>
     </div>
 </div>
@@ -174,7 +180,7 @@
                         $(this).children().children().toggle();
                     }
                 })
-                //branch.children().children().children().children().toggle();
+                branch.children().children().children().children().toggle();
                 //branch.children().children().toggle();
             });
             //fire event from the dynamically added icon

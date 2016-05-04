@@ -52,15 +52,23 @@ $('a[id^="mnu_"]').click(function () {
 //var codigo;
 
 $('a[name="partalView"]').click(function () {
+    $('#assignedRisks').show();
+
+    $('a[name="partalView"]').css('color', '#8098a7');
+    $(this).css('color', '#64c5da');
+
     var idEstructura = $(this).attr('id');
+    $('body').append('<input id="itemSelec" type="hidden" value=' + idEstructura + '>');
     var ruta = "http://localhost:1525/Assign/Description";
-    $('#contenidoDinamico').load(ruta, { "id": idEstructura });
-   
-
-
+    $('#contenidoDinamico').load(ruta, { "id": idEstructura });   
     var ruta2 = "http://localhost:1525/Assign/TablaDatos";
     $('#contenidoTabla').load(ruta2, { "id": idEstructura });
 
+})
+
+$('#buttonMas').click(function () {
+    var id = $('#itemSelec').val();
+    $('a[id=' + id + ']').siblings().last().toggle();
 })
 
 
