@@ -58,7 +58,10 @@ $('a[name="partalView"]').click(function () {
     $(this).css('color', '#64c5da');
 
     var idEstructura = $(this).attr('id');
+
+    $('#itemSelec').remove();
     $('body').append('<input id="itemSelec" type="hidden" value=' + idEstructura + '>');
+
     var ruta = "http://localhost:1525/Assign/Description";
     $('#contenidoDinamico').load(ruta, { "id": idEstructura });   
     var ruta2 = "http://localhost:1525/Assign/TablaDatos";
@@ -68,9 +71,13 @@ $('a[name="partalView"]').click(function () {
 
 $('#buttonMas').click(function () {
     var id = $('#itemSelec').val();
-    $('a[id=' + id + ']').siblings().last().toggle();
+    $('a[id=' + id + ']').siblings().last().find('li').css('display', 'list-item')
 })
 
+$('#buttonMenos').click(function () {
+    var id = $('#itemSelec').val();
+    $('a[id=' + id + ']').siblings().last().find('li').css('display', 'none')
+})
 
 
 $('a[id^="str_"]').click(function () {
