@@ -44,6 +44,17 @@ $('a[id^="mnu_"]').click(function () {
 })
 
 
+$('form').change(function () {
+    $('#BtnSave').removeClass('btn-primary').addClass('btn-danger');
+});
+
+$('#BtnExit').on('click' , function () {
+    if ($('#BtnSave').attr('class:contains("danger")')) {
+        alert('Guardarrrrrrrr');
+    }
+})
+
+
 /* ************************************************************************************************************** */
 // Assign/Structure
 
