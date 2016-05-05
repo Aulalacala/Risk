@@ -19,10 +19,12 @@
 <!-- MAIN CONTENT -->
 <!-- TITLE & SUBTITLE -->
 <h2>RISK FICHA</h2>
-<h3 class="darker"><strong>@Model.CodRiesgo</strong></h3>
+
+@if (Model.Nombre != null) {
+    <h3 class="darker"><strong>@Model.CodRiesgo</strong></h3>
+    <input id="IdRiesgo" type="hidden" value="@Model.IdRiesgo" />
 
 
-<input id="IdRiesgo" type="hidden" value="@Model.IdRiesgo" />
 
 
 <!-- GENERAL DATA OF RISK -->
@@ -75,6 +77,11 @@
         </div>
     </div>
 </div>
+
+} else {
+    <input id="IdRiesgo" type="hidden" value="0" />
+    <h3 class="darker"><strong>New Risk</strong></h3>
+}
 
 <div class="panel">
     <div id="partialViewsRisk" class="panel-body">

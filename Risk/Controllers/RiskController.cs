@@ -64,7 +64,7 @@ namespace Risk.Controllers
                     jsonString = JsonConvert.SerializeObject(miTabla);
 
                 }     
-                catch (SqlException ex)
+                catch (SqlException)
                 {
                 }
                 finally
@@ -78,9 +78,15 @@ namespace Risk.Controllers
 
         public FichaRiesgoVM montaVM(int id)
         {
-            qRiesgosNombres riesgoRecup = BD_Riesgos.recuperarRiesgo(id);
-            qRiesgos_Evaluaciones_Valores evaluaciones = BD_Riesgos.recuperaEvaluaciones(id);
+            qRiesgosNombres riesgoRecup = new qRiesgosNombres(); ;
+            qRiesgos_Evaluaciones_Valores evaluaciones = new qRiesgos_Evaluaciones_Valores();
 
+            if (id != 0) {
+                riesgoRecup = BD_Riesgos.recuperarRiesgo(id);
+                evaluaciones = BD_Riesgos.recuperaEvaluaciones(id);
+            }
+
+            
             FichaRiesgoVM fichaRiesgoVM = new FichaRiesgoVM();
             fichaRiesgoVM.qRiesgosNombre_VM = riesgoRecup;
             fichaRiesgoVM.qRiesgos_Evaluaciones_Valores_VM = evaluaciones;

@@ -370,7 +370,9 @@ namespace Risk.Controllers
         public qRiesgosNombres recuperarRiesgo(int id)
         {
             qRiesgosNombres riesgoRecup = new qRiesgosNombres();
-            riesgoRecup = riesgosBD.qRiesgosNombres.Where(r => r.IdRiesgo == id).SingleOrDefault();
+            if (id != 0) {
+                riesgoRecup = riesgosBD.qRiesgosNombres.Where(r => r.IdRiesgo == id).SingleOrDefault();
+            }
             return riesgoRecup;
         }
 

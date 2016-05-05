@@ -44,15 +44,18 @@ $('a[id^="mnu_"]').click(function () {
 })
 
 
-$('form').change(function () {
+$('form').change(function (el) {
     $('#BtnSave').removeClass('btn-primary').addClass('btn-danger');
 });
 
-$('#BtnExit').on('click' , function () {
-    if ($('#BtnSave').attr('class:contains("danger")')) {
-        alert('Guardarrrrrrrr');
+
+$('#BtnExit').click(function () {
+    if ($("#BtnSave[class*='danger']")) {
+        alert('Hay cambios por guardar.');
     }
-})
+});
+
+
 
 
 /* ************************************************************************************************************** */
