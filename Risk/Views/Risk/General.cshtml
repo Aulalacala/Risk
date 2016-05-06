@@ -1,14 +1,14 @@
 ﻿@model Risk.ViewModels.FichaRiesgoVM
 @using Risk.Models
 
-<script type="text/javascript" src="~/Content/js/scripts2.js"></script>
+
 
 <!-- GENERAL DATA RATING PANEL -->
 <!-- TITLE & BUTTONS -->
 
 
     <span class="title">DATA SHEET</span>
-<div>
+<div id="miForm">
     @using (Html.BeginForm("formGeneral", "Risk", FormMethod.Post)) {
         @Html.AntiForgeryToken()
 
@@ -17,7 +17,6 @@
             <input type="submit" class="btn btn-primary" name="BtnDelete" value="DELETE" id="BtnDelete" />
             <a href="@Url.Action("RiskFicha", "Risk", new { id = 0 })" class="btn btn-primary">NEW</a>
             <input type="submit" class="btn btn-primary" name="BtnSave" value="SAVE" id="BtnSave" />
-            <input type="button" class="btn btn-primary" name="BtnExit" value="EXIT" id="BtnExit" />
         </div>
 
         <div class="clearfix"></div>
@@ -32,9 +31,6 @@
                 <div class="col-lg-6 col-md-6">
 
                     @* --------------------------------------------------------------------------- *@
-
-
-
 
                     @* AÑADIR LOS DROPDOWNS 'STRUCUTRE CODE' Y 'PARTICLE CODE' CON LOS DEPPLEGABLES DE LA ESTRCUTURA *@
                     @if (Model.qRiesgosNombre_VM.Nombre == null) {
@@ -467,4 +463,8 @@
             </div>
         </div>
                                         }
-    </div>                               
+    
+    </div>      
+
+
+<script type="text/javascript" src="~/Content/js/botoneraPartials.js"></script>

@@ -27,33 +27,30 @@ $("select[ref=comboDinamico]").change(function () {
 // Menu RiskFicha. Carga dinámica de partialsViews cuando click en Menu
 
 
-
 $('a[id^="mnu_"]').click(function () {
 
-    $('#mnu li').removeClass('active');
-    $(this).parent().addClass('active');
-
-    $('#mnu li a').attr('aria-expanded', 'false');
-    $(this).attr('aria-expanded', 'true');
-
-    var pagina = $(this).attr("id").replace('mnu_', '');
-    var id = $('#IdRiesgo').val();
-    var ruta = "http://localhost:1525/Risk/" + pagina;
-
-    $('#contenidoDinamico').load(ruta, {"id" : id});
-})
-
-
-$('form').change(function (el) {
-    $('#BtnSave').removeClass('btn-primary').addClass('btn-danger');
-});
-
-
-$('#BtnExit').click(function () {
-    if ($("#BtnSave[class*='danger']")) {
+    if ($(this).parent().hasClass('disabled')) {
         alert('Hay cambios por guardar.');
+        return false;
+    }
+    else {
+
+        alert('pasando por else');
+        $('#mnu li').removeClass('active');
+        $(this).parent().addClass('active');
+
+        $('#mnu li a').attr('aria-expanded', 'false');
+        $(this).attr('aria-expanded', 'true');
+
+        var pagina = $(this).attr("id").replace('mnu_', '');
+        var id = $('#IdRiesgo').val();
+        var ruta = "http://localhost:1525/Risk/" + pagina;
+
+        $('#contenidoDinamico').load(ruta, { "id": id });
     }
 });
+
+
 
 
 

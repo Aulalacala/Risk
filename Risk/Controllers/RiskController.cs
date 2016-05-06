@@ -32,6 +32,10 @@ namespace Risk.Controllers
             return PartialView(fichaRiesgoVM);
         }
 
+        public ActionResult OperationalImpact() {
+            return PartialView();
+        }
+
         public ActionResult Graphic()
         {
             qRiesgosNombres riesgoRecup = (qRiesgosNombres)Session["riesgo"];
