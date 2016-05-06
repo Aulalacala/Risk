@@ -11,6 +11,8 @@ namespace Risk.Controllers
     {
 
         Usuarios_BDDataContext usuario_BD = new Usuarios_BDDataContext();
+       
+
 
         // GET: Login
         public ActionResult Login()

@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 
+
 namespace Risk
 {
     public class MvcApplication : System.Web.HttpApplication
@@ -14,5 +15,6 @@ namespace Risk
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
         }
+
     }
 }
