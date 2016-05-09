@@ -7,44 +7,40 @@
 <!-- TITLE & BUTTONS -->
 
 
-    <span class="title">DATA SHEET</span>
-<div id="miForm">
-    @using (Html.BeginForm("formGeneral", "Risk", FormMethod.Post)) {
-        @Html.AntiForgeryToken()
+<span class="title">DATA SHEET</span>
 
+<form id="miForm">
+    <div id="botonera" class="pull-right">
+        <input type="submit" class="btn btn-primary" name="BtnDelete" value="DELETE" id="BtnDelete" />
+        <a href="@Url.Action("RiskFicha", "Risk", new { id = 0 })" class="btn btn-primary">NEW</a>
+        <input type="button" class="btn btn-primary" name="BtnSave" value="SAVE" id="BtnSave" />
+    </div>
 
-        <div id="botonera" class="pull-right">
-            <input type="submit" class="btn btn-primary" name="BtnDelete" value="DELETE" id="BtnDelete" />
-            <a href="@Url.Action("RiskFicha", "Risk", new { id = 0 })" class="btn btn-primary">NEW</a>
-            <input type="submit" class="btn btn-primary" name="BtnSave" value="SAVE" id="BtnSave" />
-        </div>
+    <div class="clearfix"></div>
+    <div class="divider"></div>
 
-        <div class="clearfix"></div>
-        <div class="divider"></div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <br />
 
+            <!-- COLUMNA IZQUIERDA-->
+            <div class="col-lg-6 col-md-6">
 
-        <div class="row">
-            <div class="col-lg-12 col-md-12">
-                <br />
+                @* --------------------------------------------------------------------------- *@
 
-                <!-- COLUMNA IZQUIERDA-->
-                <div class="col-lg-6 col-md-6">
+                @* AÑADIR LOS DROPDOWNS 'STRUCUTRE CODE' Y 'PARTICLE CODE' CON LOS DEPPLEGABLES DE LA ESTRCUTURA *@
+                @if (Model.qRiesgosNombre_VM.Nombre == null)
+                {
 
-                    @* --------------------------------------------------------------------------- *@
-
-                    @* AÑADIR LOS DROPDOWNS 'STRUCUTRE CODE' Y 'PARTICLE CODE' CON LOS DEPPLEGABLES DE LA ESTRCUTURA *@
-                    @if (Model.qRiesgosNombre_VM.Nombre == null) {
-
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4">
-                                <span class="form-left-label">Structure Code</span>
-                            </div>
-
-                            <div class="col-lg-8 col-md-8">
-                               
-                                @* DROPDOWN CON TODOS LOS ELEMENTOS DE LA ESTRUCUTURA *@
-                            </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4">
+                            <span class="form-left-label">Structure Code</span>
                         </div>
+
+                        <div class="col-lg-8 col-md-8">
+                            @* DROPDOWN CON TODOS LOS ELEMENTOS DE LA ESTRUCUTURA *@
+                        </div>
+                    </div>
 
                         <div class="row">
                             <div class="col-lg-4 col-md-4">
@@ -52,419 +48,449 @@
                             </div>
 
                             <div class="col-lg-8 col-md-8">
-                                
                                 @* SE AUTOCOMPLETA CON EL SIGUIENTE DISPONIBLE DENTRO DE LA ESTRUCUTURA ELEGIDA *@
                             </div>
                         </div>
-                    }
+                }
 
 
-                    @* --------------------------------------------------------------------------- *@
+                @* --------------------------------------------------------------------------- *@
 
 
-                    <div class="row">
-                        <div class="col-lg-4 col-md-4">
-                            <span class="form-left-label">Example</span>
-                        </div>
-
-                        <div class="col-lg-8 col-md-8">
-                            @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Ejemplo, 6, 54, new { @class = "form-control w100" })
-                        </div>
-                    </div>
-                    <br />
-
-                    <div class="row ">
-                        <div class="col-lg-4 col-md-4">
-                            <span class="form-left-label">Cause</span>
-                        </div>
-
-                        <div class="col-lg-8 col-md-8">
-                            @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Descripcion, 6, 54, new { @class = "form-control w100"})
-                        </div>
-                    </div>
-                    <br />
-                    <div class="row">
-                        <div class="col-lg-4 col-md-4">
-                            <span class="form-left-label">Justification for control improvement</span>
-                        </div>
-
-                        <div class="col-lg-8 col-md-8">
-                            @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Justificacion, 6, 54, new { @class = "form-control w100" })
-                        </div>
+                <div class="row">
+                    <div class="col-lg-4 col-md-4">
+                        <span class="form-left-label">Example</span>
                     </div>
 
-                    <br />
-                    <!--OWNER -->
-                    <div id="owner" style="background-color:#eaf7fa; padding-bottom:26px" class="row col-lg-12 col-md-12">
-                        <div class="col-lg-12 col-md-12">
-                            <span class="form-left-label"><b>OWNER</b></span>
-                        </div>
-                        <!-- OWNER 1-->
-                        <div>
-                            <div class="col-lg-4 col-md-4">
-                                <span class="form-left-label">Owner</span>
-                            </div>
-
-                            <div class="col-lg-8 col-md-8">
-                                <select class="form-control w100">
-                                    @{
-                                    Dictionary<int, string> responsablesDic = Model.dropDowns.datosResponsables;
-
-                                    if (Model.qRiesgosNombre_VM.IdResponsable == 0) {
-                                <option value="0" selected="selected"></option>
-                                    }
-
-
-                                    foreach (var respon in responsablesDic) {
-                                        if (respon.Key.Equals(Model.qRiesgosNombre_VM.IdResponsable)) {
-                                <option value="@respon.Key" selected="selected">@respon.Value </option>
-                                        } else {
-                                <option value="@respon.Key">@respon.Value </option>
-                                        }
-                                    }
-                                    }
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- OWNER 2-->
-                        <div>
-                            <div class="col-lg-4 col-md-4">
-                                <span class="form-left-label">Owner</span>
-                            </div>
-
-                            <div class="col-lg-8 col-md-8">
-                                <select class="form-control w100">
-                                    @{
-                                    Dictionary<int, string> responsablesDic2 = Model.dropDowns.datosResponsables;
-
-                                    if (Model.qRiesgosNombre_VM.IdResponsable == 0) {
-                                <option value="0" selected="selected"></option>
-                                    }
-
-
-                                    foreach (var respon in responsablesDic2) {
-                                        if (respon.Key.Equals(Model.qRiesgosNombre_VM.IdResponsable)) {
-                                <option value="@respon.Key" selected="selected">@respon.Value </option>
-                                        } else {
-                                <option value="@respon.Key">@respon.Value </option>
-                                        }
-                                    }
-                                    }
-                                </select>
-                            </div>
-                        </div>
-
+                    <div class="col-lg-8 col-md-8">
+                        @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Ejemplo, 6, 54, new { @class = "form-control w100", @campos = "campos", @id = "Ejemplo" })
                     </div>
-                    <br /><br />
+                </div>
+                <br />
+
+                <div class="row ">
+                    <div class="col-lg-4 col-md-4">
+                        <span class="form-left-label">Cause</span>
+                    </div>
+
+                    <div class="col-lg-8 col-md-8">
+                        @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Descripcion, 6, 54, new { @class = "form-control w100", @campos = "campos", @id = "Descripcion" })
+                    </div>
+                </div>
+                <br />
+                <div class="row">
+                    <div class="col-lg-4 col-md-4">
+                        <span class="form-left-label">Justification for control improvement</span>
+                    </div>
+
+                    <div class="col-lg-8 col-md-8">
+                        @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Justificacion, 6, 54, new { @class = "form-control w100", @campos = "campos", @id = "Justificacion" })
+                    </div>
                 </div>
 
-                <!-- COLUMNA DERECHA-->
-                <div class="col-lg-6 col-md-6">
-
-                    <!--SEGMENTATION -->
-                    <div id="segmentation" style="background-color:#eaf7fa" class="row">
-                        <div class="col-lg-12 col-md-12">
-                            <span class="form-left-label"><b>SEGMENTATION</b></span>
+                <br />
+                <!--OWNER -->
+                <div id="owner" style="background-color:#eaf7fa; padding-bottom:26px" class="row col-lg-12 col-md-12">
+                    <div class="col-lg-12 col-md-12">
+                        <span class="form-left-label"><b>OWNER</b></span>
+                    </div>
+                    <!-- OWNER 1-->
+                    <div>
+                        <div class="col-lg-4 col-md-4">
+                            <span class="form-left-label">Owner</span>
                         </div>
-                        <div>
-                            <div class="col-lg-2 col-md-2">
-                                <span class="form-left-label" id="labelCategoria">Category</span>
-                            </div>
 
-                            <div class="col-lg-10 col-md-10">
-                                <select class="form-control w100" name="categoria" id="selectCategoria" filtro="IdCategoria">
-                                    @{
-                                    Dictionary
-                                    <int, string>
-                                                                                    dicCategorias = Model.dropDowns.datosCategorias;
-                                    foreach (var categoria in dicCategorias) {
-                                        if (categoria.Key.Equals(Model.qRiesgosNombre_VM.IdCategoria)) {
-                                <option value="@categoria.Key" selected="selected">@categoria.Value </option>
-                                        } else {
-                                <option value="@categoria.Key">@categoria.Value </option>
+                        <div class="col-lg-8 col-md-8">
+                            <select class="form-control w100" campos = "campos" id="IdResponsable">
+                                @{
+                                    Dictionary<int, string> responsablesDic = Model.dropDowns.datosResponsables;
+
+                                    if (Model.qRiesgosNombre_VM.IdResponsable == 0)
+                                    {
+                                        <option value="0" selected="selected"></option>
+                                    }
+
+
+                                    foreach (var respon in responsablesDic)
+                                    {
+                                        if (respon.Key.Equals(Model.qRiesgosNombre_VM.IdResponsable))
+                                        {
+                                            <option value="@respon.Key" selected="selected">@respon.Value </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@respon.Key">@respon.Value </option>
                                         }
                                     }
-                                    }
-                                </select>
-                            </div>
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <!-- OWNER 2-->
+                    <div>
+                        <div class="col-lg-4 col-md-4">
+                            <span class="form-left-label">Owner</span>
                         </div>
 
-                        <div>
-                            <div class="col-lg-2 col-md-2">
-                                <span class="form-left-label" id="labelCategoria">Segment</span>
-                            </div>
+                        <div class="col-lg-8 col-md-8">
+                            <select class="form-control w100" campos = "campos" id="IdResponsable2">
+                                @{
+                                    Dictionary<int, string> responsablesDic2 = Model.dropDowns.datosResponsables;
 
-                            <div class="col-lg-10 col-md-10">
-                                <select class="form-control w100" name="segment" id="selectSegment" filtro="IdSegmenta1">
-                                    @{
+                                    if (Model.qRiesgosNombre_VM.IdResponsable == 0)
+                                    {
+                                        <option value="0" selected="selected"></option>
+                                    }
+
+
+                                    foreach (var respon in responsablesDic2)
+                                    {
+                                        if (respon.Key.Equals(Model.qRiesgosNombre_VM.IdResponsable))
+                                        {
+                                            <option value="@respon.Key" selected="selected">@respon.Value </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@respon.Key">@respon.Value </option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+                <br /><br />
+            </div>
+
+            <!-- COLUMNA DERECHA-->
+            <div class="col-lg-6 col-md-6">
+
+                <!--SEGMENTATION -->
+                <div id="segmentation" style="background-color:#eaf7fa" class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <span class="form-left-label"><b>SEGMENTATION</b></span>
+                    </div>
+                    <div>
+                        <div class="col-lg-2 col-md-2">
+                            <span class="form-left-label" id="labelCategoria">Category</span>
+                        </div>
+
+                        <div class="col-lg-10 col-md-10">
+                            <select class="form-control w100" campos = "campos" name="categoria" id="selectCategoria" filtro="IdCategoria">
+                                @{
+                                    Dictionary<int, string> dicCategorias = Model.dropDowns.datosCategorias;
+                                    foreach (var categoria in dicCategorias)
+                                    {
+                                        if (categoria.Key.Equals(Model.qRiesgosNombre_VM.IdCategoria))
+                                        {
+                                            <option value="@categoria.Key" selected="selected">@categoria.Value </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@categoria.Key">@categoria.Value </option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                    <div>
+                        <div class="col-lg-2 col-md-2">
+                            <span class="form-left-label" id="labelCategoria">Segment</span>
+                        </div>
+
+                        <div class="col-lg-10 col-md-10">
+                            <select class="form-control w100" campos = "campos" name="segment" id="selectSegment" filtro="IdSegmenta1">
+                                @{
                                     Dictionary<int, string> dicSegmenta = Model.dropDowns.datosSegmentacion;
 
-                                    if (Model.qRiesgosNombre_VM.IdSegmentacion1 == 0) {
-                                <option value="0" selected="selected"></option>
+                                    if (Model.qRiesgosNombre_VM.IdSegmentacion1 == 0)
+                                    {
+                                        <option value="0" selected="selected"></option>
                                     }
 
-                                    foreach (var segmento in dicSegmenta) {
-                                        if (segmento.Key.Equals(Model.qRiesgosNombre_VM.IdSegmentacion1)) {
-                                <option value="@segmento.Key" selected="selected">@segmento.Value </option>
-                                        } else {
-                                <option value="@segmento.Key">@segmento.Value </option>
+                                    foreach (var segmento in dicSegmenta)
+                                    {
+                                        if (segmento.Key.Equals(Model.qRiesgosNombre_VM.IdSegmentacion1))
+                                        {
+                                            <option value="@segmento.Key" selected="selected">@segmento.Value </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@segmento.Key">@segmento.Value </option>
                                         }
                                     }
+                                }
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- DIVIDER -->
+                <div class="divider-30"></div>
+
+                <!--CATEGORIZATION -->
+                <div id="categorization" style="background-color:#eaf7fa" class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <span class="form-left-label"><b>RISK CATEGORIZATION</b></span>
+                    </div>
+                    <!-- ROW LEVEL 1 -->
+                    <div>
+                        <div class="col-lg-2 col-md-2">
+                            <span class="form-left-label" id="labelClasif1">Level 1</span>
+                        </div>
+
+                        <div class="col-lg-10 col-md-10">
+                            <select class="form-control w100" campos = "campos" name="clasificacion1" ref="comboDinamico" id="IdClasificacion1" sig="IdClasificacion2">
+                                @{
+                                    Dictionary<int, string> dicClasificacion1 = Model.dropDowns.datosClasificacion1;
+                                    foreach (var clasif1 in dicClasificacion1)
+                                    {
+                                        if (clasif1.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion1))
+                                        {
+                                            <option value="@clasif1.Key" selected="selected">@clasif1.Value </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@clasif1.Key">@clasif1.Value </option>
+                                        }
                                     }
-                                </select>
-                            </div>
+                                }
+                            </select>
+
                         </div>
                     </div>
 
-                    <!-- DIVIDER -->
-                    <div class="divider-30"></div>
-
-                    <!--CATEGORIZATION -->
-                    <div id="categorization" style="background-color:#eaf7fa" class="row">
-                        <div class="col-lg-12 col-md-12">
-                            <span class="form-left-label"><b>RISK CATEGORIZATION</b></span>
+                    <!-- ROW LEVEL 2 -->
+                    <div>
+                        <div class="col-lg-2 col-md-2">
+                            <span class="form-left-label" id="labelClasif2">Level 2</span>
                         </div>
-                        <!-- ROW LEVEL 1 -->
-                        <div>
-                            <div class="col-lg-2 col-md-2">
-                                <span class="form-left-label" id="labelClasif1">Level 1</span>
-                            </div>
 
-                            <div class="col-lg-10 col-md-10">
-                                <select class="form-control w100" name="clasificacion1" ref="comboDinamico" id="selectClasif_1" sig="selectClasif_2">
-                                    @{
-                                    Dictionary
-                                    <int, string>
-                                        dicClasificacion1 = Model.dropDowns.datosClasificacion1;
-                                    foreach (var clasif1 in dicClasificacion1) {
-                                        if (clasif1.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion1)) {
-                                <option value="@clasif1.Key" selected="selected">@clasif1.Value </option>
-                                        } else {
-                                <option value="@clasif1.Key">@clasif1.Value </option>
+                        <div class="col-lg-10 col-md-10">
+                            <select class="form-control w100" campos = "campos" name="clasificacion2" ref="comboDinamico" id="IdClasificacion2" sig="IdClasificacion3">
+                                @{
+                                    Dictionary<int, string> dicClasificacion2 = Model.dropDowns.datosClasificacion2;
+                                    foreach (var clasif2 in dicClasificacion2)
+                                    {
+                                        if (clasif2.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion2))
+                                        {
+                                            <option value="@clasif2.Key" selected="selected">@clasif2.Value </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@clasif2.Key">@clasif2.Value </option>
                                         }
                                     }
-                                    }
-                                </select>
-
-                            </div>
+                                }
+                            </select>
                         </div>
-
-                        <!-- ROW LEVEL 2 -->
-                        <div>
-                            <div class="col-lg-2 col-md-2">
-                                <span class="form-left-label" id="labelClasif2">Level 2</span>
-                            </div>
-
-                            <div class="col-lg-10 col-md-10">
-                                <select class="form-control w100" name="clasificacion2" ref="comboDinamico" id="selectClasif_2" sig="selectClasif_3">
-                                    @{
-                                    Dictionary
-                                    <int, string>
-                                        dicClasificacion2 = Model.dropDowns.datosClasificacion2;
-                                    foreach (var clasif2 in dicClasificacion2) {
-                                        if (clasif2.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion2)) {
-                                <option value="@clasif2.Key" selected="selected">@clasif2.Value </option>
-                                        } else {
-                                <option value="@clasif2.Key">@clasif2.Value </option>
-                                        }
-                                    }
-                                    }
-                                </select>
-                            </div>
-                        </div>
-
-                        <!-- ROW LEVEL 3 -->
-                        <div>
-                            <div class="col-lg-2 col-md-2">
-                                <span class="form-left-label" id="labelClasif1">Level 3</span>
-                            </div>
-
-                            <div class="col-lg-10 col-md-10">
-                                <select class="form-control w100" name="clasificacion3" ref="comboDinamico" id="selectClasif_3">
-                                    @{
-                                    Dictionary
-                                    <int, string>
-                                        dicClasificacion3 = Model.dropDowns.datosClasificacion3;
-                                    foreach (var clasif3 in dicClasificacion3) {
-                                        if (clasif3.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion3)) {
-                                <option value="@clasif3.Key" selected="selected">@clasif3.Value </option>
-                                        } else {
-                                <option value="@clasif3.Key">@clasif3.Value </option>
-                                        }
-                                    }
-                                    }
-                                </select>
-                            </div>
-                        </div>
-
                     </div>
 
-                    <!-- DIVIDER -->
-                    <div class="divider-30"></div>
-
-                    <!-- FINANCIAL IMPACT -->
-                    <div id="financialImpact" style="background-color:#eaf7fa" class="row">
-                        <div class="col-lg-12 col-md-12">
-                            <span class="form-left-label"><b>FINANCIAL IMPACT</b></span>
+                    <!-- ROW LEVEL 3 -->
+                    <div>
+                        <div class="col-lg-2 col-md-2">
+                            <span class="form-left-label" id="labelClasif1">Level 3</span>
                         </div>
 
-                        <!--CABECERAS-->
-                        <div class="col-lg-12 col-md-12">
-                            <div class="col-lg-3 col-md-3">
-                                <span class="form-left-label"></span>
-                            </div>
-                            <div class="col-lg-3 col-md-3 hidden-sm">
+                        <div class="col-lg-10 col-md-10">
+                            <select class="form-control w100" campos = "campos" name="clasificacion3" ref="comboDinamico" id="IdClasificacion3">
+                                @{
+                                    Dictionary<int, string> dicClasificacion3 = Model.dropDowns.datosClasificacion3;
+                                    foreach (var clasif3 in dicClasificacion3)
+                                    {
+                                        if (clasif3.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion3))
+                                        {
+                                            <option value="@clasif3.Key" selected="selected">@clasif3.Value </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@clasif3.Key">@clasif3.Value </option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- DIVIDER -->
+                <div class="divider-30"></div>
+
+                <!-- FINANCIAL IMPACT -->
+                <div id="financialImpact" style="background-color:#eaf7fa" class="row">
+                    <div class="col-lg-12 col-md-12">
+                        <span class="form-left-label"><b>FINANCIAL IMPACT</b></span>
+                    </div>
+
+                    <!--CABECERAS-->
+                    <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-3 col-md-3">
+                            <span class="form-left-label"></span>
+                        </div>
+                        <div class="col-lg-3 col-md-3 hidden-sm">
+                            <span class="form-left-label">Before Controls</span>
+                        </div>
+                        <div class="col-lg-3 col-md-3 hidden-sm">
+                            <span class="form-left-label">Current</span>
+                        </div>
+                        <div class="col-lg-3 col-md-3 hidden-sm">
+                            <span class="form-left-label">After action plans</span>
+                        </div>
+                    </div>
+
+                    <!--FRECUENCIA-->
+                    <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-3 col-md-3">
+                            <span class="form-left-label"><b>Exp. Frec.</b></span>
+                        </div>
+
+                        <div class="col-lg-3 col-md-3">
+                            <div class="visible-sm">
                                 <span class="form-left-label">Before Controls</span>
                             </div>
-                            <div class="col-lg-3 col-md-3 hidden-sm">
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreFrecAntes, new { @class = "form-control w100", @readonly = "readonly", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorFrecAntes, @campos = "campos", @id = "NombreFrecAntes" })
+                        </div>
+
+                        <div class="col-lg-3 col-md-3">
+                            <div class="visible-sm">
                                 <span class="form-left-label">Current</span>
                             </div>
-                            <div class="col-lg-3 col-md-3 hidden-sm">
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreFrecDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorFrecDespues, @campos = "campos", @id = "NombreFrecDespues" })
+                        </div>
+
+                        <div class="col-lg-3 col-md-3">
+                            <div class="visible-sm">
                                 <span class="form-left-label">After action plans</span>
                             </div>
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreFrecPlanDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorFrecPlanDespues, @campos = "campos", @id = "NombreFrecPlanDespues" })
                         </div>
-
-                        <!--FRECUENCIA-->
-                        <div class="col-lg-12 col-md-12">
-                            <div class="col-lg-3 col-md-3">
-                                <span class="form-left-label"><b>Exp. Frec.</b></span>
-                            </div>
-
-                            <div class="col-lg-3 col-md-3">
-                                <div class="visible-sm">
-                                    <span class="form-left-label">Before Controls</span>
-                                </div>
-                                @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreFrecAntes, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorFrecAntes })
-                            </div>
-
-                            <div class="col-lg-3 col-md-3">
-                                <div class="visible-sm">
-                                    <span class="form-left-label">Current</span>
-                                </div>
-                                @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreFrecDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorFrecDespues })
-                            </div>
-
-                            <div class="col-lg-3 col-md-3">
-                                <div class="visible-sm">
-                                    <span class="form-left-label">After action plans</span>
-                                </div>
-                                @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreFrecPlanDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorFrecPlanDespues })
-                            </div>
+                    </div>
+                    <!--SEVERIDAD-->
+                    <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-3 col-md-3">
+                            <span class="form-left-label"><b>Exp. Sev.</b></span>
                         </div>
-                        <!--SEVERIDAD-->
-                        <div class="col-lg-12 col-md-12">
-                            <div class="col-lg-3 col-md-3">
-                                <span class="form-left-label"><b>Exp. Sev.</b></span>
+                        <div class="col-lg-3 col-md-3">
+                            <div class="visible-sm">
+                                <span class="form-left-label">Before Controls</span>
                             </div>
-                            <div class="col-lg-3 col-md-3">
-                                <div class="visible-sm">
-                                    <span class="form-left-label">Before Controls</span>
-                                </div>
-                                @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSeveAntes, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSeveAntes })
-                            </div>
-                            <div class="col-lg-3 col-md-3">
-                                <div class="visible-sm">
-                                    <span class="form-left-label">Current</span>
-                                </div>
-                                @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSeveDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSeveDespues })
-                            </div>
-                            <div class="col-lg-3 col-md-3">
-                                <div class="visible-sm">
-                                    <span class="form-left-label">After action plans</span>
-                                </div>
-                                @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePlanDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePlanDespues })
-                            </div>
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSeveAntes, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSeveAntes, @campos = "campos", @id = "NombreSeveAntes" })
                         </div>
-                        <!--SEVERIDAD DESPUES PLAN-->
-                        <div class="col-lg-12 col-md-12">
-                            <div class="col-lg-3 col-md-3">
-                                <span class="form-left-label"><b>Max. Sev.</b></span>
+                        <div class="col-lg-3 col-md-3">
+                            <div class="visible-sm">
+                                <span class="form-left-label">Current</span>
                             </div>
-                            <div class="col-lg-3 col-md-3">
-                                <div class="visible-sm">
-                                    <span class="form-left-label">Before Controls</span>
-                                </div>
-                                @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePeorAntes, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePeorAntes })
-                            </div>
-                            <div class="col-lg-3 col-md-3">
-                                <div class="visible-sm">
-                                    <span class="form-left-label">Current</span>
-                                </div>
-                                @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePeorDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePeorDespues })
-                            </div>
-                            <div class="col-lg-3 col-md-3">
-                                <div class="visible-sm">
-                                    <span class="form-left-label">After action plans</span>
-                                </div>
-                                @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePeorPlanDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePeorPlanDespues })
-                            </div>
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSeveDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSeveDespues, @campos = "campos", @id = "NombreSeveDespues" })
                         </div>
+                        <div class="col-lg-3 col-md-3">
+                            <div class="visible-sm">
+                                <span class="form-left-label">After action plans</span>
+                            </div>
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePlanDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePlanDespues, @campos = "campos", @id = "NombreSevePlanDespues" })
+                        </div>
+                    </div>
+                    <!--SEVERIDAD DESPUES PLAN-->
+                    <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-3 col-md-3">
+                            <span class="form-left-label"><b>Max. Sev.</b></span>
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <div class="visible-sm">
+                                <span class="form-left-label">Before Controls</span>
+                            </div>
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePeorAntes, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePeorAntes, @campos = "campos", @id = "NombreSevePeorAntes" })
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <div class="visible-sm">
+                                <span class="form-left-label">Current</span>
+                            </div>
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePeorDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePeorDespues, @campos = "campos", @id = "NombreSevePeorDespues" })
+                        </div>
+                        <div class="col-lg-3 col-md-3">
+                            <div class="visible-sm">
+                                <span class="form-left-label">After action plans</span>
+                            </div>
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePeorPlanDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePeorPlanDespues, @campos = "campos", @id = "NombreSevePeorPlanDespues" })
+                        </div>
+                    </div>
 
 
-                        <div class="col-lg-12 col-md-12">
-                            <hr />
+                    <div class="col-lg-12 col-md-12">
+                        <hr />
+                    </div>
+                    <!--OPORTUNIDAD-->
+                    <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-5 col-md-5">
+                            <span class="form-left-label">Opportunity for control improvement</span>
                         </div>
-                        <!--OPORTUNIDAD-->
-                        <div class="col-lg-12 col-md-12">
-                            <div class="col-lg-5 col-md-5">
-                                <span class="form-left-label">Opportunity for control improvement</span>
-                            </div>
-                            <div class="col-lg-7 col-md-7">
+                        <div class="col-lg-7 col-md-7">
 
-                                <select class="form-control w100" id="selectOportunidad">
-                                    @{
+                            <select class="form-control w100" campos = "campos" id="IdControlesOportunidad">
+                                @{
                                     Dictionary
                                     <int, string>
                                         datosOportunidad = Model.dropDowns.datosOportunidad;
-                                    foreach (var oportunidad in datosOportunidad) {
-                                        if (oportunidad.Key.Equals(Model.qRiesgosNombre_VM.IdControlesOportunidad)) {
-                                <option value="@oportunidad.Key" selected="selected">@oportunidad.Value </option>
-                                        } else {
-                                <option value="@oportunidad.Key">@oportunidad.Value </option>
+                                    foreach (var oportunidad in datosOportunidad)
+                                    {
+                                        if (oportunidad.Key.Equals(Model.qRiesgosNombre_VM.IdControlesOportunidad))
+                                        {
+                                            <option value="@oportunidad.Key" selected>@oportunidad.Value </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@oportunidad.Key">@oportunidad.Value </option>
                                         }
                                     }
-                                    }
-                                </select>
-                            </div>
-                        </div>
-
-
-                        <!--EFECTIVIDAD-->
-                        <div class="col-lg-12 col-md-12">
-                            <div class="col-lg-5 col-md-5">
-                                <span class="form-left-label">Existing control</span>
-                            </div>
-                            <div class="col-lg-7 col-md-7">
-
-                                <select class="form-control w100" id="selectEfectividad">
-                                    @{
-                                    Dictionary
-                                    <int, string>
-                                        datosEfectividad = Model.dropDowns.datosEfectividad;
-                                    foreach (var efectividad in datosEfectividad) {
-                                        if (efectividad.Key.Equals(Model.qRiesgosNombre_VM.IdControlesEfectividad)) {
-                                <option value="@efectividad.Key" selected="selected">@efectividad.Value </option>
-                                        } else {
-                                <option value="@efectividad.Key">@efectividad.Value </option>
-                                        }
-                                    }
-                                    }
-                                </select>
-                            </div>
+                                }
+                            </select>
                         </div>
                     </div>
 
 
+                    <!--EFECTIVIDAD-->
+                    <div class="col-lg-12 col-md-12">
+                        <div class="col-lg-5 col-md-5">
+                            <span class="form-left-label">Existing control</span>
+                        </div>
+                        <div class="col-lg-7 col-md-7">
 
+                            <select class="form-control w100" campos = "campos" id="IdControlesEfectividad">
+                                @{
+                                    Dictionary
+                                    <int, string>
+                                        datosEfectividad = Model.dropDowns.datosEfectividad;
+                                    foreach (var efectividad in datosEfectividad)
+                                    {
+                                        if (efectividad.Key.Equals(Model.qRiesgosNombre_VM.IdControlesEfectividad))
+                                        {
+                                            <option value="@efectividad.Key" selected>@efectividad.Value </option>
+                                        }
+                                        else
+                                        {
+                                            <option value="@efectividad.Key">@efectividad.Value </option>
+                                        }
+                                    }
+                                }
+                            </select>
+                        </div>
+                    </div>
                 </div>
 
-               
+
+
             </div>
+
+
         </div>
-                                        }
-    
-    </div>      
+    </div>
+</form>
+
 
 
 <script type="text/javascript" src="~/Content/js/botoneraPartials.js"></script>
+<script type="text/javascript" src="~/Content/js/scripts2.js"></script>

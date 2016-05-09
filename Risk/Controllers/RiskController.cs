@@ -104,5 +104,11 @@ namespace Risk.Controllers
             return fichaRiesgoVM;
         }
 
+        [HttpPost]
+        public ActionResult formGeneral(string p)
+        {
+            return View();
+        }
+
     }
 }

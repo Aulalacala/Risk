@@ -367,8 +367,6 @@ namespace Risk.Controllers
 
         #endregion
 
-
-
         #region RiskController
         public qRiesgosNombres recuperarRiesgo(int id)
         {

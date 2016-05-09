@@ -390,3 +390,17 @@ select option:hover {
   .datepicker .next:hover,
   .datepicker .prev:hover {
     background-color: #53b0c4; }
+
+
+
+
+  /*------------------------------------------------------------------------------------------------------------------------------------------------------*/
+.dirty{
+    border: 1px solid #d43f3a;
+    background-color:#faecea
+}
+
+.dirty:focus{
+    border: 2px solid #d43f3a;
+    background-color:#faecea
+}

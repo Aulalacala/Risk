@@ -17,9 +17,6 @@
     <h3 class="darker"><strong>@Model.CodRiesgo</strong></h3>
     <input id="IdRiesgo" type="hidden" value="@Model.IdRiesgo" />
 
-
-
-
 <!-- GENERAL DATA OF RISK -->
 <div class="panel">
     <div class="panel-body">
@@ -103,11 +100,34 @@
             <hr />
         </div> <!-- END TABS -->
         <div id="contenidoDinamico">
-
-
         </div>
     </div>
 </div>
+
+
+<!--MODAL AVISO CAMBIOS-->
+
+<div id="modalAviso" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">WARNING!!</h4>
+            </div>
+
+            <div class="modal-body text-center">
+                <p>There are changes in the actual risk. Please, save this changes or discard them.</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" id="BtnSaveModal">SAVE CHANGES</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" id="BtnDiscard">DISCARD CHANGES</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
 
 <script type="text/javascript" src="~/Content/js/jquery/jquery-2.1.1.min.js"></script>
 <script type="text/javascript" src="~/Content/js/jquery/jquery.browser.min.js"></script>
@@ -117,6 +137,7 @@
 
 <script type="text/javascript" src="~/Content/morris/morris.js"></script>
 <script type="text/javascript" src="~/Content/morris/raphael.min.js"></script>
+<script type="text/javascript" src="~/Content/js/botoneraPartials.js"></script>
 
 <script>
   
