@@ -8,7 +8,7 @@ namespace Risk.Models
 {
     public class DropDownModel
     {
-        private Riesgos_BDDataContext riesgosBD = new Riesgos_BDDataContext();
+        private ConnectionDB.connectionRiesgos riesgosBD = new ConnectionDB.connectionRiesgos();
         private Dictionary<int, string> _datosCategorias;
         private Dictionary<int, string> _datosClasificacion1;
         private Dictionary<int, string> _datosClasificacion2;
@@ -22,7 +22,7 @@ namespace Risk.Models
         {
             get
             {
-                return riesgosBD.tRiesgos_Categorias.ToDictionary(r => r.IdCategoria, r => r.Categoria);
+                return riesgosBD.DB.tRiesgos_Categorias.ToDictionary(r => r.IdCategoria, r => r.Categoria);
             }
             set
             {
@@ -34,7 +34,7 @@ namespace Risk.Models
         {
             get
             {
-                return riesgosBD.tRiesgos_Clasificaciones.Where(r => r.Nivel == 2).ToDictionary(r => r.IdEstructura, r => r.CodCompleto + " " + r.Nombre);
+                return riesgosBD.DB.tRiesgos_Clasificaciones.Where(r => r.Nivel == 2).ToDictionary(r => r.IdEstructura, r => r.CodCompleto + " " + r.Nombre);
             }
             set
             {
@@ -49,7 +49,7 @@ namespace Risk.Models
         {
             get
             {
-                return riesgosBD.tRiesgos_ControlOportunidad.ToDictionary(r => r.IdControlOportunidad, r => r.Oportunidad);
+                return riesgosBD.DB.tRiesgos_ControlOportunidad.ToDictionary(r => r.IdControlOportunidad, r => r.Oportunidad);
             }
             set
             {
@@ -61,7 +61,7 @@ namespace Risk.Models
         {
             get
             {
-                return riesgosBD.tRiesgos_ControlEfectividad.ToDictionary(r => r.IdControlEfectividad, r => r.Efectividad);
+                return riesgosBD.DB.tRiesgos_ControlEfectividad.ToDictionary(r => r.IdControlEfectividad, r => r.Efectividad);
             }
             set
             {
@@ -73,7 +73,7 @@ namespace Risk.Models
         {
             get
             {
-                return riesgosBD.tResponsables.ToDictionary(r => r.IdResponsable, r => r.Nombre);
+                return riesgosBD.DB.tResponsables.ToDictionary(r => r.IdResponsable, r => r.Nombre);
             }
             set
             {
@@ -85,7 +85,7 @@ namespace Risk.Models
         {
             get
             {
-                return riesgosBD.tRiesgos_Segmentacion1.ToDictionary(r => r.IdSegmenta1, r => r.Segmentacion);
+                return riesgosBD.DB.tRiesgos_Segmentacion1.ToDictionary(r => r.IdSegmenta1, r => r.Segmentacion);
             }
             set
             {
@@ -99,7 +99,7 @@ namespace Risk.Models
             Dictionary<int, string> dicClasif2 = new Dictionary<int, string>();
             try
             {
-                dicClasif2 = riesgosBD.tRiesgos_Clasificaciones.Where(r => r.idPadre == idEstructura).ToDictionary(r => r.IdEstructura, r => r.CodCompleto + " " + r.Nombre);
+                dicClasif2 = riesgosBD.DB.tRiesgos_Clasificaciones.Where(r => r.idPadre == idEstructura).ToDictionary(r => r.IdEstructura, r => r.CodCompleto + " " + r.Nombre);
             }
             catch (Exception)
             {

@@ -9,14 +9,14 @@ namespace Risk.Controllers
     public class TreeviewClass
     {
 
-        public static Riesgos_BDDataContext riesgosBD = new Riesgos_BDDataContext();
+        public static ConnectionDB.connectionRiesgos riesgosBD = new ConnectionDB.connectionRiesgos();
 
 
         public static List<TreeViewLocation> GetLocations(int id)
         {
             var locations = new List<TreeViewLocation>();
 
-            List<tEstructura> cuantosHay = riesgosBD.tEstructura.Where(r => r.idPadre == id).OrderBy(r => r.Orden).ToList();
+            List<tEstructura> cuantosHay = riesgosBD.DB.tEstructura.Where(r => r.idPadre == id).OrderBy(r => r.Orden).ToList();
             if (cuantosHay.Count != 0)
             {
                 for (int i = 0; i < cuantosHay.Count; i++)
@@ -41,16 +41,16 @@ namespace Risk.Controllers
         public static bool tienesHijos(int idPadre)
         {
             bool tieneHijos = false;
-            return tieneHijos = riesgosBD.tEstructura.Where(r => r.idPadre == idPadre).Any() ? tieneHijos = true : tieneHijos = false;
+            return tieneHijos = riesgosBD.DB.tEstructura.Where(r => r.idPadre == idPadre).Any() ? tieneHijos = true : tieneHijos = false;
         }
 
         //PARA BUSCAR LOS HIJOS HAY QUE METER EL ID DE SU SANTO PADRE
         public static string tienesHijosRiesgos(int idEstructura)
         {
             string tieneHijosString = "";
-            riesgosBD.tRelEstructuraRiesgos.Where(r => r.IdEstructura == idEstructura).ToList().ForEach(x =>
+            riesgosBD.DB.tRelEstructuraRiesgos.Where(r => r.IdEstructura == idEstructura).ToList().ForEach(x =>
             {
-                tieneHijosString = riesgosBD.qRiesgosNombres.Where(c => c.IdRiesgo == x.IdRiesgo).Any() ? tieneHijosString = "checked" : tieneHijosString = "";
+                tieneHijosString = riesgosBD.DB.qRiesgosNombres.Where(c => c.IdRiesgo == x.IdRiesgo).Any() ? tieneHijosString = "checked" : tieneHijosString = "";
             });
             return tieneHijosString;
         }

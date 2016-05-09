@@ -12,13 +12,16 @@ namespace Risk.Codigos
     public class TreeviewOLDController : Controller
     {
         BD_Riesgos BD_Riesgos = new BD_Riesgos();
-        Riesgos_BDDataContext riesgosBD = new Riesgos_BDDataContext();
+        //Riesgos_BDDataContext riesgosBD = new Riesgos_BDDataContext();
+
+        ConnectionDB.connectionRiesgos riesgosBD = new ConnectionDB.connectionRiesgos();
+
         string colVer = "CodRiesgo,Nombre,Categoria,Clasif1,Clasif2,Clasif3,CodRiesgoLocalizado";
         string colTitulos = "Código Riesgo,Nombre,Categoría,Clasificación1,Clasificación2,Clasificación3,Código Localizado";
 
         public List<tEstructura> _datosEstructuraOrdenados = new List<tEstructura>();
 
-       
+
 
 
         #region View Structure
@@ -95,37 +98,37 @@ namespace Risk.Codigos
             listaString.Append("</ul></li></ul>");
             return listaString.ToString();
         }
-    
 
 
 
-    // ---------- METODOS EN EL CONTROLADOR DE LA BASE DE DATOS A LOS QUE SE LLAMAN DESDE EL CONTROLADOR PARA CONSTRUIR EL TREEVIEW ------------- 
+
+        // ---------- METODOS EN EL CONTROLADOR DE LA BASE DE DATOS A LOS QUE SE LLAMAN DESDE EL CONTROLADOR PARA CONSTRUIR EL TREEVIEW ------------- 
 
 
-    //
+        //
 
-    public void numeroFilasStructure(int id)
-    {
-        List<tEstructura> cuantosHay = riesgosBD.tEstructura.Where(r => r.idPadre == id).OrderBy(r => r.Orden).ToList();
-        if (cuantosHay.Count != 0)
+        public void numeroFilasStructure(int id)
         {
-            //ul
-            for (int i = 0; i < cuantosHay.Count; i++)
+            List<tEstructura> cuantosHay = riesgosBD.DB.tEstructura.Where(r => r.idPadre == id).OrderBy(r => r.Orden).ToList();
+            if (cuantosHay.Count != 0)
             {
-                _datosEstructuraOrdenados.Add(cuantosHay[i]);
-                numeroFilasStructure(cuantosHay[i].IdEstructura);
+                //ul
+                for (int i = 0; i < cuantosHay.Count; i++)
+                {
+                    _datosEstructuraOrdenados.Add(cuantosHay[i]);
+                    numeroFilasStructure(cuantosHay[i].IdEstructura);
+                }
             }
         }
+
+
+
+        public string compruebaTieneHijos(string codCompleto)
+        {
+            string tieneHijos = "";
+            return tieneHijos = riesgosBD.DB.tRiesgos.Where(r => r.CodRiesgo.Contains(codCompleto)).Any() ? tieneHijos = "checked" : tieneHijos = "";
+        }
     }
-
-
-
-    public string compruebaTieneHijos(string codCompleto)
-    {
-        string tieneHijos = "";
-        return tieneHijos = riesgosBD.tRiesgos.Where(r => r.CodRiesgo.Contains(codCompleto)).Any() ? tieneHijos = "checked" : tieneHijos = "";
-    }
-}
 }
 #endregion
 

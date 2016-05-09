@@ -37,7 +37,7 @@ namespace Risk.Models
 
         public partial class connectionUsuarios
         {
-            private  Usuarios_BDDataContext _db;
+            private Usuarios_BDDataContext _db;
 
             public Usuarios_BDDataContext DB
             {
@@ -54,7 +54,7 @@ namespace Risk.Models
 
             public connectionUsuarios()
             {
-                ConnectionDB con = new ConnectionDB();                        
+                ConnectionDB con = new ConnectionDB();
                 _db = new Usuarios_BDDataContext(cadenaConexion);
             }
 
@@ -65,7 +65,7 @@ namespace Risk.Models
         }
 
 
-        public partial class connectionRiesgos : Riesgos_BDDataContext
+        public partial class connectionRiesgos
         {
             private Riesgos_BDDataContext _db;
 
@@ -77,13 +77,16 @@ namespace Risk.Models
                 }
             }
 
-
             public connectionRiesgos()
             {
-                _db = new Riesgos_BDDataContext(ConfigurationManager.ConnectionStrings["RiskConnectionString"].ConnectionString);
-
+                ConnectionDB con = new ConnectionDB();
+                _db = new Riesgos_BDDataContext(cadenaConexion);
             }
 
+            public connectionRiesgos(string cadenaConexion)
+            {
+                _db = new Riesgos_BDDataContext(cadenaConexion);
+            }
 
         }
     }
