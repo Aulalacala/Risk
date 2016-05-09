@@ -33,15 +33,10 @@ namespace Risk.Models
     partial void InserttUsuario(tUsuario instance);
     partial void UpdatetUsuario(tUsuario instance);
     partial void DeletetUsuario(tUsuario instance);
-    #endregion
-		
-		public Usuarios_BDDataContext() : 
-				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["RiskConnectionString"].ConnectionString, mappingSource)
-		{
-			OnCreated();
-		}
-		
-		public Usuarios_BDDataContext(string connection) : 
+        #endregion
+
+
+        public Usuarios_BDDataContext(string connection) : 
 				base(connection, mappingSource)
 		{
 			OnCreated();
@@ -176,8 +171,8 @@ namespace Risk.Models
 		}
 		
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Usuario", DbType="NVarChar(15)")]
-        [Required(ErrorMessage = "User required")]
-        public string Usuario
+        [Required(ErrorMessage ="User required")]
+		public string Usuario
 		{
 			get
 			{
@@ -199,7 +194,6 @@ namespace Risk.Models
 		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Clave", DbType="NVarChar(100)")]
         [DataType(DataType.Password)]
         [Required(ErrorMessage = "Password required")]
-
         public string Clave
 		{
 			get

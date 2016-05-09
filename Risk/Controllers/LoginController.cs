@@ -10,9 +10,11 @@ namespace Risk.Controllers
     public class LoginController : Controller
     {
 
-        Usuarios_BDDataContext usuario_BD = new Usuarios_BDDataContext();
-       
+        //Usuarios_BDDataContext usuario_BD = new Usuarios_BDDataContext();
+       // ConnectionDB connectionDB = new ConnectionDB();
 
+        ConnectionDB.connectionUsuarios usuario_BD = new ConnectionDB.connectionUsuarios();
+  
 
         // GET: Login
         public ActionResult Login()
@@ -36,7 +38,7 @@ namespace Risk.Controllers
                     try
                     {
 
-                        tUsuario tUsuarioOK = usuario_BD.tUsuarios.Single(u => u.Usuario == tUsuario.Usuario && u.Clave == passencript && u.Activo == true);
+                        tUsuario tUsuarioOK = usuario_BD.DB.tUsuarios.Single(u => u.Usuario == tUsuario.Usuario && u.Clave == passencript && u.Activo == true);
 
                         if (tUsuarioOK != null && tUsuarioOK.Bloqueado == false)
                         {

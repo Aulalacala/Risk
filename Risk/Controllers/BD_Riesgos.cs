@@ -13,7 +13,10 @@ namespace Risk.Controllers
 
     public class BD_Riesgos
     {
-        Riesgos_BDDataContext riesgosBD = new Riesgos_BDDataContext();
+        //Riesgos_BDDataContext riesgosBD = new Riesgos_BDDataContext();
+
+        ConnectionDB.connectionRiesgos riesgosBD = new ConnectionDB.connectionRiesgos();
+
         public Dictionary<int, qRiesgosNombres> datosQ = new Dictionary<int, qRiesgosNombres>();
 
         #region AssignController
