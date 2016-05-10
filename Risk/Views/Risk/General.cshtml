@@ -63,7 +63,7 @@
                     </div>
 
                     <div class="col-lg-8 col-md-8">
-                        @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Ejemplo, 6, 54, new { @class = "form-control w100", @campos = "campos", @id = "Ejemplo" })
+                        @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Ejemplo, 6, 54, new { @class = "form-control w100", @campos = "campos", @id = "Ejemplo", @tabla = "qRiesgosNombre" })
                     </div>
                 </div>
                 <br />
@@ -74,7 +74,7 @@
                     </div>
 
                     <div class="col-lg-8 col-md-8">
-                        @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Descripcion, 6, 54, new { @class = "form-control w100", @campos = "campos", @id = "Descripcion" })
+                        @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Descripcion, 6, 54, new { @class = "form-control w100", @campos = "campos", @id = "Descripcion", @tabla = "qRiesgosNombre" })
                     </div>
                 </div>
                 <br />
@@ -84,7 +84,7 @@
                     </div>
 
                     <div class="col-lg-8 col-md-8">
-                        @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Justificacion, 6, 54, new { @class = "form-control w100", @campos = "campos", @id = "Justificacion" })
+                        @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Justificacion, 6, 54, new { @class = "form-control w100", @campos = "campos", @id = "Justificacion", @tabla = "qRiesgosNombre" })
                     </div>
                 </div>
 
@@ -101,7 +101,7 @@
                         </div>
 
                         <div class="col-lg-8 col-md-8">
-                            <select class="form-control w100" campos = "campos" id="IdResponsable">
+                            <select class="form-control w100" campos = "campos" id="IdResponsable" tabla = "qRiesgosNombre">
                                 @{
                                     Dictionary<int, string> responsablesDic = Model.dropDowns.datosResponsables;
 
@@ -134,7 +134,7 @@
                         </div>
 
                         <div class="col-lg-8 col-md-8">
-                            <select class="form-control w100" campos = "campos" id="IdResponsable2">
+                            <select class="form-control w100" campos = "campos" id="IdResponsable2" tabla = "qRiesgosNombre">
                                 @{
                                     Dictionary<int, string> responsablesDic2 = Model.dropDowns.datosResponsables;
 
@@ -178,7 +178,7 @@
                         </div>
 
                         <div class="col-lg-10 col-md-10">
-                            <select class="form-control w100" campos = "campos" name="categoria" id="selectCategoria" filtro="IdCategoria">
+                            <select class="form-control w100" campos = "campos" name="categoria" id="IdCategoria" filtro="IdCategoria" tabla = "qRiesgosNombre">
                                 @{
                                     Dictionary<int, string> dicCategorias = Model.dropDowns.datosCategorias;
                                     foreach (var categoria in dicCategorias)
@@ -203,7 +203,7 @@
                         </div>
 
                         <div class="col-lg-10 col-md-10">
-                            <select class="form-control w100" campos = "campos" name="segment" id="selectSegment" filtro="IdSegmenta1">
+                            <select class="form-control w100" campos = "campos" name="segment" id="IdSegmentacion1" filtro="IdSegmenta1" tabla = "qRiesgosNombre">
                                 @{
                                     Dictionary<int, string> dicSegmenta = Model.dropDowns.datosSegmentacion;
 
@@ -244,7 +244,7 @@
                         </div>
 
                         <div class="col-lg-10 col-md-10">
-                            <select class="form-control w100" campos = "campos" name="clasificacion1" ref="comboDinamico" id="IdClasificacion1" sig="IdClasificacion2">
+                            <select class="form-control w100" campos = "campos" name="clasificacion1" ref="comboDinamico" id="IdClasificacion1" sig="IdClasificacion2" tabla = "qRiesgosNombre">
                                 @{
                                     Dictionary<int, string> dicClasificacion1 = Model.dropDowns.datosClasificacion1;
                                     foreach (var clasif1 in dicClasificacion1)
@@ -271,7 +271,7 @@
                         </div>
 
                         <div class="col-lg-10 col-md-10">
-                            <select class="form-control w100" campos = "campos" name="clasificacion2" ref="comboDinamico" id="IdClasificacion2" sig="IdClasificacion3">
+                            <select class="form-control w100" campos = "campos" name="clasificacion2" ref="comboDinamico" id="IdClasificacion2" sig="IdClasificacion3" tabla = "qRiesgosNombre">
                                 @{
                                     Dictionary<int, string> dicClasificacion2 = Model.dropDowns.datosClasificacion2;
                                     foreach (var clasif2 in dicClasificacion2)
@@ -297,7 +297,7 @@
                         </div>
 
                         <div class="col-lg-10 col-md-10">
-                            <select class="form-control w100" campos = "campos" name="clasificacion3" ref="comboDinamico" id="IdClasificacion3">
+                            <select class="form-control w100" campos = "campos" name="clasificacion3" ref="comboDinamico" id="IdClasificacion3" tabla = "qRiesgosNombre">
                                 @{
                                     Dictionary<int, string> dicClasificacion3 = Model.dropDowns.datosClasificacion3;
                                     foreach (var clasif3 in dicClasificacion3)
@@ -353,21 +353,21 @@
                             <div class="visible-sm">
                                 <span class="form-left-label">Before Controls</span>
                             </div>
-                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreFrecAntes, new { @class = "form-control w100", @readonly = "readonly", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorFrecAntes, @campos = "campos", @id = "NombreFrecAntes" })
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreFrecAntes, new { @class = "form-control w100", @readonly = "readonly", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorFrecAntes, @campos = "campos", @id = "NombreFrecAntes", @tabla = "qRiesgos_Evaluaciones_Valores" })
                         </div>
 
                         <div class="col-lg-3 col-md-3">
                             <div class="visible-sm">
                                 <span class="form-left-label">Current</span>
                             </div>
-                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreFrecDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorFrecDespues, @campos = "campos", @id = "NombreFrecDespues" })
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreFrecDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorFrecDespues, @campos = "campos", @id = "NombreFrecDespues", @tabla = "qRiesgos_Evaluaciones_Valores" })
                         </div>
 
                         <div class="col-lg-3 col-md-3">
                             <div class="visible-sm">
                                 <span class="form-left-label">After action plans</span>
                             </div>
-                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreFrecPlanDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorFrecPlanDespues, @campos = "campos", @id = "NombreFrecPlanDespues" })
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreFrecPlanDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorFrecPlanDespues, @campos = "campos", @id = "NombreFrecPlanDespues", @tabla = "qRiesgos_Evaluaciones_Valores" })
                         </div>
                     </div>
                     <!--SEVERIDAD-->
@@ -379,19 +379,19 @@
                             <div class="visible-sm">
                                 <span class="form-left-label">Before Controls</span>
                             </div>
-                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSeveAntes, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSeveAntes, @campos = "campos", @id = "NombreSeveAntes" })
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSeveAntes, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSeveAntes, @campos = "campos", @id = "NombreSeveAntes", @tabla = "qRiesgos_Evaluaciones_Valores" })
                         </div>
                         <div class="col-lg-3 col-md-3">
                             <div class="visible-sm">
                                 <span class="form-left-label">Current</span>
                             </div>
-                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSeveDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSeveDespues, @campos = "campos", @id = "NombreSeveDespues" })
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSeveDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSeveDespues, @campos = "campos", @id = "NombreSeveDespues", @tabla = "qRiesgos_Evaluaciones_Valores" })
                         </div>
                         <div class="col-lg-3 col-md-3">
                             <div class="visible-sm">
                                 <span class="form-left-label">After action plans</span>
                             </div>
-                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePlanDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePlanDespues, @campos = "campos", @id = "NombreSevePlanDespues" })
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePlanDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePlanDespues, @campos = "campos", @id = "NombreSevePlanDespues", @tabla = "qRiesgos_Evaluaciones_Valores" })
                         </div>
                     </div>
                     <!--SEVERIDAD DESPUES PLAN-->
@@ -403,19 +403,19 @@
                             <div class="visible-sm">
                                 <span class="form-left-label">Before Controls</span>
                             </div>
-                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePeorAntes, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePeorAntes, @campos = "campos", @id = "NombreSevePeorAntes" })
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePeorAntes, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePeorAntes, @campos = "campos", @id = "NombreSevePeorAntes", @tabla = "qRiesgos_Evaluaciones_Valores" })
                         </div>
                         <div class="col-lg-3 col-md-3">
                             <div class="visible-sm">
                                 <span class="form-left-label">Current</span>
                             </div>
-                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePeorDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePeorDespues, @campos = "campos", @id = "NombreSevePeorDespues" })
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePeorDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePeorDespues, @campos = "campos", @id = "NombreSevePeorDespues", @tabla = "qRiesgos_Evaluaciones_Valores" })
                         </div>
                         <div class="col-lg-3 col-md-3">
                             <div class="visible-sm">
                                 <span class="form-left-label">After action plans</span>
                             </div>
-                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePeorPlanDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePeorPlanDespues, @campos = "campos", @id = "NombreSevePeorPlanDespues" })
+                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePeorPlanDespues, new { @class = "form-control w100", @readonly = "readonly", @disabled = "disabled", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorSevePeorPlanDespues, @campos = "campos", @id = "NombreSevePeorPlanDespues", @tabla = "qRiesgos_Evaluaciones_Valores" })
                         </div>
                     </div>
 
@@ -430,7 +430,7 @@
                         </div>
                         <div class="col-lg-7 col-md-7">
 
-                            <select class="form-control w100" campos = "campos" id="IdControlesOportunidad">
+                            <select class="form-control w100" campos = "campos" id="IdControlesOportunidad" tabla ="qRiesgosNombre">
                                 @{
                                     Dictionary
                                     <int, string>
@@ -459,7 +459,7 @@
                         </div>
                         <div class="col-lg-7 col-md-7">
 
-                            <select class="form-control w100" campos = "campos" id="IdControlesEfectividad">
+                            <select class="form-control w100" campos = "campos" id="IdControlesEfectividad" tabla ="qRiesgosNombre">
                                 @{
                                     Dictionary
                                     <int, string>

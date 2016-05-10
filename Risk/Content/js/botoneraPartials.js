@@ -9,25 +9,31 @@
 });
 
 $('#BtnSave').click(function () {
-    var json = "{";
+
+    var datosFormulario = {}
+
+    datosFormulario['IdRiesgo'] = $('#IdRiesgo').val();
+
 
     $('#miForm .dirty').each(function (pos, el) {
 
-        json += "'" + el.id + "' : '" + el.value + "',"
+        var propiedad = $(this).attr('id');
+        var valor = $(this).val() + ":" + $(this).attr('tabla');
 
-    });
-
-    json = json.substring(0, json.length - 1);
-    json += "}";
-
-    alert(json);
+        datosFormulario[propiedad] = valor;
+      
+    })
+    
+    alert(datosFormulario['Ejemplo'])
+    
 
     $.ajax({
         url: '/Risk/formGeneral',
         type: 'post',
-        data: { 'p': json },
-        success : function (data, status) {
-            alert('OKKKKKKKKKKKKKKKKKKKK' + status)},
+        data: datosFormulario,
+        //data: { 'p': JSON.stringify(json) },
+        success: function (data, status) {
+            alert('Data  ' + data + ' Status ' + status)},
         error: function (jqXHR, textStatus, errorThrown) {
             alert('ERORRRRRRRRRRRRRRRRR ' + jqXHR + ' ' + textStatus + ' ' + errorThrown)
         }

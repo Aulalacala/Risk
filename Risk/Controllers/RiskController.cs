@@ -11,6 +11,7 @@ using System.Data.SqlClient;
 using System.Configuration;
 using Newtonsoft.Json;
 using System.Web.Script.Serialization;
+using System.Reflection;
 
 namespace Risk.Controllers
 {
@@ -105,9 +106,44 @@ namespace Risk.Controllers
         }
 
         [HttpPost]
-        public ActionResult formGeneral(string p)
+        public bool formGeneral(FormGeneralModel datosFormulario)
         {
-            return View();
+            List<string> datosQRiesgosNombre = new List<string>();
+            List<string> datosQRiesgosEvaluacionesValores = new List<string>();
+            bool ok = false;
+
+            PropertyInfo[] props = datosFormulario.GetType().GetProperties();
+
+            foreach (PropertyInfo item in props)
+            {
+                if (item.GetValue(datosFormulario, null) != null)
+                {
+                    try
+                    {
+
+                        string tabla = item.GetValue(datosFormulario, null).ToString().Split(':')[1];
+
+                        switch (tabla)
+                        {
+                            case "qRiesgosNombre":
+                                datosQRiesgosNombre.Add(item.Name + ":" + item.GetValue(datosFormulario, null).ToString().Split(':')[0]);
+
+                                break;
+                            case "qRiesgosEvaluacionesValores":
+                                datosQRiesgosEvaluacionesValores.Add(item.Name + ":" +  item.GetValue(datosFormulario, null).ToString().Split(':')[0]);
+                                break;
+                        }
+
+                    }
+
+                    catch (Exception) { }
+                }
+            }
+
+
+            ok = BD_Riesgos.actualizaQRiesgosNombre(datosQRiesgosNombre, int.Parse(datosFormulario.IdRiesgo));
+
+            return ok;
         }
 
     }

@@ -265,6 +265,7 @@
     <Compile Include="Models\ConnectionDB.cs" />
     <Compile Include="Models\DescriptionStructureModel.cs" />
     <Compile Include="Models\DropDownModel.cs" />
+    <Compile Include="Models\FormGeneralModel.cs" />
     <Compile Include="Models\Riesgos_BD.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

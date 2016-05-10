@@ -152,6 +152,7 @@ namespace Risk.Controllers
 
 
 
+
         //Recuperar TBODY tabla Datos Risk  || CON TABLA DEFINIDA ------------------------
 
         //public Dictionary<int, List<object>> datosQRiesgosNombre(string nombreTabla, string colVer, string colTitulos)
@@ -384,6 +385,35 @@ namespace Risk.Controllers
             datosEvaluaciones = riesgosBD.DB.qRiesgos_Evaluaciones_Valores.Where(r => r.IdRiesgo == id && r.Ultima == true).SingleOrDefault();
             return datosEvaluaciones;
         }
+
+
+        public bool actualizaQRiesgosNombre(List<string> datosQRiesgosNombre, int IdRiesgo)
+        {
+            try
+            {
+                qRiesgosNombres riesgo = riesgosBD.DB.qRiesgosNombres.Where(r => r.IdRiesgo == IdRiesgo).SingleOrDefault();
+
+                foreach (string datos in datosQRiesgosNombre)
+                {
+                    string propiedad = datos.Split(':')[0];
+                    string valor = datos.Split(':')[1];
+
+                    //riesgo.Ejemplo = valor;
+
+                    riesgo.GetType().GetProperty(propiedad).SetValue(riesgo, valor);
+                 
+                }
+
+                riesgosBD.DB.Connection.Open();
+                riesgosBD.DB.SubmitChanges();
+                qRiesgosNombres riesgo2 = riesgosBD.DB.qRiesgosNombres.Where(r => r.IdRiesgo == IdRiesgo).SingleOrDefault();
+                return true;
+
+            }
+            catch (Exception) { return false; }
+            
+        }
+
 
 
         #endregion
