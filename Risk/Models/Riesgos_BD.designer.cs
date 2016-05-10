@@ -68,6 +68,12 @@ namespace Risk.Models
     partial void DeletetRelEstructuraRiesgos(tRelEstructuraRiesgos instance);
     #endregion
 		
+		public Riesgos_BDDataContext() : 
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["RiskMVCConnectionString"].ConnectionString, mappingSource)
+		{
+			OnCreated();
+		}
+		
 		public Riesgos_BDDataContext(string connection) : 
 				base(connection, mappingSource)
 		{

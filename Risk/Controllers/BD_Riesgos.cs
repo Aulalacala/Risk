@@ -398,13 +398,16 @@ namespace Risk.Controllers
                     string propiedad = datos.Split(':')[0];
                     string valor = datos.Split(':')[1];
 
-                    //riesgo.Ejemplo = valor;
+                    riesgo.Ejemplo = valor;
 
-                    riesgo.GetType().GetProperty(propiedad).SetValue(riesgo, valor);
+                    //riesgo.GetType().GetProperty(propiedad).SetValue(riesgo, valor);
                  
                 }
 
                 riesgosBD.DB.Connection.Open();
+
+
+                //HACER EXECUTE QUERY ??
                 riesgosBD.DB.SubmitChanges();
                 qRiesgosNombres riesgo2 = riesgosBD.DB.qRiesgosNombres.Where(r => r.IdRiesgo == IdRiesgo).SingleOrDefault();
                 return true;

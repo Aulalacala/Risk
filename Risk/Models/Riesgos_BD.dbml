@@ -1,4 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="Risk" Class="Riesgos_BDDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="WebSettings" ConnectionString="Data Source=sql.aulariosoft.com;Initial Catalog=RiskMVC;User ID=AuRisk" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="RiskMVCConnectionString" Provider="System.Data.SqlClient" />
   <Table Name="dbo.tRiesgos_Clasificaciones" Member="tRiesgos_Clasificaciones">
     <Type Name="tRiesgos_Clasificaciones">
       <Column Name="IdEstructura" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />

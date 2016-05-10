@@ -1,95 +1,95 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 12, 15.875" name="Riesgos_BD">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 15, 15.375" name="Riesgos_BD">
   <DataContextMoniker Name="/Riesgos_BDDataContext" />
   <nestedChildShapes>
-    <classShape Id="67a14603-c7cd-4393-b4fe-f91fdca4343e" absoluteBounds="2.75, 2, 2.5, 2.1554996744791666">
+    <classShape Id="67a14603-c7cd-4393-b4fe-f91fdca4343e" absoluteBounds="0.75, 0.75, 2.5, 2.1554996744791666">
       <DataClassMoniker Name="/Riesgos_BDDataContext/tRiesgos_Clasificaciones" />
       <nestedChildShapes>
-        <elementListCompartment Id="e4cf88d0-694a-46ff-bb80-6d82579957e8" absoluteBounds="2.765, 2.46, 2.4699999999999998, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="e4cf88d0-694a-46ff-bb80-6d82579957e8" absoluteBounds="0.76500000000000012, 1.21, 2.4699999999999998, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="c7685f5e-8a29-42fb-8de1-2eccd5cb4963" absoluteBounds="0.5, 6.5, 2, 4.0785139973958326">
+    <classShape Id="c7685f5e-8a29-42fb-8de1-2eccd5cb4963" absoluteBounds="3.75, 0.75, 2, 4.0785139973958318">
       <DataClassMoniker Name="/Riesgos_BDDataContext/tRiesgosEvaluaciones" />
       <nestedChildShapes>
-        <elementListCompartment Id="2c43871f-4156-4e21-97a1-f233bddd9e34" absoluteBounds="0.515, 6.96, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="2c43871f-4156-4e21-97a1-f233bddd9e34" absoluteBounds="3.765, 1.21, 1.9700000000000002, 3.518513997395833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="88e4911a-521c-41e3-8035-e9bd8cb90751" absoluteBounds="2.75, 6.5, 2, 2.3478011067708335">
+    <classShape Id="88e4911a-521c-41e3-8035-e9bd8cb90751" absoluteBounds="0.75, 5.75, 2, 2.3478011067708344">
       <DataClassMoniker Name="/Riesgos_BDDataContext/tEva_Frecuencia" />
       <nestedChildShapes>
-        <elementListCompartment Id="788ca06a-bcb2-4a18-be4b-afc2cd8ef2ac" absoluteBounds="2.765, 6.96, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="788ca06a-bcb2-4a18-be4b-afc2cd8ef2ac" absoluteBounds="0.76500000000000012, 6.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="884ac14c-9793-4c32-82a9-4dba4c062ac5" absoluteBounds="5.125, 6.5, 2, 2.5401025390625">
+    <classShape Id="884ac14c-9793-4c32-82a9-4dba4c062ac5" absoluteBounds="3.75, 5.75, 2, 2.5401025390625005">
       <DataClassMoniker Name="/Riesgos_BDDataContext/tEva_Severidad" />
       <nestedChildShapes>
-        <elementListCompartment Id="1aab52b2-4c7f-4100-a18f-7c31f2a6c918" absoluteBounds="5.14, 6.96, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="1aab52b2-4c7f-4100-a18f-7c31f2a6c918" absoluteBounds="3.7649999999999997, 6.21, 1.9700000000000002, 1.9801025390625" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="fff9791b-8b34-4911-a59e-1d9bacc7132b" absoluteBounds="3, 9.25, 2.25, 6.3861311848958326">
+    <classShape Id="fff9791b-8b34-4911-a59e-1d9bacc7132b" absoluteBounds="6.75, 0.75, 2.25, 6.3861311848958309">
       <DataClassMoniker Name="/Riesgos_BDDataContext/qRiesgos_Evaluaciones_Valores" />
       <nestedChildShapes>
-        <elementListCompartment Id="2e2764b5-e264-4dfc-8efb-1dda90dea284" absoluteBounds="3.015, 9.71, 2.2199999999999998, 5.826131184895833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="2e2764b5-e264-4dfc-8efb-1dda90dea284" absoluteBounds="6.7650000000000006, 1.2100000000000009, 2.2199999999999998, 5.826131184895833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="a13376a7-57c1-4750-b37f-c3672f357823" absoluteBounds="0.5, 0.5, 2, 4.2708154296875">
+    <classShape Id="a13376a7-57c1-4750-b37f-c3672f357823" absoluteBounds="6.75, 8.75, 2, 4.2708154296874987">
       <DataClassMoniker Name="/Riesgos_BDDataContext/tRiesgos" />
       <nestedChildShapes>
-        <elementListCompartment Id="e3592439-f6b4-4eed-b3d0-214db3460357" absoluteBounds="0.515, 0.96, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="e3592439-f6b4-4eed-b3d0-214db3460357" absoluteBounds="6.765, 9.21, 1.9700000000000002, 3.7108154296875" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="1285733c-4b76-4516-a9b8-ed67942bf10b" absoluteBounds="2.75, 0.5, 2, 1.3862939453125">
+    <classShape Id="1285733c-4b76-4516-a9b8-ed67942bf10b" absoluteBounds="9.75, 0.75, 2, 1.3862939453125003">
       <DataClassMoniker Name="/Riesgos_BDDataContext/tRiesgos_Categorias" />
       <nestedChildShapes>
-        <elementListCompartment Id="131df8fc-33d9-4fb3-a214-d21caa425ecf" absoluteBounds="2.765, 0.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="131df8fc-33d9-4fb3-a214-d21caa425ecf" absoluteBounds="9.765, 1.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="ad653582-5938-422f-b23e-162f73706d9c" absoluteBounds="5.5, 0.5, 2, 5.4246240234375">
+    <classShape Id="ad653582-5938-422f-b23e-162f73706d9c" absoluteBounds="0.75, 9.75, 2, 5.4246240234374987">
       <DataClassMoniker Name="/Riesgos_BDDataContext/qRiesgosNombres" />
       <nestedChildShapes>
-        <elementListCompartment Id="0b429833-11ee-4b6b-8e95-44aae539098e" absoluteBounds="5.515, 0.96, 1.9700000000000002, 4.8646240234375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="0b429833-11ee-4b6b-8e95-44aae539098e" absoluteBounds="0.76499999999999968, 10.21, 1.9700000000000002, 4.8646240234375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="2214ca55-95ae-4d62-925c-5bacd4b331d4" absoluteBounds="9.5, 6.5, 2, 1.3862939453125">
+    <classShape Id="2214ca55-95ae-4d62-925c-5bacd4b331d4" absoluteBounds="9.75, 3.75, 2, 1.3862939453125005">
       <DataClassMoniker Name="/Riesgos_BDDataContext/tRiesgos_ControlOportunidad" />
       <nestedChildShapes>
-        <elementListCompartment Id="56f8356c-dde4-4483-b7be-0319d04b7eaa" absoluteBounds="9.515, 6.96, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="56f8356c-dde4-4483-b7be-0319d04b7eaa" absoluteBounds="9.765, 4.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="89d0e15a-3b57-4c21-86da-ecf4a012932f" absoluteBounds="9.625, 8.25, 2, 1.3862939453125">
+    <classShape Id="89d0e15a-3b57-4c21-86da-ecf4a012932f" absoluteBounds="9.75, 6.75, 2, 1.3862939453124987">
       <DataClassMoniker Name="/Riesgos_BDDataContext/tRiesgos_ControlEfectividad" />
       <nestedChildShapes>
-        <elementListCompartment Id="8d160140-5a7c-4fb9-b180-dfabcb7888fe" absoluteBounds="9.64, 8.71, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="8d160140-5a7c-4fb9-b180-dfabcb7888fe" absoluteBounds="9.765, 7.2100000000000009, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="04be7f4e-5161-4bb9-b4d9-aa944eceac27" absoluteBounds="9.625, 10, 2, 2.1554996744791666">
+    <classShape Id="04be7f4e-5161-4bb9-b4d9-aa944eceac27" absoluteBounds="9.75, 9.75, 2, 2.1554996744791666">
       <DataClassMoniker Name="/Riesgos_BDDataContext/tResponsables" />
       <nestedChildShapes>
-        <elementListCompartment Id="5a243760-57de-4a94-89b0-4df394aee528" absoluteBounds="9.64, 10.46, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="5a243760-57de-4a94-89b0-4df394aee528" absoluteBounds="9.765, 10.21, 1.9700000000000002, 1.5954996744791665" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="bd2ead7e-2170-448b-8f75-843118b16a23" absoluteBounds="9.75, 12.375, 2, 1.3862939453125">
+    <classShape Id="bd2ead7e-2170-448b-8f75-843118b16a23" absoluteBounds="12.75, 0.75, 2, 1.3862939453124987">
       <DataClassMoniker Name="/Riesgos_BDDataContext/tRiesgos_Segmentacion1" />
       <nestedChildShapes>
-        <elementListCompartment Id="d147ee0f-c8a9-4e87-b35a-b644820bf425" absoluteBounds="9.765, 12.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="d147ee0f-c8a9-4e87-b35a-b644820bf425" absoluteBounds="12.765, 1.2100000000000009, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="01e0222e-886b-491d-8570-0f7559cf43ba" absoluteBounds="8.125, 0.625, 2, 2.3478011067708335">
+    <classShape Id="01e0222e-886b-491d-8570-0f7559cf43ba" absoluteBounds="12.75, 3.75, 2, 2.347801106770834">
       <DataClassMoniker Name="/Riesgos_BDDataContext/tEstructura" />
       <nestedChildShapes>
-        <elementListCompartment Id="ad867a18-79ab-43d7-b347-6faeaf28dac3" absoluteBounds="8.14, 1.085, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="ad867a18-79ab-43d7-b347-6faeaf28dac3" absoluteBounds="12.765, 4.21, 1.9700000000000002, 1.7878011067708335" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="f4f607f4-9c62-4b48-ae28-4a3a3564ee5c" absoluteBounds="8.125, 3.125, 2, 1.3862939453125">
+    <classShape Id="f4f607f4-9c62-4b48-ae28-4a3a3564ee5c" absoluteBounds="12.75, 7.75, 2, 1.3862939453125014">
       <DataClassMoniker Name="/Riesgos_BDDataContext/qEstructura_Contenidos_Def" />
       <nestedChildShapes>
-        <elementListCompartment Id="9d245674-91b8-4c3e-9f34-7bee72f6926d" absoluteBounds="8.14, 3.585, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="9d245674-91b8-4c3e-9f34-7bee72f6926d" absoluteBounds="12.765, 8.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="7892ebf5-4100-4f4d-8b46-bffecda3c2d2" absoluteBounds="5.625, 9.375, 2, 1.3862939453125">
+    <classShape Id="7892ebf5-4100-4f4d-8b46-bffecda3c2d2" absoluteBounds="9.75, 12.75, 2, 1.3862939453124987">
       <DataClassMoniker Name="/Riesgos_BDDataContext/tRelEstructuraRiesgos" />
       <nestedChildShapes>
-        <elementListCompartment Id="d150bade-384c-4f0a-9970-698d620771b7" absoluteBounds="5.64, 9.835, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="d150bade-384c-4f0a-9970-698d620771b7" absoluteBounds="9.765, 13.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
