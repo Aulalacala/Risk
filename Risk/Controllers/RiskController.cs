@@ -146,5 +146,13 @@ namespace Risk.Controllers
             return ok;
         }
 
+
+        // Metodo (llamada desde scripts2.js) para recuperar el siguiente riesgo disponible y rellenar Particle Code en un riesgo nuevo
+
+        public string dameUltimoRiesgoDisponible (int idEstructura) {
+
+            return BD_Riesgos.ultimoRiesgoDisponible(idEstructura);
+        }
+
     }
 }

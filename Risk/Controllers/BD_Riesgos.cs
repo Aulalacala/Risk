@@ -152,7 +152,6 @@ namespace Risk.Controllers
 
 
 
-
         //Recuperar TBODY tabla Datos Risk  || CON TABLA DEFINIDA ------------------------
 
         //public Dictionary<int, List<object>> datosQRiesgosNombre(string nombreTabla, string colVer, string colTitulos)
@@ -420,6 +419,22 @@ namespace Risk.Controllers
             catch (Exception e) { return false; }
             
         }
+
+
+
+        // metodo que devuelve un string con el ultimo codigo disponible de un idEstructura
+
+        public string ultimoRiesgoDisponible(int idEstructura) {
+
+            int ultimoIdRiesgo = riesgosBD.DB.tRelEstructuraRiesgos.Where(r => r.IdEstructura == idEstructura).Select(r => Convert.ToInt32(r.IdRiesgo)).OrderByDescending(r=>r).LastOrDefault();
+            string ultimoCodigoRiesgo = riesgosBD.DB.tRiesgos.Where(r => r.IdRiesgo == ultimoIdRiesgo).Select(r => r.CodRiesgo).SingleOrDefault();
+
+            //Sumar uno mas al ultimo codigo
+            //ultimoCodigoRiesgo = ultimoCodigoRiesgo.
+
+            return null;
+        }
+
 
 
 

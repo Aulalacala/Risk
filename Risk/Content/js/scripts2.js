@@ -52,16 +52,23 @@ $('a[id^="mnu_"]').click(function () {
 });
 
 
+// PartialView GENERAL carga del dropdown dinamico Particle Code al crear nuevo Riesgo
+
+$('#StructureCode').change(function () {
+    $.get("/Risk/dameUltimoRiesgoDisponible", { id : $(this).val() }, function (data) {
+        $('#IdRiesgo').val() = data;
+    })
+})
 
 
 
 
-/* ************************************************************************************************************** */
-// Assign/Structure
+    /* ************************************************************************************************************** */
+    // Assign/Structure
 
-// Menu Partial Description. Carga dinámica de partialsViews cuando click en Menu
+    // Menu Partial Description. Carga dinámica de partialsViews cuando click en Menu
 
-//var codigo;
+    //var codigo;
 
 $('a[name="partalView"]').click(function () {
     $('#assignedRisks').show();
@@ -81,30 +88,30 @@ $('a[name="partalView"]').click(function () {
 
 })
 
-$('#buttonMas').click(function () {
-    var id = $('#itemSelec').val();
-    $('a[id=' + id + ']').siblings().last().find('li').css('display', 'list-item')
-})
+    $('#buttonMas').click(function () {
+        var id = $('#itemSelec').val();
+        $('a[id=' + id + ']').siblings().last().find('li').css('display', 'list-item')
+    })
 
-$('#buttonMenos').click(function () {
-    var id = $('#itemSelec').val();
-    $('a[id=' + id + ']').siblings().last().find('li').css('display', 'none')
-})
+    $('#buttonMenos').click(function () {
+        var id = $('#itemSelec').val();
+        $('a[id=' + id + ']').siblings().last().find('li').css('display', 'none')
+    })
 
 
-$('a[id^="str_"]').click(function () {
+    $('a[id^="str_"]').click(function () {
 
-    $('#str li').removeClass('active');
-    $(this).parent().addClass('active');
+        $('#str li').removeClass('active');
+        $(this).parent().addClass('active');
 
-    $('#str li a').attr('aria-expanded', 'false');
-    $(this).attr('aria-expanded', 'true');
+        $('#str li a').attr('aria-expanded', 'false');
+        $(this).attr('aria-expanded', 'true');
 
-    var pagina = $(this).attr("id").replace('str', '');
-    var id = $('#IdEstructura').val();
+        var pagina = $(this).attr("id").replace('str', '');
+        var id = $('#IdEstructura').val();
 
-    var ruta = "http://localhost:1525/Assign/" + pagina;
+        var ruta = "http://localhost:1525/Assign/" + pagina;
 
-    $('#contenidoDinamico').load(ruta, { "id": id });
-})
+        $('#contenidoDinamico').load(ruta, { "id": id });
+    })
 

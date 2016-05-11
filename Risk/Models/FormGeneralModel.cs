@@ -30,5 +30,8 @@ namespace Risk.Models
         public string IdControlesOportunidad { get; set; }
         public string IdControlesEfectividad { get; set; }
 
+
+        public int idEstructura { get; set; }
+
     }
 }
