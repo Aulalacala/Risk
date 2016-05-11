@@ -20,6 +20,10 @@ namespace Risk.Models
         private Dictionary<int, List<string>> _datosEvaSeveridad;
         private Dictionary<int, List<string>> _datosEvaFrecuencia;
 
+        // Dropdowns de estructura para los nuevos riesgos --------------------------------------------------
+        private Dictionary<int, string> _structureCode;
+        //----------------------------------------------------------------------------------------------------
+
         public Dictionary<int, string> datosCategorias
         {
             get
@@ -158,6 +162,19 @@ namespace Risk.Models
             Dictionary<int, string> dicClasificacion2 = listadoClasifDinamic(idEstructura);
             var j = JsonConvert.SerializeObject(dicClasificacion2);
             return j;
+        }
+
+
+
+
+        // METODOS PARA LA CARGAR DE LOS DROPDOWS STRUCTURE CODE(todos los valores) Y PARTICLE CODE(ultimo disponible segun structure code seleccionado) EN UN RIESGO NUEVO
+        public Dictionary<int, string> structureCode {
+            get {
+                return riesgosBD.DB.tEstructura.ToDictionary(r => r.IdEstructura, r => r.CodCompleto + " " + r.Nombre);
+            }
+            set {
+                _structureCode = value;
+            }
         }
     }
 }
