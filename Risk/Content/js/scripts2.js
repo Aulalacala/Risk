@@ -6,7 +6,7 @@
 $("select[ref=comboDinamico]").change(function () {
     var opcionSelect = $(this).val();
     var comboAPintar = $(this).attr("sig");
-   
+
     $("select[id=" + comboAPintar + "]").empty();
 
     $.getJSON("/Assign/recuperaListClasif?idEstructura=" + opcionSelect, function (data) {
@@ -52,8 +52,21 @@ $('a[id^="mnu_"]').click(function () {
 });
 
 
+/* ************************************************************************************************************** */
+// Risk/RiskFicha/General
 
+$('select[combo=true]').change(function () {
+    var idSeleccionado = $(this).val();
+    var color;
 
+    $('select[combo]').children().each(function (pos, el) {
+        if ($(this).val() == idSeleccionado) {
+            color = $(this).attr('style').split(':')[2];
+        }
+    })
+    $('select[combo]').css('background-color', '');
+    $('select[combo]').css('background-color', color);
+})
 
 
 /* ************************************************************************************************************** */
@@ -75,7 +88,7 @@ $('a[name="partalView"]').click(function () {
     $('body').append('<input id="itemSelec" type="hidden" value=' + idEstructura + '>');
 
     var ruta = "http://localhost:1525/Assign/Description";
-    $('#contenidoDinamico').load(ruta, { "id": idEstructura });   
+    $('#contenidoDinamico').load(ruta, { "id": idEstructura });
     var ruta2 = "http://localhost:1525/Assign/TablaDatos";
     $('#contenidoTabla').load(ruta2, { "id": idEstructura });
 

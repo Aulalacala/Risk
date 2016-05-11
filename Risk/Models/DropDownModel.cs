@@ -17,6 +17,8 @@ namespace Risk.Models
         private Dictionary<int, string> _datosEfectividad;
         private Dictionary<int, string> _datosResponsables;
         private Dictionary<int, string> _datosSegmentacion;
+        private Dictionary<int, List<string>> _datosEvaSeveridad;
+        private Dictionary<int, List<string>> _datosEvaFrecuencia;
 
         public Dictionary<int, string> datosCategorias
         {
@@ -42,7 +44,7 @@ namespace Risk.Models
             }
         }
 
-        public Dictionary<int, string> datosClasificacion2 { get; set;}
+        public Dictionary<int, string> datosClasificacion2 { get; set; }
         public Dictionary<int, string> datosClasificacion3 { get; set; }
 
         public Dictionary<int, string> datosOportunidad
@@ -92,6 +94,47 @@ namespace Risk.Models
                 _datosSegmentacion = value;
             }
         }
+
+        public Dictionary<int, List<string>> datosEvaSeveridad
+        {
+            get
+            {
+                return riesgosBD.DB.tEva_Severidad
+                                    .GroupBy(x => x.IdEvaSeveridad)
+                                    .ToDictionary(r => r.Key, r => r.Select(x => new List<string>
+                                    {
+                                        x.Color,
+                                        x.Severidad
+                                    }
+                                    ).Single());
+            }
+            set
+            {
+                _datosEvaSeveridad = value;
+            }
+        }
+
+
+        public Dictionary<int, List<string>> datosEvaFrecuencia
+        {
+            get
+            {
+                return riesgosBD.DB.tEva_Frecuencia
+                                    .GroupBy(x => x.IdEvaFrecuencia)
+                                    .ToDictionary(r => r.Key, r => r.Select(x => new List<string>
+                                    {
+                                        x.Color,
+                                        x.Frecuencia
+                                    }
+                                    ).Single());
+            }
+            set
+            {
+                _datosEvaSeveridad = value;
+            }
+        }
+
+
 
         //METODO CARGA DINÁMICA
         public Dictionary<int, string> listadoClasifDinamic(int idEstructura)

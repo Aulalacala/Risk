@@ -90,7 +90,6 @@ namespace Risk.Controllers
                 riesgoRecup = BD_Riesgos.recuperarRiesgo(id);
                 evaluaciones = BD_Riesgos.recuperaEvaluaciones(id);
             }
-
             
             FichaRiesgoVM fichaRiesgoVM = new FichaRiesgoVM();
             fichaRiesgoVM.qRiesgosNombre_VM = riesgoRecup;

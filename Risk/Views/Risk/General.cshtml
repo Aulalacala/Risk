@@ -42,15 +42,15 @@
                         </div>
                     </div>
 
-                        <div class="row">
-                            <div class="col-lg-4 col-md-4">
-                                <span class="form-left-label">Particle Code</span>
-                            </div>
-
-                            <div class="col-lg-8 col-md-8">
-                                @* SE AUTOCOMPLETA CON EL SIGUIENTE DISPONIBLE DENTRO DE LA ESTRUCUTURA ELEGIDA *@
-                            </div>
+                    <div class="row">
+                        <div class="col-lg-4 col-md-4">
+                            <span class="form-left-label">Particle Code</span>
                         </div>
+
+                        <div class="col-lg-8 col-md-8">
+                            @* SE AUTOCOMPLETA CON EL SIGUIENTE DISPONIBLE DENTRO DE LA ESTRUCUTURA ELEGIDA *@
+                        </div>
+                    </div>
                 }
 
 
@@ -101,7 +101,7 @@
                         </div>
 
                         <div class="col-lg-8 col-md-8">
-                            <select class="form-control w100" campos = "campos" id="IdResponsable" tabla = "qRiesgosNombre">
+                            <select class="form-control w100" campos="campos" id="IdResponsable" tabla="qRiesgosNombre">
                                 @{
                                     Dictionary<int, string> responsablesDic = Model.dropDowns.datosResponsables;
 
@@ -134,7 +134,7 @@
                         </div>
 
                         <div class="col-lg-8 col-md-8">
-                            <select class="form-control w100" campos = "campos" id="IdResponsable2" tabla = "qRiesgosNombre">
+                            <select class="form-control w100" campos="campos" id="IdResponsable2" tabla="qRiesgosNombre">
                                 @{
                                     Dictionary<int, string> responsablesDic2 = Model.dropDowns.datosResponsables;
 
@@ -178,7 +178,7 @@
                         </div>
 
                         <div class="col-lg-10 col-md-10">
-                            <select class="form-control w100" campos = "campos" name="categoria" id="IdCategoria" filtro="IdCategoria" tabla = "qRiesgosNombre">
+                            <select class="form-control w100" campos="campos" name="categoria" id="IdCategoria" filtro="IdCategoria" tabla="qRiesgosNombre">
                                 @{
                                     Dictionary<int, string> dicCategorias = Model.dropDowns.datosCategorias;
                                     foreach (var categoria in dicCategorias)
@@ -203,7 +203,7 @@
                         </div>
 
                         <div class="col-lg-10 col-md-10">
-                            <select class="form-control w100" campos = "campos" name="segment" id="IdSegmentacion1" filtro="IdSegmenta1" tabla = "qRiesgosNombre">
+                            <select class="form-control w100" campos="campos" name="segment" id="IdSegmentacion1" filtro="IdSegmenta1" tabla="qRiesgosNombre">
                                 @{
                                     Dictionary<int, string> dicSegmenta = Model.dropDowns.datosSegmentacion;
 
@@ -244,7 +244,7 @@
                         </div>
 
                         <div class="col-lg-10 col-md-10">
-                            <select class="form-control w100" campos = "campos" name="clasificacion1" ref="comboDinamico" id="IdClasificacion1" sig="IdClasificacion2" tabla = "qRiesgosNombre">
+                            <select class="form-control w100" campos="campos" name="clasificacion1" ref="comboDinamico" id="IdClasificacion1" sig="IdClasificacion2" tabla="qRiesgosNombre">
                                 @{
                                     Dictionary<int, string> dicClasificacion1 = Model.dropDowns.datosClasificacion1;
                                     foreach (var clasif1 in dicClasificacion1)
@@ -271,7 +271,7 @@
                         </div>
 
                         <div class="col-lg-10 col-md-10">
-                            <select class="form-control w100" campos = "campos" name="clasificacion2" ref="comboDinamico" id="IdClasificacion2" sig="IdClasificacion3" tabla = "qRiesgosNombre">
+                            <select class="form-control w100" campos="campos" name="clasificacion2" ref="comboDinamico" id="IdClasificacion2" sig="IdClasificacion3" tabla="qRiesgosNombre">
                                 @{
                                     Dictionary<int, string> dicClasificacion2 = Model.dropDowns.datosClasificacion2;
                                     foreach (var clasif2 in dicClasificacion2)
@@ -297,7 +297,7 @@
                         </div>
 
                         <div class="col-lg-10 col-md-10">
-                            <select class="form-control w100" campos = "campos" name="clasificacion3" ref="comboDinamico" id="IdClasificacion3" tabla = "qRiesgosNombre">
+                            <select class="form-control w100" campos="campos" name="clasificacion3" ref="comboDinamico" id="IdClasificacion3" tabla="qRiesgosNombre">
                                 @{
                                     Dictionary<int, string> dicClasificacion3 = Model.dropDowns.datosClasificacion3;
                                     foreach (var clasif3 in dicClasificacion3)
@@ -353,7 +353,31 @@
                             <div class="visible-sm">
                                 <span class="form-left-label">Before Controls</span>
                             </div>
-                            @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreFrecAntes, new { @class = "form-control w100", @readonly = "readonly", @style = "color:#000000; background-color:" + Model.qRiesgos_Evaluaciones_Valores_VM.ColorFrecAntes, @campos = "campos", @id = "NombreFrecAntes", @tabla = "qRiesgos_Evaluaciones_Valores" })
+                                @{
+                                    Dictionary<int, List<string>> dicFrecuencia = Model.dropDowns.datosEvaFrecuencia;
+                                    string color = dicFrecuencia.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecAntes).Select(r => r.Value[0]).Single();
+                                   
+                                     <select class="form-control w100" campos="campos" id="NombreFrecAntes" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
+                                        @{
+                                            if (Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecAntes == 0)
+                                            {
+                                                <option class="financialImpact" value="0" selected="selected"></option>
+                                            }
+
+                                            foreach (var frec in dicFrecuencia)
+                                            {
+                                                if (frec.Key.Equals(Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecAntes))
+                                                {
+                                                    <option class="financialImpact" value="@frec.Key" selected="selected" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
+                                                }
+                                                else
+                                                {
+                                                    <option class="financialImpact" value="@frec.Key" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
+                                                }
+                                            }
+                                        }                                                                           
+                                   </select>
+                                }
                         </div>
 
                         <div class="col-lg-3 col-md-3">
@@ -430,7 +454,7 @@
                         </div>
                         <div class="col-lg-7 col-md-7">
 
-                            <select class="form-control w100" campos = "campos" id="IdControlesOportunidad" tabla ="qRiesgosNombre">
+                            <select class="form-control w100" campos="campos" id="IdControlesOportunidad" tabla="qRiesgosNombre">
                                 @{
                                     Dictionary
                                     <int, string>
@@ -459,7 +483,7 @@
                         </div>
                         <div class="col-lg-7 col-md-7">
 
-                            <select class="form-control w100" campos = "campos" id="IdControlesEfectividad" tabla ="qRiesgosNombre">
+                            <select class="form-control w100" campos="campos" id="IdControlesEfectividad" tabla="qRiesgosNombre">
                                 @{
                                     Dictionary
                                     <int, string>
