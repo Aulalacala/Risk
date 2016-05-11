@@ -139,12 +139,11 @@
 <script type="text/javascript" src="~/Content/morris/raphael.min.js"></script>
 <script type="text/javascript" src="~/Content/js/botoneraPartials.js"></script>
 
-<script>
-  
+<script> 
         $(document).ready(function () {
             $('#Menu li').removeClass('disabled');
             var id = $('#IdRiesgo').val();
             var ruta = "http://localhost:1525/Risk/General/";
             $('#contenidoDinamico').load(ruta, { "id": id });
         })
-    </script>
+</script>

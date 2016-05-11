@@ -393,27 +393,31 @@ namespace Risk.Controllers
             {
                 qRiesgosNombres riesgo = riesgosBD.DB.qRiesgosNombres.Where(r => r.IdRiesgo == IdRiesgo).SingleOrDefault();
 
+                string query = "UPDATE qRiesgosNombres SET ";
+
+
                 foreach (string datos in datosQRiesgosNombre)
                 {
                     string propiedad = datos.Split(':')[0];
                     string valor = datos.Split(':')[1];
 
-                    riesgo.Ejemplo = valor;
+                    query += propiedad + " = '" + valor + "',";
 
+                    //riesgo.Ejemplo = valor;
                     //riesgo.GetType().GetProperty(propiedad).SetValue(riesgo, valor);
-                 
                 }
 
-                riesgosBD.DB.Connection.Open();
+                query = query.Substring(0, query.Length - 1);
+                query +=  " WHERE IdRiesgo = " + IdRiesgo;
+
+                riesgosBD.DB.ExecuteQuery<qRiesgosNombres>(query);
 
 
-                //HACER EXECUTE QUERY ??
-                riesgosBD.DB.SubmitChanges();
                 qRiesgosNombres riesgo2 = riesgosBD.DB.qRiesgosNombres.Where(r => r.IdRiesgo == IdRiesgo).SingleOrDefault();
                 return true;
 
             }
-            catch (Exception) { return false; }
+            catch (Exception e) { return false; }
             
         }
 
