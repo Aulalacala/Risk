@@ -54,18 +54,26 @@ $('a[id^="mnu_"]').click(function () {
 
 /* ************************************************************************************************************** */
 // Risk/RiskFicha/General
+//Combos de financial Impact (Cambio de color)
 
 $('select[combo=true]').change(function () {
-    var idSeleccionado = $(this).val();
-    var color;
+   var idSeleccionado = $(this).val();
+   var color;
+   var idCombo = $(this).attr('id');
 
-    $('select[combo]').children().each(function (pos, el) {
-        if ($(this).val() == idSeleccionado) {
-            color = $(this).attr('style').split(':')[2];
-        }
-    })
-    $('select[combo]').css('background-color', '');
-    $('select[combo]').css('background-color', color);
+   $('select[id=' + idCombo + ']').children().each(function (pos, el) {
+       if ($(this).attr('selected') == 'selected') {
+           $(this).removeAttr('selected');
+       }
+
+       if ($(this).val() == idSeleccionado) {
+           color = $(this).attr('style').split(':')[2];
+           $(this).attr('selected', 'selected');
+       }    
+   })
+
+    $(this).css('background-color', '');
+    $(this).css('background-color', color);
 })
 
 

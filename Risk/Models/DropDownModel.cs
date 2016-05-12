@@ -99,7 +99,9 @@ namespace Risk.Models
         {
             get
             {
-                return riesgosBD.DB.tEva_Severidad
+                Dictionary<int, List<string>> dicSeveridad = new Dictionary<int, List<string>>();
+               
+                dicSeveridad = riesgosBD.DB.tEva_Severidad
                                     .GroupBy(x => x.IdEvaSeveridad)
                                     .ToDictionary(r => r.Key, r => r.Select(x => new List<string>
                                     {
@@ -107,6 +109,8 @@ namespace Risk.Models
                                         x.Severidad
                                     }
                                     ).Single());
+                dicSeveridad.Add(0, new List<string> { "#ffffff", "" });
+                return dicSeveridad;
             }
             set
             {
@@ -119,7 +123,10 @@ namespace Risk.Models
         {
             get
             {
-                return riesgosBD.DB.tEva_Frecuencia
+                Dictionary<int, List<string>> dicFrecuencia = new Dictionary<int, List<string>>();
+              
+
+                dicFrecuencia =  riesgosBD.DB.tEva_Frecuencia
                                     .GroupBy(x => x.IdEvaFrecuencia)
                                     .ToDictionary(r => r.Key, r => r.Select(x => new List<string>
                                     {
@@ -127,6 +134,8 @@ namespace Risk.Models
                                         x.Frecuencia
                                     }
                                     ).Single());
+                dicFrecuencia.Add(0, new List<string> { "#ffffff", "" });
+                return dicFrecuencia;
             }
             set
             {
