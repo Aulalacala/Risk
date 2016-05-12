@@ -1,0 +1,35 @@
+﻿@model Risk.ViewModels.FichaRiesgoVM
+
+<form id="miForm">
+    <div id="botonera" class="pull-right">
+        <input type="submit" class="btn btn-primary" name="BtnDelete" value="DELETE" id="BtnDelete" />
+        <a href="@Url.Action(" RiskFicha", "Risk", new { id = 0 })" class="btn btn-primary">NEW</a>
+        <input type="button" class="btn btn-primary" name="BtnSave" value="SAVE" id="BtnSave" />
+    </div>
+    <div class="clearfix"></div>
+    <div class="divider"></div>
+    <div class="row">
+        <div class="col-lg-12 col-md-12">
+            <br />
+
+            <div id="tabla" style="background-color:#eaf7fa; height:500px;"></div>
+            <div class="clearfix"></div>
+            <div class="divider"></div>
+
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    Date--------------
+                    <input type="button" class="btn btn-primary" name="BtnCopyLast" value="Copy Last" id="BtnCopyLast" />
+                    <input type="button" class="btn btn-primary" name="BtnSaveCombos" value="Save" id="BtnSaveCombos" />
+                </div>
+                <hr />
+                <div class="col-lg-12 col-md-12">
+                    @Html.Partial("FinancialImpactCombos", Model)
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+<script type="text/javascript" src="~/Content/js/scripts2.js"></script>
+

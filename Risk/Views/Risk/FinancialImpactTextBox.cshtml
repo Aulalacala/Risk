@@ -1,0 +1,235 @@
+﻿@model Risk.ViewModels.FichaRiesgoVM
+
+<div id="financialImpact" style="background-color:#eaf7fa" class="row">
+    <div class="col-lg-12 col-md-12">
+        <span class="form-left-label"><b>FINANCIAL IMPACT</b></span>
+    </div>
+
+    <!--CABECERAS-->
+    <div class="col-lg-12 col-md-12">
+        <div class="col-lg-3 col-md-3">
+            <span class="form-left-label"></span>
+        </div>
+        <div class="col-lg-3 col-md-3 hidden-sm">
+            <span class="form-left-label">Before Controls</span>
+        </div>
+        <div class="col-lg-3 col-md-3 hidden-sm">
+            <span class="form-left-label">Current</span>
+        </div>
+        <div class="col-lg-3 col-md-3 hidden-sm">
+            <span class="form-left-label">After action plans</span>
+        </div>
+    </div>
+    <!--FRECUENCIA-->
+    <div class="col-lg-12 col-md-12">
+        <div class="col-lg-3 col-md-3">
+            <span class="form-left-label"><b>Exp. Frec.</b></span>
+        </div>
+
+        <div class="col-lg-3 col-md-3">
+            <div class="visible-sm">
+                <span class="form-left-label">Before Controls</span>
+            </div>
+            @{
+                Dictionary<int, List<string>> dicFrecuencia = Model.dropDowns.datosEvaFrecuencia;
+                var id = Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecAntes;
+                var color = dicFrecuencia.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecAntes).Select(r => r.Value[0]).Single();
+                //NombreFrecAntes
+                @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreFrecAntes, new
+           {
+               @class = "form-control w100",
+               @readonly = "readonly",
+               @style = "color:#000000; background-color:" + color,
+               @campos = "campos",
+               @id = "NombreFrecAntes",
+               @tabla = "qRiesgos_Evaluaciones_Valor"
+           })
+
+            }
+        </div>
+
+        <div class="col-lg-3 col-md-3">
+            <div class="visible-sm">
+                <span class="form-left-label">Current</span>
+            </div>
+            @{
+                //NombreFrecDespues
+                id = Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecDespues;
+                color = dicFrecuencia.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecDespues).Select(r => r.Value[0]).Single();
+
+               @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreFrecDespues, new
+           {
+               @class = "form-control w100",
+               @readonly = "readonly",
+               @style = "color:#000000; background-color:" + color,
+               @campos = "campos",
+               @id = "NombreFrecDespues",
+               @tabla = "qRiesgos_Evaluaciones_Valor"
+           })
+            }
+        </div>
+
+        <div class="col-lg-3 col-md-3">
+            <div class="visible-sm">
+                <span class="form-left-label">After action plans</span>
+            </div>
+            @{
+                //NombreFrecPlanDespues
+                id = Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecPlanDespues;
+                color = dicFrecuencia.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecPlanDespues).Select(r => r.Value[0]).Single();
+
+
+                @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreFrecPlanDespues, new
+          {
+              @class = "form-control w100",
+              @readonly = "readonly",
+              @style = "color:#000000; background-color:" + color,
+              @campos = "campos",
+              @id = "NombreFrecPlanDespues",
+              @tabla = "qRiesgos_Evaluaciones_Valor"
+          })
+            }
+        </div>
+    </div>
+    <!--SEVERIDAD-->
+    <div class="col-lg-12 col-md-12">
+        <div class="col-lg-3 col-md-3">
+            <span class="form-left-label"><b>Exp. Sev.</b></span>
+        </div>
+        <div class="col-lg-3 col-md-3">
+            <div class="visible-sm">
+                <span class="form-left-label">Before Controls</span>
+            </div>
+            @{
+                //NombreSeveAntes
+                Dictionary<int, List<string>> dicSeveridad = Model.dropDowns.datosEvaSeveridad;
+                id = Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveAntes;
+                color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveAntes).Select(r => r.Value[0]).Single();
+
+                @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSeveAntes, new
+          {
+              @class = "form-control w100",
+              @readonly = "readonly",
+              @style = "color:#000000; background-color:" + color,
+              @campos = "campos",
+              @id = "NombreSeveAntes",
+              @tabla = "qRiesgos_Evaluaciones_Valor"
+          })
+            }
+        </div>
+
+        <div class="col-lg-3 col-md-3">
+            <div class="visible-sm">
+                <span class="form-left-label">Current</span>
+            </div>
+
+            @{
+                //NombreSeveDespues
+                id = Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveDespues;
+                color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveDespues).Select(r => r.Value[0]).Single();
+
+
+                @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSeveDespues, new
+          {
+              @class = "form-control w100",
+              @readonly = "readonly",
+              @style = "color:#000000; background-color:" + color,
+              @campos = "campos",
+              @id = "NombreSeveDespues",
+              @tabla = "qRiesgos_Evaluaciones_Valor"
+          })
+            }
+
+
+        </div>
+
+        <div class="col-lg-3 col-md-3">
+            <div class="visible-sm">
+                <span class="form-left-label">After action plans</span>
+            </div>
+            @{
+                //NombreSevePlanDespues
+                id = Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePlanDespues;
+                color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePlanDespues).Select(r => r.Value[0]).Single();
+
+
+                @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePlanDespues, new
+           {
+               @class = "form-control w100",
+               @readonly = "readonly",
+               @style = "color:#000000; background-color:" + color,
+               @campos = "campos",
+               @id = "NombreSevePlanDespues",
+               @tabla = "qRiesgos_Evaluaciones_Valor"
+           })
+            }
+        </div>
+    </div>
+    <!--SEVERIDAD DESPUES PLAN-->
+    <div class="col-lg-12 col-md-12">
+        <div class="col-lg-3 col-md-3">
+            <span class="form-left-label"><b>Max. Sev.</b></span>
+        </div>
+        <div class="col-lg-3 col-md-3">
+            <div class="visible-sm">
+                <span class="form-left-label">Before Controls</span>
+            </div>
+            @{
+                //NombreSevePeorAntes
+                id = Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorAntes;
+                color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorAntes).Select(r => r.Value[0]).Single();
+
+                @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePeorAntes, new
+           {
+               @class = "form-control w100",
+               @readonly = "readonly",
+               @style = "color:#000000; background-color:" + color,
+               @campos = "campos",
+               @id = "NombreSevePeorAntes",
+               @tabla = "qRiesgos_Evaluaciones_Valor"
+           })
+            }
+        </div>
+        <div class="col-lg-3 col-md-3">
+            <div class="visible-sm">
+                <span class="form-left-label">Current</span>
+            </div>
+            @{
+                //NombreSevePeorDespues
+                id = Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorDespues;
+                color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorDespues).Select(r => r.Value[0]).Single();
+
+                @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePeorDespues, new
+           {
+               @class = "form-control w100",
+               @readonly = "readonly",
+               @style = "color:#000000; background-color:" + color,
+               @campos = "campos",
+               @id = "NombreSevePeorDespues",
+               @tabla = "qRiesgos_Evaluaciones_Valor"
+           })
+            }
+        </div>
+        <div class="col-lg-3 col-md-3">
+            <div class="visible-sm">
+                <span class="form-left-label">After action plans</span>
+            </div>
+            @{
+                //NombreSevePeorPlanDespues
+                id = Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorPlanDespues;
+                color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorPlanDespues).Select(r => r.Value[0]).Single();
+
+                @Html.TextBoxFor(model => model.qRiesgos_Evaluaciones_Valores_VM.NombreSevePeorPlanDespues, new
+           {
+               @class = "form-control w100",
+               @readonly = "readonly",
+               @style = "color:#000000; background-color:" + color,
+               @campos = "campos",
+               @id = "NombreSevePeorPlanDespues",
+               @tabla = "qRiesgos_Evaluaciones_Valor"
+           })
+            }
+        </div>
+    </div>
+
+</div>
