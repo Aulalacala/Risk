@@ -31,7 +31,9 @@ namespace Risk.Models
         public string IdControlesEfectividad { get; set; }
 
 
+        // Atributos para un riesgo nuevo
         public int idEstructura { get; set; }
+        public string CodRiesgo { get; set; }
 
     }
 }

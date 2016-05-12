@@ -90,7 +90,7 @@ namespace Risk.Controllers
                 riesgoRecup = BD_Riesgos.recuperarRiesgo(id);
                 evaluaciones = BD_Riesgos.recuperaEvaluaciones(id);
             }
-            
+
             FichaRiesgoVM fichaRiesgoVM = new FichaRiesgoVM();
             fichaRiesgoVM.qRiesgosNombre_VM = riesgoRecup;
             fichaRiesgoVM.qRiesgos_Evaluaciones_Valores_VM = evaluaciones;
@@ -148,7 +148,7 @@ namespace Risk.Controllers
 
         // Metodo (llamada desde scripts2.js) para recuperar el siguiente riesgo disponible y rellenar Particle Code en un riesgo nuevo
 
-        public string dameUltimoRiesgoDisponible (int idEstructura) {
+        public string dameUltimoRiesgoDisponible (string idEstructura) {
 
             return BD_Riesgos.ultimoRiesgoDisponible(idEstructura);
         }

@@ -167,10 +167,10 @@ namespace Risk.Models
 
 
 
-        // METODOS PARA LA CARGAR DE LOS DROPDOWS STRUCTURE CODE(todos los valores) Y PARTICLE CODE(ultimo disponible segun structure code seleccionado) EN UN RIESGO NUEVO
+        // METODOS PARA LA CARGAR DE LOS DROPDOWS STRUCTURE CODE(valores de Nivel 3) 
         public Dictionary<int, string> structureCode {
             get {
-                return riesgosBD.DB.tEstructura.ToDictionary(r => r.IdEstructura, r => r.CodCompleto + " " + r.Nombre);
+                return riesgosBD.DB.tEstructura.Where(r=>r.Nivel==3).ToDictionary(r => r.IdEstructura, r => r.CodCompleto + " " + r.Nombre);
             }
             set {
                 _structureCode = value;

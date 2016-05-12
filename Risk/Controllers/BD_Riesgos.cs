@@ -223,7 +223,7 @@ namespace Risk.Controllers
 
                 if (!string.IsNullOrEmpty(filtro))
                 {
-                    datosQRiesgosNombre = datosQRiesgosNombre.Where(r => r.Value.Nombre.Contains(filtro) || r.Value.CodRiesgoLocalizado.Contains(filtro)).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
+                    datosQRiesgosNombre = datosQRiesgosNombre.Where(r => r.Value.Nombre.Contains(filtro) || r.Value.CodRiesgo.Contains(filtro)).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
                 }
 
                 if (categoria != 0)
@@ -424,15 +424,19 @@ namespace Risk.Controllers
 
         // metodo que devuelve un string con el ultimo codigo disponible de un idEstructura
 
-        public string ultimoRiesgoDisponible(int idEstructura) {
+        public string ultimoRiesgoDisponible(string idEstructura) {
 
-            int ultimoIdRiesgo = riesgosBD.DB.tRelEstructuraRiesgos.Where(r => r.IdEstructura == idEstructura).Select(r => Convert.ToInt32(r.IdRiesgo)).OrderByDescending(r=>r).LastOrDefault();
-            string ultimoCodigoRiesgo = riesgosBD.DB.tRiesgos.Where(r => r.IdRiesgo == ultimoIdRiesgo).Select(r => r.CodRiesgo).SingleOrDefault();
+            //int ultimoIdRiesgo = riesgosBD.DB.tRelEstructuraRiesgos.Where(r => r.IdEstructura == idEstructura).Select(r => Convert.ToInt32(r.IdRiesgo)).OrderByDescending(r=>r).LastOrDefault();
+            //string ultimoCodigoRiesgo = riesgosBD.DB.tRiesgos.Where(r => r.IdRiesgo == ultimoIdRiesgo).Select(r => r.CodRiesgo).SingleOrDefault();
 
-            //Sumar uno mas al ultimo codigo
-            //ultimoCodigoRiesgo = ultimoCodigoRiesgo.
+            int cuantosRiesgosTiene = riesgosBD.DB.tRelEstructuraRiesgos.Where(r => r.IdEstructura == Convert.ToInt32(idEstructura)).Count();
+            string ultimoCodigoRiesgo = (cuantosRiesgosTiene+1).ToString();
 
-            return null;
+            if (cuantosRiesgosTiene.ToString().Length == 1) {
+                ultimoCodigoRiesgo = "0" + (cuantosRiesgosTiene + 1).ToString();
+            }
+
+            return ultimoCodigoRiesgo;
         }
 
 
