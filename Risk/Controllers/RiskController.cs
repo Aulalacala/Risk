@@ -37,6 +37,27 @@ namespace Risk.Controllers
             return PartialView();
         }
 
+        public ActionResult Historical(int id)
+        {
+            FichaRiesgoVM fichaRiesgoVM = montaVM(id);
+            return PartialView(fichaRiesgoVM);
+        }
+
+        public ActionResult FinancialImpactCombos(int id)
+        {
+            FichaRiesgoVM fichaRiesgoVM = montaVM(id);
+            return PartialView(fichaRiesgoVM);
+        }
+
+        public ActionResult FinancialImpactTextBox(int id)
+        {
+            FichaRiesgoVM fichaRiesgoVM = montaVM(id);
+            return PartialView(fichaRiesgoVM);
+        }
+
+
+
+
         public ActionResult Graphic()
         {
             qRiesgosNombres riesgoRecup = (qRiesgosNombres)Session["riesgo"];
