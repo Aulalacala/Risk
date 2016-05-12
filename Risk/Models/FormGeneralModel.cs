@@ -32,7 +32,8 @@ namespace Risk.Models
 
 
         // Atributos para un riesgo nuevo
-        public int idEstructura { get; set; }
+        public string Nombre { get; set; }
+        public string idEstructura { get; set; }
         public string CodRiesgo { get; set; }
 
     }

@@ -12,37 +12,48 @@
 <form id="miForm">
     <div id="botonera" class="pull-right">
         <input type="submit" class="btn btn-primary" name="BtnDelete" value="DELETE" id="BtnDelete" />
-        <a href="@Url.Action(" RiskFicha", "Risk", new { id = 0 })" class="btn btn-primary">NEW</a>
+        <a href="@Url.Action("RiskFicha", "Risk", new { id = 0 })" class="btn btn-primary">NEW</a>
         <input type="button" class="btn btn-primary" name="BtnSave" value="SAVE" id="BtnSave" />
     </div>
 
-
+    <div class="clearfix"></div>
+    <div class="divider"></div>
 @* --------------------------------------------------------------------------- *@
 
 @* AÑADIR LOS DROPDOWNS 'STRUCUTRE CODE' Y 'PARTICLE CODE' CON LOS DESPLEGABLES DE LA ESTRCUTURA *@
 @if (Model.qRiesgosNombre_VM.Nombre == null) {
-    <div class="col-lg-4 col-md-4">
-        @* DROPDOWN CON TODOS LOS ELEMENTOS DE LA ESTRUCUTURA *@
-        <span class="form-left-label">Structure Code</span>
-        <select class="form-control w100" campos="campos" id="StructureCode" tabla="tRelEstructuraRiesgos">
-            @{
-                Dictionary<int, string> structureCode = Model.dropDowns.structureCode;
-                <option value="0"></option>
-                foreach (var structure in structureCode) {
-                    <option value="@structure.Key">@structure.Value </option>
+
+    <div class="row">
+        <div class="col-lg-6 col-md-6">
+            <span class="form-left-label">Nombre</span>
+            <input id="Nombre" type="text" campos="campos" class="form-control w100" />
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-lg-4 col-md-4">
+
+            @* DROPDOWN CON TODOS LOS ELEMENTOS DE LA ESTRUCUTURA *@
+            <span class="form-left-label">Structure Code</span>
+            <select class="form-control w100" campos="campos" id="idEstructura">
+                @{
+                    Dictionary<int, string> structureCode = Model.dropDowns.structureCode;
+                    <option selected="selected"></option>
+                    foreach (var structure in structureCode) {
+                        <option value="@structure.Key">@structure.Value </option>
+                    }
                 }
-            }
-        </select>
+            </select>
         </div>
         <div class="col-lg-2 col-md-2">
             <span class="form-left-label">Particle Code</span>
             @* SE AUTOCOMPLETA CON EL SIGUIENTE DISPONIBLE DENTRO DE LA ESTRUCUTURA ELEGIDA *@
-            <input id="CodRiesgo" type="text" campos="campos" readonly class="form-control w100" tabla="qRiesgosNombres" />
+            <input id="CodRiesgo" type="text" campos="campos" readonly class="form-control w100" />
         </div>
- }
+    </div>
+        }
 
-
-@* --------------------------------------------------------------------------- *@
+        @* --------------------------------------------------------------------------- *@
 
         <div class="clearfix"></div>
         <div class="divider"></div>
@@ -53,7 +64,7 @@
 
                 <!-- COLUMNA IZQUIERDA-->
                 <div class="col-lg-6 col-md-6">
-                                   
+
                     <div class="row">
                         <div class="col-lg-4 col-md-4">
                             <span class="form-left-label">Example</span>
@@ -102,8 +113,8 @@
                                     @{
                                         Dictionary<int, string> responsablesDic = Model.dropDowns.datosResponsables;
 
-                                        if (Model.qRiesgosNombre_VM.IdResponsable == 0) {
-                                            <option value="0" selected="selected"></option>
+                                        if (Model.qRiesgosNombre_VM.IdResponsable == 0 || Model.qRiesgosNombre_VM.Nombre == null) {
+                                            <option selected="selected"></option>
                                         }
 
 
@@ -130,8 +141,8 @@
                                     @{
                                         Dictionary<int, string> responsablesDic2 = Model.dropDowns.datosResponsables;
 
-                                        if (Model.qRiesgosNombre_VM.IdResponsable == 0) {
-                                            <option value="0" selected="selected"></option>
+                                        if (Model.qRiesgosNombre_VM.IdResponsable == 0 || Model.qRiesgosNombre_VM.Nombre == null) {
+                                            <option selected="selected"></option>
                                         }
 
 
@@ -168,6 +179,11 @@
                                 <select class="form-control w100" campos="campos" name="categoria" id="IdCategoria" filtro="IdCategoria" tabla="qRiesgosNombre">
                                     @{
                                         Dictionary<int, string> dicCategorias = Model.dropDowns.datosCategorias;
+
+                                        if (Model.qRiesgosNombre_VM.Nombre == null) {
+                                            <option value="0" selected="selected"></option>
+                                        }
+
                                         foreach (var categoria in dicCategorias) {
                                             if (categoria.Key.Equals(Model.qRiesgosNombre_VM.IdCategoria)) {
                                                 <option value="@categoria.Key" selected="selected">@categoria.Value </option>
@@ -190,7 +206,7 @@
                                     @{
                                         Dictionary<int, string> dicSegmenta = Model.dropDowns.datosSegmentacion;
 
-                                        if (Model.qRiesgosNombre_VM.IdSegmentacion1 == 0) {
+                                        if (Model.qRiesgosNombre_VM.IdSegmentacion1 == 0 || Model.qRiesgosNombre_VM.Nombre == null) {
                                             <option value="0" selected="selected"></option>
                                         }
 
@@ -224,6 +240,11 @@
                             <div class="col-lg-10 col-md-10">
                                 <select class="form-control w100" campos="campos" name="clasificacion1" ref="comboDinamico" id="IdClasificacion1" sig="IdClasificacion2" tabla="qRiesgosNombre">
                                     @{
+
+                                        if (Model.qRiesgosNombre_VM.IdResponsable == 0 || Model.qRiesgosNombre_VM.Nombre == null) {
+                                            <option value="0" selected="selected"></option>
+                                        }
+
                                         Dictionary<int, string> dicClasificacion1 = Model.dropDowns.datosClasificacion1;
                                         foreach (var clasif1 in dicClasificacion1) {
                                             if (clasif1.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion1)) {
@@ -247,6 +268,11 @@
                             <div class="col-lg-10 col-md-10">
                                 <select class="form-control w100" campos="campos" name="clasificacion2" ref="comboDinamico" id="IdClasificacion2" sig="IdClasificacion3" tabla="qRiesgosNombre">
                                     @{
+
+                                        if (Model.qRiesgosNombre_VM.IdResponsable == 0 || Model.qRiesgosNombre_VM.Nombre == null) {
+                                            <option value="0" selected="selected"></option>
+                                        }
+
                                         Dictionary<int, string> dicClasificacion2 = Model.dropDowns.datosClasificacion2;
                                         foreach (var clasif2 in dicClasificacion2) {
                                             if (clasif2.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion2)) {
@@ -269,6 +295,11 @@
                             <div class="col-lg-10 col-md-10">
                                 <select class="form-control w100" campos="campos" name="clasificacion3" ref="comboDinamico" id="IdClasificacion3" tabla="qRiesgosNombre">
                                     @{
+
+                                        if (Model.qRiesgosNombre_VM.IdResponsable == 0 || Model.qRiesgosNombre_VM.Nombre == null) {
+                                            <option value="0" selected="selected"></option>
+                                        }
+
                                         Dictionary<int, string> dicClasificacion3 = Model.dropDowns.datosClasificacion3;
                                         foreach (var clasif3 in dicClasificacion3) {
                                             if (clasif3.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion3)) {
@@ -311,76 +342,22 @@
 
                         <!--FRECUENCIA-->
                         @*<div class="col-lg-12 col-md-12">
+                                        <div class="col-lg-3 col-md-3">
+                                            <span class="form-left-label"><b>Exp. Frec.</b></span>
+                                        </div>
+
                                 <div class="col-lg-3 col-md-3">
-                                    <span class="form-left-label"><b>Exp. Frec.</b></span>
-                                </div>
-
-                        <div class="col-lg-3 col-md-3">
-                            <div class="visible-sm">
-                                <span class="form-left-label">Before Controls</span>
-                            </div>
-                            @{
-                               Dictionary<int, List<string>> dicFrecuencia = Model.dropDowns.datosEvaFrecuencia;
-                                var id = Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecAntes;
-                                var color = dicFrecuencia.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecAntes).Select(r => r.Value[0]).Single();
-                                //NombreFrecAntes
-
-                                <select class="form-control w100" campos="campos" id="NombreFrecAntes" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
+                                    <div class="visible-sm">
+                                        <span class="form-left-label">Before Controls</span>
+                                    </div>
                                     @{
-                                        foreach (var frec in dicFrecuencia)
-                                        {
-                                            if (frec.Key.Equals(id))
-                                            {
-                                                <option class="financialImpact" value="@frec.Key" selected="selected" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
-                                            }
-                                            else
-                                            {
-                                                <option class="financialImpact" value="@frec.Key" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
-                                            }
-                                        }
-                                    }
-                                </select>
-                            }
-                        </div>
+                                       Dictionary<int, List<string>> dicFrecuencia = Model.dropDowns.datosEvaFrecuencia;
+                                        var id = Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecAntes;
+                                        var color = dicFrecuencia.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecAntes).Select(r => r.Value[0]).Single();
+                                        //NombreFrecAntes
 
-                        <div class="col-lg-3 col-md-3">
-                            <div class="visible-sm">
-                                <span class="form-left-label">Current</span>
-                            </div>
-                            @{
-                                //NombreFrecDespues
-                                id = Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecDespues;
-                                color = dicFrecuencia.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecDespues).Select(r => r.Value[0]).Single();
-
-                                <select class="form-control w100" campos="campos" id="NombreFrecDespues" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
-                                    @{
-                                        foreach (var frec in dicFrecuencia)
-                                        {
-                                            if (frec.Key.Equals(id))
-                                            {
-                                                <option class="financialImpact" value="@frec.Key" selected="selected" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
-                                            }
-                                            else
-                                            {
-                                                <option class="financialImpact" value="@frec.Key" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
-                                            }
-                                        }
-                                    }
-                                </select>
-                            }
-                        </div>
-
-                        <div class="col-lg-3 col-md-3">
-                            <div class="visible-sm">
-                                <span class="form-left-label">After action plans</span>
-                            </div>
-                            @{
-                                //NombreFrecPlanDespues
-                                id = Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecPlanDespues;
-                                color = dicFrecuencia.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecPlanDespues).Select(r => r.Value[0]).Single();
-
-                                    <select class="form-control w100" campos="campos" id="NombreFrecPlanDespues" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
-                                        @{
+                                        <select class="form-control w100" campos="campos" id="NombreFrecAntes" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
+                                            @{
                                                 foreach (var frec in dicFrecuencia)
                                                 {
                                                     if (frec.Key.Equals(id))
@@ -390,201 +367,255 @@
                                                     else
                                                     {
                                                         <option class="financialImpact" value="@frec.Key" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
-                                                    }                                               
+                                                    }
+                                                }
                                             }
-                                        }
-                                    </select>                                           
-                            }
-                        </div>
-                    </div>
-
-                    <!--SEVERIDAD-->
-                    @*<div class="col-lg-12 col-md-12">
-                            <div class="col-lg-3 col-md-3">
-                                <span class="form-left-label"><b>Exp. Sev.</b></span>
-                            </div>
-                            <div class="col-lg-3 col-md-3">
-                                <div class="visible-sm">
-                                    <span class="form-left-label">Before Controls</span>
+                                        </select>
+                                    }
                                 </div>
-                                @{
-                                Dictionary<int, List<string>> dicSeveridad = Model.dropDowns.datosEvaSeveridad;
-                                            color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveAntes).Select(r => r.Value[0]).Single();
 
-                                        <select class="form-control w100" campos="campos" id="NombreSeveAntes" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="visible-sm">
+                                        <span class="form-left-label">Current</span>
+                                    </div>
+                                    @{
+                                        //NombreFrecDespues
+                                        id = Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecDespues;
+                                        color = dicFrecuencia.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecDespues).Select(r => r.Value[0]).Single();
+
+                                        <select class="form-control w100" campos="campos" id="NombreFrecDespues" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
                                             @{
-                                                    if (Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveAntes == 0)
+                                                foreach (var frec in dicFrecuencia)
+                                                {
+                                                    if (frec.Key.Equals(id))
                                                     {
-                                                <option class="financialImpact" value="0" selected="selected"></option>
+                                                        <option class="financialImpact" value="@frec.Key" selected="selected" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
                                                     }
+                                                    else
+                                                    {
+                                                        <option class="financialImpact" value="@frec.Key" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
+                                                    }
+                                                }
+                                            }
+                                        </select>
+                                    }
+                                </div>
 
-                                                    foreach (var frec in dicFrecuencia)
-                                                    {
-                                                        if (frec.Key.Equals(Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveAntes))
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="visible-sm">
+                                        <span class="form-left-label">After action plans</span>
+                                    </div>
+                                    @{
+                                        //NombreFrecPlanDespues
+                                        id = Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecPlanDespues;
+                                        color = dicFrecuencia.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecPlanDespues).Select(r => r.Value[0]).Single();
+
+                                            <select class="form-control w100" campos="campos" id="NombreFrecPlanDespues" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
+                                                @{
+                                                        foreach (var frec in dicFrecuencia)
                                                         {
-                                                <option class="financialImpact" value="@frec.Key" selected="selected" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
-                                                        }
-                                                        else
-                                                        {
-                                                <option class="financialImpact" value="@frec.Key" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
-                                                        }
+                                                            if (frec.Key.Equals(id))
+                                                            {
+                                                                <option class="financialImpact" value="@frec.Key" selected="selected" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
+                                                            }
+                                                            else
+                                                            {
+                                                                <option class="financialImpact" value="@frec.Key" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
+                                                            }
                                                     }
+                                                }
+                                            </select>
+                                    }
+                                </div>
+                            </div>
+
+                            <!--SEVERIDAD-->
+                            @*<div class="col-lg-12 col-md-12">
+                                    <div class="col-lg-3 col-md-3">
+                                        <span class="form-left-label"><b>Exp. Sev.</b></span>
+                                    </div>
+                                    <div class="col-lg-3 col-md-3">
+                                        <div class="visible-sm">
+                                            <span class="form-left-label">Before Controls</span>
+                                        </div>
+                                        @{
+                                        Dictionary<int, List<string>> dicSeveridad = Model.dropDowns.datosEvaSeveridad;
+                                                    color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveAntes).Select(r => r.Value[0]).Single();
+
+                                                <select class="form-control w100" campos="campos" id="NombreSeveAntes" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
+                                                    @{
+                                                            if (Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveAntes == 0)
+                                                            {
+                                                        <option class="financialImpact" value="0" selected="selected"></option>
+                                                            }
+
+                                                            foreach (var frec in dicFrecuencia)
+                                                            {
+                                                                if (frec.Key.Equals(Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveAntes))
+                                                                {
+                                                        <option class="financialImpact" value="@frec.Key" selected="selected" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
+                                                                }
+                                                                else
+                                                                {
+                                                        <option class="financialImpact" value="@frec.Key" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
+                                                                }
+                                                            }
+                                                    }
+                                                </select>
+                                                }
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-3">
+                                        <div class="visible-sm">
+                                            <span class="form-left-label">Current</span>
+                                        </div>
+
+                                        @{
+                                        color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveDespues).Select(r => r.Value[0]).Single();
+                                        <select class="form-control w100" campos="campos" id="NombreSeveDespues" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
+                                            @{
+                                            if (Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveDespues == 0)
+                                            {
+                                            <option class="financialImpact" value="0" selected="selected"></option>
+                                            }
+
+                                            foreach (var frec in dicFrecuencia)
+                                            {
+                                            if (frec.Key.Equals(Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveDespues))
+                                            {
+                                            <option class="financialImpact" value="@frec.Key" selected="selected" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
+                                            }
+                                            else
+                                            {
+                                            <option class="financialImpact" value="@frec.Key" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
+                                            }
+                                            }
                                             }
                                         </select>
                                         }
-                            </div>
 
-                            <div class="col-lg-3 col-md-3">
-                                <div class="visible-sm">
-                                    <span class="form-left-label">Current</span>
+
+                                    </div>
+
+                                    <div class="col-lg-3 col-md-3">
+                                        <div class="visible-sm">
+                                            <span class="form-left-label">After action plans</span>
+                                        </div>
+                                        @{
+                                        color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePlanDespues).Select(r => r.Value[0]).Single();
+                                        <select class="form-control w100" campos="campos" id="NombreSevePlanDespues" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
+                                            @{
+                                            if (Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePlanDespues == 0)
+                                            {
+                                            <option class="financialImpact" value="0" selected="selected"></option>
+                                            }
+
+                                            foreach (var frec in dicFrecuencia)
+                                            {
+                                            if (frec.Key.Equals(Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePlanDespues))
+                                            {
+                                            <option class="financialImpact" value="@frec.Key" selected="selected" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
+                                            }
+                                            else
+                                            {
+                                            <option class="financialImpact" value="@frec.Key" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
+                                            }
+                                            }
+                                            }
+                                        </select>
+                                        }
+                                    </div>
+                                </div>*@
+                        <!--SEVERIDAD DESPUES PLAN-->
+                        @*<div class="col-lg-12 col-md-12">
+                                <div class="col-lg-3 col-md-3">
+                                    <span class="form-left-label"><b>Max. Sev.</b></span>
                                 </div>
-
-                                @{
-                                color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveDespues).Select(r => r.Value[0]).Single();
-                                <select class="form-control w100" campos="campos" id="NombreSeveDespues" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="visible-sm">
+                                        <span class="form-left-label">Before Controls</span>
+                                    </div>
                                     @{
-                                    if (Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveDespues == 0)
-                                    {
-                                    <option class="financialImpact" value="0" selected="selected"></option>
-                                    }
+                                    color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorAntes).Select(r => r.Value[0]).Single();
+                                    <select class="form-control w100" campos="campos" id="NombreSevePeorAntes" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
+                                        @{
+                                        if (Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorAntes == 0)
+                                        {
+                                        <option class="financialImpact" value="0" selected="selected"></option>
+                                        }
 
-                                    foreach (var frec in dicFrecuencia)
-                                    {
-                                    if (frec.Key.Equals(Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveDespues))
-                                    {
-                                    <option class="financialImpact" value="@frec.Key" selected="selected" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
+                                        foreach (var frec in dicFrecuencia)
+                                        {
+                                        if (frec.Key.Equals(Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorAntes))
+                                        {
+                                        <option class="financialImpact" value="@frec.Key" selected="selected" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
+                                        }
+                                        else
+                                        {
+                                        <option class="financialImpact" value="@frec.Key" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
+                                        }
+                                        }
+                                        }
+                                    </select>
                                     }
-                                    else
-                                    {
-                                    <option class="financialImpact" value="@frec.Key" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
-                                    }
-                                    }
-                                    }
-                                </select>
-                                }
-
-
-                            </div>
-
-                            <div class="col-lg-3 col-md-3">
-                                <div class="visible-sm">
-                                    <span class="form-left-label">After action plans</span>
                                 </div>
-                                @{
-                                color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePlanDespues).Select(r => r.Value[0]).Single();
-                                <select class="form-control w100" campos="campos" id="NombreSevePlanDespues" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="visible-sm">
+                                        <span class="form-left-label">Current</span>
+                                    </div>
                                     @{
-                                    if (Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePlanDespues == 0)
-                                    {
-                                    <option class="financialImpact" value="0" selected="selected"></option>
-                                    }
+                                    color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorDespues).Select(r => r.Value[0]).Single();
+                                    <select class="form-control w100" campos="campos" id="NombreSevePeorDespues" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
+                                        @{
+                                        if (Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorDespues == 0)
+                                        {
+                                        <option class="financialImpact" value="0" selected="selected"></option>
+                                        }
 
-                                    foreach (var frec in dicFrecuencia)
-                                    {
-                                    if (frec.Key.Equals(Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePlanDespues))
-                                    {
-                                    <option class="financialImpact" value="@frec.Key" selected="selected" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
+                                        foreach (var frec in dicFrecuencia)
+                                        {
+                                        if (frec.Key.Equals(Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorDespues))
+                                        {
+                                        <option class="financialImpact" value="@frec.Key" selected="selected" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
+                                        }
+                                        else
+                                        {
+                                        <option class="financialImpact" value="@frec.Key" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
+                                        }
+                                        }
+                                        }
+                                    </select>
                                     }
-                                    else
-                                    {
-                                    <option class="financialImpact" value="@frec.Key" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
-                                    }
-                                    }
-                                    }
-                                </select>
-                                }
-                            </div>
-                        </div>*@
-                    <!--SEVERIDAD DESPUES PLAN-->
-                    @*<div class="col-lg-12 col-md-12">
-                            <div class="col-lg-3 col-md-3">
-                                <span class="form-left-label"><b>Max. Sev.</b></span>
-                            </div>
-                            <div class="col-lg-3 col-md-3">
-                                <div class="visible-sm">
-                                    <span class="form-left-label">Before Controls</span>
                                 </div>
-                                @{
-                                color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorAntes).Select(r => r.Value[0]).Single();
-                                <select class="form-control w100" campos="campos" id="NombreSevePeorAntes" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
+                                <div class="col-lg-3 col-md-3">
+                                    <div class="visible-sm">
+                                        <span class="form-left-label">After action plans</span>
+                                    </div>
                                     @{
-                                    if (Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorAntes == 0)
-                                    {
-                                    <option class="financialImpact" value="0" selected="selected"></option>
-                                    }
+                                    color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorPlanDespues).Select(r => r.Value[0]).Single();
+                                    <select class="form-control w100" campos="campos" id="NombreSevePeorPlanDespues" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
+                                        @{
+                                        if (Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorPlanDespues == 0)
+                                        {
+                                        <option class="financialImpact" value="0" selected="selected"></option>
+                                        }
 
-                                    foreach (var frec in dicFrecuencia)
-                                    {
-                                    if (frec.Key.Equals(Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorAntes))
-                                    {
-                                    <option class="financialImpact" value="@frec.Key" selected="selected" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
+                                        foreach (var frec in dicFrecuencia)
+                                        {
+                                        if (frec.Key.Equals(Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorPlanDespues))
+                                        {
+                                        <option class="financialImpact" value="@frec.Key" selected="selected" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
+                                        }
+                                        else
+                                        {
+                                        <option class="financialImpact" value="@frec.Key" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
+                                        }
+                                        }
+                                        }
+                                    </select>
                                     }
-                                    else
-                                    {
-                                    <option class="financialImpact" value="@frec.Key" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
-                                    }
-                                    }
-                                    }
-                                </select>
-                                }
-                            </div>
-                            <div class="col-lg-3 col-md-3">
-                                <div class="visible-sm">
-                                    <span class="form-left-label">Current</span>
                                 </div>
-                                @{
-                                color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorDespues).Select(r => r.Value[0]).Single();
-                                <select class="form-control w100" campos="campos" id="NombreSevePeorDespues" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
-                                    @{
-                                    if (Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorDespues == 0)
-                                    {
-                                    <option class="financialImpact" value="0" selected="selected"></option>
-                                    }
-
-                                    foreach (var frec in dicFrecuencia)
-                                    {
-                                    if (frec.Key.Equals(Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorDespues))
-                                    {
-                                    <option class="financialImpact" value="@frec.Key" selected="selected" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
-                                    }
-                                    else
-                                    {
-                                    <option class="financialImpact" value="@frec.Key" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
-                                    }
-                                    }
-                                    }
-                                </select>
-                                }
-                            </div>
-                            <div class="col-lg-3 col-md-3">
-                                <div class="visible-sm">
-                                    <span class="form-left-label">After action plans</span>
-                                </div>
-                                @{
-                                color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorPlanDespues).Select(r => r.Value[0]).Single();
-                                <select class="form-control w100" campos="campos" id="NombreSevePeorPlanDespues" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
-                                    @{
-                                    if (Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorPlanDespues == 0)
-                                    {
-                                    <option class="financialImpact" value="0" selected="selected"></option>
-                                    }
-
-                                    foreach (var frec in dicFrecuencia)
-                                    {
-                                    if (frec.Key.Equals(Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorPlanDespues))
-                                    {
-                                    <option class="financialImpact" value="@frec.Key" selected="selected" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
-                                    }
-                                    else
-                                    {
-                                    <option class="financialImpact" value="@frec.Key" style="color:#000000; background-color:@frec.Value[0]">@frec.Value[1]</option>
-                                    }
-                                    }
-                                    }
-                                </select>
-                                }
-                            </div>
-                        </div>*@
+                            </div>*@
 
 
                         <div class="col-lg-12 col-md-12">
@@ -599,9 +630,12 @@
 
                                 <select class="form-control w100" campos="campos" id="IdControlesOportunidad" tabla="qRiesgosNombre">
                                     @{
-                                        Dictionary
-                                        <int, string>
-                                            datosOportunidad = Model.dropDowns.datosOportunidad;
+
+                                        if (Model.qRiesgosNombre_VM.IdResponsable == 0 || Model.qRiesgosNombre_VM.Nombre == null) {
+                                            <option value="0" selected="selected"></option>
+                                        }
+
+                                        Dictionary<int, string> datosOportunidad = Model.dropDowns.datosOportunidad;
                                         foreach (var oportunidad in datosOportunidad) {
                                             if (oportunidad.Key.Equals(Model.qRiesgosNombre_VM.IdControlesOportunidad)) {
                                                 <option value="@oportunidad.Key" selected>@oportunidad.Value </option>
@@ -624,9 +658,10 @@
 
                                 <select class="form-control w100" campos="campos" id="IdControlesEfectividad" tabla="qRiesgosNombre">
                                     @{
-                                        Dictionary
-                                        <int, string>
-                                            datosEfectividad = Model.dropDowns.datosEfectividad;
+                                        if (Model.qRiesgosNombre_VM.IdResponsable == 0 || Model.qRiesgosNombre_VM.Nombre == null) {
+                                            <option value="0" selected="selected"></option>
+                                        }
+                                        Dictionary<int, string> datosEfectividad = Model.dropDowns.datosEfectividad;
                                         foreach (var efectividad in datosEfectividad) {
                                             if (efectividad.Key.Equals(Model.qRiesgosNombre_VM.IdControlesEfectividad)) {
                                                 <option value="@efectividad.Key" selected>@efectividad.Value </option>
