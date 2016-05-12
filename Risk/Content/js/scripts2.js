@@ -55,10 +55,16 @@ $('a[id^="mnu_"]').click(function () {
 // PartialView GENERAL carga del dropdown dinamico Particle Code al crear nuevo Riesgo
 
 $('#StructureCode').change(function () {
-    $.get("/Risk/dameUltimoRiesgoDisponible", { id : $(this).val() }, function (data) {
-        $('#IdRiesgo').val() = data;
+    $.get("/Risk/dameUltimoRiesgoDisponible", { idEstructura: $(this).val() }, function (data) {
+        alert(data);
+        //$('#CodRiesgo').val(data);
+        $('#CodRiesgo').val($('#StructureCode :selected').text().substring(0, 8) + "." + data);
+        $('#CodRiesgo').addClass("dirty");
     })
 })
+
+
+// Dropdowns Evaluaciones
 
 $('select[combo=true]').change(function () {
    var idSeleccionado = $(this).val();
