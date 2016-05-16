@@ -447,6 +447,26 @@ namespace Risk.Controllers
             }
         }
 
+        public bool deleteRiesgo(int idRiesgo)
+        {
+            try
+            {
+                var riesgo = riesgosBD.DB.tRiesgos.Where(r => r.IdRiesgo == idRiesgo).Select(r => r).FirstOrDefault();
+                riesgosBD.DB.tRiesgos.DeleteOnSubmit(riesgo);
+                riesgosBD.DB.SubmitChanges();
+
+                var riesgoTrel = riesgosBD.DB.tRelEstructuraRiesgos.Where(r => r.IdRiesgo == idRiesgo).Select(r => r).FirstOrDefault();
+                riesgosBD.DB.tRelEstructuraRiesgos.DeleteOnSubmit(riesgoTrel);
+                riesgosBD.DB.SubmitChanges();
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
 
         // metodo que devuelve un string con el ultimo codigo disponible de un idEstructura
 

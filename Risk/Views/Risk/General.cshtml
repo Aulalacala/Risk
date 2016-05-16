@@ -9,20 +9,22 @@
 
 <form id="miForm">
     <div id="botonera" class="pull-right">
-        <input type="submit" class="btn btn-primary" name="BtnDelete" value="DELETE" id="BtnDelete" />
+        <input type="button" class="btn btn-primary" name="BtnDelete" value="DELETE" id="BtnDelete" />
+        @*<a href=@Url.Action("deleteRiesgo", "Risk", new { id = Model.qRiesgosNombre_VM.IdRiesgo}) class="btn btn-primary" id="BtnDelete">DELETE @Model.qRiesgosNombre_VM.IdRiesgo</a>*@
         <a href="@Url.Action("RiskFicha", "Risk", new { id = 0 })" class="btn btn-primary">NEW</a>
         <input type="button" class="btn btn-primary" name="BtnSave" value="SAVE" id="BtnSave" />
     </div>
 
 
-@* AÑADIR LOS DROPDOWNS 'STRUCUTRE CODE' Y 'PARTICLE CODE' CON LOS DESPLEGABLES DE LA ESTRCUTURA *@
-@if (Model.qRiesgosNombre_VM.Nombre == null) {
+    @* AÑADIR LOS DROPDOWNS 'STRUCUTRE CODE' Y 'PARTICLE CODE' CON LOS DESPLEGABLES DE LA ESTRCUTURA *@
+    @if (Model.qRiesgosNombre_VM.Nombre == null)
+    {
 
-    <div class="clearfix"></div>
-    <div class="divider"></div>
-    @* --------------------------------------------------------------------------- *@
+        <div class="clearfix"></div>
+        <div class="divider"></div>
+        @* --------------------------------------------------------------------------- *@
 
-   
+
 
         <div class="row">
             <div class="col-lg-6 col-md-6">
@@ -40,7 +42,8 @@
                     @{
                         Dictionary<int, string> structureCode = Model.dropDowns.structureCode;
                         <option selected="selected"></option>
-                        foreach (var structure in structureCode) {
+                        foreach (var structure in structureCode)
+                        {
                             <option value="@structure.Key">@structure.Value </option>
                         }
                     }
@@ -114,15 +117,20 @@
                                                     @{
                                                         Dictionary<int, string> responsablesDic = Model.dropDowns.datosResponsables;
 
-                                                        if (Model.qRiesgosNombre_VM.IdResponsable == 0 || Model.qRiesgosNombre_VM.Nombre == null) {
+                                                        if (Model.qRiesgosNombre_VM.IdResponsable == 0 || Model.qRiesgosNombre_VM.Nombre == null)
+                                                        {
                                                             <option selected="selected"></option>
                                                         }
 
 
-                                                        foreach (var respon in responsablesDic) {
-                                                            if (respon.Key.Equals(Model.qRiesgosNombre_VM.IdResponsable)) {
+                                                        foreach (var respon in responsablesDic)
+                                                        {
+                                                            if (respon.Key.Equals(Model.qRiesgosNombre_VM.IdResponsable))
+                                                            {
                                                                 <option value="@respon.Key" selected="selected">@respon.Value </option>
-                                                            } else {
+                                                            }
+                                                            else
+                                                            {
                                                                 <option value="@respon.Key">@respon.Value </option>
                                                             }
                                                         }
@@ -142,15 +150,20 @@
                                                     @{
                                                         Dictionary<int, string> responsablesDic2 = Model.dropDowns.datosResponsables;
 
-                                                        if (Model.qRiesgosNombre_VM.IdResponsable == 0 || Model.qRiesgosNombre_VM.Nombre == null) {
+                                                        if (Model.qRiesgosNombre_VM.IdResponsable == 0 || Model.qRiesgosNombre_VM.Nombre == null)
+                                                        {
                                                             <option selected="selected"></option>
                                                         }
 
 
-                                                        foreach (var respon in responsablesDic2) {
-                                                            if (respon.Key.Equals(Model.qRiesgosNombre_VM.IdResponsable)) {
+                                                        foreach (var respon in responsablesDic2)
+                                                        {
+                                                            if (respon.Key.Equals(Model.qRiesgosNombre_VM.IdResponsable))
+                                                            {
                                                                 <option value="@respon.Key" selected="selected">@respon.Value </option>
-                                                            } else {
+                                                            }
+                                                            else
+                                                            {
                                                                 <option value="@respon.Key">@respon.Value </option>
                                                             }
                                                         }
@@ -181,14 +194,19 @@
                                                     @{
                                                         Dictionary<int, string> dicCategorias = Model.dropDowns.datosCategorias;
 
-                                                        if (Model.qRiesgosNombre_VM.Nombre == null) {
+                                                        if (Model.qRiesgosNombre_VM.Nombre == null)
+                                                        {
                                                             <option value="0" selected="selected"></option>
                                                         }
 
-                                                        foreach (var categoria in dicCategorias) {
-                                                            if (categoria.Key.Equals(Model.qRiesgosNombre_VM.IdCategoria)) {
+                                                        foreach (var categoria in dicCategorias)
+                                                        {
+                                                            if (categoria.Key.Equals(Model.qRiesgosNombre_VM.IdCategoria))
+                                                            {
                                                                 <option value="@categoria.Key" selected="selected">@categoria.Value </option>
-                                                            } else {
+                                                            }
+                                                            else
+                                                            {
                                                                 <option value="@categoria.Key">@categoria.Value </option>
                                                             }
                                                         }
@@ -207,14 +225,19 @@
                                                     @{
                                                         Dictionary<int, string> dicSegmenta = Model.dropDowns.datosSegmentacion;
 
-                                                        if (Model.qRiesgosNombre_VM.IdSegmentacion1 == 0 || Model.qRiesgosNombre_VM.Nombre == null) {
+                                                        if (Model.qRiesgosNombre_VM.IdSegmentacion1 == 0 || Model.qRiesgosNombre_VM.Nombre == null)
+                                                        {
                                                             <option value="0" selected="selected"></option>
                                                         }
 
-                                                        foreach (var segmento in dicSegmenta) {
-                                                            if (segmento.Key.Equals(Model.qRiesgosNombre_VM.IdSegmentacion1)) {
+                                                        foreach (var segmento in dicSegmenta)
+                                                        {
+                                                            if (segmento.Key.Equals(Model.qRiesgosNombre_VM.IdSegmentacion1))
+                                                            {
                                                                 <option value="@segmento.Key" selected="selected">@segmento.Value </option>
-                                                            } else {
+                                                            }
+                                                            else
+                                                            {
                                                                 <option value="@segmento.Key">@segmento.Value </option>
                                                             }
                                                         }
@@ -242,15 +265,20 @@
                                                 <select class="form-control w100" campos="campos" name="clasificacion1" ref="comboDinamico" id="IdClasificacion1" sig="IdClasificacion2" tabla="qRiesgosNombre">
                                                     @{
 
-                                                        if (Model.qRiesgosNombre_VM.IdResponsable == 0 || Model.qRiesgosNombre_VM.Nombre == null) {
+                                                        if (Model.qRiesgosNombre_VM.IdResponsable == 0 || Model.qRiesgosNombre_VM.Nombre == null)
+                                                        {
                                                             <option value="0" selected="selected"></option>
                                                         }
 
                                                         Dictionary<int, string> dicClasificacion1 = Model.dropDowns.datosClasificacion1;
-                                                        foreach (var clasif1 in dicClasificacion1) {
-                                                            if (clasif1.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion1)) {
+                                                        foreach (var clasif1 in dicClasificacion1)
+                                                        {
+                                                            if (clasif1.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion1))
+                                                            {
                                                                 <option value="@clasif1.Key" selected="selected">@clasif1.Value </option>
-                                                            } else {
+                                                            }
+                                                            else
+                                                            {
                                                                 <option value="@clasif1.Key">@clasif1.Value </option>
                                                             }
                                                         }
@@ -270,15 +298,20 @@
                                                 <select class="form-control w100" campos="campos" name="clasificacion2" ref="comboDinamico" id="IdClasificacion2" sig="IdClasificacion3" tabla="qRiesgosNombre">
                                                     @{
 
-                                                        if (Model.qRiesgosNombre_VM.IdResponsable == 0 || Model.qRiesgosNombre_VM.Nombre == null) {
+                                                        if (Model.qRiesgosNombre_VM.IdResponsable == 0 || Model.qRiesgosNombre_VM.Nombre == null)
+                                                        {
                                                             <option value="0" selected="selected"></option>
                                                         }
 
                                                         Dictionary<int, string> dicClasificacion2 = Model.dropDowns.datosClasificacion2;
-                                                        foreach (var clasif2 in dicClasificacion2) {
-                                                            if (clasif2.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion2)) {
+                                                        foreach (var clasif2 in dicClasificacion2)
+                                                        {
+                                                            if (clasif2.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion2))
+                                                            {
                                                                 <option value="@clasif2.Key" selected="selected">@clasif2.Value </option>
-                                                            } else {
+                                                            }
+                                                            else
+                                                            {
                                                                 <option value="@clasif2.Key">@clasif2.Value </option>
                                                             }
                                                         }
@@ -297,15 +330,20 @@
                                                 <select class="form-control w100" campos="campos" name="clasificacion3" ref="comboDinamico" id="IdClasificacion3" tabla="qRiesgosNombre">
                                                     @{
 
-                                                        if (Model.qRiesgosNombre_VM.IdResponsable == 0 || Model.qRiesgosNombre_VM.Nombre == null) {
+                                                        if (Model.qRiesgosNombre_VM.IdResponsable == 0 || Model.qRiesgosNombre_VM.Nombre == null)
+                                                        {
                                                             <option value="0" selected="selected"></option>
                                                         }
 
                                                         Dictionary<int, string> dicClasificacion3 = Model.dropDowns.datosClasificacion3;
-                                                        foreach (var clasif3 in dicClasificacion3) {
-                                                            if (clasif3.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion3)) {
+                                                        foreach (var clasif3 in dicClasificacion3)
+                                                        {
+                                                            if (clasif3.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion3))
+                                                            {
                                                                 <option value="@clasif3.Key" selected="selected">@clasif3.Value </option>
-                                                            } else {
+                                                            }
+                                                            else
+                                                            {
                                                                 <option value="@clasif3.Key">@clasif3.Value </option>
                                                             }
                                                         }
@@ -335,16 +373,21 @@
 
                                                 <select class="form-control w100" campos="campos" id="IdControlesOportunidad" tabla="qRiesgosNombre">
                                                     @{
-                                                        if (Model.qRiesgosNombre_VM.Nombre == null) {
+                                                        if (Model.qRiesgosNombre_VM.Nombre == null)
+                                                        {
                                                             <option value="0" selected="selected"></option>
                                                         }
                                                         Dictionary
                                                         <int, string>
                                                             datosOportunidad = Model.dropDowns.datosOportunidad;
-                                                        foreach (var oportunidad in datosOportunidad) {
-                                                            if (oportunidad.Key.Equals(Model.qRiesgosNombre_VM.IdControlesOportunidad)) {
+                                                        foreach (var oportunidad in datosOportunidad)
+                                                        {
+                                                            if (oportunidad.Key.Equals(Model.qRiesgosNombre_VM.IdControlesOportunidad))
+                                                            {
                                                                 <option value="@oportunidad.Key" selected>@oportunidad.Value </option>
-                                                            } else {
+                                                            }
+                                                            else
+                                                            {
                                                                 <option value="@oportunidad.Key">@oportunidad.Value </option>
                                                             }
                                                         }
@@ -362,16 +405,21 @@
 
                                                 <select class="form-control w100" campos="campos" id="IdControlesEfectividad" tabla="qRiesgosNombre">
                                                     @{
-                                                        if (Model.qRiesgosNombre_VM.Nombre == null) {
+                                                        if (Model.qRiesgosNombre_VM.Nombre == null)
+                                                        {
                                                             <option value="0" selected="selected"></option>
                                                         }
                                                         Dictionary
                                                         <int, string>
                                                             datosEfectividad = Model.dropDowns.datosEfectividad;
-                                                        foreach (var efectividad in datosEfectividad) {
-                                                            if (efectividad.Key.Equals(Model.qRiesgosNombre_VM.IdControlesEfectividad)) {
+                                                        foreach (var efectividad in datosEfectividad)
+                                                        {
+                                                            if (efectividad.Key.Equals(Model.qRiesgosNombre_VM.IdControlesEfectividad))
+                                                            {
                                                                 <option value="@efectividad.Key" selected>@efectividad.Value </option>
-                                                            } else {
+                                                            }
+                                                            else
+                                                            {
                                                                 <option value="@efectividad.Key">@efectividad.Value </option>
                                                             }
                                                         }
