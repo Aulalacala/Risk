@@ -56,7 +56,6 @@ $('a[id^="mnu_"]').click(function () {
 
 $('#idEstructura').change(function () {
     $.get("/Risk/dameUltimoRiesgoDisponible", { idEstructura: $(this).val() }, function (data) {
-        alert(data);
         $('#CodRiesgo').val($('#idEstructura :selected').text().substring(0, 8) + "." + data);
         $('#CodRiesgo').addClass("dirty");
     })

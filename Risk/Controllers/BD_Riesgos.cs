@@ -152,6 +152,8 @@ namespace Risk.Controllers
 
 
 
+
+
         //Recuperar TBODY tabla Datos Risk  || CON TABLA DEFINIDA ------------------------
 
         //public Dictionary<int, List<object>> datosQRiesgosNombre(string nombreTabla, string colVer, string colTitulos)
@@ -288,6 +290,8 @@ namespace Risk.Controllers
             return listaDatosFinal;
         }
 
+
+
         public DescriptionStructureModel recuperaConteDefEstructura(int id)
         {
             DescriptionStructureModel description = new DescriptionStructureModel();
@@ -416,10 +420,32 @@ namespace Risk.Controllers
                 return true;
 
             }
-            catch (Exception e) { return false; }
+            catch (Exception) { return false; }
             
         }
 
+
+        public tRiesgos insertarNuevoRiesgo(tRiesgos riesgoNuevo) {
+
+            try {
+                riesgosBD.DB.tRiesgos.InsertOnSubmit(riesgoNuevo);
+                riesgosBD.DB.SubmitChanges();
+                return riesgosBD.DB.tRiesgos.Where(r=>r.IdRiesgo == riesgoNuevo.IdRiesgo).SingleOrDefault();
+            } catch (Exception e){
+                return null;
+            }
+        }
+
+
+        public bool insertarTRelEstructuraRiesgoNuevo(tRelEstructuraRiesgos estructuraNuevo) {
+            try {
+                riesgosBD.DB.tRelEstructuraRiesgos.InsertOnSubmit(estructuraNuevo);
+                riesgosBD.DB.SubmitChanges();
+                return true;
+            } catch (Exception e) {
+                return false;
+            }
+        }
 
 
         // metodo que devuelve un string con el ultimo codigo disponible de un idEstructura
