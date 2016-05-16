@@ -30,11 +30,18 @@ $('#BtnSave').click(function () {
         type: 'post',
         data: datosFormulario,
         success: function (data, status) {
-           // $.get("/Risk/RiskFicha", { "id": $('#IdRiesgo').val() });
-            var ruta = "http://localhost:1525/Risk/General/";
-            $('#contenidoDinamico').load(ruta, { "id": $('#IdRiesgo').val() });
+            alert('Data  ' + data + ' Status ' + status)
+            $('#IdRiesgo').val(data);
 
-            //alert('Data  ' + data + ' Status ' + status)}
+
+
+                var ruta1 = "http://localhost:1525/Risk/RiskFichaPartialCabecera/";
+                $('#partialCabecera').load(ruta1, { "id": $('#IdRiesgo').val() });
+                
+                var ruta = "http://localhost:1525/Risk/General/";
+                $('#contenidoDinamico').load(ruta, { "id": $('#IdRiesgo').val() });
+           
+
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert('ERORRRRRRRRRRRRRRRRR ' + jqXHR + ' ' + textStatus + ' ' + errorThrown)

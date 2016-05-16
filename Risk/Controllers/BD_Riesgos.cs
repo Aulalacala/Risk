@@ -390,7 +390,7 @@ namespace Risk.Controllers
         }
 
 
-        public bool actualizaQRiesgosNombre(List<string> datosQRiesgosNombre, int IdRiesgo)
+        public int actualizaQRiesgosNombre(List<string> datosQRiesgosNombre, int IdRiesgo)
         {
             try
             {
@@ -417,10 +417,10 @@ namespace Risk.Controllers
 
 
                 qRiesgosNombres riesgo2 = riesgosBD.DB.qRiesgosNombres.Where(r => r.IdRiesgo == IdRiesgo).SingleOrDefault();
-                return true;
+                return riesgo2.IdRiesgo;
 
             }
-            catch (Exception) { return false; }
+            catch (Exception) { return 0; }
             
         }
 

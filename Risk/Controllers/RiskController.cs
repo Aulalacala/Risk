@@ -33,6 +33,11 @@ namespace Risk.Controllers
             return PartialView(fichaRiesgoVM);
         }
 
+        public ActionResult RiskFichaPartialCabecera(int id) {
+            qRiesgosNombres riesgoRecup = BD_Riesgos.recuperarRiesgo(id);
+            return PartialView(riesgoRecup);
+        }
+
         public ActionResult OperationalImpact() {
             return PartialView();
         }
@@ -126,7 +131,7 @@ namespace Risk.Controllers
         }
 
         [HttpPost]
-        public bool formGeneral(FormGeneralModel datosFormulario)
+        public int formGeneral(FormGeneralModel datosFormulario)
         {
 
             if (datosFormulario.IdRiesgo.Equals("0")) {
@@ -139,7 +144,7 @@ namespace Risk.Controllers
         }
 
 
-        private bool insertarNuevoRiesgo(FormGeneralModel datosFormulario) {
+        private int insertarNuevoRiesgo(FormGeneralModel datosFormulario) {
             PropertyInfo[] props = datosFormulario.GetType().GetProperties();
             bool insert = false;
 
@@ -170,16 +175,15 @@ namespace Risk.Controllers
             // Insertar tRelEstructuraRiesgo devuelve true si está todo OK
             insert = BD_Riesgos.insertarTRelEstructuraRiesgoNuevo(estructuraNuevo);
 
-            return insert;
+            return riesgoInsertado.IdRiesgo;
         }
 
-        private bool updateRiesgo(FormGeneralModel datosFormulario) {
+        private int updateRiesgo(FormGeneralModel datosFormulario) {
 
             List<string> datosQRiesgosNombre = new List<string>();
             List<string> datosQRiesgosEvaluacionesValores = new List<string>();
 
             PropertyInfo[] props = datosFormulario.GetType().GetProperties();
-            bool update = false;
 
             foreach (PropertyInfo item in props) {
                 if (item.GetValue(datosFormulario, null) != null) {
@@ -200,8 +204,7 @@ namespace Risk.Controllers
                 }
             }
 
-            update = BD_Riesgos.actualizaQRiesgosNombre(datosQRiesgosNombre, int.Parse(datosFormulario.IdRiesgo));
-            return update;
+            return BD_Riesgos.actualizaQRiesgosNombre(datosQRiesgosNombre, int.Parse(datosFormulario.IdRiesgo));
         }
 
 
