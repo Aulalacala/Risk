@@ -31,10 +31,17 @@
                 <span class="form-left-label">Before Controls</span>
             </div>
             @{
-                Dictionary<int, List<string>> dicFrecuencia = Model.dropDowns.datosEvaFrecuencia;
-                var id = Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecAntes;
-                var color = dicFrecuencia.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecAntes).Select(r => r.Value[0]).Single();
+                var id = 0; var color = "#eee";
+
                 //NombreFrecAntes
+                Dictionary<int, List<string>> dicFrecuencia = Model.dropDowns.datosEvaFrecuencia;
+
+                if (Model.qRiesgos_Evaluaciones_Valores_VM != null) {
+                    if (Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecAntes != null) {
+                        id = Convert.ToInt32(Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecAntes);
+                        color = dicFrecuencia.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecAntes).Select(r => r.Value[0]).Single();
+                    }
+                }
 
                 <select class="form-control w100" campos="campos" id="NombreFrecAntes" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
                     @{
@@ -60,9 +67,12 @@
             </div>
             @{
                 //NombreFrecDespues
-                id = Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecDespues;
-                color = dicFrecuencia.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecDespues).Select(r => r.Value[0]).Single();
-
+                if (Model.qRiesgos_Evaluaciones_Valores_VM != null) {
+                    if (Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecDespues != null) {
+                        id = Convert.ToInt32(Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecDespues);
+                        color = dicFrecuencia.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecDespues).Select(r => r.Value[0]).Single();
+                    }
+                }
                 <select class="form-control w100" campos="campos" id="NombreFrecDespues" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
                     @{
                         foreach (var frec in dicFrecuencia)
@@ -87,9 +97,12 @@
             </div>
             @{
                 //NombreFrecPlanDespues
-                id = Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecPlanDespues;
-                color = dicFrecuencia.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecPlanDespues).Select(r => r.Value[0]).Single();
-
+                if (Model.qRiesgos_Evaluaciones_Valores_VM != null) {
+                    if (Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecPlanDespues != null) {
+                        id = Convert.ToInt32(Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecPlanDespues);
+                        color = dicFrecuencia.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecPlanDespues).Select(r => r.Value[0]).Single();
+                    }
+                }
                 <select class="form-control w100" campos="campos" id="NombreFrecPlanDespues" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
                     @{
                         foreach (var frec in dicFrecuencia)
@@ -120,9 +133,13 @@
             @{
                 //NombreSeveAntes
                 Dictionary<int, List<string>> dicSeveridad = Model.dropDowns.datosEvaSeveridad;
-                id = Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveAntes;
-                color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveAntes).Select(r => r.Value[0]).Single();
 
+                if (Model.qRiesgos_Evaluaciones_Valores_VM != null) {
+                    if (Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveAntes != null) {
+                        id = Convert.ToInt32(Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveAntes);
+                        color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveAntes).Select(r => r.Value[0]).Single();
+                    }
+                }
                 <select class="form-control w100" campos="campos" id="NombreSeveAntes" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
                     @{
                         foreach (var sev in dicSeveridad)
@@ -148,9 +165,12 @@
 
             @{
                 //NombreSeveDespues
-                id = Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveDespues;
-                color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveDespues).Select(r => r.Value[0]).Single();
-
+                if (Model.qRiesgos_Evaluaciones_Valores_VM != null) {
+                    if (Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveDespues != null) {
+                        id = Convert.ToInt32(Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveDespues);
+                        color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveDespues).Select(r => r.Value[0]).Single();
+                    }
+                }
                 <select class="form-control w100" campos="campos" id="NombreSeveDespues" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
                     @{
                         foreach (var sev in dicSeveridad)
@@ -177,9 +197,12 @@
             </div>
             @{
                 //NombreSevePlanDespues
-                id = Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePlanDespues;
-                color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePlanDespues).Select(r => r.Value[0]).Single();
-
+                if (Model.qRiesgos_Evaluaciones_Valores_VM != null) {
+                    if (Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePlanDespues != null) {
+                        id = Convert.ToInt32(Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePlanDespues);
+                        color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePlanDespues).Select(r => r.Value[0]).Single();
+                    }
+                }
                 <select class="form-control w100" campos="campos" id="NombreSevePlanDespues" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
                     @{
                         foreach (var sev in dicSeveridad)
@@ -209,9 +232,12 @@
             </div>
             @{
                 //NombreSevePeorAntes
-                id = Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorAntes;
-                color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorAntes).Select(r => r.Value[0]).Single();
-
+                if (Model.qRiesgos_Evaluaciones_Valores_VM != null) {
+                    if (Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorAntes != null) {
+                        id = Convert.ToInt32(Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorAntes);
+                        color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorAntes).Select(r => r.Value[0]).Single();
+                    }
+                }
                 <select class="form-control w100" campos="campos" id="NombreSevePeorAntes" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
                     @{
                         foreach (var sev in dicSeveridad)
@@ -235,9 +261,12 @@
             </div>
             @{
                 //NombreSevePeorDespues
-                id = Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorDespues;
-                color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorDespues).Select(r => r.Value[0]).Single();
-
+                if (Model.qRiesgos_Evaluaciones_Valores_VM != null) {
+                    if (Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorDespues != null) {
+                        id = Convert.ToInt32(Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorDespues);
+                        color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorDespues).Select(r => r.Value[0]).Single();
+                    }
+                }
                 <select class="form-control w100" campos="campos" id="NombreSevePeorDespues" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
                     @{
                         foreach (var sev in dicSeveridad)
@@ -261,9 +290,12 @@
             </div>
             @{
                 //NombreSevePeorPlanDespues
-                id = Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorPlanDespues;
-                color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorPlanDespues).Select(r => r.Value[0]).Single();
-
+                if (Model.qRiesgos_Evaluaciones_Valores_VM != null) {
+                    if (Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorPlanDespues != null) {
+                        id = Convert.ToInt32(Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorPlanDespues);
+                        color = dicSeveridad.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorPlanDespues).Select(r => r.Value[0]).Single();
+                    }
+                }
                 <select class="form-control w100" campos="campos" id="NombreSevePeorPlanDespues" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
                     @{
                         foreach (var sev in dicSeveridad)
