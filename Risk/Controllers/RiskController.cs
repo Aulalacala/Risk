@@ -22,7 +22,7 @@ namespace Risk.Controllers
 
         // GET: Risk
         public ActionResult RiskFicha(int id)
-        {         
+        {
             qRiesgosNombres riesgoRecup = BD_Riesgos.recuperarRiesgo(id);
             return View(riesgoRecup);
         }
@@ -33,12 +33,14 @@ namespace Risk.Controllers
             return PartialView(fichaRiesgoVM);
         }
 
-        public ActionResult RiskFichaPartialCabecera(int id) {
+        public ActionResult RiskFichaPartialCabecera(int id)
+        {
             qRiesgosNombres riesgoRecup = BD_Riesgos.recuperarRiesgo(id);
             return PartialView(riesgoRecup);
         }
 
-        public ActionResult OperationalImpact() {
+        public ActionResult OperationalImpact()
+        {
             return PartialView();
         }
 
@@ -81,27 +83,27 @@ namespace Risk.Controllers
             SqlDataAdapter adaptador;
             SqlCommandBuilder builder;
             string jsonString = string.Empty;
-           
+
             using (conexionBD = new SqlConnection(ConfigurationManager.ConnectionStrings["RiskConnectionString"].ConnectionString))
             {
                 try
                 {
                     conexionBD.Open();
                     adaptador = new SqlDataAdapter("SELECT year, value FROM GraficoYear", conexionBD);
-                    builder= new SqlCommandBuilder(adaptador);
+                    builder = new SqlCommandBuilder(adaptador);
                     adaptador.Fill(miDataSet, "GraficoYear");
 
                     DataTable miTabla = miDataSet.Tables["GraficoYear"];
                     jsonString = JsonConvert.SerializeObject(miTabla);
 
-                }     
+                }
                 catch (SqlException)
                 {
                 }
                 finally
                 {
                     conexionBD.Close();
-                    Session["miDataSet"] =miDataSet;
+                    Session["miDataSet"] = miDataSet;
                 }
             }
             return jsonString;
@@ -112,7 +114,8 @@ namespace Risk.Controllers
             qRiesgosNombres riesgoRecup = new qRiesgosNombres(); ;
             qRiesgos_Evaluaciones_Valores evaluaciones = new qRiesgos_Evaluaciones_Valores();
 
-            if (id != 0) {
+            if (id != 0)
+            {
                 riesgoRecup = BD_Riesgos.recuperarRiesgo(id);
                 evaluaciones = BD_Riesgos.recuperaEvaluaciones(id);
             }
@@ -122,7 +125,7 @@ namespace Risk.Controllers
             fichaRiesgoVM.qRiesgos_Evaluaciones_Valores_VM = evaluaciones;
 
             DropDownModel dropdowns = new DropDownModel();
-            dropdowns.datosClasificacion2= dropdowns.listadoClasifDinamic(Convert.ToInt32(fichaRiesgoVM.qRiesgosNombre_VM.IdClasificacion1));
+            dropdowns.datosClasificacion2 = dropdowns.listadoClasifDinamic(Convert.ToInt32(fichaRiesgoVM.qRiesgosNombre_VM.IdClasificacion1));
             dropdowns.datosClasificacion3 = dropdowns.listadoClasifDinamic(Convert.ToInt32(fichaRiesgoVM.qRiesgosNombre_VM.IdClasificacion2));
 
             fichaRiesgoVM.dropDowns = dropdowns;
@@ -134,17 +137,20 @@ namespace Risk.Controllers
         public int formGeneral(FormGeneralModel datosFormulario)
         {
 
-            if (datosFormulario.IdRiesgo.Equals("0")) {
+            if (datosFormulario.IdRiesgo.Equals("0"))
+            {
                 return insertarNuevoRiesgo(datosFormulario);
             }
 
-            else {
+            else
+            {
                 return updateRiesgo(datosFormulario);
-            }       
+            }
         }
 
 
-        private int insertarNuevoRiesgo(FormGeneralModel datosFormulario) {
+        private int insertarNuevoRiesgo(FormGeneralModel datosFormulario)
+        {
             PropertyInfo[] props = datosFormulario.GetType().GetProperties();
             bool insert = false;
 
@@ -152,12 +158,12 @@ namespace Risk.Controllers
 
             riesgoNuevo.CodRiesgo = datosFormulario.CodRiesgo != null ? datosFormulario.CodRiesgo.Split(':')[0] : null;
             riesgoNuevo.CodRiesgoLocalizado = datosFormulario.CodRiesgo != null ? datosFormulario.CodRiesgo.Substring(0, 8) : null;
-            riesgoNuevo.Nombre =  datosFormulario.Nombre != null ? datosFormulario.Nombre.Split(':')[0] : null;
+            riesgoNuevo.Nombre = datosFormulario.Nombre != null ? datosFormulario.Nombre.Split(':')[0] : null;
             riesgoNuevo.IdCategoria = datosFormulario.IdCategoria != null ? int.Parse(datosFormulario.IdCategoria.Split(':')[0]) : 0;
             riesgoNuevo.IdClasificacion1 = datosFormulario.IdClasificacion1 != null ? int.Parse(datosFormulario.IdClasificacion1.Split(':')[0]) : 0;
-            riesgoNuevo.IdClasificacion2 = datosFormulario.IdClasificacion2 != null ?  int.Parse(datosFormulario.IdClasificacion2.Split(':')[0]) : 0;
+            riesgoNuevo.IdClasificacion2 = datosFormulario.IdClasificacion2 != null ? int.Parse(datosFormulario.IdClasificacion2.Split(':')[0]) : 0;
             riesgoNuevo.IdClasificacion3 = datosFormulario.IdClasificacion3 != null ? int.Parse(datosFormulario.IdClasificacion3.Split(':')[0]) : 0;
-            riesgoNuevo.Descripcion = datosFormulario.Descripcion != null ?  datosFormulario.Descripcion.Split(':')[0] : null;
+            riesgoNuevo.Descripcion = datosFormulario.Descripcion != null ? datosFormulario.Descripcion.Split(':')[0] : null;
             riesgoNuevo.Justificacion = datosFormulario.Justificacion != null ? datosFormulario.Justificacion.Split(':')[0] : null;
             riesgoNuevo.Ejemplo = datosFormulario.Ejemplo != null ? datosFormulario.Ejemplo.Split(':')[0] : null;
             riesgoNuevo.IdSegmentacion1 = datosFormulario.IdSegmentacion1 != null ? int.Parse(datosFormulario.IdSegmentacion1.Split(':')[0]) : 0;
@@ -178,20 +184,25 @@ namespace Risk.Controllers
             return riesgoInsertado.IdRiesgo;
         }
 
-        private int updateRiesgo(FormGeneralModel datosFormulario) {
+        private int updateRiesgo(FormGeneralModel datosFormulario)
+        {
 
             List<string> datosQRiesgosNombre = new List<string>();
             List<string> datosQRiesgosEvaluacionesValores = new List<string>();
 
             PropertyInfo[] props = datosFormulario.GetType().GetProperties();
 
-            foreach (PropertyInfo item in props) {
-                if (item.GetValue(datosFormulario, null) != null) {
-                    try {
+            foreach (PropertyInfo item in props)
+            {
+                if (item.GetValue(datosFormulario, null) != null)
+                {
+                    try
+                    {
 
                         string tabla = item.GetValue(datosFormulario, null).ToString().Split(':')[1];
 
-                        switch (tabla) {
+                        switch (tabla)
+                        {
                             case "qRiesgosNombre":
                                 datosQRiesgosNombre.Add(item.Name + ":" + item.GetValue(datosFormulario, null).ToString().Split(':')[0]);
                                 break;
@@ -200,25 +211,32 @@ namespace Risk.Controllers
                                 break;
                         }
 
-                    } catch (Exception) { }
+                    }
+                    catch (Exception) { }
                 }
             }
 
             return BD_Riesgos.actualizaQRiesgosNombre(datosQRiesgosNombre, int.Parse(datosFormulario.IdRiesgo));
         }
 
-
-        // Metodo (llamada desde scripts2.js) para recuperar el siguiente riesgo disponible y rellenar Particle Code en un riesgo nuevo
-        public string dameUltimoRiesgoDisponible (string idEstructura) {
-            return BD_Riesgos.ultimoRiesgoDisponible(idEstructura);
+        [HttpPost]
+        public JsonResult deleteRiesgo(int id)
+        {
+            bool flag = BD_Riesgos.deleteRiesgo(id);
+            return Json(Url.Action("Risks", "Assign"));
         }
 
 
-        /****************************************************************/
+        // Metodo (llamada desde scripts2.js) para recuperar el siguiente riesgo disponible y rellenar Particle Code en un riesgo nuevo
+        public string dameUltimoRiesgoDisponible(string idEstructura)
+        {
+            return BD_Riesgos.ultimoRiesgoDisponible(idEstructura);
+        }
+
         public string recuperaDrop(string nombre)
         {
             DropDownModel dropdown = new DropDownModel();
-            Dictionary<int, List<string>> dicEnvio = nombre ==("datosEvaFrecuencia") ? dropdown.datosEvaFrecuencia : dropdown.datosEvaSeveridad;
+            Dictionary<int, List<string>> dicEnvio = nombre == ("datosEvaFrecuencia") ? dropdown.datosEvaFrecuencia : dropdown.datosEvaSeveridad;
             var j = JsonConvert.SerializeObject(dicEnvio);
             return j;
         }

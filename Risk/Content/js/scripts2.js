@@ -30,8 +30,9 @@ $("select[ref=comboDinamico]").change(function () {
 $('a[id^="mnu_"]').click(function () {
 
     if ($(this).parent().hasClass('disabled')) {
-        //alert('Hay cambios por guardar.');
+        //alert($(this).attr('id'));
         $('#modalAviso').modal('show');
+        $('#BtnDiscard').attr('handler', $(this).attr('id'));
         return false;
     }
     else {

@@ -46,8 +46,39 @@ $('#BtnSave').click(function () {
         error: function (jqXHR, textStatus, errorThrown) {
             alert('ERORRRRRRRRRRRRRRRRR ' + jqXHR + ' ' + textStatus + ' ' + errorThrown)
         }
-    })
-    
-
-    //$('miForm').submit();
+    })   
 })
+
+var urlRedireccion;
+$('#BtnDelete').click(function () {
+    var idRiesgo = $('#IdRiesgo').val();
+
+    $.ajax({
+        url: "/Risk/deleteRiesgo",
+        type: 'post',
+        data: { id: idRiesgo },
+        success: function (data) {
+            $('#modalBorrado').modal('show');
+            urlRedireccion = data;
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(errorThrown)
+        }
+    })
+});
+
+$('#BtnCloseModal').click(function () {
+    $('#modalBorrado').modal('hide');
+    window.location.href = urlRedireccion;
+});
+
+$('#BtnDiscard').click(function () {   
+    var handler = $('#BtnDiscard').attr('handler').split('_')[1];
+    alert(handler);
+    $('#modalAviso').modal('hide');
+
+    var ruta = "http://localhost:1525/Risk/" + handler;
+    $('#contenidoDinamico').load(ruta);
+});
+
+
