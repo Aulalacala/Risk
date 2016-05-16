@@ -37,7 +37,7 @@ $('#BtnSave').click(function () {
             alert('ERORRRRRRRRRRRRRRRRR ' + jqXHR + ' ' + textStatus + ' ' + errorThrown)
         }
     })
-    
-
-    //$('miForm').submit();
+   
 })
+
+
