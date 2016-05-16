@@ -33,10 +33,6 @@ namespace Risk.Controllers
             return PartialView(fichaRiesgoVM);
         }
 
-        public ActionResult RiskFichaPartialCabecera(int id) {
-            qRiesgosNombres riesgoRecup = BD_Riesgos.recuperarRiesgo(id);
-            return PartialView(riesgoRecup);
-        }
 
         public ActionResult OperationalImpact() {
             return PartialView();
@@ -131,16 +127,21 @@ namespace Risk.Controllers
         }
 
         [HttpPost]
-        public int formGeneral(FormGeneralModel datosFormulario)
+        public ActionResult formGeneral(FormGeneralModel datosFormulario)
         {
+            int idRiesgo = 0;
 
             if (datosFormulario.IdRiesgo.Equals("0")) {
-                return insertarNuevoRiesgo(datosFormulario);
+                idRiesgo = insertarNuevoRiesgo(datosFormulario);
             }
 
             else {
-                return updateRiesgo(datosFormulario);
-            }       
+                 idRiesgo = updateRiesgo(datosFormulario);
+            }
+
+            
+            return Json(Url.Action("RiskFicha", "Risk", new { id = idRiesgo }));
+
         }
 
 
@@ -204,7 +205,7 @@ namespace Risk.Controllers
                 }
             }
 
-            return BD_Riesgos.actualizaQRiesgosNombre(datosQRiesgosNombre, int.Parse(datosFormulario.IdRiesgo));
+           return BD_Riesgos.actualizaQRiesgosNombre(datosQRiesgosNombre, int.Parse(datosFormulario.IdRiesgo));
         }
 
 

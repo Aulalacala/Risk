@@ -299,7 +299,6 @@
     <Content Include="Views\Risk\Historical.cshtml" />
     <Content Include="Views\Risk\FinancialImpactCombos.cshtml" />
     <Content Include="Views\Risk\FinancialImpactTextBox.cshtml" />
-    <Content Include="Views\Risk\RiskFichaPartialCabecera.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
