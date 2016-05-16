@@ -21,7 +21,7 @@
         </div>
     </div>
     <!--FRECUENCIA-->
-    <div class="col-lg-12 col-md-12">
+    <div class="col-lg-12 col-md-12" id="rowFrecuencia">
         <div class="col-lg-3 col-md-3">
             <span class="form-left-label"><b>Exp. Frec.</b></span>
         </div>
@@ -284,4 +284,62 @@
     </div>
     
 </div>
+
+<script>
+    $('select').change(function () {
+        var idDisparador = $(this).attr('id');
+        var valorSeleccionado = $(this).val();
+        var color;
+        var idSelectSiguiente;
+        var idSelectSiguienteSiguiente;
+        var posDropSeleccionado;
+
+
+        //Cambia el color del select que ha producido el evento
+        $('select[id=' + idDisparador + ']').children().each(function (pos, el) {
+            if ($(this).val() == valorSeleccionado) {
+                color = $(this).attr('style').split(':')[2];
+            }
+        })
+        $(this).css('background-color', '');
+        $(this).css('background-color', color);
+
+        //Pinta el select siguiente en base al elegido
+        var all = $(this).parent().parent().find('select');
+        all.each(function (pos, el) {
+            if ($(this).attr('id') == idDisparador) {
+                posDropSeleccionado = pos;
+                idSelectSiguiente = all.eq(pos + 1).attr('id');
+                idSelectSiguienteSiguiente = all.eq(pos + 2).attr('id');
+                //alert('En el each=> hay coincidencia. idDisparador => ' + idDisparador + ' id siguiente select => ' + idSelectSiguiente);
+            }
+        })
+
+        $('select[id=' + idSelectSiguiente).empty().css('background-color', '#ffffff').append('<option class="financialImpact" value="0" style="color:#000000; background-color:#ffffff"></option>');
+        $('select[id=' + idSelectSiguienteSiguiente).empty().css('background-color', '#ffffff').append('<option class="financialImpact" value="0" style="color:#000000; background-color:#ffffff"></option>');
+
+        if (idDisparador.indexOf("Frec") != -1) {
+            alert("Lo contieneeee")
+            $.getJSON("/Risk/recuperaDrop?nombre=datosEvaFrecuencia", function (data) {
+                $.each(data, function (Key, Value) {
+                    //alert('Key => ' + Key + ' Value => ' + Value);
+                    //alert('Color => ' + Value[0] + ' Nombre => ' + Value[1]);
+                    if (Key >= valorSeleccionado) {
+                        $('select[id=' + idSelectSiguiente).append('<option class="financialImpact" value="' + Key + '" style="color:#000000; background-color:' + Value[0] + '">' + Value[1] + '</option>');
+                    }
+                });
+            });
+        } else {
+            $.getJSON("/Risk/recuperaDrop?nombre=datosEvaSeveridad", function (data) {
+                $.each(data, function (Key, Value) {
+                    //alert('Key => ' + Key + ' Value => ' + Value);
+                    //alert('Color => ' + Value[0] + ' Nombre => ' + Value[1]);
+                    if (Key <= valorSeleccionado) {
+                        $('select[id=' + idSelectSiguiente).append('<option class="financialImpact" value="' + Key + '" style="color:#000000; background-color:' + Value[0] + '">' + Value[1] + '</option>');
+                    }
+                });
+            });
+        }     
+    })   
+</script>
 

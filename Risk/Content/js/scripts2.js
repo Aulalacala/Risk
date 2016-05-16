@@ -36,7 +36,7 @@ $('a[id^="mnu_"]').click(function () {
     }
     else {
 
-        alert('pasando por else');
+       // alert('pasando por else');
         $('#mnu li').removeClass('active');
         $(this).parent().addClass('active');
 
@@ -64,7 +64,7 @@ $('#idEstructura').change(function () {
 
 
 /* ************************************************************************************************************** */
-// Risk/General
+// Risk/General => A LO MEJOR SE PUEDE BORRAR
 
 // DropDowns Financial Impact => Cambio de color
 
@@ -141,4 +141,6 @@ $('a[id^="str_"]').click(function () {
 
     $('#contenidoDinamico').load(ruta, { "id": id });
 })
+
+
 
