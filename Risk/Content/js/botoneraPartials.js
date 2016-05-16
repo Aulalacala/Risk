@@ -23,25 +23,15 @@ $('#BtnSave').click(function () {
         datosFormulario[propiedad] = valor;
       
     })    
-    alert(datosFormulario['Ejemplo'])
+    //alert(datosFormulario['Ejemplo'])
     
     $.ajax({
         url: '/Risk/formGeneral',
         type: 'post',
         data: datosFormulario,
-        success: function (data, status) {
-            alert('Data  ' + data + ' Status ' + status)
-            $('#IdRiesgo').val(data);
-
-
-
-                var ruta1 = "http://localhost:1525/Risk/RiskFichaPartialCabecera/";
-                $('#partialCabecera').load(ruta1, { "id": $('#IdRiesgo').val() });
-                
-                var ruta = "http://localhost:1525/Risk/General/";
-                $('#contenidoDinamico').load(ruta, { "id": $('#IdRiesgo').val() });
-           
-
+        success: function (data) {
+            // Redirect a RiskFicha con el idRiesgo nuevo
+            window.location.href = data;
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert('ERORRRRRRRRRRRRRRRRR ' + jqXHR + ' ' + textStatus + ' ' + errorThrown)
@@ -80,5 +70,4 @@ $('#BtnDiscard').click(function () {
     var ruta = "http://localhost:1525/Risk/" + handler;
     $('#contenidoDinamico').load(ruta);
 });
-
 
