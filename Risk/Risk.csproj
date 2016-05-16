@@ -183,6 +183,7 @@
     <Content Include="Content\js\bootstrap\bootstrap-metis.menu.min.js" />
     <Content Include="Content\js\bootstrap\bootstrap.min.js" />
     <Content Include="Content\js\botoneraPartials.js" />
+    <Content Include="Content\js\cambiaDropDowns.js" />
     <Content Include="Content\js\fastclick\fastclick.js" />
     <Content Include="Content\js\jquery\jquery-2.1.1.min.js" />
     <Content Include="Content\js\jquery\jquery.browser.min.js" />

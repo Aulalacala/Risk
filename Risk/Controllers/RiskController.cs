@@ -213,5 +213,15 @@ namespace Risk.Controllers
             return BD_Riesgos.ultimoRiesgoDisponible(idEstructura);
         }
 
+
+        /****************************************************************/
+        public string recuperaDrop(string nombre)
+        {
+            DropDownModel dropdown = new DropDownModel();
+            Dictionary<int, List<string>> dicEnvio = nombre ==("datosEvaFrecuencia") ? dropdown.datosEvaFrecuencia : dropdown.datosEvaSeveridad;
+            var j = JsonConvert.SerializeObject(dicEnvio);
+            return j;
+        }
+
     }
 }
