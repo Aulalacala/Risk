@@ -18,6 +18,8 @@ namespace Risk.Controllers
     public class RiskController : Controller
     {
         BD_Riesgos BD_Riesgos = new BD_Riesgos();
+        string colVer = "Activa,Ultima,Fecha,NombreFrecAntes,NombreSeveAntes,NombreFrecDespues,NombreSeveDespues";
+        string colTitulos = "Activa,Ultima,Fecha,FrecuenciaA,SeveridadA,FrecuenciaD,SeveridadD";
 
 
         // GET: Risk
@@ -39,11 +41,17 @@ namespace Risk.Controllers
             return PartialView();
         }
 
+
         public ActionResult Historical(int id)
         {
             FichaRiesgoVM fichaRiesgoVM = montaVM(id);
+            ViewBag.datosthead = BD_Riesgos.nombresColTabla("dbo.qRiesgos_Evaluaciones_Valores", colVer, colTitulos);
+            TempData["datostbody"] = BD_Riesgos.cargaTablaDatos("qRiesgos_Evaluaciones_Valores", colVer, colTitulos, null, 0, 0, 0, 0, Convert.ToInt32(id));
+
             return PartialView(fichaRiesgoVM);
         }
+
+
 
         public ActionResult FinancialImpactCombos(int id)
         {

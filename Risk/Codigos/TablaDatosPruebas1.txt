@@ -1,0 +1,136 @@
+﻿//Cargar todas las categorias en un dictionary ----------------------------------------------
+        
+		public Dictionary<int, string> listadoCategorias()
+        {
+
+            Dictionary<int, string> dicCategorias = new Dictionary<int, string>();
+            try
+            {
+                dicCategorias = riesgosBD.DB.tRiesgos_Categorias.ToDictionary(r => r.IdCategoria, r => r.Categoria);
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+
+            return dicCategorias;
+        }
+
+
+ // Cargar clasificaciones de nivel 2 (A,B,C,D) -------------------------------------------------
+       
+	    public Dictionary<int, string> listadoClasif1()
+        {
+
+            Dictionary<int, string> dicClasif1 = new Dictionary<int, string>();
+            try
+            {
+                dicClasif1 = riesgosBD.DB.tRiesgos_Clasificaciones.Where(r => r.Nivel == 2).ToDictionary(r => r.IdEstructura, r => r.CodCompleto + " " + r.Nombre);
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+
+            return dicClasif1;
+        }
+
+// Cargar clasificaciones de riesgos de nivel 3 y 4 segun idEstructura del padre ---------------------
+// Uso del metodo para carga dinamica mediante jquery ------------------------------------------------
+        
+		public Dictionary<int, string> listadoClasifDinamic(int idEstructura)
+        {
+            Dictionary<int, string> dicClasif2 = new Dictionary<int, string>();
+            try
+            {
+                dicClasif2 = riesgosBD.DB.tRiesgos_Clasificaciones.Where(r => r.idPadre == idEstructura).ToDictionary(r => r.IdEstructura, r => r.CodCompleto + " " + r.Nombre);
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+            return dicClasif2;
+        }
+
+
+//Recuperar TBODY tabla Datos Risk  || CON TABLA DEFINIDA ------------------------
+
+        public Dictionary<int, List<object>> datosQRiesgosNombre(string nombreTabla, string colVer, string colTitulos)
+        {
+
+            Dictionary<int, List<object>> listaDatosFinal = new Dictionary<int, List<object>>();
+
+            MetaTable TablaDBO = riesgosBD.DB.Mapping.GetTables().Where(t => t.TableName == nombreTabla).Select(t => t).SingleOrDefault();
+
+            MetaModel model = TablaDBO.Model;
+
+            try
+            {
+                Dictionary<string, string> nombreCols = nombresColTabla(nombreTabla, colVer, colTitulos);
+
+                foreach (var riesgo in riesgosBD.DB.qRiesgosNombres.ToList())
+                {
+
+                    List<object> camposRiesgo = new List<object>();
+
+                    foreach (var col in nombreCols)
+                    {
+
+                        string name;
+                        System.Reflection.PropertyInfo x = riesgo.GetType().GetProperty(col.Key);
+
+                        if (x.GetValue(riesgo, null) == null)
+                        {
+                            name = "null";
+                        }
+                        else
+                        {
+                            name = (string)((x.GetValue(riesgo, null))).ToString();
+                        }
+                        camposRiesgo.Add(name);
+
+                    }
+                    listaDatosFinal.Add(riesgo.IdRiesgo, camposRiesgo);
+                }
+            }
+            catch (Exception)
+            {
+
+                return null;
+            }
+
+            return listaDatosFinal;
+        }
+
+		/******************************************************************************************************************************************************************/
+		/******************************************************************************************************************************************************************/
+		/******************************************************************************************************************************************************************/
+
+		Método para recuperar la primary Key de una tabla, pasando como parámetro el nombre de la tabla
+		·······························································································
+
+		public string recuperaNombreColPK(string nombreTabla)
+        {
+            string nombrePK = "";
+
+            foreach (var tabla in riesgosBD.DB.Mapping.GetTables())
+            {
+                if (tabla.TableName.Equals(nombreTabla))
+                {
+                    foreach (var col in tabla.RowType.DataMembers)
+                    {
+                        if (col.IsPrimaryKey == true)
+                        {
+                            nombrePK = col.Name;
+                        }
+
+
+                    }
+                }
+            }
+
+            return nombrePK;
+        

@@ -49,7 +49,7 @@ namespace Risk.Controllers
         {
             //TempData["titulo"] = name;
             ViewBag.datosthead = BD_Riesgos.nombresColTabla("dbo.qRiesgosNombres", colVer, colTitulos);
-            TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(colVer, colTitulos, null, 0,0,0,0,Convert.ToInt32(id));
+            TempData["datostbody"] = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos, null, 0,0,0,0,Convert.ToInt32(id));
             
             return PartialView("~/Views/PartialViews/TablaDatos.cshtml");
         }
@@ -75,11 +75,11 @@ namespace Risk.Controllers
         public ActionResult Risks()
         {
             DropDownModel dropdowns = new DropDownModel();
-            ViewBag.datosthead = BD_Riesgos.nombresColTabla("dbo.qRiesgosNombres", colVer, colTitulos);
+            ViewBag.datosthead = BD_Riesgos.nombresColTabla("qRiesgosNombres", colVer, colTitulos);
             TempData["titulo"] = "INSTANCES SEARCH";
             if (TempData["datostbody"] == null)
             {
-                TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(colVer, colTitulos);
+                TempData["datostbody"] = BD_Riesgos.cargaTablaDatos("qRiesgosNombres",colVer, colTitulos);
             }
             return View(dropdowns);
         }
@@ -95,7 +95,7 @@ namespace Risk.Controllers
 
         public ActionResult BusquedaRiks(string filtro, int categoria, int clasificacion1, int clasificacion2, int clasificacion3)
         {
-            TempData["datostbody"] = BD_Riesgos.datosQRiesgosNombre(colVer, colTitulos, filtro, categoria, clasificacion1, clasificacion2, clasificacion3);
+            TempData["datostbody"] = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos, filtro, categoria, clasificacion1, clasificacion2, clasificacion3);
             return RedirectToAction("Risks", "Assign");
         }
 
