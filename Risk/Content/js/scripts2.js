@@ -41,7 +41,7 @@ $('a[id^="mnu_"]').click(function () {
         $('#mnu li').removeClass('active');
         $(this).parent().addClass('active');
 
-        $('#mnu li a').attr('aria-expanded', 'false');
+        $('#mnu li a').attr('aria-expanded', 'false'); 
         $(this).attr('aria-expanded', 'true');
 
         var pagina = $(this).attr("id").replace('mnu_', '');
@@ -140,6 +140,25 @@ $('a[id^="str_"]').click(function () {
     var ruta = "http://localhost:1525/Assign/" + pagina;
 
     $('#contenidoDinamico').load(ruta, { "id": id });
+})
+
+
+// Crear nuevo riesgo desde Structure (Con el codigo especificado según estructura seleccionada
+$("#BtnAssignRisk").click(function () {
+    $("#itemSelec").val() // Coger idEstructura
+    
+    $.ajax({
+        url: '/Risk/nuevoRiskDesdeStructure',
+        type: 'post',
+        data: { id: 0, idEstructura: $("#itemSelec").val() },
+        success: function (data) {
+            window.location.href = data;
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert('ERROR ' + jqXHR + ' ' + textStatus + ' ' + errorThrown)
+        }
+    })
+
 })
 
 

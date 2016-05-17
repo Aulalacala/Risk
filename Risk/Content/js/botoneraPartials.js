@@ -8,6 +8,10 @@
     $('#Menu li:not([class*="active"])').addClass('disabled');
 });
 
+
+
+var urlRedireccion;
+
 $('#BtnSave').click(function () {
 
     var datosFormulario = {}
@@ -30,8 +34,9 @@ $('#BtnSave').click(function () {
         type: 'post',
         data: datosFormulario,
         success: function (data) {
+            $('#modalNuevo').modal('show');
             // Redirect a RiskFicha con el idRiesgo nuevo
-            window.location.href = data;
+            urlRedireccion = data;
         },
         error: function (jqXHR, textStatus, errorThrown) {
             alert('ERORRRRRRRRRRRRRRRRR ' + jqXHR + ' ' + textStatus + ' ' + errorThrown)
@@ -39,7 +44,7 @@ $('#BtnSave').click(function () {
     })   
 })
 
-var urlRedireccion;
+
 $('#BtnDelete').click(function () {
     var idRiesgo = $('#IdRiesgo').val();
 
@@ -70,4 +75,5 @@ $('#BtnDiscard').click(function () {
     var ruta = "http://localhost:1525/Risk/" + handler;
     $('#contenidoDinamico').load(ruta);
 });
+
 

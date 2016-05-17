@@ -225,6 +225,17 @@ namespace Risk.Controllers
         }
 
 
+
+        //[HttpPost]
+        //public ActionResult nuevoRiskDesdeStructure(int id, int idEstructura) {
+        //    string idRiesgoNuevo = dameUltimoRiesgoDisponible(idEstructura.ToString();
+        //    TempData["structureCode"] = idRiesgoNuevo;
+        //    TempData["CodRiesgo"] =
+
+        //    return Json(Url.Action("RiskFicha", "Risk", new { id = 0 }));
+        //}
+
+
         // Metodo (llamada desde scripts2.js) para recuperar el siguiente riesgo disponible y rellenar Particle Code en un riesgo nuevo
         public string dameUltimoRiesgoDisponible(string idEstructura)
         {
