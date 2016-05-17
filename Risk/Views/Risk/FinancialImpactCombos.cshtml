@@ -58,6 +58,7 @@
                         }
                     }
                 </select>
+             
             }
         </div>
 
@@ -317,6 +318,14 @@
     
 </div>
 
+@*
+    VERSION 2   
+    helper para hacer los dropdown
+    cargar todos los dropdown y ocultar options segun changeee
+    hacer atributo sig que haga referencia al id del drop siguiente
+    idSelectSiguiente = $(this).attr('sig');
+*@
+
 <script>
     $('select').change(function () {
         var idDisparador = $(this).attr('id');
@@ -351,7 +360,6 @@
         $('select[id=' + idSelectSiguienteSiguiente).empty().css('background-color', '#ffffff').append('<option class="financialImpact" value="0" style="color:#000000; background-color:#ffffff"></option>');
 
         if (idDisparador.indexOf("Frec") != -1) {
-            alert("Lo contieneeee")
             $.getJSON("/Risk/recuperaDrop?nombre=datosEvaFrecuencia", function (data) {
                 $.each(data, function (Key, Value) {
                     //alert('Key => ' + Key + ' Value => ' + Value);
