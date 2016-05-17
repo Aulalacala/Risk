@@ -1,6 +1,12 @@
 ﻿@{
     Dictionary<int, List<object>> datos = (Dictionary<int, List<object>>)TempData["datostbody"];
     Dictionary<string, string> datostHead = (Dictionary<string, string>)ViewBag.datosthead;
+
+    if(datostHead == null)
+    {
+        datostHead = (Dictionary<string, string>)TempData["datosthead"];
+    }
+
     string titulo = (string)TempData["titulo"];
 }
 
