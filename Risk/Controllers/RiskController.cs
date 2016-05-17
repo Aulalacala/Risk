@@ -44,9 +44,10 @@ namespace Risk.Controllers
 
         public ActionResult Historical(int id)
         {
-            FichaRiesgoVM fichaRiesgoVM = montaVM(id);
-            ViewBag.datosthead = BD_Riesgos.nombresColTabla("dbo.qRiesgos_Evaluaciones_Valores", colVer, colTitulos);
-            TempData["datostbody"] = BD_Riesgos.cargaTablaDatos("qRiesgos_Evaluaciones_Valores", colVer, colTitulos, null, 0, 0, 0, 0, Convert.ToInt32(id));
+            FichaRiesgoVM fichaRiesgoVM = montaVM(id, "Historical");
+
+            //TempData["datosthead"] = BD_Riesgos.nombresColTabla("qRiesgos_Evaluaciones_Valores", colVer, colTitulos);
+            //TempData["datostbody"] = BD_Riesgos.cargaTablaDatos("qRiesgos_Evaluaciones_Valores", colVer, colTitulos, null, 0, 0, 0, 0, Convert.ToInt32(id));
 
             return PartialView(fichaRiesgoVM);
         }
@@ -112,7 +113,7 @@ namespace Risk.Controllers
             return jsonString;
         }
 
-        public FichaRiesgoVM montaVM(int id)
+        public FichaRiesgoVM montaVM(int id, string metodo = null)
         {
             qRiesgosNombres riesgoRecup = new qRiesgosNombres(); ;
             qRiesgos_Evaluaciones_Valores evaluaciones = new qRiesgos_Evaluaciones_Valores();
@@ -132,6 +133,8 @@ namespace Risk.Controllers
             dropdowns.datosClasificacion3 = dropdowns.listadoClasifDinamic(Convert.ToInt32(fichaRiesgoVM.qRiesgosNombre_VM.IdClasificacion2));
 
             fichaRiesgoVM.dropDowns = dropdowns;
+
+
 
             return fichaRiesgoVM;
         }

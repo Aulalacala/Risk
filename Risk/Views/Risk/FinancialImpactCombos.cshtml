@@ -36,7 +36,7 @@
                 var color = dicFrecuencia.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecAntes).Select(r => r.Value[0]).Single();
                 //NombreFrecAntes
 
-                <select class="form-control w100" campos="campos" id="NombreFrecAntes" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
+                <select class="form-control w100" campos="campos" id="NombreFrecAntes" sig="NombreFrecDespues" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
                     @{
                         foreach (var frec in dicFrecuencia)
                         {
@@ -51,6 +51,7 @@
                         }
                     }
                 </select>
+             
             }
         </div>
 
@@ -63,7 +64,7 @@
                 id = Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecDespues;
                 color = dicFrecuencia.Where(r => r.Key == Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecDespues).Select(r => r.Value[0]).Single();
 
-                <select class="form-control w100" campos="campos" id="NombreFrecDespues" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
+                <select class="form-control w100" campos="campos" id="NombreFrecDespues" sig="NombreFrecPlanDespues" tabla="qRiesgos_Evaluaciones_Valores" style="color:#000000; background-color:@color" combo="true">
                     @{
                         foreach (var frec in dicFrecuencia)
                         {
@@ -285,6 +286,14 @@
     
 </div>
 
+@*
+    VERSION 2   
+    helper para hacer los dropdown
+    cargar todos los dropdown y ocultar options segun changeee
+    hacer atributo sig que haga referencia al id del drop siguiente
+    idSelectSiguiente = $(this).attr('sig');
+*@
+
 <script>
     $('select').change(function () {
         var idDisparador = $(this).attr('id');
@@ -319,7 +328,6 @@
         $('select[id=' + idSelectSiguienteSiguiente).empty().css('background-color', '#ffffff').append('<option class="financialImpact" value="0" style="color:#000000; background-color:#ffffff"></option>');
 
         if (idDisparador.indexOf("Frec") != -1) {
-            alert("Lo contieneeee")
             $.getJSON("/Risk/recuperaDrop?nombre=datosEvaFrecuencia", function (data) {
                 $.each(data, function (Key, Value) {
                     //alert('Key => ' + Key + ' Value => ' + Value);

@@ -24,7 +24,7 @@ namespace Risk.Controllers
         {        
             var locations = TreeviewClass.GetLocations(0);
 
-            ViewBag.datosthead = BD_Riesgos.nombresColTabla("dbo.qRiesgosNombres", colVer, colTitulos);
+            ViewBag.datosthead = BD_Riesgos.nombresColTabla("qRiesgosNombres", colVer, colTitulos);
             if (TempData["datostbody"] == null)
             {
                 TempData["datostbody"] = null;
@@ -48,7 +48,7 @@ namespace Risk.Controllers
         public ActionResult TablaDatos(string id)
         {
             //TempData["titulo"] = name;
-            ViewBag.datosthead = BD_Riesgos.nombresColTabla("dbo.qRiesgosNombres", colVer, colTitulos);
+            ViewBag.datosthead = BD_Riesgos.nombresColTabla("qRiesgosNombres", colVer, colTitulos);
             TempData["datostbody"] = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos, null, 0,0,0,0,Convert.ToInt32(id));
             
             return PartialView("~/Views/PartialViews/TablaDatos.cshtml");
