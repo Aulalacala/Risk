@@ -303,6 +303,7 @@
     <Content Include="Views\Risk\FinancialImpactCombos.cshtml" />
     <Content Include="Views\Risk\FinancialImpactTextBox.cshtml" />
     <Content Include="Views\Risk\FinancialImpactCombosHelpers.cshtml" />
+    <Content Include="Views\Assign\AssignMultipleRisks.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

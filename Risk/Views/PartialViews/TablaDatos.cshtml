@@ -1,4 +1,4 @@
-﻿@{
+﻿@*@{
     Dictionary<int, List<object>> datos = (Dictionary<int, List<object>>)TempData["datostbody"];
     Dictionary<string, string> datostHead = (Dictionary<string, string>)ViewBag.datosthead;
 
@@ -8,7 +8,10 @@
     }
 
     string titulo = (string)TempData["titulo"];
-}
+}*@
+
+@using Risk.Models
+@model Risk.Models.DatosTablaModel
 
 <!-- SCRIPTS -->
 
@@ -22,11 +25,11 @@
 <link rel="stylesheet" href="~/Content/datetables/responsive.dataTables.min.css" type="text/css" />
 <link rel="stylesheet" href="~/Content/datetables/scroller.dataTables.min.css" type="text/css" />
 
-@if (datos == null)
+@if (Model.datosTBody == null)
 {
 
   <!-- TITLE & BUTTONS -->
-    <span class="title bigger">@titulo</span>
+    <span class="title bigger">@*@titulo*@</span>
     <div class="clearfix"></div>
 
     <table rules="rows" id="tablaDatosRiesgos" class="table">
@@ -36,7 +39,7 @@
                     <th text-align="right">
                         Editar
                     </th>
-                    foreach (var item in datostHead)
+                    foreach (var item in Model.datosTHead)
                     {
                         <th class="td-large">@item.Value.ToString()</th>
                     }
@@ -52,7 +55,7 @@
                     {
 
         <!-- TITLE & BUTTONS -->
-                        <span class="title bigger">@titulo</span>
+                        <span class="title bigger">@*@titulo*@</span>
                         <div class="clearfix"></div>
 
                         <table rules="rows" id="tablaDatosRiesgos" class="table">
@@ -62,7 +65,7 @@
                                         <th text-align="right">
                                             Editar
                                         </th>
-                                        foreach (var item in datostHead)
+                                        foreach (var item in Model.datosTHead)
                                         {
                                             <th class="td-large">@item.Value.ToString()</th>
                                         }
@@ -74,7 +77,7 @@
                             <tbody>
 
                                 @{
-                                    foreach (var fila in datos)
+                                    foreach (var fila in Model.datosTBody)
                                     {
                                         <tr>
                                             @{
