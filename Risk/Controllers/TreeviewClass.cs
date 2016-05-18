@@ -28,6 +28,7 @@ namespace Risk.Controllers
                             Id = cuantosHay[i].IdEstructura,
                             Name = cuantosHay[i].CodCompleto.Substring(cuantosHay[i].CodCompleto.Length - 2, 2) + " " + cuantosHay[i].Nombre.ToString(),
                             check = tienesHijos(cuantosHay[i].IdEstructura) == true ? "checked" : tienesHijosRiesgos(cuantosHay[i].IdEstructura),
+                            nivel = Convert.ToInt32(cuantosHay[i].Nivel),
                             ChildLocations = GetLocations(Convert.ToInt32(cuantosHay[i].IdEstructura))
                         });
                     }
@@ -36,6 +37,9 @@ namespace Risk.Controllers
 
             return locations;
         }
+
+
+
 
         //PARA BUSCAR LOS HIJOS HAY QUE METER EL ID DE SU SANTO PADRE
         public static bool tienesHijos(int idPadre)
@@ -70,5 +74,6 @@ namespace Risk.Controllers
         public string Name { get; set; }
         public ICollection<TreeViewLocation> ChildLocations { get; set; }
         public string check { get; set; }
+        public int nivel { get; set; }
     }
 }

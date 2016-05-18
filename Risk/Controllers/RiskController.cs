@@ -23,15 +23,28 @@ namespace Risk.Controllers
 
 
         // GET: Risk
-        public ActionResult RiskFicha(int id)
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="id"></param>
+        /// <param name="idEstructura"></param>
+        /// <returns></returns>
+        public ActionResult RiskFicha(int id, int idEstructura = 0)
         {
             qRiesgosNombres riesgoRecup = BD_Riesgos.recuperarRiesgo(id);
+            ViewBag.idEstructura = idEstructura;
             return View(riesgoRecup);
         }
 
-        public ActionResult General(int id)
+        public ActionResult General(int id, int idEstructura = 0)
         {
             FichaRiesgoVM fichaRiesgoVM = montaVM(id);
+
+            if(idEstructura != 0) {
+                fichaRiesgoVM.qRiesgosNombre_VM.CodRiesgo = dameUltimoRiesgoDisponible(idEstructura.ToString());
+                fichaRiesgoVM.qRiesgosNombre_VM.CodRiesgoLocalizado = fichaRiesgoVM.qRiesgosNombre_VM.CodRiesgo.Substring(0, 8);
+            }
+
             return PartialView(fichaRiesgoVM);
         }
 
@@ -124,17 +137,17 @@ namespace Risk.Controllers
                 evaluaciones = BD_Riesgos.recuperaEvaluaciones(id);
             }
 
+
             FichaRiesgoVM fichaRiesgoVM = new FichaRiesgoVM();
             fichaRiesgoVM.qRiesgosNombre_VM = riesgoRecup;
             fichaRiesgoVM.qRiesgos_Evaluaciones_Valores_VM = evaluaciones;
+
 
             DropDownModel dropdowns = new DropDownModel();
             dropdowns.datosClasificacion2 = dropdowns.listadoClasifDinamic(Convert.ToInt32(fichaRiesgoVM.qRiesgosNombre_VM.IdClasificacion1));
             dropdowns.datosClasificacion3 = dropdowns.listadoClasifDinamic(Convert.ToInt32(fichaRiesgoVM.qRiesgosNombre_VM.IdClasificacion2));
 
             fichaRiesgoVM.dropDowns = dropdowns;
-
-
 
             return fichaRiesgoVM;
         }
@@ -182,14 +195,17 @@ namespace Risk.Controllers
             //Insertar el riesgo en la BD (Devuelve el riesgo insertado con el idRiesgo autogenerado)
             tRiesgos riesgoInsertado = BD_Riesgos.insertarNuevoRiesgo(riesgoNuevo);
 
-            // Crear tRelEstructuraRiesgos
-            tRelEstructuraRiesgos estructuraNuevo = new tRelEstructuraRiesgos();
-            estructuraNuevo.IdRiesgo = riesgoInsertado.IdRiesgo;
-            estructuraNuevo.IdEstructura = int.Parse(datosFormulario.idEstructura.Split(':')[0]);
 
-            // Insertar tRelEstructuraRiesgo devuelve true si está todo OK
-            insert = BD_Riesgos.insertarTRelEstructuraRiesgoNuevo(estructuraNuevo);
+            if(datosFormulario.idEstructura != null) {
+                // Crear tRelEstructuraRiesgos
+                tRelEstructuraRiesgos estructuraNuevo = new tRelEstructuraRiesgos();
+                estructuraNuevo.IdRiesgo = riesgoInsertado.IdRiesgo;
+                estructuraNuevo.IdEstructura = int.Parse(datosFormulario.idEstructura.Split(':')[0]);
 
+                // Insertar tRelEstructuraRiesgo devuelve true si está todo OK
+                insert = BD_Riesgos.insertarTRelEstructuraRiesgoNuevo(estructuraNuevo);
+            }
+           
             return riesgoInsertado.IdRiesgo;
         }
 
@@ -237,14 +253,10 @@ namespace Risk.Controllers
 
 
 
-        //[HttpPost]
-        //public ActionResult nuevoRiskDesdeStructure(int id, int idEstructura) {
-        //    string idRiesgoNuevo = dameUltimoRiesgoDisponible(idEstructura.ToString();
-        //    TempData["structureCode"] = idRiesgoNuevo;
-        //    TempData["CodRiesgo"] =
-
-        //    return Json(Url.Action("RiskFicha", "Risk", new { id = 0 }));
-        //}
+        [HttpPost]
+        public ActionResult nuevoRiskDesdeStructure(int idEstructura) {
+            return Json(Url.Action("RiskFicha", "Risk", new { id = 0, idEstructura = idEstructura }));
+        }
 
 
         // Metodo (llamada desde scripts2.js) para recuperar el siguiente riesgo disponible y rellenar Particle Code en un riesgo nuevo

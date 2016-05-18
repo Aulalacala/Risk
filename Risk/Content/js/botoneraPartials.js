@@ -67,6 +67,11 @@ $('#BtnCloseModal').click(function () {
     window.location.href = urlRedireccion;
 });
 
+$('#BtnCloseModalNuevo').click(function () {
+    $('#modalNuevo').modal('hide');
+    window.location.href = urlRedireccion;
+});
+
 $('#BtnDiscard').click(function () {   
     var handler = $('#BtnDiscard').attr('handler').split('_')[1];
     alert(handler);

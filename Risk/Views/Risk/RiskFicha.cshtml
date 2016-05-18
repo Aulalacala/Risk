@@ -71,6 +71,7 @@
 
 } else {
     <input id="IdRiesgo" type="hidden" value="0" />
+    <input id="estructura" type="hidden" value=@ViewBag.idEstructura />
     <h3 class="darker"><strong>New Risk</strong></h3>
 }
 
@@ -163,7 +164,7 @@
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-primary" id="BtnCloseModal">CLOSE</button>
+                <button type="button" class="btn btn-primary" id="BtnCloseModalNuevo">CLOSE</button>
             </div>
         </div>
     </div>
@@ -188,6 +189,7 @@
             $('#Menu li').removeClass('disabled');
             var id = $('#IdRiesgo').val();
             var ruta = "http://localhost:1525/Risk/General/";
-            $('#contenidoDinamico').load(ruta, { "id": id });
+
+            $('#contenidoDinamico').load(ruta, { "id": id , "idEstructura" : $('#estructura').val()});
         })
 </script>

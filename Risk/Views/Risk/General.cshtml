@@ -41,18 +41,35 @@
                 <select class="form-control w100" campos="campos" id="idEstructura">
                     @{
                         Dictionary<int, string> structureCode = Model.dropDowns.structureCode;
-                        <option selected="selected"></option>
-                        foreach (var structure in structureCode)
-                        {
+                        <option selected></option>
+                        foreach (var structure in structureCode) {
+                            if (Model.qRiesgosNombre_VM.CodRiesgoLocalizado != null && Model.qRiesgosNombre_VM.CodRiesgoLocalizado.Equals(@structure.Value.Substring(0,8))) {
+                                <option value="@structure.Key" selected>@structure.Value </option>
+                            }
                             <option value="@structure.Key">@structure.Value </option>
                         }
                     }
                 </select>
+
+                <script>
+                    $(document).ready(function () {
+                        if ($('#estructura').val() != "0") {
+                            $('#idEstructura').addClass('dirty','dirty');
+                        }
+                    })
+
+                </script>
+
             </div>
             <div class="col-lg-2 col-md-2">
                 <span class="form-left-label">Particle Code</span>
                 @* SE AUTOCOMPLETA CON EL SIGUIENTE DISPONIBLE DENTRO DE LA ESTRUCUTURA ELEGIDA *@
+                @if (Model.qRiesgosNombre_VM.CodRiesgo != null) {
+                <input id="CodRiesgo" value="@Model.qRiesgosNombre_VM.CodRiesgo" type="text" campos="campos" readonly class="form-control w100 dirty" />
+                 }
+                else{
                 <input id="CodRiesgo" type="text" campos="campos" readonly class="form-control w100" />
+                }
             </div>
         </div>
                         }

@@ -54,7 +54,8 @@
 
 
             <div id="botoneraNuevoRisk" class="pull-left">
-                <input type="button" class="btn btn-primary" name="BtnAssignRisk" value="ASSIGN NEW RISK" id="BtnAssignRisk" />
+                <input type="button" id="BtnAssignNewRisk" class="btn btn-primary" value="ASSIGN NEW RISK" disabled/>
+                <input type="button" id="BtnAssignMultipleRisk" class="btn btn-primary" value="ASSIGN MULTIPLE RISK" disabled />
             </div>
         </div>
 
@@ -88,7 +89,7 @@
                             .ItemTemplate(
                             @<text>
                                 <input type="checkbox" @item.check />
-                                <a href=#@item.Id name="partalView" id="@item.Id">@item.Name</a>
+                                <a href=#@item.Id name="partalView" nivel="@item.nivel" id="@item.Id">@item.Name</a>
                             </text>)
                             )
                         </div>
@@ -135,6 +136,27 @@
                 </div>
         </div>
     </div>
+
+    <!--MODAL AVISO ASSIGN NEW RISK-->
+    @*<div id="modalAssignNewRisk" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+
+                <div id="header" class="modal-header">
+                    <h4 class="modal-title"></h4>
+                </div>
+
+                <div id="body" class="modal-body text-center">
+                    <p></p>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="BtnCloseModal">CLOSE</button>
+                </div>
+            </div>
+        </div>
+    </div>*@
+
 </div>
 
 
@@ -151,12 +173,8 @@
 <script type="text/javascript" src="~/Content/js/scripts2.js"></script>
 <script type="text/javascript" src="~/Content/datetables/jquery.dataTables.min.js"></script>
 
-@*<script>
-    $(document).ready(function () {
-        var ruta = "http://localhost:1525/Assign/Description/";
-        $('#contenidoDinamico').load(ruta);
-    })
-</script>*@
+
+
 
 
 <script>

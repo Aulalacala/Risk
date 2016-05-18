@@ -355,7 +355,11 @@ namespace Risk.Controllers
                 ultimoCodigoRiesgo = "0" + (cuantosRiesgosTiene + 1).ToString();
             }
 
-            return ultimoCodigoRiesgo;
+            string codCompleto = riesgosBD.DB.tEstructura.Where(r => r.IdEstructura == Convert.ToInt32(idEstructura)).Select(r => r.CodCompleto).SingleOrDefault();
+
+            codCompleto += "." + ultimoCodigoRiesgo;
+
+            return codCompleto;
         }
 
 

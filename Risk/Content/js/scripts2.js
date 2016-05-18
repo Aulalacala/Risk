@@ -57,7 +57,7 @@ $('a[id^="mnu_"]').click(function () {
 
 $('#idEstructura').change(function () {
     $.get("/Risk/dameUltimoRiesgoDisponible", { idEstructura: $(this).val() }, function (data) {
-        $('#CodRiesgo').val($('#idEstructura :selected').text().substring(0, 8) + "." + data);
+        $('#CodRiesgo').val(data);
         $('#CodRiesgo').addClass("dirty");
     })
 })
@@ -108,6 +108,11 @@ $('a[name="partalView"]').click(function () {
     $('#itemSelec').remove();
     $('body').append('<input id="itemSelec" type="hidden" value=' + idEstructura + '>');
 
+    if($(this).attr('nivel') == '3'){
+        $("#BtnAssignNewRisk").removeAttr("disabled");
+        $("#BtnAssignMultipleRisk").removeAttr("disabled");
+    }
+
     var ruta = "http://localhost:1525/Assign/Description";
     $('#contenidoDinamico').load(ruta, { "id": idEstructura });
     var ruta2 = "http://localhost:1525/Assign/TablaDatos";
@@ -144,13 +149,15 @@ $('a[id^="str_"]').click(function () {
 
 
 // Crear nuevo riesgo desde Structure (Con el codigo especificado según estructura seleccionada
-$("#BtnAssignRisk").click(function () {
-    $("#itemSelec").val() // Coger idEstructura
+
+$("#BtnAssignNewRisk").click(function () {
+
+    var structureSelec = $("#itemSelec").val() // Coger idEstructura
     
     $.ajax({
         url: '/Risk/nuevoRiskDesdeStructure',
         type: 'post',
-        data: { id: 0, idEstructura: $("#itemSelec").val() },
+        data: { idEstructura: structureSelec },
         success: function (data) {
             window.location.href = data;
         },
@@ -158,8 +165,12 @@ $("#BtnAssignRisk").click(function () {
             alert('ERROR ' + jqXHR + ' ' + textStatus + ' ' + errorThrown)
         }
     })
-
+   
 })
+
+
+
+
 
 
 
