@@ -196,14 +196,17 @@ namespace Risk.Controllers
             tRiesgos riesgoInsertado = BD_Riesgos.insertarNuevoRiesgo(riesgoNuevo);
 
 
-            if(datosFormulario.idEstructura != null) {
+            if (datosFormulario.idEstructura != null)
+            {
                 // Crear tRelEstructuraRiesgos
                 tRelEstructuraRiesgos estructuraNuevo = new tRelEstructuraRiesgos();
                 estructuraNuevo.IdRiesgo = riesgoInsertado.IdRiesgo;
                 estructuraNuevo.IdEstructura = int.Parse(datosFormulario.idEstructura.Split(':')[0]);
 
-            // Insertar tRelEstructuraRiesgo devuelve true si está todo OK
-            insert = BD_Riesgos.insertarTRelEstructuraRiesgoNuevo(estructuraNuevo);
+
+                // Insertar tRelEstructuraRiesgo devuelve true si está todo OK
+                insert = BD_Riesgos.insertarTRelEstructuraRiesgoNuevo(estructuraNuevo);
+            }
 
             BD_Riesgos.insertarTRiesgosEvaluaciones(riesgoInsertado.IdRiesgo);
 

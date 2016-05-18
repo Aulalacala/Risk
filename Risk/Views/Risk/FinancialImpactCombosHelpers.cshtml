@@ -65,7 +65,7 @@
             </div>
             @*NombreSeveAntes*@
 
-            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSeveAntes", "qRiesgos_Evaluaciones_Valores", Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveAntes.ToString(), null, "NombreSeveAntes:NombreSevePeorAntes")
+            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSeveAntes", "qRiesgos_Evaluaciones_Valores", Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveAntes.ToString(), null, "NombreSeveDespues:NombreSevePeorAntes")
         </div>
 
         <div class="col-lg-3 col-md-3">
@@ -74,7 +74,7 @@
             </div>
             @*NombreSeveDespues*@
 
-            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSeveAntes", "qRiesgos_Evaluaciones_Valores", Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveDespues.ToString(), null, "NombreSeveDespues:NombreSevePeorDespues")
+            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSeveDespues", "qRiesgos_Evaluaciones_Valores", Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveDespues.ToString(), null, "NombreSevePlanDespues:NombreSevePeorDespues")
         </div>
 
         <div class="col-lg-3 col-md-3">
@@ -83,7 +83,7 @@
             </div>
             @*NombreSevePlanDespues*@
 
-            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSeveDespues", "qRiesgos_Evaluaciones_Valores", Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePlanDespues.ToString(), null, ":NombreSevePeorPlanDespues")
+            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSevePlanDespues", "qRiesgos_Evaluaciones_Valores", Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePlanDespues.ToString(), null, ":NombreSevePeorPlanDespues")
         </div>
     </div>
     <!--SEVERIDAD DESPUES PLAN-->
@@ -97,7 +97,7 @@
             </div>
             @*NombreSevePeorAntes*@
 
-            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSevePeorAntes", "qRiesgos_Evaluaciones_Valores", Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorAntes.ToString(), null, "NombreSevePeorDespues" )
+            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSevePeorAntes", "qRiesgos_Evaluaciones_Valores", Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorAntes.ToString(), null, "NombreSevePeorDespues")
         </div>
         <div class="col-lg-3 col-md-3">
             <div class="visible-sm">
@@ -127,84 +127,117 @@
         var idSelectSiguiente = $(this).attr('sig').split(':')[0];
         var idSelectAbajo = $(this).attr('sig').split(':')[1];
 
-        var optionsSelectSiguiente = $('select[id=' + idSelectSiguiente + ']').find('option');
-        var optionsSelectAbajo = $('select[id=' + idSelectAbajo + ']').find('option');
+        var optionsSelectSiguiente = $('#' + idSelectSiguiente).find('option');
+        var optionsSelectAbajo = $('#' + idSelectAbajo).find('option');
 
         var color;
         var value;
 
-        $(this).css('background-color', '');
+      
 
-        $('select[id=' + idDisparador + ']').children().each(function (pos, el) {
+        $('#' + idDisparador).find('option').each(function (pos, el) {
             if ($(this).attr('selected') == 'selected') {
                 $(this).removeAttr('selected');
             }
 
             if ($(this).val() == valorSeleccionado) {
-                color = $(this).attr('style').split(':')[2];
+                color = $(this).attr('style').split('background-color:')[1];
                 $(this).attr('selected', 'selected');
             }
         })
 
-        $(this).css('background-color', color);
 
-        $('select[id=' + idSelectSiguiente + ']').css('background-color', color);
+        $(this).css('background-color', '');
+        $(this).css('background-color', color.split(';')[0]); //esto es el select. arriba es el option
+
+        $('#' + idSelectSiguiente).css('background-color', color);
 
         if (idDisparador.indexOf("Frec") != -1) {
+            limpiaCombos(idSelectSiguiente, idSelectAbajo);
+
             $.each(optionsSelectSiguiente, function (pos, el) {
-                if ($(this).attr('selected') == 'selected') {
-                    $(this).removeAttr('selected');
-                }
                 value = $(this).attr('value')
-
-                if (value == valorSeleccionado) {
-                    $(this).attr('selected', 'selected');
-                }
-
                 $(this).show();
 
                 if (value < valorSeleccionado) {
                     $(this).hide();
-                } 
+                }
             });
 
         } else {
+
+            limpiaCombos(idSelectSiguiente, idSelectAbajo);
+
             $.each(optionsSelectSiguiente, function (pos, el) {
-                if ($(this).attr('selected') == 'selected') {
-                    $(this).removeAttr('selected');
-                }
-                value = $(this).attr('value')
-
-                if (value == valorSeleccionado) {
-                    $(this).attr('selected', 'selected');
-                }
-
+                value = $(this).attr('value');
                 $(this).show();
-
                 if (value > valorSeleccionado) {
                     $(this).hide();
                 }
             });
 
-            //$.each(optionsSelectAbajo, function (pos, el) {
-            //    if ($(this).attr('selected') == 'selected') {
-            //        $(this).removeAttr('selected');
-            //    }
-            //    value = $(this).attr('value')
 
-            //    if (value == valorSeleccionado) {
-            //        $(this).attr('selected', 'selected');
-            //    }
+            $.each(optionsSelectAbajo, function (pos, el) {
+                value = $(this).attr('value');
+                $(this).show();
 
-            //    $(this).show();
-
-            //    if (value < valorSeleccionado) {
-            //        $(this).hide();
-            //    }
-            //});
+                if (value <= valorSeleccionado) {
+                    $(this).hide();
+                }
+            });
 
         }
-    })
+    });
+
+    function limpiaCombos(idSelectSiguiente, idSelectAbajo) {
+        var combos;
+        var combosAbajo;
+        var idSelectSiguienteBuscado;
+
+        //carga de la variable combos, dependiendo del id, es decir, una fila u otras(Severidad)
+        if (idSelectSiguiente.indexOf("Frec") != -1) {
+            combos = $('select[id*=Frec]');
+        } else {
+            combos = $('select[id*=Seve]');
+        }
+
+        $.each(combos, function (el, pos) {
+            if ($(this).attr('id') == idSelectSiguiente) {
+                idSelectSiguienteBuscado = $(this).attr('sig').split(':')[0]
+            }
+        })
+
+        $('#' + idSelectSiguiente).css('background-color', '');
+        $('#' + idSelectSiguienteBuscado).css('background-color', '');
+
+        $('#' + idSelectSiguiente).find('option').each(function (el, pos) {
+            if ($(this).attr('selected') == 'selected') {
+                $(this).removeAttr('selected');
+            }
+
+            if ($(this).val() == 0) {
+                $(this).attr('selected', 'selected');
+            }
+        });
+
+        if (idSelectSiguienteBuscado != "") {
+            $('#' + idSelectSiguienteBuscado).find('option').each(function (el, pos) {
+                if ($(this).attr('selected') == 'selected') {
+                    $(this).removeAttr('selected');
+                }
+
+                if ($(this).val() == 0) {
+                    $(this).attr('selected', 'selected');
+                }
+            });
+        }
+
+        //if (idSelectAbajo != null) {
+        //    var idSelectSiguienteAbajo = $('#' + idSelectAbajo).attr('sig').split(':')[0]
+        //    limpiaCombos(idSelectSiguienteAbajo);
+        //}
+        
+    }
 </script>
 
 

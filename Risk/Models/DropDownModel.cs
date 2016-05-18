@@ -106,8 +106,9 @@ namespace Risk.Models
             get
             {
                 Dictionary<int, List<string>> dicSeveridad = new Dictionary<int, List<string>>();
-               
-                dicSeveridad = riesgosBD.DB.tEva_Severidad
+                dicSeveridad.Add(0, new List<string> { "#ffffff", "" });
+
+                var dic = riesgosBD.DB.tEva_Severidad
                                     .GroupBy(x => x.IdEvaSeveridad)
                                     .ToDictionary(r => r.Key, r => r.Select(x => new List<string>
                                     {
@@ -115,7 +116,12 @@ namespace Risk.Models
                                         x.Severidad
                                     }
                                     ).Single());
-                dicSeveridad.Add(0, new List<string> { "#ffffff", "" });
+
+                foreach (var item in dic)
+                {
+                    dicSeveridad.Add(item.Key, item.Value);
+                }
+
                 return dicSeveridad;
             }
             set
@@ -130,9 +136,9 @@ namespace Risk.Models
             get
             {
                 Dictionary<int, List<string>> dicFrecuencia = new Dictionary<int, List<string>>();
-              
+                dicFrecuencia.Add(0, new List<string> { "#ffffff", "" });
 
-                dicFrecuencia =  riesgosBD.DB.tEva_Frecuencia
+                var dic =  riesgosBD.DB.tEva_Frecuencia
                                     .GroupBy(x => x.IdEvaFrecuencia)
                                     .ToDictionary(r => r.Key, r => r.Select(x => new List<string>
                                     {
@@ -140,7 +146,12 @@ namespace Risk.Models
                                         x.Frecuencia
                                     }
                                     ).Single());
-                dicFrecuencia.Add(0, new List<string> { "#ffffff", "" });
+
+                foreach (var item in dic)
+                {
+                    dicFrecuencia.Add(item.Key, item.Value);
+                }
+              
                 return dicFrecuencia;
             }
             set
