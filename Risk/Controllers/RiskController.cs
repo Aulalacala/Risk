@@ -44,7 +44,7 @@ namespace Risk.Controllers
 
         public ActionResult Historical(int id)
         {
-            FichaRiesgoVM fichaRiesgoVM = montaVM(id, "Historical");
+            FichaRiesgoVM fichaRiesgoVM = montaVM(id);
 
             //TempData["datosthead"] = BD_Riesgos.nombresColTabla("qRiesgos_Evaluaciones_Valores", colVer, colTitulos);
             //TempData["datostbody"] = BD_Riesgos.cargaTablaDatos("qRiesgos_Evaluaciones_Valores", colVer, colTitulos, null, 0, 0, 0, 0, Convert.ToInt32(id));
@@ -113,7 +113,7 @@ namespace Risk.Controllers
             return jsonString;
         }
 
-        public FichaRiesgoVM montaVM(int id, string metodo = null)
+        public FichaRiesgoVM montaVM(int id)
         {
             qRiesgosNombres riesgoRecup = new qRiesgosNombres(); ;
             qRiesgos_Evaluaciones_Valores evaluaciones = new qRiesgos_Evaluaciones_Valores();
@@ -189,6 +189,8 @@ namespace Risk.Controllers
 
             // Insertar tRelEstructuraRiesgo devuelve true si está todo OK
             insert = BD_Riesgos.insertarTRelEstructuraRiesgoNuevo(estructuraNuevo);
+
+            BD_Riesgos.insertarTRiesgosEvaluaciones(riesgoInsertado.IdRiesgo);
 
             return riesgoInsertado.IdRiesgo;
         }

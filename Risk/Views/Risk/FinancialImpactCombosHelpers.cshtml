@@ -1,0 +1,210 @@
+﻿@model Risk.ViewModels.FichaRiesgoVM
+
+<div id="financialImpact" style="background-color:#eaf7fa" class="row">
+    <div class="col-lg-12 col-md-12">
+        <span class="form-left-label"><b>FINANCIAL IMPACT</b></span>
+    </div>
+
+    <!--CABECERAS-->
+    <div class="col-lg-12 col-md-12">
+        <div class="col-lg-3 col-md-3">
+            <span class="form-left-label"></span>
+        </div>
+        <div class="col-lg-3 col-md-3 hidden-sm">
+            <span class="form-left-label">Before Controls</span>
+        </div>
+        <div class="col-lg-3 col-md-3 hidden-sm">
+            <span class="form-left-label">Current</span>
+        </div>
+        <div class="col-lg-3 col-md-3 hidden-sm">
+            <span class="form-left-label">After action plans</span>
+        </div>
+    </div>
+    <!--FRECUENCIA-->
+    <div class="col-lg-12 col-md-12" id="rowFrecuencia">
+        <div class="col-lg-3 col-md-3">
+            <span class="form-left-label"><b>Exp. Frec.</b></span>
+        </div>
+
+        <div class="col-lg-3 col-md-3">
+            <div class="visible-sm">
+                <span class="form-left-label">Before Controls</span>
+            </div>
+            @*NombreFrecAntes*@
+
+            @Html.DropDown(Model.dropDowns.datosEvaFrecuencia, "NombreFrecAntes", "qRiesgos_Evaluaciones_Valores", Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecAntes.ToString(), null, "NombreFrecDespues")
+        </div>
+
+        <div class="col-lg-3 col-md-3">
+            <div class="visible-sm">
+                <span class="form-left-label">Current</span>
+            </div>
+            @*NombreFrecDespues*@
+
+            @Html.DropDown(Model.dropDowns.datosEvaFrecuencia, "NombreFrecDespues", "qRiesgos_Evaluaciones_Valores", Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecDespues.ToString(), null, "NombreFrecPlanDespues")
+        </div>
+
+        <div class="col-lg-3 col-md-3">
+            <div class="visible-sm">
+                <span class="form-left-label">After action plans</span>
+            </div>
+            @*NombreFrecPlanDespues*@
+
+            @Html.DropDown(Model.dropDowns.datosEvaFrecuencia, "NombreFrecPlanDespues", "qRiesgos_Evaluaciones_Valores", Model.qRiesgos_Evaluaciones_Valores_VM.IdFrecPlanDespues.ToString())
+        </div>
+    </div>
+
+    <!--SEVERIDAD-->
+    <div class="col-lg-12 col-md-12">
+        <div class="col-lg-3 col-md-3">
+            <span class="form-left-label"><b>Exp. Sev.</b></span>
+        </div>
+        <div class="col-lg-3 col-md-3">
+            <div class="visible-sm">
+                <span class="form-left-label">Before Controls</span>
+            </div>
+            @*NombreSeveAntes*@
+
+            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSeveAntes", "qRiesgos_Evaluaciones_Valores", Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveAntes.ToString(), null, "NombreSeveAntes:NombreSevePeorAntes")
+        </div>
+
+        <div class="col-lg-3 col-md-3">
+            <div class="visible-sm">
+                <span class="form-left-label">Current</span>
+            </div>
+            @*NombreSeveDespues*@
+
+            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSeveAntes", "qRiesgos_Evaluaciones_Valores", Model.qRiesgos_Evaluaciones_Valores_VM.IdSeveDespues.ToString(), null, "NombreSeveDespues:NombreSevePeorDespues")
+        </div>
+
+        <div class="col-lg-3 col-md-3">
+            <div class="visible-sm">
+                <span class="form-left-label">After action plans</span>
+            </div>
+            @*NombreSevePlanDespues*@
+
+            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSeveDespues", "qRiesgos_Evaluaciones_Valores", Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePlanDespues.ToString(), null, ":NombreSevePeorPlanDespues")
+        </div>
+    </div>
+    <!--SEVERIDAD DESPUES PLAN-->
+    <div class="col-lg-12 col-md-12">
+        <div class="col-lg-3 col-md-3">
+            <span class="form-left-label"><b>Max. Sev.</b></span>
+        </div>
+        <div class="col-lg-3 col-md-3">
+            <div class="visible-sm">
+                <span class="form-left-label">Before Controls</span>
+            </div>
+            @*NombreSevePeorAntes*@
+
+            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSevePeorAntes", "qRiesgos_Evaluaciones_Valores", Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorAntes.ToString(), null, "NombreSevePeorDespues" )
+        </div>
+        <div class="col-lg-3 col-md-3">
+            <div class="visible-sm">
+                <span class="form-left-label">Current</span>
+            </div>
+            @*NombreSevePeorDespues*@
+
+            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSevePeorDespues", "qRiesgos_Evaluaciones_Valores", Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorDespues.ToString(), null, "NombreSevePeorPlanDespues")
+        </div>
+        <div class="col-lg-3 col-md-3">
+            <div class="visible-sm">
+                <span class="form-left-label">After action plans</span>
+            </div>
+            @*NombreSevePeorPlanDespues*@
+
+            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSevePeorPlanDespues", "qRiesgos_Evaluaciones_Valores", Model.qRiesgos_Evaluaciones_Valores_VM.IdSevePeorPlanDespues.ToString())
+        </div>
+    </div>
+
+</div>
+
+<script>
+    $('select').change(function () {
+        var idDisparador = $(this).attr('id');
+        var valorSeleccionado = $(this).val();
+
+        var idSelectSiguiente = $(this).attr('sig').split(':')[0];
+        var idSelectAbajo = $(this).attr('sig').split(':')[1];
+
+        var optionsSelectSiguiente = $('select[id=' + idSelectSiguiente + ']').find('option');
+        var optionsSelectAbajo = $('select[id=' + idSelectAbajo + ']').find('option');
+
+        var color;
+        var value;
+
+        $(this).css('background-color', '');
+
+        $('select[id=' + idDisparador + ']').children().each(function (pos, el) {
+            if ($(this).attr('selected') == 'selected') {
+                $(this).removeAttr('selected');
+            }
+
+            if ($(this).val() == valorSeleccionado) {
+                color = $(this).attr('style').split(':')[2];
+                $(this).attr('selected', 'selected');
+            }
+        })
+
+        $(this).css('background-color', color);
+
+        $('select[id=' + idSelectSiguiente + ']').css('background-color', color);
+
+        if (idDisparador.indexOf("Frec") != -1) {
+            $.each(optionsSelectSiguiente, function (pos, el) {
+                if ($(this).attr('selected') == 'selected') {
+                    $(this).removeAttr('selected');
+                }
+                value = $(this).attr('value')
+
+                if (value == valorSeleccionado) {
+                    $(this).attr('selected', 'selected');
+                }
+
+                $(this).show();
+
+                if (value < valorSeleccionado) {
+                    $(this).hide();
+                } 
+            });
+
+        } else {
+            $.each(optionsSelectSiguiente, function (pos, el) {
+                if ($(this).attr('selected') == 'selected') {
+                    $(this).removeAttr('selected');
+                }
+                value = $(this).attr('value')
+
+                if (value == valorSeleccionado) {
+                    $(this).attr('selected', 'selected');
+                }
+
+                $(this).show();
+
+                if (value > valorSeleccionado) {
+                    $(this).hide();
+                }
+            });
+
+            //$.each(optionsSelectAbajo, function (pos, el) {
+            //    if ($(this).attr('selected') == 'selected') {
+            //        $(this).removeAttr('selected');
+            //    }
+            //    value = $(this).attr('value')
+
+            //    if (value == valorSeleccionado) {
+            //        $(this).attr('selected', 'selected');
+            //    }
+
+            //    $(this).show();
+
+            //    if (value < valorSeleccionado) {
+            //        $(this).hide();
+            //    }
+            //});
+
+        }
+    })
+</script>
+
+

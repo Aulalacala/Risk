@@ -263,6 +263,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\DropDownHelper.cs" />
     <Compile Include="Helpers\TreeView.cs" />
     <Compile Include="Models\ConnectionDB.cs" />
     <Compile Include="Models\DatosTablaModel.cs" />
@@ -301,6 +302,7 @@
     <Content Include="Views\Risk\Historical.cshtml" />
     <Content Include="Views\Risk\FinancialImpactCombos.cshtml" />
     <Content Include="Views\Risk\FinancialImpactTextBox.cshtml" />
+    <Content Include="Views\Risk\FinancialImpactCombosHelpers.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

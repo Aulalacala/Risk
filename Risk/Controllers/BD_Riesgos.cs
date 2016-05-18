@@ -323,6 +323,39 @@ namespace Risk.Controllers
             }
         }
 
+
+        public bool insertarTRiesgosEvaluaciones(int idRiesgo)
+        {
+            try
+            {
+                tRiesgosEvaluaciones evaluacion = new tRiesgosEvaluaciones();
+                evaluacion.IdRiesgo = idRiesgo;
+                evaluacion.IdNivel = 0;
+                evaluacion.Fecha = DateTime.Now;
+                evaluacion.Activa = true;
+                evaluacion.Ultima = true;
+                evaluacion.IdFrecAntes = 0;
+                evaluacion.IdSeveAntes = 0;
+                evaluacion.IdFrecDespues = 0;
+                evaluacion.IdSeveDespues = 0;
+                evaluacion.IdSevePeorAntes = 0;
+                evaluacion.IdSevePeorDespues = 0;
+                evaluacion.idEfectividad = 0;
+                evaluacion.Efectividad = 0;
+                evaluacion.IdFrecPlanDespues = 0;
+                evaluacion.IdSevePlanDespues = 0;
+                evaluacion.IdSevePeorPlanDespues = 0;
+
+                riesgosBD.DB.tRiesgosEvaluaciones.InsertOnSubmit(evaluacion);
+                riesgosBD.DB.SubmitChanges();
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
         public bool deleteRiesgo(int idRiesgo)
         {
             try
@@ -333,6 +366,10 @@ namespace Risk.Controllers
 
                 var riesgoTrel = riesgosBD.DB.tRelEstructuraRiesgos.Where(r => r.IdRiesgo == idRiesgo).Select(r => r).FirstOrDefault();
                 riesgosBD.DB.tRelEstructuraRiesgos.DeleteOnSubmit(riesgoTrel);
+                riesgosBD.DB.SubmitChanges();
+
+                var riesgoTEval = riesgosBD.DB.tRiesgosEvaluaciones.Where(r => r.IdRiesgo == idRiesgo).Select(r => r).FirstOrDefault();
+                riesgosBD.DB.tRiesgosEvaluaciones.DeleteOnSubmit(riesgoTEval);
                 riesgosBD.DB.SubmitChanges();
 
                 return true;
