@@ -20,6 +20,8 @@ namespace Risk.Models
         private Dictionary<int, List<string>> _datosEvaSeveridad;
         private Dictionary<int, List<string>> _datosEvaFrecuencia;
 
+        private Dictionary<string, string> _htmlAttributes;
+
         // Dropdowns de estructura para los nuevos riesgos --------------------------------------------------
         private Dictionary<int, string> _structureCode;
         //----------------------------------------------------------------------------------------------------
@@ -146,7 +148,6 @@ namespace Risk.Models
                 _datosEvaSeveridad = value;
             }
         }
-
 
 
         //METODO CARGA DINÁMICA
