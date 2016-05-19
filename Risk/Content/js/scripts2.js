@@ -169,6 +169,20 @@ $("#BtnAssignNewRisk").click(function () {
 })
 
 
+// Ir a página AssignMultipleRisk para poder asignar en la estructura seleccionada riesgos sin codigo
+
+$('#BtnAssignMultipleRisk').click(function () {
+
+    var structureSelec = $("#itemSelec").val() // Coger idEstructura
+    window.location.href = '/Assign/AssignMultipleRisks?idEstructura=' + structureSelec;
+    var ruta = "http://localhost:1525/Assign/TablaDatos";
+    $('#tablaRiesgosSinAsignar').load(ruta2, { "id": structureSelec });
+    var ruta2 = "http://localhost:1525/Assign/TablaDatos";
+    $('#tablaRiesgosAsignados').load(ruta2, { "id": structureSelec });
+
+})
+
+
 
 
 

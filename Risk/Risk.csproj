@@ -283,6 +283,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\FichaRiesgoVM.cs" />
+    <Compile Include="ViewModels\ViewModelRisk.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Views\web.config" />
@@ -304,6 +305,7 @@
     <Content Include="Views\Risk\FinancialImpactCombos.cshtml" />
     <Content Include="Views\Risk\FinancialImpactTextBox.cshtml" />
     <Content Include="Views\Risk\FinancialImpactCombosHelpers.cshtml" />
+    <Content Include="Views\Assign\AssignMultipleRisks.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

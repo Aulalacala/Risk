@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using Risk.Models;
 
 namespace Risk
 {
@@ -25,6 +26,12 @@ namespace Risk
                 name: "Inicio",
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Inicio", action = "Inicio", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+                name: "BusquedaRiks",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Assign", action = "BusquedaRiks", datosTablaGeneralBusqueda = new DatosTablaModel() }
             );
         }
     }
