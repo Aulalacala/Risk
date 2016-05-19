@@ -10,8 +10,8 @@ namespace Risk.ViewModels
     {
         public qRiesgosNombres qRiesgosNombre_VM { get; set; }
         public qRiesgos_Evaluaciones_Valores qRiesgos_Evaluaciones_Valores_VM { get; set; }
-
         public DropDownModel dropDowns{get; set;}
+        public DatosTablaModel datosTabla_VM { get; set; }
 
 
     }

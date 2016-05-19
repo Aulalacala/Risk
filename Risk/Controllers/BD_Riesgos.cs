@@ -65,7 +65,7 @@ namespace Risk.Controllers
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception e)
             {
                 return null;
             }
