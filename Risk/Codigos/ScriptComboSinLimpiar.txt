@@ -1,0 +1,172 @@
+﻿<script>
+    var idDisparador;
+    var valorSeleccionado;
+
+
+
+    $('select').change(function () {
+        idDisparador = $(this).attr('id');
+        valorSeleccionado = $(this).val();
+
+        var idSelectSiguiente = $(this).attr('sig').split(':')[0];
+        var idSelectAbajo = $(this).attr('sig').split(':')[1];
+
+        var optionsSelectSiguiente = $('#' + idSelectSiguiente).find('option');
+        var optionsSelectAbajo = $('#' + idSelectAbajo).find('option');
+
+        var color;
+        var value;
+
+
+        $('#' + idDisparador).find('option').each(function (pos, el) {
+            if ($(this).attr('selected') == 'selected') {
+                $(this).removeAttr('selected');
+            }
+
+            if ($(this).val() == valorSeleccionado) {
+                color = $(this).attr('style').split('background-color:')[1];
+                $(this).attr('selected', 'selected');
+            }
+
+            if (value == 0) {
+                $(this).show();
+            }
+        })
+
+
+        $(this).css('background-color', '');
+        $(this).css('background-color', color.split(';')[0]); //esto es el select. arriba es el option
+
+        $('#' + idSelectSiguiente).css('background-color', color);
+
+        if (idDisparador.indexOf("Frec") != -1) {
+            limpiaCombos(idSelectSiguiente, "");
+
+            $.each(optionsSelectSiguiente, function (pos, el) {
+                ocultaOptions($(this), "<");
+
+                //value = $(this).attr('value')
+                //$(this).show();
+
+                //if (value < valorSeleccionado) {
+                //    $(this).hide();
+                //}
+                //if (value == 0) {
+                //    $(this).show();
+                //}
+            });
+
+        } else {
+            limpiaCombos(idSelectSiguiente, idSelectAbajo);
+
+            $.each(optionsSelectSiguiente, function (pos, el) {
+                ocultaOptions($(this), ">");
+
+                //value = $(this).attr('value');
+                //$(this).show();
+                //if (value > valorSeleccionado) {
+                //    $(this).hide();
+                //}
+            });
+
+
+            $.each(optionsSelectAbajo, function (pos, el) {
+                ocultaOptions($(this), "<");
+
+                //value = $(this).attr('value');
+                //$(this).show();
+
+                //if (value < valorSeleccionado) {
+                //    $(this).hide();
+                //}
+                //if (value == 0) {
+                //    $(this).show();
+                //}
+
+            });
+
+        }
+    });
+
+    function limpiaCombos(idSelectSiguiente, idSelectAbajo) {
+        alert('idSelectSiguiente => ' + idSelectSiguiente + ' idSelectAbajo => ' + idSelectAbajo)
+        var combos;
+        var combosAbajo;
+        var idSelectSiguienteBuscado;
+
+        //carga de la variable combos, dependiendo del id, es decir, una fila u otras(Severidad)
+        if (idSelectSiguiente.indexOf("Frec") != -1) {
+            combos = $('select[id*=Frec]');
+        } else {
+            combos = $('select[id*=Seve]');
+        }
+
+        $.each(combos, function (el, pos) {
+            alert($(this).val())
+            if ($(this).attr('id') == idSelectSiguiente) {
+                idSelectSiguienteBuscado = $(this).attr('sig').split(':')[0]
+            }
+        })
+
+        $('#' + idSelectSiguiente).css('background-color', '');
+        $('#' + idSelectSiguienteBuscado).css('background-color', '');
+
+        $('#' + idSelectSiguiente).find('option').each(function (el, pos) {
+            mecanicaLimpiado($(this));
+        });
+
+        if (idSelectSiguienteBuscado != "") {
+            $('#' + idSelectSiguienteBuscado).find('option').each(function (el, pos) {
+                mecanicaLimpiado($(this));
+            });
+        }
+
+        if (idSelectAbajo != "") {
+            alert('hay select abajo relacionado')
+            $('#' + idSelectAbajo).css('background-color', '');
+
+            //Deja en blanco el select inmediatamente de debajo
+            $('#' + idSelectAbajo).find('option').each(function (el, pos) {
+                mecanicaLimpiado($(this));
+            });
+
+            //Vuelvo a llamar al método para limpiar los select siguiente de la fila de abajo
+            var idSelectSiguienteAbajo = $('#' + idSelectAbajo).attr('sig').split(':')[0];
+            limpiaCombos(idSelectSiguienteAbajo, "")
+        }
+
+    };
+
+    function mecanicaLimpiado(elemento) {
+        if ($(elemento).attr('selected') == 'selected') {
+            $(elemento).removeAttr('selected');
+        }
+
+        if ($(elemento).val() == 0) {
+            $(elemento).attr('selected', 'selected');
+        }
+    };
+
+    function ocultaOptions(elemento, signo) {
+        var value = $(elemento).val();
+        $(elemento).show();
+
+
+        switch (signo) {
+            case ">":
+                if (value > valorSeleccionado) {
+                    $(elemento).hide();
+                }
+                break;
+            case "<":
+                if (value < valorSeleccionado) {
+                    $(elemento).hide();
+                }
+                break;
+        }
+
+        if (value == 0) {
+            $(elemento).show();
+        }
+    };
+</script>
