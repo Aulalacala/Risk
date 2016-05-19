@@ -28,10 +28,11 @@
             <div class="col-lg-12 col-md-12" style="width:100%">
                
                 <div id="tablaRiesgosSinAsignar" class="divDelGrid center-block table-responsive" style="width:95%">    
-                    @*@Html.RenderPartial("~/Views/PartialViews/TablaDatos.cshtml", "");*@               
+                    @Html.Partial("~/Views/PartialViews/TablaDatos.cshtml");               
                 </div>
 
                 <div id="tablaRiesgosAsignados" class="divDelGrid center-block table-responsive" style="width:95%">
+                    @Html.Partial("~/Views/PartialViews/TablaDatos.cshtml"); 
                 </div>
 
 
