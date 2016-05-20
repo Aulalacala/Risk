@@ -7,7 +7,7 @@ using Risk.Models;
 namespace Risk.ViewModels {
     public class AssignMultipleRiskVM {
 
-        DatosTablaModel datosTablaSinAsignar = new DatosTablaModel();
-        DatosTablaModel datosTablaAsignados = new DatosTablaModel();
+        public DatosTablaModel datosTablaSinAsignar { get; set; }
+        public DatosTablaModel datosTablaAsignados { get; set; }
     }
 }

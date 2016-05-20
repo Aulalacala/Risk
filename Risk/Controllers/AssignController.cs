@@ -68,16 +68,23 @@ namespace Risk.Controllers {
 
             AssignMultipleRiskVM datosTablas = new AssignMultipleRiskVM();
 
-            DatosTablaModel datosTablaAsignados = datosTablaGeneral;       
+            DatosTablaModel datosTablaAsignados = new DatosTablaModel();
             //Cargar tbody con los riesgos asignados
+            datosTablaAsignados.datosTHead = datosTablaGeneral.datosTHead;
             datosTablaAsignados.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos, null, 0, 0, 0, 0, Convert.ToInt32(idEstructura));
-
-            DatosTablaModel datosTablaSinAsignar = datosTablaGeneral;
-            //datosTablaSinAsignar.datosTBody = BD_Riesgos.
+            datosTablaAsignados.titulo = "Riesgos de la estructura";
 
 
+            DatosTablaModel datosTablaSinAsignar = new DatosTablaModel();
+            //Cargar tbody con riesgos sin asignar
+            datosTablaSinAsignar.datosTHead = datosTablaGeneral.datosTHead;
+            datosTablaSinAsignar.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos, null, 0, 0, 0, 0,0, true);
+            datosTablaSinAsignar.titulo = "Riesgos sin asignación de estructura";
 
-            return View();
+            datosTablas.datosTablaAsignados = datosTablaAsignados;
+            datosTablas.datosTablaSinAsignar = datosTablaSinAsignar;
+
+            return View(datosTablas);
         }
         #endregion
 
