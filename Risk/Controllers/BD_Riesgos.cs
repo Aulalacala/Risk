@@ -72,7 +72,7 @@ namespace Risk.Controllers
             return nombreColumnasModif;
         }
 
-        public Dictionary<int, List<object>> cargaTablaDatos(string nombreTabla , string colVer, string colTitulos, string filtro = null, int categoria = 0, int clasificacion1 = 0, int clasificacion2 = 0, int clasificacion3 = 0, int idEstructura = 0)
+        public Dictionary<int, List<object>> cargaTablaDatos(string nombreTabla , string colVer, string colTitulos, string filtro = null, int categoria = 0, int clasificacion1 = 0, int clasificacion2 = 0, int clasificacion3 = 0, int idEstructura = 0, bool riesgoSinAsignar = false)
         {
             Dictionary<int, object> dic = new Dictionary<int, object>();
             Dictionary<int, List<object>> listaDatosFinal = new Dictionary<int, List<object>>();
@@ -85,7 +85,7 @@ namespace Risk.Controllers
                     case "qRiesgosNombres":
                         Dictionary<int, qRiesgosNombres> dicRiesgos = riesgosBD.DB.ExecuteQuery<qRiesgosNombres>(query).ToDictionary(r => r.IdRiesgo, r => r);
 
-                        Dictionary<int, qRiesgosNombres> dicFiltrado = busquedasQRiesgosNombres(dicRiesgos, filtro, categoria, clasificacion1, clasificacion2, clasificacion3, idEstructura);
+                        Dictionary<int, qRiesgosNombres> dicFiltrado = busquedasQRiesgosNombres(dicRiesgos, filtro, categoria, clasificacion1, clasificacion2, clasificacion3, idEstructura, riesgoSinAsignar);
                         dic = dicFiltrado.ToDictionary(r => r.Key, r => (object)r.Value);
                         break;
                     case "qRiesgos_Evaluaciones_Valores":
@@ -132,7 +132,7 @@ namespace Risk.Controllers
         }
 
 
-        public Dictionary<int, qRiesgosNombres> busquedasQRiesgosNombres(Dictionary<int, qRiesgosNombres> dicDato, string filtro = null, int categoria = 0, int clasificacion1 = 0, int clasificacion2 = 0, int clasificacion3 = 0, int idEstructura = 0)
+        public Dictionary<int, qRiesgosNombres> busquedasQRiesgosNombres(Dictionary<int, qRiesgosNombres> dicDato, string filtro = null, int categoria = 0, int clasificacion1 = 0, int clasificacion2 = 0, int clasificacion3 = 0, int idEstructura = 0, bool riesgoSinAsignar = false)
         {
             if (!string.IsNullOrEmpty(filtro))
             {
@@ -163,6 +163,9 @@ namespace Risk.Controllers
             if (idEstructura != 0)
             {
                 dicDato = riesgosDescendientes(idEstructura);
+            }
+            if (riesgoSinAsignar == true) {
+                dicDato = dicDato.Where(r => r.Value.CodRiesgo == null).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
             }
 
             return dicDato;

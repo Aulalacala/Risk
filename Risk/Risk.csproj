@@ -282,6 +282,7 @@
       <DependentUpon>Usuarios_BD.dbml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="ViewModels\AssignMultipleRiskVM.cs" />
     <Compile Include="ViewModels\FichaRiesgoVM.cs" />
     <Compile Include="ViewModels\ViewModelRisk.cs" />
   </ItemGroup>
