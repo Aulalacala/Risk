@@ -39,7 +39,8 @@ namespace Risk.Controllers
         {
             FichaRiesgoVM fichaRiesgoVM = montaVM(id);
 
-            if(idEstructura != 0) {
+            if (idEstructura != 0)
+            {
                 fichaRiesgoVM.qRiesgosNombre_VM.CodRiesgo = dameUltimoRiesgoDisponible(idEstructura.ToString());
                 fichaRiesgoVM.qRiesgosNombre_VM.CodRiesgoLocalizado = fichaRiesgoVM.qRiesgosNombre_VM.CodRiesgo.Substring(0, 8);
             }
@@ -59,13 +60,12 @@ namespace Risk.Controllers
             FichaRiesgoVM fichaRiesgoVM = montaVM(id);
 
             DatosTablaModel datosTabla = new DatosTablaModel();
-            datosTabla.datosTHead = BD_Riesgos.nombresColTabla("[qRiesgos_Evaluaciones _Valores]", colVer, colTitulos);
-            datosTabla.datosTBody = BD_Riesgos.cargaTablaDatos("[qRiesgos_Evaluaciones _Valores]", colVer, colTitulos, null, 0, 0, 0, 0, Convert.ToInt32(id));
+            datosTabla.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosEvalVal", colVer, colTitulos);
+            datosTabla.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosEvalVal", colVer, colTitulos, null, 0, 0, 0, 0, Convert.ToInt32(id));
+            datosTabla.vistaProcedencia = "Historical";
 
             fichaRiesgoVM.datosTabla_VM = datosTabla;
-
-            //TempData["datosthead"] = BD_Riesgos.nombresColTabla("qRiesgos_Evaluaciones_Valores", colVer, colTitulos);
-            //TempData["datostbody"] = BD_Riesgos.cargaTablaDatos("qRiesgos_Evaluaciones_Valores", colVer, colTitulos, null, 0, 0, 0, 0, Convert.ToInt32(id));
+            fichaRiesgoVM.referencia = 0;
 
             return PartialView(fichaRiesgoVM);
         }
@@ -134,7 +134,7 @@ namespace Risk.Controllers
         public FichaRiesgoVM montaVM(int id)
         {
             qRiesgosNombres riesgoRecup = new qRiesgosNombres(); ;
-            qRiesgos_Evaluaciones_Valores evaluaciones = new qRiesgos_Evaluaciones_Valores();
+            qRiesgosEvalVal evaluaciones = new qRiesgosEvalVal();
 
             if (id != 0)
             {
@@ -145,7 +145,7 @@ namespace Risk.Controllers
 
             FichaRiesgoVM fichaRiesgoVM = new FichaRiesgoVM();
             fichaRiesgoVM.qRiesgosNombre_VM = riesgoRecup;
-            fichaRiesgoVM.qRiesgos_Evaluaciones_Valores_VM = evaluaciones;
+            fichaRiesgoVM.qRiesgosEvalVal_VM = evaluaciones;
 
 
             DropDownModel dropdowns = new DropDownModel();
@@ -162,15 +162,17 @@ namespace Risk.Controllers
         {
             int idRiesgo = 0;
 
-            if (datosFormulario.IdRiesgo.Equals("0")) {
+            if (datosFormulario.IdRiesgo.Equals("0"))
+            {
                 idRiesgo = insertarNuevoRiesgo(datosFormulario);
             }
 
-            else {
-                 idRiesgo = updateRiesgo(datosFormulario);
+            else
+            {
+                idRiesgo = updateRiesgo(datosFormulario);
             }
 
-            
+
             return Json(Url.Action("RiskFicha", "Risk", new { id = idRiesgo }));
 
         }
@@ -250,7 +252,7 @@ namespace Risk.Controllers
                 }
             }
 
-           return BD_Riesgos.actualizaQRiesgosNombre(datosQRiesgosNombre, int.Parse(datosFormulario.IdRiesgo));
+            return BD_Riesgos.actualizaQRiesgosNombre(datosQRiesgosNombre, int.Parse(datosFormulario.IdRiesgo));
         }
 
         [HttpPost]
@@ -263,7 +265,8 @@ namespace Risk.Controllers
 
 
         [HttpPost]
-        public ActionResult nuevoRiskDesdeStructure(int idEstructura) {
+        public ActionResult nuevoRiskDesdeStructure(int idEstructura)
+        {
             return Json(Url.Action("RiskFicha", "Risk", new { id = 0, idEstructura = idEstructura }));
         }
 

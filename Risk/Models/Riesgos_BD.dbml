@@ -172,8 +172,16 @@
       <Column Name="IdRiesgo" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
-  <Table Name="dbo.[qRiesgos_Evaluaciones _Valores]" Member="qRiesgos_Evaluaciones_Valores">
-    <Type Name="qRiesgos_Evaluaciones_Valores">
+  <Table Name="dbo.tEva_Efectividad" Member="tEva_Efectividad">
+    <Type Name="tEva_Efectividad">
+      <Column Name="IdEfectividad" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Efectividad" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Orden" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Color" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.qRiesgosEvalVal" Member="qRiesgosEvalVal">
+    <Type Name="qRiesgosEvalVal">
       <Column Name="IdRiesgo" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="IdEvaluacion" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Ultima" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
@@ -206,6 +214,8 @@
       <Column Name="ColorSevePeorPlanDespues" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
       <Column Name="Fecha" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Activa" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="IdEfectividad" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Efectividad" Type="System.Double" DbType="Float" CanBeNull="true" />
     </Type>
   </Table>
 </Database>

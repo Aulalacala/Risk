@@ -88,9 +88,9 @@ namespace Risk.Controllers
                         Dictionary<int, qRiesgosNombres> dicFiltrado = busquedasQRiesgosNombres(dicRiesgos, filtro, categoria, clasificacion1, clasificacion2, clasificacion3, idEstructura, riesgoSinAsignar);
                         dic = dicFiltrado.ToDictionary(r => r.Key, r => (object)r.Value);
                         break;
-                    case "[qRiesgos_Evaluaciones_Valores]":
-                        Dictionary<int, qRiesgos_Evaluaciones_Valores> dicEvaluaciones = riesgosBD.DB.ExecuteQuery<qRiesgos_Evaluaciones_Valores>(query).ToDictionary(r => Convert.ToInt32(r.IdRiesgo), r => r);
-                        dic = dicEvaluaciones.Where(r=>r.Key == idEstructura).ToDictionary(r => r.Key, r => (object)r.Value);
+                    case "qRiesgosEvalVal":
+                        Dictionary<int, qRiesgosEvalVal> dicEvaluaciones = riesgosBD.DB.ExecuteQuery<qRiesgosEvalVal>(query).Where(r=>r.IdRiesgo == idEstructura).ToDictionary(r => Convert.ToInt32(r.IdEvaluacion), r => r);
+                        dic = dicEvaluaciones.ToDictionary(r => r.Key, r => (object)r.Value);
                         break;
                 }
 
@@ -255,10 +255,10 @@ namespace Risk.Controllers
         }
 
 
-        public qRiesgos_Evaluaciones_Valores recuperaEvaluaciones(int id)
+        public qRiesgosEvalVal recuperaEvaluaciones(int id)
         {
-            qRiesgos_Evaluaciones_Valores datosEvaluaciones = new qRiesgos_Evaluaciones_Valores();
-            datosEvaluaciones = riesgosBD.DB.qRiesgos_Evaluaciones_Valores.Where(r => r.IdRiesgo == id && r.Ultima == true).SingleOrDefault();
+            qRiesgosEvalVal datosEvaluaciones = new qRiesgosEvalVal();
+            datosEvaluaciones = riesgosBD.DB.qRiesgosEvalVal.Where(r => r.IdRiesgo == id && r.Ultima == true).SingleOrDefault();
             return datosEvaluaciones;
         }
 

@@ -66,6 +66,9 @@ namespace Risk.Models
     partial void InserttRelEstructuraRiesgos(tRelEstructuraRiesgos instance);
     partial void UpdatetRelEstructuraRiesgos(tRelEstructuraRiesgos instance);
     partial void DeletetRelEstructuraRiesgos(tRelEstructuraRiesgos instance);
+    partial void InserttEva_Efectividad(tEva_Efectividad instance);
+    partial void UpdatetEva_Efectividad(tEva_Efectividad instance);
+    partial void DeletetEva_Efectividad(tEva_Efectividad instance);
     #endregion
 		
 		public Riesgos_BDDataContext() : 
@@ -210,11 +213,19 @@ namespace Risk.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<qRiesgos_Evaluaciones_Valores> qRiesgos_Evaluaciones_Valores
+		public System.Data.Linq.Table<tEva_Efectividad> tEva_Efectividad
 		{
 			get
 			{
-				return this.GetTable<qRiesgos_Evaluaciones_Valores>();
+				return this.GetTable<tEva_Efectividad>();
+			}
+		}
+		
+		public System.Data.Linq.Table<qRiesgosEvalVal> qRiesgosEvalVal
+		{
+			get
+			{
+				return this.GetTable<qRiesgosEvalVal>();
 			}
 		}
 	}
@@ -3315,8 +3326,142 @@ namespace Risk.Models
 		}
 	}
 	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.[qRiesgos_Evaluaciones _Valores]")]
-	public partial class qRiesgos_Evaluaciones_Valores
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tEva_Efectividad")]
+	public partial class tEva_Efectividad : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdEfectividad;
+		
+		private string _Efectividad;
+		
+		private System.Nullable<int> _Orden;
+		
+		private string _Color;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdEfectividadChanging(int value);
+    partial void OnIdEfectividadChanged();
+    partial void OnEfectividadChanging(string value);
+    partial void OnEfectividadChanged();
+    partial void OnOrdenChanging(System.Nullable<int> value);
+    partial void OnOrdenChanged();
+    partial void OnColorChanging(string value);
+    partial void OnColorChanged();
+    #endregion
+		
+		public tEva_Efectividad()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEfectividad", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdEfectividad
+		{
+			get
+			{
+				return this._IdEfectividad;
+			}
+			set
+			{
+				if ((this._IdEfectividad != value))
+				{
+					this.OnIdEfectividadChanging(value);
+					this.SendPropertyChanging();
+					this._IdEfectividad = value;
+					this.SendPropertyChanged("IdEfectividad");
+					this.OnIdEfectividadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Efectividad", DbType="NVarChar(50)")]
+		public string Efectividad
+		{
+			get
+			{
+				return this._Efectividad;
+			}
+			set
+			{
+				if ((this._Efectividad != value))
+				{
+					this.OnEfectividadChanging(value);
+					this.SendPropertyChanging();
+					this._Efectividad = value;
+					this.SendPropertyChanged("Efectividad");
+					this.OnEfectividadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int")]
+		public System.Nullable<int> Orden
+		{
+			get
+			{
+				return this._Orden;
+			}
+			set
+			{
+				if ((this._Orden != value))
+				{
+					this.OnOrdenChanging(value);
+					this.SendPropertyChanging();
+					this._Orden = value;
+					this.SendPropertyChanged("Orden");
+					this.OnOrdenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Color", DbType="NVarChar(50)")]
+		public string Color
+		{
+			get
+			{
+				return this._Color;
+			}
+			set
+			{
+				if ((this._Color != value))
+				{
+					this.OnColorChanging(value);
+					this.SendPropertyChanging();
+					this._Color = value;
+					this.SendPropertyChanged("Color");
+					this.OnColorChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.qRiesgosEvalVal")]
+	public partial class qRiesgosEvalVal
 	{
 		
 		private System.Nullable<int> _IdRiesgo;
@@ -3383,7 +3528,11 @@ namespace Risk.Models
 		
 		private System.Nullable<bool> _Activa;
 		
-		public qRiesgos_Evaluaciones_Valores()
+		private System.Nullable<int> _IdEfectividad;
+		
+		private System.Nullable<double> _Efectividad;
+		
+		public qRiesgosEvalVal()
 		{
 		}
 		
@@ -3895,6 +4044,38 @@ namespace Risk.Models
 				if ((this._Activa != value))
 				{
 					this._Activa = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEfectividad", DbType="Int")]
+		public System.Nullable<int> IdEfectividad
+		{
+			get
+			{
+				return this._IdEfectividad;
+			}
+			set
+			{
+				if ((this._IdEfectividad != value))
+				{
+					this._IdEfectividad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Efectividad", DbType="Float")]
+		public System.Nullable<double> Efectividad
+		{
+			get
+			{
+				return this._Efectividad;
+			}
+			set
+			{
+				if ((this._Efectividad != value))
+				{
+					this._Efectividad = value;
 				}
 			}
 		}

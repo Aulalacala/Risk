@@ -19,6 +19,7 @@ namespace Risk.Models
         private Dictionary<int, string> _datosSegmentacion;
         private Dictionary<int, List<string>> _datosEvaSeveridad;
         private Dictionary<int, List<string>> _datosEvaFrecuencia;
+        private Dictionary<int, List<string>> _datosEvaEfectividad;
 
         private Dictionary<string, string> _htmlAttributes;
 
@@ -153,6 +154,35 @@ namespace Risk.Models
                 }
               
                 return dicFrecuencia;
+            }
+            set
+            {
+                _datosEvaSeveridad = value;
+            }
+        }
+
+        public Dictionary<int, List<string>> datosEvaEfectividad
+        {
+            get
+            {
+                Dictionary<int, List<string>> dicEfectividad = new Dictionary<int, List<string>>();
+                dicEfectividad.Add(0, new List<string> { "#ffffff", "" });
+
+                var dic = riesgosBD.DB.tEva_Efectividad
+                                    .GroupBy(x => x.IdEfectividad)
+                                    .ToDictionary(r => r.Key, r => r.Select(x => new List<string>
+                                    {
+                                        x.Color,
+                                        x.Efectividad
+                                    }
+                                    ).Single());
+
+                foreach (var item in dic)
+                {
+                    dicEfectividad.Add(item.Key, item.Value);
+                }
+
+                return dicEfectividad;
             }
             set
             {

@@ -9,10 +9,22 @@ namespace Risk.ViewModels
     public class FichaRiesgoVM
     {
         public qRiesgosNombres qRiesgosNombre_VM { get; set; }
-        public qRiesgos_Evaluaciones_Valores qRiesgos_Evaluaciones_Valores_VM { get; set; }
-        public DropDownModel dropDowns{get; set;}
+        public qRiesgosEvalVal qRiesgosEvalVal_VM { get; set; }
+        public DropDownModel dropDowns { get; set; }
         public DatosTablaModel datosTabla_VM { get; set; }
+        public int referencia { get; set; }
 
-
+        public qRiesgosEvalVal qRiesgosEvalValNuevo
+        {
+            get
+            {
+                qRiesgosEvalVal evaluacionNueva = new qRiesgosEvalVal();
+                return evaluacionNueva;
+            }
+            set
+            {
+                qRiesgosEvalValNuevo = value;
+            }
+        }
     }
 }
