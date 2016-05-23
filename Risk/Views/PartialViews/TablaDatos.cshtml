@@ -1,16 +1,4 @@
-﻿@*@{
-    Dictionary<int, List<object>> datos = (Dictionary<int, List<object>>)TempData["datostbody"];
-    Dictionary<string, string> datostHead = (Dictionary<string, string>)ViewBag.datosthead;
-
-    if(datostHead == null)
-    {
-        datostHead = (Dictionary<string, string>)TempData["datosthead"];
-    }
-
-    string titulo = (string)TempData["titulo"];
-}*@
-
-@using Risk.Models
+﻿@using Risk.Models
 @model Risk.Models.DatosTablaModel
 
 <!-- SCRIPTS -->
@@ -125,7 +113,18 @@
                 "bInfo": false,
             })
 
+        } else if (window.location.href.indexOf("AssignMultipleRisks") > -1) {
 
+            var table = $('#tablaDatosRiesgos').DataTable({
+                //responsive: true,
+                scrollY: 500,
+                scrollX: true,
+                scrollCollapse: true,
+                //scroller: true,
+                "bPaginate": false,
+                "bFilter": false,
+                "bInfo": false,
+            })
 
         } else {
             var table = $('#tablaDatosRiesgos').DataTable({
@@ -135,6 +134,8 @@
                 scrollCollapse: true,
                 scroller: true,
             })
+
+
         }
     });
 </script>

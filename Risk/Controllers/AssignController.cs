@@ -65,7 +65,26 @@ namespace Risk.Controllers {
         #region View AssignMultpleRisks
         // Vista inicial GET AssignMultipleRisks (Llamada desde Structure) ----------------------------------------------
         public ActionResult AssignMultipleRisks(int idEstructura) {
-            return View();
+
+            AssignMultipleRiskVM datosTablas = new AssignMultipleRiskVM();
+
+            DatosTablaModel datosTablaAsignados = new DatosTablaModel();
+            //Cargar tbody con los riesgos asignados
+            datosTablaAsignados.datosTHead = datosTablaGeneral.datosTHead;
+            datosTablaAsignados.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos, null, 0, 0, 0, 0, Convert.ToInt32(idEstructura));
+            datosTablaAsignados.titulo = "Riesgos de la estructura";
+
+
+            DatosTablaModel datosTablaSinAsignar = new DatosTablaModel();
+            //Cargar tbody con riesgos sin asignar
+            datosTablaSinAsignar.datosTHead = datosTablaGeneral.datosTHead;
+            datosTablaSinAsignar.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos, null, 0, 0, 0, 0,0, true);
+            datosTablaSinAsignar.titulo = "Riesgos sin asignación de estructura";
+
+            datosTablas.datosTablaAsignados = datosTablaAsignados;
+            datosTablas.datosTablaSinAsignar = datosTablaSinAsignar;
+
+            return View(datosTablas);
         }
         #endregion
 
