@@ -84,6 +84,10 @@ namespace Risk.Controllers {
             datosTablas.datosTablaAsignados = datosTablaAsignados;
             datosTablas.datosTablaSinAsignar = datosTablaSinAsignar;
 
+            DropDownModel dropDownStructure = new DropDownModel();
+            datosTablas.dropDownStructure = dropDownStructure;
+            datosTablas.idEstructura = idEstructura;
+
             return View(datosTablas);
         }
         #endregion

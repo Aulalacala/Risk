@@ -116,16 +116,13 @@
         } else if (window.location.href.indexOf("AssignMultipleRisks") > -1) {
 
             var table = $('#tablaDatosRiesgos').DataTable({
-                //responsive: true,
-                scrollY: 500,
-                scrollX: true,
-                scrollCollapse: true,
-                //scroller: true,
                 "bPaginate": false,
                 "bFilter": false,
                 "bInfo": false,
+                retrieve: true
             })
 
+            
         } else {
             var table = $('#tablaDatosRiesgos').DataTable({
                 responsive: true,
