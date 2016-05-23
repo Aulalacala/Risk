@@ -88,9 +88,9 @@ namespace Risk.Controllers
                         Dictionary<int, qRiesgosNombres> dicFiltrado = busquedasQRiesgosNombres(dicRiesgos, filtro, categoria, clasificacion1, clasificacion2, clasificacion3, idEstructura);
                         dic = dicFiltrado.ToDictionary(r => r.Key, r => (object)r.Value);
                         break;
-                    case "qRiesgos_Evaluaciones_Valores":
+                    case "[qRiesgos_Evaluaciones_Valores]":
                         Dictionary<int, qRiesgos_Evaluaciones_Valores> dicEvaluaciones = riesgosBD.DB.ExecuteQuery<qRiesgos_Evaluaciones_Valores>(query).ToDictionary(r => Convert.ToInt32(r.IdRiesgo), r => r);
-                        dic = dicEvaluaciones.ToDictionary(r => r.Key, r => (object)r.Value);
+                        dic = dicEvaluaciones.Where(r=>r.Key == idEstructura).ToDictionary(r => r.Key, r => (object)r.Value);
                         break;
                 }
 

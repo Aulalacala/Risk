@@ -59,8 +59,8 @@ namespace Risk.Controllers
             FichaRiesgoVM fichaRiesgoVM = montaVM(id);
 
             DatosTablaModel datosTabla = new DatosTablaModel();
-            datosTabla.datosTHead = BD_Riesgos.nombresColTabla("qRiesgos_Evaluaciones_Valores", colVer, colTitulos);
-            datosTabla.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgos_Evaluaciones_Valores", colVer, colTitulos, null, 0, 0, 0, 0, Convert.ToInt32(id));
+            datosTabla.datosTHead = BD_Riesgos.nombresColTabla("[qRiesgos_Evaluaciones _Valores]", colVer, colTitulos);
+            datosTabla.datosTBody = BD_Riesgos.cargaTablaDatos("[qRiesgos_Evaluaciones _Valores]", colVer, colTitulos, null, 0, 0, 0, 0, Convert.ToInt32(id));
 
             fichaRiesgoVM.datosTabla_VM = datosTabla;
 

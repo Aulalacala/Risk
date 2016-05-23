@@ -86,10 +86,10 @@
         <elementListCompartment Id="d150bade-384c-4f0a-9970-698d620771b7" absoluteBounds="9.765, 13.21, 1.9700000000000002, 0.8262939453125" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <classShape Id="8adb5909-f646-43a7-86ae-be305acb91c2" absoluteBounds="6.625, 0.75, 2.875, 6.9630354817708326">
+    <classShape Id="b751e81b-2c60-4db2-9206-cb52c123555e" absoluteBounds="6.25, 0.875, 2.75, 6.9630354817708326">
       <DataClassMoniker Name="/Riesgos_BDDataContext/qRiesgos_Evaluaciones_Valores" />
       <nestedChildShapes>
-        <elementListCompartment Id="45398fc4-1d4a-421d-9284-7602c4b45104" absoluteBounds="6.64, 1.21, 2.8449999999999998, 6.403035481770833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="8bcc9300-7897-4a44-988f-d5c080afbf5c" absoluteBounds="6.265, 1.335, 2.7199999999999998, 6.403035481770833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>
