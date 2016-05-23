@@ -9,5 +9,7 @@ namespace Risk.ViewModels {
 
         public DatosTablaModel datosTablaSinAsignar { get; set; }
         public DatosTablaModel datosTablaAsignados { get; set; }
+        public int idEstructura { get; set; }
+        public DropDownModel dropDownStructure { get; set; }
     }
 }

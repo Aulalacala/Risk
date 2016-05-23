@@ -51,15 +51,6 @@
                     }
                 </select>
 
-                <script>
-                    $(document).ready(function () {
-                        if ($('#estructura').val() != "0") {
-                            $('#idEstructura').addClass('dirty','dirty');
-                        }
-                    })
-
-                </script>
-
             </div>
             <div class="col-lg-2 col-md-2">
                 <span class="form-left-label">Particle Code</span>
@@ -453,3 +444,12 @@
 
                     <script type="text/javascript" src="~/Content/js/botoneraPartials.js"></script>
                     <script type="text/javascript" src="~/Content/js/scripts2.js"></script>
+
+<script>
+                    $(document).ready(function () {
+                        if ($('#estructura').val() != "0") {
+                            $('#idEstructura').addClass('dirty','dirty');
+                        }
+                    })
+
+</script>
