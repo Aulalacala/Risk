@@ -4,6 +4,8 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+
+
 <h2>Assign Multiple Risks</h2>
 <div class="panel" style="margin-top:30px;">
     <div class="panel-body" style="background-color:white">
@@ -44,29 +46,34 @@
                 </div>
 
 
+                <div class="col-lg-5 col-md-5" style="padding:10px;width:45%;border: 1px solid #cbcbcb">
 
-                <div class="col-lg-5 col-md-5" style="padding:10px ; width:45%;border: 1px solid #cbcbcb">
-                    
-                            @* DROPDOWN CON TODOS LOS ELEMENTOS DE LA ESTRUCUTURA *@
-                            <span class="form-left-label">Structure Code</span>
-                            <select class="form-control w100" campos="campos" id="idEstructura">
-                                @{ Dictionary<int, string> structureCode = Model.dropDownStructure.structureCode;
+                    @* DROPDOWN CON TODOS LOS ELEMENTOS DE LA ESTRUCUTURA *@
+                    <span class="form-left-label">Structure Code</span>
+                    <select class="form-control w100" campos="campos" id="idEstructura">
+                        @{ Dictionary<int, string> structureCode = Model.dropDownStructure.structureCode;
 
-                                    foreach (var structure in structureCode) {
-                                        if (structure.Key == Model.idEstructura) {
-                                            <option value="@structure.Key" selected>@structure.Value </option>
-                                        }
-                                        <option value="@structure.Key">@structure.Value </option>
-                                    }
+                            foreach (var structure in structureCode) {
+                                if (structure.Key == Model.idEstructura) {
+                                    <option value="@structure.Key" selected>@structure.Value </option>
                                 }
-                            </select>
-                  
-                    <div id="datosTablaAsignados" class="divDelGrid table-responsive" style="width:100%;height:500px;">
-                        @Html.Partial("~/Views/PartialViews/TablaDatos.cshtml", Model.datosTablaAsignados)
-                    </div>
-                </div>
+                                <option value="@structure.Key">@structure.Value </option>
+                            }
+                        }
+                    </select>
+</div>
 
-            </div>
+
+
+
+                    <div class="col-lg-5 col-md-5" style="padding:10px;width:45%;border: 1px solid #cbcbcb">
+
+                        <div id="datosTablaAsignados" class="divDelGrid table-responsive" style="width:100%;height:500px;">
+                            @Html.Partial("~/Views/PartialViews/TablaDatos.cshtml", Model.datosTablaAsignados)
+                        </div>
+                    </div>
+
+                </div>
         </div>
 
     </div>
@@ -75,9 +82,11 @@
 <script>
     $(document).ready(function () {
 
+
         // Cambio de nombre de las tablas por defecto (TablaDatos.cshtml) para que sean distintos
         $('#datosTablaAsignados table').attr('id', 'datosTablaAsignados');
         $('#tablaRiesgosSinAsignar table').attr('id', 'tablaRiesgosSinAsignar');
+
 
 
         // Asignacion de las tablas a 'DataTable' para poder usar sus metodos (add)
@@ -97,41 +106,128 @@
         })
 
 
-        // Eventos botones para añadir o quitar riesgos de una tabla a otra
+        // Evento para seleccionar filas de las tablas
+        $('#datosTablaAsignados tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            }
+            else {
+                $('#datosTablaAsignados tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
 
+        $('#tablaRiesgosSinAsignar tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            }
+            else {
+                $('#tablaRiesgosSinAsignar tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+
+
+        // Eventos botones para añadir o quitar riesgos de una tabla a otra
         $('input[id*="Structure"]').click(function () {
 
-            var selected;
+            var row;
             var tablaAdd;
             var tablaDelete;
 
-            if ($(this).attr('codigo') == "addStructure") {
 
-                selected = $('table[id=tablaRiesgosSinAsignar] tr.selected');                
+            if ($(this).attr('codigo') == "addStructure") {
                 tablaAdd = tableAsignados;
-                tablaDelete = tablaRiesgosSinAsignar;
+                tablaDelete = tablaRiesgosSinAsignar;   
+                row = tablaDelete.row($('table[id=tablaRiesgosSinAsignar] tr.selected'));
+
             }
 
             else {
-                selected = $('table[id=datosTablaAsignados] tr.selected');
                 tablaAdd = tablaRiesgosSinAsignar;
                 tablaDelete = tableAsignados;
+                row = tablaDelete.row($('table[id=datosTablaAsignados] tr.selected'));
+
             }
 
-            selected.remove();
+            var rowNode = row.node();
+            $(rowNode).addClass('dirty');
+            $(rowNode).css({ "color": "#d43f3a" })
+            row.remove();
 
-            tablaAdd.row.add([
-                selected.find('td')[0].innerHTML,
-                selected.find('td')[1].innerHTML,
-                selected.find('td')[2].innerHTML,
-                selected.find('td')[3].innerHTML,
-                selected.find('td')[4].innerHTML,
-                selected.find('td')[5].innerHTML,
-                selected.find('td')[6].innerHTML,
-                selected.find('td')[7].innerHTML
-            ]).draw(false);
+            tablaAdd
+                .row.add(rowNode)
+                .draw();
+
+            $('#BtnSave').removeClass('btn-primary').addClass('btn-danger');
 
         })
+
+
+        // Guardar cambios
+        $('#BtnSave').click(function () {
+            var asignados = [];
+            var sinasignar = [];
+            var idEstructura;
+
+            // guardar los añadidos en la tabla con riesgos SIN estructura
+            // en el metodo del controlador AssignController --> borrado de CodRiesgo y CodRiesgoLocalizado de tabla tRiesgos
+            // y borrado de la tupla con ese idRiesgo en la tabla tRelEstructuraRiesgos
+            tablaRiesgosSinAsignar.rows().every(function (rowIdx, tableLoop, rowLoop) {
+                var rowNode = this.node();
+
+                if ($(rowNode).hasClass('dirty')) {
+                    var idRiesgo = this.data()[0].split('id="')[1].split('"')[0];
+                    idEstructura = 0;
+
+                    sinasignar.push(idRiesgo);
+                }
+            });
+
+            if (sinasignar.length != 0) {
+                $.ajax({
+                    url: '/Assign/guardarCambiosMultipleRisk',
+                    type: 'post',
+                    data: { riesgos: sinasignar, idEstructura: idEstructura },
+                    success: function (data) {
+                        alert(data);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert('ERROR ' + jqXHR + ' ' + textStatus + ' ' + errorThrown)
+                    }
+                });
+            };
+
+            // guardar los añadidos en la tabla con riesgos CON estructura
+            // en el metodo del controlador AssignController --> poner CodRiesgo y CodRiesgoLocalizado de tabla tRiesgos con la estructura seleccionada
+            // e insertar ese riesgo con esa estructura en la tabla tRelEstructuraRiesgos
+            tableAsignados.rows().every(function (rowIdx, tableLoop, rowLoop) {
+                var rowNode = this.node();
+
+                if ($(rowNode).hasClass('dirty')) {
+                    var idRiesgo = this.data()[0].split('id="')[1].split('"')[0];
+                    idEstructura = $('#idEstructura').val();
+
+                    asignados.push(idRiesgo);
+                };
+            });
+
+            if (asignados.length != 0) {
+                $.ajax({
+                    url: '/Assign/guardarCambiosMultipleRisk',
+                    type: 'post',
+                    data: { riesgos: asignados, idEstructura: idEstructura },
+                    success: function (data) {
+                        alert(data);
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert('ERROR ' + jqXHR + ' ' + textStatus + ' ' + errorThrown)
+                    }
+                });
+            };
+
+        });
 
     });
 

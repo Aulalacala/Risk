@@ -67,6 +67,8 @@ table.dataTable tbody tr {
 table.dataTable tbody tr.selected {
   background-color: #eaf7fa;
 }
+
+
 table.dataTable tbody th,
 table.dataTable tbody td {
   padding: 8px 10px;
