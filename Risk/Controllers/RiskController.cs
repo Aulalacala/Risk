@@ -71,18 +71,51 @@ namespace Risk.Controllers
         }
 
 
-
         public ActionResult FinancialImpactCombos(int id)
         {
             FichaRiesgoVM fichaRiesgoVM = montaVM(id);
             return PartialView(fichaRiesgoVM);
         }
 
-        public ActionResult FinancialImpactTextBox(int id)
+        public ActionResult FinancialImpactTextBox(int id, int idEvaluacion = 0)
         {
-            FichaRiesgoVM fichaRiesgoVM = montaVM(id);
+            FichaRiesgoVM fichaRiesgoVM = new FichaRiesgoVM();
+
+            if (idEvaluacion != 0)
+            {
+                qRiesgosEvalVal qRiesgosEvalValEspecifico = new qRiesgosEvalVal();
+                fichaRiesgoVM = montaVM(id, idEvaluacion);
+                fichaRiesgoVM.idEvaluacion = idEvaluacion;
+            }else
+            {
+                fichaRiesgoVM = montaVM(id);
+            }
             return PartialView(fichaRiesgoVM);
         }
+
+        public ActionResult FinancialImpactCombosHelpers(int id, int idEvaluacion = 0)
+        {
+            FichaRiesgoVM fichaRiesgoVM = new FichaRiesgoVM();
+
+            if (idEvaluacion != 0)
+            {
+                qRiesgosEvalVal qRiesgosEvalValEspecifico = new qRiesgosEvalVal();
+                fichaRiesgoVM = montaVM(id, idEvaluacion);
+                fichaRiesgoVM.idEvaluacion = idEvaluacion;
+            }
+            else
+            {
+                fichaRiesgoVM = montaVM(id);
+
+                Dictionary<int, qRiesgosEvalVal> dicEvaluaciones = new Dictionary<int, qRiesgosEvalVal>();
+                dicEvaluaciones.Add(0, new qRiesgosEvalVal());
+
+                fichaRiesgoVM.qRiesgosEvalVal_Dic_VM = dicEvaluaciones;
+                fichaRiesgoVM.idEvaluacion = 0;
+            }
+            return PartialView(fichaRiesgoVM);
+        }
+
 
 
 
@@ -131,21 +164,46 @@ namespace Risk.Controllers
             return jsonString;
         }
 
-        public FichaRiesgoVM montaVM(int id)
+        public FichaRiesgoVM montaVM(int id, int idEvaluacion = 0)
         {
-            qRiesgosNombres riesgoRecup = new qRiesgosNombres(); ;
-            qRiesgosEvalVal evaluaciones = new qRiesgosEvalVal();
+            FichaRiesgoVM fichaRiesgoVM = new FichaRiesgoVM();
 
+            qRiesgosNombres riesgoRecup = new qRiesgosNombres(); 
+
+            
             if (id != 0)
             {
                 riesgoRecup = BD_Riesgos.recuperarRiesgo(id);
-                evaluaciones = BD_Riesgos.recuperaEvaluaciones(id);
             }
 
 
-            FichaRiesgoVM fichaRiesgoVM = new FichaRiesgoVM();
+            if (idEvaluacion == 0)
+            {
+                Dictionary<int, qRiesgosEvalVal> dicEvaluaciones = new Dictionary<int, qRiesgosEvalVal>();
+                qRiesgosEvalVal evaluacion = new qRiesgosEvalVal();
+                evaluacion.IdFrecAntes = 0;
+                evaluacion.IdSeveAntes = 0;
+                evaluacion.IdFrecDespues = 0;
+                evaluacion.IdSeveDespues = 0;
+                evaluacion.IdSevePeorAntes = 0;
+                evaluacion.IdSevePeorDespues = 0;
+                evaluacion.IdEfectividad = 0;
+                evaluacion.Efectividad = 0;
+                evaluacion.IdFrecPlanDespues = 0;
+                evaluacion.IdSevePlanDespues = 0;
+                evaluacion.IdSevePeorPlanDespues = 0;
+
+                dicEvaluaciones.Add(0, evaluacion);
+                fichaRiesgoVM.qRiesgosEvalVal_Dic_VM = dicEvaluaciones;
+                fichaRiesgoVM.idEvaluacion = 0;
+            }else
+            {
+                fichaRiesgoVM.qRiesgosEvalVal_Dic_VM = BD_Riesgos.recuperaEvaluaciones(id, idEvaluacion);
+            }
+
+
             fichaRiesgoVM.qRiesgosNombre_VM = riesgoRecup;
-            fichaRiesgoVM.qRiesgosEvalVal_VM = evaluaciones;
+            //fichaRiesgoVM.qRiesgosEvalVal_VM = evaluaciones;
 
 
             DropDownModel dropdowns = new DropDownModel();

@@ -1,5 +1,13 @@
 ﻿@model Risk.ViewModels.FichaRiesgoVM
 
+@{
+    if (Model.idEvaluacion != 0)
+    {
+        <input type="hidden" id="idEvaluacion" value="@Convert.ToInt32(Model.idEvaluacion)" />
+    }
+}
+
+
 <div id="financialImpact" style="background-color:#eaf7fa" class="row">
     <div class="col-lg-12 col-md-12">
         <span class="form-left-label"><b>FINANCIAL IMPACT</b></span>
@@ -33,24 +41,32 @@
             @{
                 //NombreFrecAntes
                 Dictionary<int, List<string>> dicFrecuencia = Model.dropDowns.datosEvaFrecuencia;
-                var id = 0; var color = "#eee";
+                var id = 0; var color = "#eee"; var text = "";
 
-                if ( Model.qRiesgosEvalVal_VM != null) {
-                    if (Model.qRiesgosEvalVal_VM.IdFrecAntes != null) {
-                        id = Convert.ToInt32(Model.qRiesgosEvalVal_VM.IdFrecAntes);
-                        color = dicFrecuencia.Where(r => r.Key == Model.qRiesgosEvalVal_VM.IdFrecAntes).Select(r => r.Value[0]).Single();
+                if (Model.qRiesgosEvalVal_Dic_VM != null)
+                {
+                    if (Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdFrecAntes) != null)
+                    {
+                        //id = Convert.ToInt32(Model.qRiesgosEvalVal_VM.IdFrecAntes);
+                        //color = dicFrecuencia.Where(r => r.Key == id).Select(r => r.Value[0]).Single();
+                        id = (Int32)Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdFrecAntes).Single();
+                        color = dicFrecuencia.Where(r => r.Key == id).Select(r => r.Value[0]).Single();
+                        text = Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.NombreFrecAntes).Single();
                     }
                 }
 
-                @Html.TextBoxFor(model => model.qRiesgosEvalVal_VM.NombreFrecAntes, new
-           {
-               @class = "form-control w100",
-               @readonly = "readonly",
-               @style = "color:#000000; background-color:" + color,
-               @campos = "campos",
-               @id = "NombreFrecAntes",
-               @tabla = "qRiesgos_Evaluaciones_Valor"
-           })
+                <input type="text" class="form-control w100" readonly="readonly" campos="campos" id="NombreFrecAntes" tabla="qRiesgosEvalVal" style="color:#000000; background-color:@color" value="@text" />
+
+
+                @*@Html.TextBoxFor(model => model.qRiesgosEvalVal_Dic_VM.Values.Select(r=>r.NombreFrecAntes).Single(), new
+                         {
+                             @class = "form-control w100",
+                             @readonly = "readonly",
+                             @style = "color:#000000; background-color:" + color,
+                             @campos = "campos",
+                             @id = "NombreFrecAntes",
+                             @tabla = "qRiesgosEvalVal"
+                    })*@
 
             }
         </div>
@@ -61,21 +77,29 @@
             </div>
             @{
                 //NombreFrecDespues
-                if (Model.qRiesgosEvalVal_VM != null ) {
-                    if (Model.qRiesgosEvalVal_VM.IdFrecDespues != null) {
-                        id = Convert.ToInt32(Model.qRiesgosEvalVal_VM.IdFrecDespues);
-                        color = dicFrecuencia.Where(r => r.Key == Model.qRiesgosEvalVal_VM.IdFrecDespues).Select(r => r.Value[0]).Single();
+                if (Model.qRiesgosEvalVal_Dic_VM != null)
+                {
+                    if (Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdFrecDespues) != null)
+                    {
+                        //id = Convert.ToInt32(Model.qRiesgosEvalVal_VM.IdFrecDespues);
+                        //color = dicFrecuencia.Where(r => r.Key == Model.qRiesgosEvalVal_VM.IdFrecDespues).Select(r => r.Value[0]).Single();
+                        id = (Int32)Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdFrecDespues).Single();
+                        color = dicFrecuencia.Where(r => r.Key == id).Select(r => r.Value[0]).Single();
+                        text = Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.NombreFrecDespues).Single();
                     }
                 }
-               @Html.TextBoxFor(model => model.qRiesgosEvalVal_VM.NombreFrecDespues, new
-           {
-               @class = "form-control w100",
-               @readonly = "readonly",
-               @style = "color:#000000; background-color:" + color,
-               @campos = "campos",
-               @id = "NombreFrecDespues",
-               @tabla = "qRiesgos_Evaluaciones_Valor"
-           })
+
+                <input type="text" class="form-control w100" readonly="readonly" campos="campos" id="NombreFrecDespues" tabla="qRiesgosEvalVal" style="color:#000000; background-color:@color" value="@text" />
+
+                @*@Html.TextBoxFor(model => model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.NombreFrecDespues), new
+                    {
+                        @class = "form-control w100",
+                        @readonly = "readonly",
+                        @style = "color:#000000; background-color:" + color,
+                        @campos = "campos",
+                        @id = "NombreFrecDespues",
+                        @tabla = "qRiesgosEvalVal"
+                    })*@
             }
         </div>
 
@@ -85,22 +109,29 @@
             </div>
             @{
                 //NombreFrecPlanDespues
-                if (Model.qRiesgosEvalVal_VM != null) {
-                    if(Model.qRiesgosEvalVal_VM.IdFrecPlanDespues != null) {
-                        id = Convert.ToInt32(Model.qRiesgosEvalVal_VM.IdFrecPlanDespues);
-                        color = dicFrecuencia.Where(r => r.Key == Model.qRiesgosEvalVal_VM.IdFrecPlanDespues).Select(r => r.Value[0]).Single();
+                if (Model.qRiesgosEvalVal_Dic_VM != null)
+                {
+                    if (Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdFrecPlanDespues) != null)
+                    {
+                        //id = Convert.ToInt32(Model.qRiesgosEvalVal_VM.IdFrecPlanDespues);
+                        //color = dicFrecuencia.Where(r => r.Key == Model.qRiesgosEvalVal_VM.IdFrecPlanDespues).Select(r => r.Value[0]).Single();
+                        id = (Int32)Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdFrecPlanDespues).Single();
+                        color = dicFrecuencia.Where(r => r.Key == id).Select(r => r.Value[0]).Single();
+                        text = Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.NombreFrecPlanDespues).Single();
                     }
                 }
 
-                @Html.TextBoxFor(model => model.qRiesgosEvalVal_VM.NombreFrecPlanDespues, new
-          {
-              @class = "form-control w100",
-              @readonly = "readonly",
-              @style = "color:#000000; background-color:" + color,
-              @campos = "campos",
-              @id = "NombreFrecPlanDespues",
-              @tabla = "qRiesgos_Evaluaciones_Valor"
-          })
+                <input type="text" class="form-control w100" readonly="readonly" campos="campos" id="NombreFrecPlanDespues" tabla="qRiesgosEvalVal" style="color:#000000; background-color:@color" value="@text" />
+
+                @*@Html.TextBoxFor(model => model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.NombreFrecPlanDespues), new
+                    {
+                        @class = "form-control w100",
+                        @readonly = "readonly",
+                        @style = "color:#000000; background-color:" + color,
+                        @campos = "campos",
+                        @id = "NombreFrecPlanDespues",
+                        @tabla = "qRiesgosEvalVal"
+                    })*@
             }
         </div>
     </div>
@@ -117,21 +148,28 @@
                 //NombreSeveAntes
                 Dictionary<int, List<string>> dicSeveridad = Model.dropDowns.datosEvaSeveridad;
 
-                if (Model.qRiesgosEvalVal_VM != null) {
-                    if(Model.qRiesgosEvalVal_VM.IdSeveAntes != null) {
-                        id = Convert.ToInt32(Model.qRiesgosEvalVal_VM.IdSeveAntes);
-                        color = dicSeveridad.Where(r => r.Key == Model.qRiesgosEvalVal_VM.IdSeveAntes).Select(r => r.Value[0]).Single();
+                if (Model.qRiesgosEvalVal_Dic_VM != null)
+                {
+                    if (Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSeveAntes) != null)
+                    {
+                        //id = Convert.ToInt32(Model.qRiesgosEvalVal_VM.IdSeveAntes);
+                        //color = dicSeveridad.Where(r => r.Key == Model.qRiesgosEvalVal_VM.IdSeveAntes).Select(r => r.Value[0]).Single();
+                        id = (Int32)Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSeveAntes).Single();
+                        color = dicSeveridad.Where(r => r.Key == id).Select(r => r.Value[0]).Single();
+                        text = Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.NombreSeveAntes).Single();
                     }
                 }
-                @Html.TextBoxFor(model => model.qRiesgosEvalVal_VM.NombreSeveAntes, new
-          {
-              @class = "form-control w100",
-              @readonly = "readonly",
-              @style = "color:#000000; background-color:" + color,
-              @campos = "campos",
-              @id = "NombreSeveAntes",
-              @tabla = "qRiesgos_Evaluaciones_Valor"
-          })
+                <input type="text" class="form-control w100" readonly="readonly" campos="campos" id="NombreSeveAntes" tabla="qRiesgosEvalVal" style="color:#000000; background-color:@color" value="@text" />
+
+                @*@Html.TextBoxFor(model => model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.NombreSeveAntes), new
+                    {
+                        @class = "form-control w100",
+                        @readonly = "readonly",
+                        @style = "color:#000000; background-color:" + color,
+                        @campos = "campos",
+                        @id = "NombreSeveAntes",
+                        @tabla = "qRiesgosEvalVal"
+                    })*@
             }
         </div>
 
@@ -142,22 +180,29 @@
 
             @{
                 //NombreSeveDespues
-                if (Model.qRiesgosEvalVal_VM != null) {
-                    if (Model.qRiesgosEvalVal_VM.IdSeveDespues != null) {
-                        id = Convert.ToInt32(Model.qRiesgosEvalVal_VM.IdSeveDespues);
-                        color = dicSeveridad.Where(r => r.Key == Model.qRiesgosEvalVal_VM.IdSeveDespues).Select(r => r.Value[0]).Single();
+                if (Model.qRiesgosEvalVal_Dic_VM != null)
+                {
+                    if (Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSeveDespues) != null)
+                    {
+                        //id = Convert.ToInt32(Model.qRiesgosEvalVal_VM.IdSeveDespues);
+                        //color = dicSeveridad.Where(r => r.Key == Model.qRiesgosEvalVal_VM.IdSeveDespues).Select(r => r.Value[0]).Single();
+                        id = (Int32)Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSeveDespues).Single();
+                        color = dicSeveridad.Where(r => r.Key == id).Select(r => r.Value[0]).Single();
+                        text = Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.NombreSeveDespues).Single();
                     }
                 }
 
-                @Html.TextBoxFor(model => model.qRiesgosEvalVal_VM.NombreSeveDespues, new
-          {
-              @class = "form-control w100",
-              @readonly = "readonly",
-              @style = "color:#000000; background-color:" + color,
-              @campos = "campos",
-              @id = "NombreSeveDespues",
-              @tabla = "qRiesgos_Evaluaciones_Valor"
-          })
+                <input type="text" class="form-control w100" readonly="readonly" campos="campos" id="NombreSeveDespues" tabla="qRiesgosEvalVal" style="color:#000000; background-color:@color" value="@text" />
+
+                @*@Html.TextBoxFor(model => model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.NombreSeveDespues), new
+                    {
+                        @class = "form-control w100",
+                        @readonly = "readonly",
+                        @style = "color:#000000; background-color:" + color,
+                        @campos = "campos",
+                        @id = "NombreSeveDespues",
+                        @tabla = "qRiesgosEvalVal"
+                    })*@
             }
 
 
@@ -169,22 +214,28 @@
             </div>
             @{
                 //NombreSevePlanDespues
-                if (Model.qRiesgosEvalVal_VM != null) {
-                    if(Model.qRiesgosEvalVal_VM.IdSevePlanDespues != null) {
-                        id = Convert.ToInt32(Model.qRiesgosEvalVal_VM.IdSevePlanDespues);
-                        color = dicSeveridad.Where(r => r.Key == Model.qRiesgosEvalVal_VM.IdSevePlanDespues).Select(r => r.Value[0]).Single();
+                if (Model.qRiesgosEvalVal_Dic_VM != null)
+                {
+                    if (Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSevePlanDespues) != null)
+                    {
+                        //id = Convert.ToInt32(Model.qRiesgosEvalVal_VM.IdSevePlanDespues);
+                        //color = dicSeveridad.Where(r => r.Key == Model.qRiesgosEvalVal_VM.IdSevePlanDespues).Select(r => r.Value[0]).Single();
+                        id = (Int32)Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSevePlanDespues).Single();
+                        color = dicSeveridad.Where(r => r.Key == id).Select(r => r.Value[0]).Single();
+                        text = Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.NombreSevePlanDespues).Single();
                     }
                 }
+                <input type="text" class="form-control w100" readonly="readonly" campos="campos" id="NombreSevePlanDespues" tabla="qRiesgosEvalVal" style="color:#000000; background-color:@color" value="@text" />
 
-                @Html.TextBoxFor(model => model.qRiesgosEvalVal_VM.NombreSevePlanDespues, new
-           {
-               @class = "form-control w100",
-               @readonly = "readonly",
-               @style = "color:#000000; background-color:" + color,
-               @campos = "campos",
-               @id = "NombreSevePlanDespues",
-               @tabla = "qRiesgos_Evaluaciones_Valor"
-           })
+                @*@Html.TextBoxFor(model => model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.NombreSevePlanDespues), new
+                    {
+                        @class = "form-control w100",
+                        @readonly = "readonly",
+                        @style = "color:#000000; background-color:" + color,
+                        @campos = "campos",
+                        @id = "NombreSevePlanDespues",
+                        @tabla = "qRiesgosEvalVal"
+                    })*@
             }
         </div>
     </div>
@@ -199,21 +250,29 @@
             </div>
             @{
                 //NombreSevePeorAntes
-                if (Model.qRiesgosEvalVal_VM != null) {
-                    if(Model.qRiesgosEvalVal_VM.IdSevePeorAntes != null) {
-                        id = Convert.ToInt32(Model.qRiesgosEvalVal_VM.IdSevePeorAntes);
-                        color = dicSeveridad.Where(r => r.Key == Model.qRiesgosEvalVal_VM.IdSevePeorAntes).Select(r => r.Value[0]).Single();
+                if (Model.qRiesgosEvalVal_Dic_VM != null)
+                {
+                    if (Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSevePeorAntes) != null)
+                    {
+                        //id = Convert.ToInt32(Model.qRiesgosEvalVal_VM.IdSevePeorAntes);
+                        //color = dicSeveridad.Where(r => r.Key == Model.qRiesgosEvalVal_VM.IdSevePeorAntes).Select(r => r.Value[0]).Single();
+                        id = (Int32)Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSevePeorAntes).Single();
+                        color = dicSeveridad.Where(r => r.Key == id).Select(r => r.Value[0]).Single();
+                        text = Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.NombreSevePeorAntes).Single();
                     }
                 }
-                @Html.TextBoxFor(model => model.qRiesgosEvalVal_VM.NombreSevePeorAntes, new
-           {
-               @class = "form-control w100",
-               @readonly = "readonly",
-               @style = "color:#000000; background-color:" + color,
-               @campos = "campos",
-               @id = "NombreSevePeorAntes",
-               @tabla = "qRiesgos_Evaluaciones_Valor"
-           })
+
+                <input type="text" class="form-control w100" readonly="readonly" campos="campos" id="NombreSevePeorAntes" tabla="qRiesgosEvalVal" style="color:#000000; background-color:@color" value="@text" />
+
+                @*@Html.TextBoxFor(model => model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.NombreSevePeorAntes), new
+                    {
+                        @class = "form-control w100",
+                        @readonly = "readonly",
+                        @style = "color:#000000; background-color:" + color,
+                        @campos = "campos",
+                        @id = "NombreSevePeorAntes",
+                        @tabla = "qRiesgosEvalVal"
+                    })*@
             }
         </div>
         <div class="col-lg-3 col-md-3">
@@ -222,21 +281,28 @@
             </div>
             @{
                 //NombreSevePeorDespues
-                if (Model.qRiesgosEvalVal_VM != null) {
-                    if(Model.qRiesgosEvalVal_VM.IdSevePeorDespues != null) {
-                        id = Convert.ToInt32(Model.qRiesgosEvalVal_VM.IdSevePeorDespues);
-                        color = dicSeveridad.Where(r => r.Key == Model.qRiesgosEvalVal_VM.IdSevePeorDespues).Select(r => r.Value[0]).Single();
+                if (Model.qRiesgosEvalVal_Dic_VM != null)
+                {
+                    if (Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSevePeorDespues) != null)
+                    {
+                        //id = Convert.ToInt32(Model.qRiesgosEvalVal_VM.IdSevePeorDespues);
+                        //color = dicSeveridad.Where(r => r.Key == Model.qRiesgosEvalVal_VM.IdSevePeorDespues).Select(r => r.Value[0]).Single();
+                        id = (Int32)Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSevePeorDespues).Single();
+                        color = dicSeveridad.Where(r => r.Key == id).Select(r => r.Value[0]).Single();
+                        text = Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.NombreSevePeorDespues).Single();
                     }
                 }
-                @Html.TextBoxFor(model => model.qRiesgosEvalVal_VM.NombreSevePeorDespues, new
-           {
-               @class = "form-control w100",
-               @readonly = "readonly",
-               @style = "color:#000000; background-color:" + color,
-               @campos = "campos",
-               @id = "NombreSevePeorDespues",
-               @tabla = "qRiesgos_Evaluaciones_Valor"
-           })
+                <input type="text" class="form-control w100" readonly="readonly" campos="campos" id="NombreSevePeorDespues" tabla="qRiesgosEvalVal" style="color:#000000; background-color:@color" value="@text" />
+
+                @*@Html.TextBoxFor(model => model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.NombreSevePeorDespues), new
+                    {
+                        @class = "form-control w100",
+                        @readonly = "readonly",
+                        @style = "color:#000000; background-color:" + color,
+                        @campos = "campos",
+                        @id = "NombreSevePeorDespues",
+                        @tabla = "qRiesgosEvalVal"
+                    })*@
             }
         </div>
         <div class="col-lg-3 col-md-3">
@@ -245,21 +311,28 @@
             </div>
             @{
                 //NombreSevePeorPlanDespues
-                if (Model.qRiesgosEvalVal_VM != null) {
-                    if (Model.qRiesgosEvalVal_VM.IdSevePeorPlanDespues != null) {
-                        id = Convert.ToInt32(Model.qRiesgosEvalVal_VM.IdSevePeorPlanDespues);
-                        color = dicSeveridad.Where(r => r.Key == Model.qRiesgosEvalVal_VM.IdSevePeorPlanDespues).Select(r => r.Value[0]).Single();
+                if (Model.qRiesgosEvalVal_Dic_VM != null)
+                {
+                    if (Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSevePeorPlanDespues) != null)
+                    {
+                        //id = Convert.ToInt32(Model.qRiesgosEvalVal_VM.IdSevePeorPlanDespues);
+                        //color = dicSeveridad.Where(r => r.Key == Model.qRiesgosEvalVal_VM.IdSevePeorPlanDespues).Select(r => r.Value[0]).Single();
+                        id = (Int32)Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSevePeorPlanDespues).Single();
+                        color = dicSeveridad.Where(r => r.Key == id).Select(r => r.Value[0]).Single();
+                        text = Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.NombreSevePeorPlanDespues).Single();
                     }
                 }
-                @Html.TextBoxFor(model => model.qRiesgosEvalVal_VM.NombreSevePeorPlanDespues, new
-           {
-               @class = "form-control w100",
-               @readonly = "readonly",
-               @style = "color:#000000; background-color:" + color,
-               @campos = "campos",
-               @id = "NombreSevePeorPlanDespues",
-               @tabla = "qRiesgos_Evaluaciones_Valor"
-           })
+                <input type="text" class="form-control w100" readonly="readonly" campos="campos" id="NombreSevePeorPlanDespues" tabla="qRiesgosEvalVal" style="color:#000000; background-color:@color" value="@text" />
+
+                @*@Html.TextBoxFor(model => model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.NombreSevePeorPlanDespues), new
+                    {
+                        @class = "form-control w100",
+                        @readonly = "readonly",
+                        @style = "color:#000000; background-color:" + color,
+                        @campos = "campos",
+                        @id = "NombreSevePeorPlanDespues",
+                        @tabla = "qRiesgosEvalVal"
+                    })*@
             }
         </div>
     </div>

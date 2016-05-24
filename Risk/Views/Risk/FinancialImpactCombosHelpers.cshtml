@@ -1,11 +1,6 @@
 ﻿@model Risk.ViewModels.FichaRiesgoVM
+@using Risk.Models
 
-@{ 
-    if(Model.referencia == 0)
-    {
-        Model.qRiesgosEvalVal_VM = new Risk.Models.qRiesgosEvalVal();
-    }
-}
 
 <div id="financialImpact" style="background-color:#eaf7fa" class="row">
     <div class="col-lg-12 col-md-12">
@@ -30,7 +25,9 @@
     <!--FRECUENCIA-->
     <div class="col-lg-12 col-md-12" id="rowFrecuencia">
         <div class="col-lg-3 col-md-3">
-            <span class="form-left-label"><b>Exp. Frec.</b></span>
+            <span class="form-left-label"><b>Exp. Frec. </b></span>
+            <a style="cursor:pointer" data-toggle="modal" data-target="#modalInfoFrecuencia">   <i class="fa fa-question" aria-hidden="true"></i></a>
+            @*<h2><a style="cursor:pointer" ></a></h2>*@
         </div>
 
         <div class="col-lg-3 col-md-3">
@@ -39,7 +36,7 @@
             </div>
             @*NombreFrecAntes*@
 
-            @Html.DropDown(Model.dropDowns.datosEvaFrecuencia, "NombreFrecAntes", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_VM.IdFrecAntes.ToString(), null, "NombreFrecDespues")
+            @Html.DropDown(Model.dropDowns.datosEvaFrecuencia, "NombreFrecAntes", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r=>r.IdFrecAntes).Single().ToString(), null, "NombreFrecDespues")
         </div>
 
         <div class="col-lg-3 col-md-3">
@@ -48,7 +45,7 @@
             </div>
             @*NombreFrecDespues*@
 
-            @Html.DropDown(Model.dropDowns.datosEvaFrecuencia, "NombreFrecDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_VM.IdFrecDespues.ToString(), null, "NombreFrecPlanDespues")
+            @Html.DropDown(Model.dropDowns.datosEvaFrecuencia, "NomreFrecDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdFrecDespues).Single().ToString(), null, "NombreFrecPlanDespues")
         </div>
 
         <div class="col-lg-3 col-md-3">
@@ -57,7 +54,7 @@
             </div>
             @*NombreFrecPlanDespues*@
 
-            @Html.DropDown(Model.dropDowns.datosEvaFrecuencia, "NombreFrecPlanDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_VM.IdFrecPlanDespues.ToString())
+            @Html.DropDown(Model.dropDowns.datosEvaFrecuencia, "NombreFrecPlanDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdFrecPlanDespues).Single().ToString())
         </div>
     </div>
 
@@ -72,7 +69,7 @@
             </div>
             @*NombreSeveAntes*@
 
-            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSeveAntes", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_VM.IdSeveAntes.ToString(), null, "NombreSeveDespues:NombreSevePeorAntes")
+            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSeveAntes", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSeveAntes).Single().ToString(), null, "NombreSeveDespues:NombreSevePeorAntes")
         </div>
 
         <div class="col-lg-3 col-md-3">
@@ -81,7 +78,7 @@
             </div>
             @*NombreSeveDespues*@
 
-            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSeveDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_VM.IdSeveDespues.ToString(), null, "NombreSevePlanDespues:NombreSevePeorDespues")
+            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSeveDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSeveDespues).Single().ToString(), null, "NombreSevePlanDespues:NombreSevePeorDespues")
         </div>
 
         <div class="col-lg-3 col-md-3">
@@ -90,7 +87,7 @@
             </div>
             @*NombreSevePlanDespues*@
 
-            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSevePlanDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_VM.IdSevePlanDespues.ToString(), null, ":NombreSevePeorPlanDespues")
+            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSevePlanDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSevePlanDespues).Single().ToString(), null, ":NombreSevePeorPlanDespues")
         </div>
     </div>
     <!--SEVERIDAD DESPUES PLAN-->
@@ -104,7 +101,7 @@
             </div>
             @*NombreSevePeorAntes*@
 
-            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSevePeorAntes", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_VM.IdSevePeorAntes.ToString(), null, "NombreSevePeorDespues")
+            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSevePeorAntes", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSevePeorAntes).Single().ToString(), null, "NombreSevePeorDespues")
         </div>
         <div class="col-lg-3 col-md-3">
             <div class="visible-sm">
@@ -112,7 +109,7 @@
             </div>
             @*NombreSevePeorDespues*@
 
-            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSevePeorDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_VM.IdSevePeorDespues.ToString(), null, "NombreSevePeorPlanDespues")
+            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSevePeorDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSevePeorDespues).Single().ToString(), null, "NombreSevePeorPlanDespues")
         </div>
         <div class="col-lg-3 col-md-3">
             <div class="visible-sm">
@@ -120,12 +117,38 @@
             </div>
             @*NombreSevePeorPlanDespues*@
 
-            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSevePeorPlanDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_VM.IdSevePeorPlanDespues.ToString())
+            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSevePeorPlanDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSevePeorPlanDespues).Single().ToString())
         </div>
     </div>
-
 </div>
 
+    <!--MODAL INFO FRECUENCIA-->
+<div id="modalInfoFrecuencia" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">HELP FRECUENCY</h4>
+            </div>
+
+            <div class="modal-body text-center">
+                <p>The risk has been created correctly!!</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" data-dismiss="modal">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<script>
+    $('#linkModalFrecuencia').click(function () {
+        alert('btnnnnn')
+        $('#modalInfoFrecuencia').modal('show')
+    })
+</script>
 
 <script>
     var idDisparador;

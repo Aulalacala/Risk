@@ -2,7 +2,7 @@
     var nose = $(this).val()
     //alert($(this).attr("id") + "====>>>> " + $(this).val())
 
-        $(this).addClass("dirty");
+    $(this).addClass("dirty");
 
     $('#BtnSave').removeClass('btn-primary').addClass('btn-danger');
     $('#Menu li:not([class*="active"])').addClass('disabled');
@@ -25,10 +25,10 @@ $('#BtnSave').click(function () {
         var valor = $(this).val() + ":" + $(this).attr('tabla');
 
         datosFormulario[propiedad] = valor;
-      
-    })    
+
+    })
     //alert(datosFormulario['Ejemplo'])
-    
+
     $.ajax({
         url: '/Risk/formGeneral',
         type: 'post',
@@ -41,7 +41,7 @@ $('#BtnSave').click(function () {
         error: function (jqXHR, textStatus, errorThrown) {
             alert('ERORRRRRRRRRRRRRRRRR ' + jqXHR + ' ' + textStatus + ' ' + errorThrown)
         }
-    })   
+    })
 })
 
 
@@ -72,13 +72,23 @@ $('#BtnCloseModalNuevo').click(function () {
     window.location.href = urlRedireccion;
 });
 
-$('#BtnDiscard').click(function () {   
+$('#BtnDiscard').click(function () {
     var handler = $('#BtnDiscard').attr('handler').split('_')[1];
     alert(handler);
     $('#modalAviso').modal('hide');
 
     var ruta = "http://localhost:1525/Risk/" + handler;
     $('#contenidoDinamico').load(ruta);
+});
+
+$('#BtnChangeHistorical').click(function () {
+    alert('btn');
+    var idEvaluacion = $('#idEvaluacion').val();
+    var idRiesgo = $('#idRiesgo').val();
+
+    $('#financialImpactDiv').empty();
+    var ruta = "http://localhost:1525/Risk/FinancialImpactCombosHelpers";
+    $('#financialImpactDiv').load(ruta, { "id": idRiesgo, "idEvaluacion": idEvaluacion })
 });
 
 

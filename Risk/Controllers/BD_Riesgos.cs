@@ -27,7 +27,7 @@ namespace Risk.Controllers
 
             try
             {
-                MetaTable TablaDBO = riesgosBD.DB.Mapping.GetTables().Where(t => t.TableName == "dbo."+nombreTabla).Select(t => t).SingleOrDefault();
+                MetaTable TablaDBO = riesgosBD.DB.Mapping.GetTables().Where(t => t.TableName == "dbo." + nombreTabla).Select(t => t).SingleOrDefault();
 
                 List<string> ver = new List<string>();
                 List<string> titulos = new List<string>();
@@ -72,7 +72,7 @@ namespace Risk.Controllers
             return nombreColumnasModif;
         }
 
-        public Dictionary<int, List<object>> cargaTablaDatos(string nombreTabla , string colVer, string colTitulos, string filtro = null, int categoria = 0, int clasificacion1 = 0, int clasificacion2 = 0, int clasificacion3 = 0, int idEstructura = 0, bool riesgoSinAsignar = false)
+        public Dictionary<int, List<object>> cargaTablaDatos(string nombreTabla, string colVer, string colTitulos, string filtro = null, int categoria = 0, int clasificacion1 = 0, int clasificacion2 = 0, int clasificacion3 = 0, int idEstructura = 0, bool riesgoSinAsignar = false)
         {
             Dictionary<int, object> dic = new Dictionary<int, object>();
             Dictionary<int, List<object>> listaDatosFinal = new Dictionary<int, List<object>>();
@@ -89,7 +89,7 @@ namespace Risk.Controllers
                         dic = dicFiltrado.ToDictionary(r => r.Key, r => (object)r.Value);
                         break;
                     case "qRiesgosEvalVal":
-                        Dictionary<int, qRiesgosEvalVal> dicEvaluaciones = riesgosBD.DB.ExecuteQuery<qRiesgosEvalVal>(query).Where(r=>r.IdRiesgo == idEstructura).ToDictionary(r => Convert.ToInt32(r.IdEvaluacion), r => r);
+                        Dictionary<int, qRiesgosEvalVal> dicEvaluaciones = riesgosBD.DB.ExecuteQuery<qRiesgosEvalVal>(query).Where(r => r.IdRiesgo == idEstructura).ToDictionary(r => Convert.ToInt32(r.IdEvaluacion), r => r);
                         dic = dicEvaluaciones.ToDictionary(r => r.Key, r => (object)r.Value);
                         break;
                 }
@@ -164,7 +164,8 @@ namespace Risk.Controllers
             {
                 dicDato = riesgosDescendientes(idEstructura);
             }
-            if (riesgoSinAsignar == true) {
+            if (riesgoSinAsignar == true)
+            {
                 dicDato = dicDato.Where(r => r.Value.CodRiesgo == null).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
             }
 
@@ -255,11 +256,26 @@ namespace Risk.Controllers
         }
 
 
-        public qRiesgosEvalVal recuperaEvaluaciones(int id)
+        //public qRiesgosEvalVal recuperaEvaluaciones(int id)
+        //{
+        //    qRiesgosEvalVal datosEvaluaciones = new qRiesgosEvalVal();
+        //    datosEvaluaciones = riesgosBD.DB.qRiesgosEvalVal.Where(r => r.IdRiesgo == id && r.Ultima == true).SingleOrDefault();
+        //    return datosEvaluaciones;
+        //}
+
+        public Dictionary<int, qRiesgosEvalVal> recuperaEvaluaciones(int id, int idEvaluacion = 0)
         {
-            qRiesgosEvalVal datosEvaluaciones = new qRiesgosEvalVal();
-            datosEvaluaciones = riesgosBD.DB.qRiesgosEvalVal.Where(r => r.IdRiesgo == id && r.Ultima == true).SingleOrDefault();
-            return datosEvaluaciones;
+            Dictionary<int, qRiesgosEvalVal> dicEvaluacionesRiesgo = new Dictionary<int, qRiesgosEvalVal>();
+
+            if (idEvaluacion != 0)
+            {
+                dicEvaluacionesRiesgo = riesgosBD.DB.qRiesgosEvalVal.Where(r => r.IdRiesgo == id && r.IdEvaluacion == idEvaluacion).ToDictionary(r => Convert.ToInt32(r.IdEvaluacion), r => r);
+            }else
+            {
+                dicEvaluacionesRiesgo = riesgosBD.DB.qRiesgosEvalVal.Where(r => r.IdRiesgo == id && r.Ultima == true).ToDictionary(r => Convert.ToInt32(r.IdEvaluacion), r => r);
+            }
+
+            return dicEvaluacionesRiesgo;
         }
 
 

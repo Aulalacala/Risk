@@ -80,7 +80,7 @@
 
                                                 foreach (var fila in Model.datosTBody)
                                                 {
-                                                    <tr>
+                                                    <tr id="@fila.Key">
                                                         @{foreach (var columna in fila.Value)
                                                             {
                                                                 switch (columna.ToString())
