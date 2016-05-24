@@ -23,10 +23,13 @@ namespace Risk.Controllers
 
         // GET: Risk
         /// <summary>
-        /// 
+        /// Vista de detalles de un riesgo. Puede ser de tres formas:
+        /// 1. Detalles de un riesgo ya existente --> llamada desde la tabla de Risk.cshtml (BtnEditar)
+        /// 2. En blanco para crear uno nuevo --> llamada desde botoneraPartials.js (BtnNew de la partial view General.cshtml)
+        /// 3. En blanco pero con estructura indicada para crear uno nuevo --> llamada desde Structure.cshtml
         /// </summary>
-        /// <param name="id"></param>
-        /// <param name="idEstructura"></param>
+        /// <param name="id">idRiesgo para localizar los datos de ese riesgo en la BD / Si es 0 creará una vista limpia para crear un riesgo nuevo</param>
+        /// <param name="idEstructura">Opcional, para cuando se le llama desde la forma 3</param>
         /// <returns></returns>
         public ActionResult RiskFicha(int id, int idEstructura = 0)
         {
@@ -34,6 +37,9 @@ namespace Risk.Controllers
             ViewBag.idEstructura = idEstructura;
             return View(riesgoRecup);
         }
+
+
+
 
         public ActionResult General(int id, int idEstructura = 0)
         {

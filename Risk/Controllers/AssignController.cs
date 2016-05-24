@@ -18,6 +18,11 @@ namespace Risk.Controllers {
         string colVer = "CodRiesgo,Nombre,Categoria,Clasif1,Clasif2,Clasif3,CodRiesgoLocalizado";
         string colTitulos = "Código Riesgo,Nombre,Categoría,Clasificación1,Clasificación2,Clasificación3,Código Localizado";
 
+
+
+        /// <summary>
+        /// Atributo para cargar inicialmente los datos de la tabla con los riesgos y así no tener que cargar constantemente la cabecera que siempre es igual en este controlador
+        /// </summary>
         private DatosTablaModel _datosTablaGeneral = new DatosTablaModel();
 
         public DatosTablaModel datosTablaGeneral {
@@ -63,7 +68,15 @@ namespace Risk.Controllers {
 
 
         #region View AssignMultpleRisks
-        // Vista inicial GET AssignMultipleRisks (Llamada desde Structure) ----------------------------------------------
+
+        /// <summary>
+        /// Vista inicial GET AssignMultipleRisks (Llamada desde Structure) ----------------------------------------------
+        /// Carga de la tabla con sus correspondientes riesgos
+        /// y carga de la tabla con riesgos que no están asignados a ninguna estructura
+        /// </summary>
+        /// <param name="idEstructura">Desde el btn Assign Multiple Risk en la vista Structure le entra el idEstructura para buscar los riesgos correspondientes</param>
+        /// <returns>AssignMultipleRisk.cshtml con los datos de las dos tablas cargados</returns>
+
         public ActionResult AssignMultipleRisks(int idEstructura) {
 
             AssignMultipleRiskVM datosTablas = new AssignMultipleRiskVM();
@@ -89,6 +102,24 @@ namespace Risk.Controllers {
             datosTablas.idEstructura = idEstructura;
 
             return View(datosTablas);
+        }
+
+
+        /// <summary>
+        ///  idEstructura==0 --> Borrado de CodRiesgo y CodRiesgoLocalizado (null) de tabla tRiesgos y borrado de la tupla con ese idRiesgo en la tabla tRelEstructuraRiesgos
+        ///  idEstructura!=0 --> Asignacion del riesgo a la estructura
+        ///  Viene de llamada ajax desde vista AssignMultipleRisks
+        /// </summary>
+        /// <param name="riesgos"></param>
+        /// <param name="idEstructura">Si es 0 --> los riesgos que entran se quieren desvincular de la estructura // Si es !0 --> es para vincular riesgos a una estructura </param>
+        /// <returns>Despues de guardar vuelve redirige a la vista actualizada</returns>
+        public ActionResult guardarCambiosMultipleRisk (List<int> riesgos, int idEstructura) {
+
+            string CodRiesgo = idEstructura != 0 ? "" : null;
+            string CodRiesgoLocalizado = idEstructura != 0 ? "" : null;
+
+
+            return Json(Url.Action("AssignMultipleRisks", "Assign", new { idEstructura = idEstructura }));
         }
         #endregion
 

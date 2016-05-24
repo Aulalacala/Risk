@@ -179,28 +179,6 @@ $('#BtnAssignMultipleRisk').click(function () {
 })
 
 
-// AssignMultipleRisk ---> evento para seleccionar filas de las tablas
-
-
-$('#datosTablaAsignados tbody').on('click', 'tr', function () {
-    if ($(this).hasClass('selected')) {
-        $(this).removeClass('selected');
-    }
-    else {
-        $('#datosTablaAsignados tr.selected').removeClass('selected');
-        $(this).addClass('selected');
-    }
-});
-
-$('#tablaRiesgosSinAsignar tbody').on('click', 'tr', function () {
-    if ($(this).hasClass('selected')) {
-        $(this).removeClass('selected');
-    }
-    else {
-        $('#tablaRiesgosSinAsignar tr.selected').removeClass('selected');
-        $(this).addClass('selected');
-    }
-});
 
 
 
