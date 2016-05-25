@@ -5,8 +5,9 @@
 <form id="miForm">
     <div id="botonera" class="pull-right">
         <input type="submit" class="btn btn-primary" name="BtnDelete" value="DELETE" id="BtnDelete" disabled/>
-        <a href="@Url.Action(" RiskFicha", "Risk", new { id = 0 })" class="btn btn-primary">NEW</a>
-        <input type="button" class="btn btn-primary" name="BtnSave" value="SAVE" id="BtnSave" disabled />
+        <a href="@Url.Action("nuevaEvaluacionRiesgo", "Risk", new { idEvaluacion = 0 })" class="btn btn-primary">NEW</a>
+        <a href="@Url.Action("guardaEvaluacion", "Risk", new { idRiesgo= Model.idEvaluacion })" class="btn btn-primary" id="BtnSaveHistorical" disabled>SAVE</a>
+        @*<input type="button" class="btn btn-primary" name="BtnSave" value="SAVE" id="BtnSave"  />*@
         <input type="button" class="btn btn-primary" name="BtnChangeHistorical" value="CHANGE" id="BtnChangeHistorical" disabled />
         <input type="button" class="btn btn-primary" name="BtnCopyLast" value="COPY LAST" id="BtnCopyLast" />
     </div>
@@ -46,7 +47,7 @@
                                     var activo = true;
                                     if (Model.idEvaluacion != 0)
                                     {
-                                        activo = Model.qRiesgosEvalVal_Dic_VM.Values.Where(x => x.IdEvaluacion == Model.idEvaluacion).Select(x => x.Activa).Single().ToString() == "True" ? true : false;
+                                        activo =(bool)Model.qRiesgosEvalVal_Dic_VM.Values.Where(x => x.IdEvaluacion == Model.idEvaluacion).Select(x => x.Activa).Single();
                                     }
                                 }
 
@@ -75,7 +76,7 @@
                         <div class="col-lg-9 col-md-9">
                             <div id="divFechaEvaluacion" class="input-group">
                                 <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                <input type="text" class="form-control" data-date-format="mm/dd/yyyy">
+                                <input type="text" class="form-control" data-date-format="mm/dd/yyyy" value="@DateTime.Today.ToString("dd/MM/yyyy")">
                             </div>
                         </div>
                     </div>

@@ -351,5 +351,10 @@ namespace Risk.Controllers
             return j;
         }
 
+        public void guardaEvaluacion(int idEvaluacion)
+        {
+
+        }
+
     }
 }

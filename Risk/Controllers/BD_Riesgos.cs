@@ -23,6 +23,11 @@ namespace Risk.Controllers
         //Recuperar THEAD tabla Datos Risk-----------------
         public Dictionary<string, string> nombresColTabla(string nombreTabla, string colVer, string colTitulos)
         {
+            //var tabla = riesgosBD.DB.Mapping.GetTables().Where(x => x.RowType.Name.Equals("qRiesgosNombres")).Select(x => x).SingleOrDefault();
+            //var pk2 = tabla.RowType.DataMembers.Where(r => r.DbType == "Int NOT NULL").Select(r => r.Name).SingleOrDefault().ToString();
+
+            //var pk = riesgosBD.DB.Mapping.GetTables().Where(x => x.TableName.Equals("dbo.qRiesgosNombres")).Select(x => x.RowType.DataMembers.Where(k => k.IsPrimaryKey).Select(k => k.Name).Single().ToString()).Single().ToString();
+
             Dictionary<string, string> nombreColumnasModif = new Dictionary<string, string>();
 
             try
@@ -408,6 +413,9 @@ namespace Risk.Controllers
         // metodo que devuelve un string con el ultimo codigo disponible de un idEstructura
         public string ultimoRiesgoDisponible(string idEstructura)
         {
+         
+
+
             int cuantosRiesgosTiene = riesgosBD.DB.tRelEstructuraRiesgos.Where(r => r.IdEstructura == Convert.ToInt32(idEstructura)).Count();
             string ultimoCodigoRiesgo = (cuantosRiesgosTiene + 1).ToString();
 
@@ -421,6 +429,9 @@ namespace Risk.Controllers
             codCompleto += "." + ultimoCodigoRiesgo;
 
             return codCompleto;
+
+
+
         }
 
 

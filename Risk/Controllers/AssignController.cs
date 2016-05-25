@@ -135,6 +135,8 @@ namespace Risk.Controllers {
         [HttpGet]
         public ActionResult Risks() {
 
+
+
             ViewModelRisk modelVistaRisk = new ViewModelRisk();
             DropDownModel dropdowns = new DropDownModel();
 
