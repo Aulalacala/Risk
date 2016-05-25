@@ -18,6 +18,9 @@ namespace Risk.Controllers
     public class RiskController : Controller
     {
         BD_Riesgos BD_Riesgos = new BD_Riesgos();
+        CRUDSql _CRUDSql = new CRUDSql();
+
+
         string colVer = "Activa,Ultima,Fecha,NombreFrecAntes,NombreSeveAntes,NombreFrecDespues,NombreSeveDespues";
         string colTitulos = "Activa,Ultima,Fecha,FrecuenciaA,SeveridadA,FrecuenciaD,SeveridadD";
 
@@ -244,41 +247,58 @@ namespace Risk.Controllers
 
         private int insertarNuevoRiesgo(FormGeneralModel datosFormulario)
         {
+            ConnectionDB.connectionRiesgos riesgosBD = new ConnectionDB.connectionRiesgos();
+            riesgosBD.DB.Mapping.GetTables();
+           
+
             PropertyInfo[] props = datosFormulario.GetType().GetProperties();
-            bool insert = false;
 
-            tRiesgos riesgoNuevo = new tRiesgos();
-
-            string queryvalues = "";
-            string queryproperties = "";
-            string valorCodRiesgoLocalizado = "";
+            List<Tuple<string, string>> listaValues = new List<Tuple<string, string>>();
 
             foreach (PropertyInfo item in props) {
-                if (item.GetValue(datosFormulario, null) != null) {
-
-                    if(item.Name == "IdRiesgo" || item.Name == "idEstructura") { continue; }
-                    else {
-
-                        string propiedad = item.Name;
-                        string valor = "";
-
-                        if (item.Name == "CodRiesgo") {
-                            valor = item.GetValue(datosFormulario, null).ToString().Split(':')[0];
-                            valorCodRiesgoLocalizado = item.GetValue(datosFormulario, null).ToString().Split(':')[0].Substring(0, 8);
-                        } else {
-                            valor = item.GetValue(datosFormulario, null).ToString().Split(':')[0];
-
-                        }
-
-                        queryproperties += propiedad + ",";
-                        queryvalues += "'" + valor + "',";
-                    }
-                }
+                Tuple<string, string> tupla = Tuple.Create(item.Name, item.GetValue(datosFormulario,null).ToString().Split(':')[0]);
             }
 
-            queryproperties = queryproperties.Substring(0, queryproperties.Length - 1);
-            queryvalues = queryvalues.Substring(0, queryvalues.Length - 1);
-            string query = "Insert into tRiesgos (" + queryproperties + ",CodRiesgoLocalizado) values (" + queryvalues + ",'" + valorCodRiesgoLocalizado + "')";
+            string tabla = props[0].GetValue(datosFormulario,null).ToString().Split(':')[1];
+
+            _CRUDSql.insert(tabla,listaValues);
+
+            return 0;
+
+            //bool insert = false;
+
+            //tRiesgos riesgoNuevo = new tRiesgos();
+
+            //string queryvalues = "";
+            //string queryproperties = "";
+            //string valorCodRiesgoLocalizado = "";
+
+            //foreach (PropertyInfo item in props) {
+            //    if (item.GetValue(datosFormulario, null) != null) {
+
+            //        if(item.Name == "IdRiesgo" || item.Name == "idEstructura") { continue; }
+            //        else {
+
+            //            string propiedad = item.Name;
+            //            string valor = "";
+
+            //            if (item.Name == "CodRiesgo") {
+            //                valor = item.GetValue(datosFormulario, null).ToString().Split(':')[0];
+            //                valorCodRiesgoLocalizado = item.GetValue(datosFormulario, null).ToString().Split(':')[0].Substring(0, 8);
+            //            } else {
+            //                valor = item.GetValue(datosFormulario, null).ToString().Split(':')[0];
+
+            //            }
+
+            //            queryproperties += propiedad + ",";
+            //            queryvalues += "'" + valor + "',";
+            //        }
+            //    }
+            //}
+
+            //queryproperties = queryproperties.Substring(0, queryproperties.Length - 1);
+            //queryvalues = queryvalues.Substring(0, queryvalues.Length - 1);
+            //string query = "Insert into tRiesgos (" + queryproperties + ",CodRiesgoLocalizado) values (" + queryvalues + ",'" + valorCodRiesgoLocalizado + "')";
 
 
             //riesgoNuevo.CodRiesgo = datosFormulario.CodRiesgo != null ? datosFormulario.CodRiesgo.Split(':')[0] : null;
@@ -297,24 +317,24 @@ namespace Risk.Controllers
 
 
             //Insertar el riesgo en la BD (Devuelve el riesgo insertado con el idRiesgo autogenerado)
-            tRiesgos riesgoInsertado = BD_Riesgos.insertarNuevoRiesgo(query);
+            //tRiesgos riesgoInsertado = BD_Riesgos.insertarNuevoRiesgo(query);
 
 
-            if (datosFormulario.idEstructura != null)
-            {
-                // Crear tRelEstructuraRiesgos
-                tRelEstructuraRiesgos estructuraNuevo = new tRelEstructuraRiesgos();
-                estructuraNuevo.IdRiesgo = riesgoInsertado.IdRiesgo;
-                estructuraNuevo.IdEstructura = int.Parse(datosFormulario.idEstructura.Split(':')[0]);
+            //if (datosFormulario.idEstructura != null)
+            //{
+            //    // Crear tRelEstructuraRiesgos
+            //    tRelEstructuraRiesgos estructuraNuevo = new tRelEstructuraRiesgos();
+            //    estructuraNuevo.IdRiesgo = riesgoInsertado.IdRiesgo;
+            //    estructuraNuevo.IdEstructura = int.Parse(datosFormulario.idEstructura.Split(':')[0]);
 
 
-                // Insertar tRelEstructuraRiesgo devuelve true si está todo OK
-                insert = BD_Riesgos.insertarTRelEstructuraRiesgoNuevo(estructuraNuevo);
-            }
+            //    // Insertar tRelEstructuraRiesgo devuelve true si está todo OK
+            //    insert = BD_Riesgos.insertarTRelEstructuraRiesgoNuevo(estructuraNuevo);
+            //}
 
-            BD_Riesgos.insertarTRiesgosEvaluaciones(riesgoInsertado.IdRiesgo);
+            //BD_Riesgos.insertarTRiesgosEvaluaciones(riesgoInsertado.IdRiesgo);
 
-            return riesgoInsertado.IdRiesgo;
+            //return riesgoInsertado.IdRiesgo;
         }
 
         private int updateRiesgo(FormGeneralModel datosFormulario)

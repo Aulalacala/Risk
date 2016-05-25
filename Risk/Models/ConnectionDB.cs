@@ -9,8 +9,16 @@ using Risk.Controllers;
 
 namespace Risk.Models
 {
+
+  
     public partial class ConnectionDB
     {
+
+       public  enum modelos {
+            Riesgos_BD,
+            Usuarios_CB
+        };
+
         private static string _cadenaConexion;
         public static string cadenaConexion
         {
@@ -25,6 +33,8 @@ namespace Risk.Models
         }
 
 
+        private  static modelos _modelo;
+
         public ConnectionDB()
         {
             string cadena = ConfigurationManager.ConnectionStrings["RiskMVCConnectionString"].ConnectionString;
@@ -33,6 +43,20 @@ namespace Risk.Models
             string passOK = encryt.Desencrit(connectionString);
             _cadenaConexion = cadena.Replace(connectionString, passOK);
         }
+
+
+        public static object conexion(modelos model) {
+            _modelo = model;
+            switch (model) {
+                case modelos.Riesgos_BD:
+                    return new Riesgos_BDDataContext();
+                case modelos.Usuarios_CB:
+                    return new Usuarios_BDDataContext();
+                default: return null;
+            }
+        }
+
+
 
 
         public partial class connectionUsuarios
@@ -54,7 +78,7 @@ namespace Risk.Models
 
             public connectionUsuarios()
             {
-                ConnectionDB con = new ConnectionDB();
+                ConnectionDB con = new ConnectionDB(_modelo);
                 _db = new Usuarios_BDDataContext(cadenaConexion);
             }
 
@@ -63,7 +87,7 @@ namespace Risk.Models
                 _db = new Usuarios_BDDataContext(cadenaConexion);
             }
         }
-
+               
 
         public partial class connectionRiesgos
         {
@@ -83,7 +107,7 @@ namespace Risk.Models
 
             public connectionRiesgos()
             {
-                ConnectionDB con = new ConnectionDB();
+                ConnectionDB con = new ConnectionDB(_modelo);
                 _db = new Riesgos_BDDataContext(cadenaConexion);
             }
 

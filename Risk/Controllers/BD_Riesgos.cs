@@ -15,7 +15,10 @@ namespace Risk.Controllers
     {
         //Riesgos_BDDataContext riesgosBD = new Riesgos_BDDataContext();
 
-        ConnectionDB.connectionRiesgos riesgosBD = new ConnectionDB.connectionRiesgos();
+        ConnectionDB con1 = new ConnectionDB();
+        ConnectionDB.connectionRiesgos riesgosBD = con1.conexion(ConnectionDB.modelos.Riesgos_BD);
+      
+
 
         public Dictionary<int, qRiesgosNombres> datosQ = new Dictionary<int, qRiesgosNombres>();
 
