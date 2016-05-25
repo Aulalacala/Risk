@@ -43,8 +43,10 @@ namespace Risk.Controllers
 
         public ActionResult General(int id, int idEstructura = 0)
         {
-            FichaRiesgoVM fichaRiesgoVM = montaVM(id);
 
+          int idUltimaEvaluacion = BD_Riesgos.recuperaIdUltimaEvaluacion(id);
+          FichaRiesgoVM fichaRiesgoVM = montaVM(id, idUltimaEvaluacion); //recuperar el idEvaluacion de la última evaluacion de ese riesgo
+          
             if (idEstructura != 0)
             {
                 fichaRiesgoVM.qRiesgosNombre_VM.CodRiesgo = dameUltimoRiesgoDisponible(idEstructura.ToString());
@@ -279,7 +281,7 @@ namespace Risk.Controllers
                 insert = BD_Riesgos.insertarTRelEstructuraRiesgoNuevo(estructuraNuevo);
             }
 
-            BD_Riesgos.insertarTRiesgosEvaluaciones(riesgoInsertado.IdRiesgo);
+            //BD_Riesgos.insertarTRiesgosEvaluaciones(riesgoInsertado.IdRiesgo);
 
             return riesgoInsertado.IdRiesgo;
         }
