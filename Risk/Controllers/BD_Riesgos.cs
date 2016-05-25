@@ -312,14 +312,15 @@ namespace Risk.Controllers
         }
 
 
-        public tRiesgos insertarNuevoRiesgo(tRiesgos riesgoNuevo)
+        public tRiesgos insertarNuevoRiesgo(string query)
         {
 
             try
             {
-                riesgosBD.DB.tRiesgos.InsertOnSubmit(riesgoNuevo);
-                riesgosBD.DB.SubmitChanges();
-                return riesgosBD.DB.tRiesgos.Where(r => r.IdRiesgo == riesgoNuevo.IdRiesgo).SingleOrDefault();
+                
+                riesgosBD.DB.ExecuteQuery<int>(query);  
+                //riesgosBD.DB.SubmitChanges();
+                return null;
             }
             catch (Exception e)
             {

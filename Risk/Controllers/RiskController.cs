@@ -249,22 +249,55 @@ namespace Risk.Controllers
 
             tRiesgos riesgoNuevo = new tRiesgos();
 
-            riesgoNuevo.CodRiesgo = datosFormulario.CodRiesgo != null ? datosFormulario.CodRiesgo.Split(':')[0] : null;
-            riesgoNuevo.CodRiesgoLocalizado = datosFormulario.CodRiesgo != null ? datosFormulario.CodRiesgo.Substring(0, 8) : null;
-            riesgoNuevo.Nombre = datosFormulario.Nombre != null ? datosFormulario.Nombre.Split(':')[0] : null;
-            riesgoNuevo.IdCategoria = datosFormulario.IdCategoria != null ? int.Parse(datosFormulario.IdCategoria.Split(':')[0]) : 0;
-            riesgoNuevo.IdClasificacion1 = datosFormulario.IdClasificacion1 != null ? int.Parse(datosFormulario.IdClasificacion1.Split(':')[0]) : 0;
-            riesgoNuevo.IdClasificacion2 = datosFormulario.IdClasificacion2 != null ? int.Parse(datosFormulario.IdClasificacion2.Split(':')[0]) : 0;
-            riesgoNuevo.IdClasificacion3 = datosFormulario.IdClasificacion3 != null ? int.Parse(datosFormulario.IdClasificacion3.Split(':')[0]) : 0;
-            riesgoNuevo.Descripcion = datosFormulario.Descripcion != null ? datosFormulario.Descripcion.Split(':')[0] : null;
-            riesgoNuevo.Justificacion = datosFormulario.Justificacion != null ? datosFormulario.Justificacion.Split(':')[0] : null;
-            riesgoNuevo.Ejemplo = datosFormulario.Ejemplo != null ? datosFormulario.Ejemplo.Split(':')[0] : null;
-            riesgoNuevo.IdSegmentacion1 = datosFormulario.IdSegmentacion1 != null ? int.Parse(datosFormulario.IdSegmentacion1.Split(':')[0]) : 0;
-            riesgoNuevo.IdResponsable = datosFormulario.IdResponsable != null ? int.Parse(datosFormulario.IdResponsable.Split(':')[0]) : 0;
-            riesgoNuevo.IdSupervisor = datosFormulario.IdResponsable2 != null ? int.Parse(datosFormulario.IdResponsable2.Split(':')[0]) : 0;
+            string queryvalues = "";
+            string queryproperties = "";
+            string valorCodRiesgoLocalizado = "";
+
+            foreach (PropertyInfo item in props) {
+                if (item.GetValue(datosFormulario, null) != null) {
+
+                    if(item.Name == "IdRiesgo" || item.Name == "idEstructura") { continue; }
+                    else {
+
+                        string propiedad = item.Name;
+                        string valor = "";
+
+                        if (item.Name == "CodRiesgo") {
+                            valor = item.GetValue(datosFormulario, null).ToString().Split(':')[0];
+                            valorCodRiesgoLocalizado = item.GetValue(datosFormulario, null).ToString().Split(':')[0].Substring(0, 8);
+                        } else {
+                            valor = item.GetValue(datosFormulario, null).ToString().Split(':')[0];
+
+                        }
+
+                        queryproperties += propiedad + ",";
+                        queryvalues += "'" + valor + "',";
+                    }
+                }
+            }
+
+            queryproperties = queryproperties.Substring(0, queryproperties.Length - 1);
+            queryvalues = queryvalues.Substring(0, queryvalues.Length - 1);
+            string query = "Insert into tRiesgos (" + queryproperties + ",CodRiesgoLocalizado) values (" + queryvalues + ",'" + valorCodRiesgoLocalizado + "')";
+
+
+            //riesgoNuevo.CodRiesgo = datosFormulario.CodRiesgo != null ? datosFormulario.CodRiesgo.Split(':')[0] : null;
+            //riesgoNuevo.CodRiesgoLocalizado = datosFormulario.CodRiesgo != null ? datosFormulario.CodRiesgo.Substring(0, 8) : null;
+            //riesgoNuevo.Nombre = datosFormulario.Nombre != null ? datosFormulario.Nombre.Split(':')[0] : null;
+            //riesgoNuevo.IdCategoria = datosFormulario.IdCategoria != null ? int.Parse(datosFormulario.IdCategoria.Split(':')[0]) : 0;
+            //riesgoNuevo.IdClasificacion1 = datosFormulario.IdClasificacion1 != null ? int.Parse(datosFormulario.IdClasificacion1.Split(':')[0]) : 0;
+            //riesgoNuevo.IdClasificacion2 = datosFormulario.IdClasificacion2 != null ? int.Parse(datosFormulario.IdClasificacion2.Split(':')[0]) : 0;
+            //riesgoNuevo.IdClasificacion3 = datosFormulario.IdClasificacion3 != null ? int.Parse(datosFormulario.IdClasificacion3.Split(':')[0]) : 0;
+            //riesgoNuevo.Descripcion = datosFormulario.Descripcion != null ? datosFormulario.Descripcion.Split(':')[0] : null;
+            //riesgoNuevo.Justificacion = datosFormulario.Justificacion != null ? datosFormulario.Justificacion.Split(':')[0] : null;
+            //riesgoNuevo.Ejemplo = datosFormulario.Ejemplo != null ? datosFormulario.Ejemplo.Split(':')[0] : null;
+            //riesgoNuevo.IdSegmentacion1 = datosFormulario.IdSegmentacion1 != null ? int.Parse(datosFormulario.IdSegmentacion1.Split(':')[0]) : 0;
+            //riesgoNuevo.IdResponsable = datosFormulario.IdResponsable != null ? int.Parse(datosFormulario.IdResponsable.Split(':')[0]) : 0;
+            //riesgoNuevo.IdSupervisor = datosFormulario.IdResponsable2 != null ? int.Parse(datosFormulario.IdResponsable2.Split(':')[0]) : 0;
+
 
             //Insertar el riesgo en la BD (Devuelve el riesgo insertado con el idRiesgo autogenerado)
-            tRiesgos riesgoInsertado = BD_Riesgos.insertarNuevoRiesgo(riesgoNuevo);
+            tRiesgos riesgoInsertado = BD_Riesgos.insertarNuevoRiesgo(query);
 
 
             if (datosFormulario.idEstructura != null)
@@ -306,7 +339,7 @@ namespace Risk.Controllers
                             case "qRiesgosNombre":
                                 datosQRiesgosNombre.Add(item.Name + ":" + item.GetValue(datosFormulario, null).ToString().Split(':')[0]);
                                 break;
-                            case "qRiesgosEvaluacionesValores":
+                            case "qRiesgosEvalVal":
                                 datosQRiesgosEvaluacionesValores.Add(item.Name + ":" + item.GetValue(datosFormulario, null).ToString().Split(':')[0]);
                                 break;
                         }
