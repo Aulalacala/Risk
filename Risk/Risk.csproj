@@ -257,7 +257,9 @@
     <Compile Include="Controllers\AssignController.cs" />
     <Compile Include="Controllers\BD_Riesgos.cs" />
     <Compile Include="Controllers\BD_Usuarios.cs" />
+    <Compile Include="Controllers\CRUDModels.cs" />
     <Compile Include="Controllers\CRUDSql.cs" />
+    <Compile Include="Controllers\CRUDSql_Switch.cs" />
     <Compile Include="Controllers\EncritPass.cs" />
     <Compile Include="Controllers\InicioController.cs" />
     <Compile Include="Controllers\LoginController.cs" />

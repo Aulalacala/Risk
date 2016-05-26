@@ -247,6 +247,13 @@ namespace Risk.Controllers {
         }
 
 
+        public int actualizaQRiesgosNombre(qRiesgosNombres riesgo) {
+            Conexion.qRiesgosNombres.InsertOnSubmit(riesgo);
+            Conexion.SubmitChanges();
+            return riesgo.IdRiesgo;
+
+        }
+
         public int actualizaQRiesgosNombre(List<string> datosQRiesgosNombre, int IdRiesgo) {
             try {
                 qRiesgosNombres riesgo = Conexion.qRiesgosNombres.Where(r => r.IdRiesgo == IdRiesgo).SingleOrDefault();

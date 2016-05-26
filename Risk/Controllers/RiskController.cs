@@ -18,7 +18,10 @@ namespace Risk.Controllers
     public class RiskController : Controller
     {
         BD_Riesgos BD_Riesgos = new BD_Riesgos();
+        CRUDSql_Switch _CRUDSql_Switch = new CRUDSql_Switch();
         CRUDSql _CRUDSql = new CRUDSql();
+        CRUDModels _CRUDModels = new CRUDModels();
+
 
 
         string colVer = "Activa,Ultima,Fecha,NombreFrecAntes,NombreSeveAntes,NombreFrecDespues,NombreSeveDespues";
@@ -225,18 +228,18 @@ namespace Risk.Controllers
         }
 
         [HttpPost]
-        public ActionResult formGeneral(FormGeneralModel datosFormulario)
+        public ActionResult formGeneral(int IdRiesgo, int IdEstructura, List<string> datosFormulario)
         {
             int idRiesgo = 0;
 
-            if (datosFormulario.IdRiesgo.Equals("0"))
+            if (IdRiesgo.Equals("0"))
             {
                 idRiesgo = insertarNuevoRiesgo(datosFormulario);
             }
 
             else
             {
-                idRiesgo = updateRiesgo(datosFormulario);
+                idRiesgo = updateRiesgo(IdRiesgo, IdEstructura, datosFormulario);
             }
 
 
@@ -245,7 +248,7 @@ namespace Risk.Controllers
         }
 
 
-        private int insertarNuevoRiesgo(FormGeneralModel datosFormulario)
+        private int insertarNuevoRiesgo(List<string> datosFormulario)
         {
            
 
@@ -264,7 +267,14 @@ namespace Risk.Controllers
 
             //Riesgos_BDDataContext riesgos_BD = (Riesgos_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralRiesgos();
 
-            int idRiesgoNuevo = _CRUDSql.insert(tabla,listaValues, "riesgos");
+            if (false) {
+                int idRiesgoNuevoSwitch = _CRUDSql_Switch.insert(tabla, listaValues, "riesgos"); 
+                int idRiesgoNuevo = _CRUDSql.insert(tabla, listaValues, "riesgos");
+            } else {
+               // int idRiesgoNuevoModels = _CRUDModels.insert(tabla, listaValues, "riesgos", "tRiesgo");
+
+            }
+
 
             return 0;
 
@@ -340,7 +350,7 @@ namespace Risk.Controllers
             //return riesgoInsertado.IdRiesgo;
         }
 
-        private int updateRiesgo(FormGeneralModel datosFormulario)
+        private int updateRiesgo(int IdRiesgo, int IdEstructura, List<string> datosFormulario)
         {
 
             List<string> datosQRiesgosNombre = new List<string>();
@@ -372,7 +382,16 @@ namespace Risk.Controllers
                 }
             }
 
-            return BD_Riesgos.actualizaQRiesgosNombre(datosQRiesgosNombre, int.Parse(datosFormulario.IdRiesgo));
+            qRiesgosNombres riesgoActualizar = new qRiesgosNombres();
+
+            foreach (var item in props) {
+                switch (item.Name) {
+                  
+                }
+            }
+
+            return 0;
+           // return BD_Riesgos.actualizaQRiesgosNombre(datosQRiesgosNombre, int.Parse(datosFormulario.IdRiesgo));
         }
 
         [HttpPost]

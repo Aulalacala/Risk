@@ -14,7 +14,15 @@ var urlRedireccion;
 
 $('#BtnSave').click(function () {
 
-    var datosFormulario = {}
+    var datosFormulario = {
+        IdRiesgo: $('#IdRiesgo').val(),
+        IdEstructura: $('#idEstructura').val(),
+
+    }
+
+
+
+
 
     datosFormulario['IdRiesgo'] = $('#IdRiesgo').val();
 
@@ -22,9 +30,10 @@ $('#BtnSave').click(function () {
     $('#miForm .dirty').each(function (pos, el) {
 
         var propiedad = $(this).attr('id');
-        var valor = $(this).val() + ":" + $(this).attr('tabla');
+        var valor = $(this).val();
 
-        datosFormulario[propiedad] = valor;
+        //datosFormulario.datos[propiedad] = valor;
+       datosFormulario[propiedad] = valor;
 
     })
     //alert(datosFormulario['Ejemplo'])
@@ -32,7 +41,7 @@ $('#BtnSave').click(function () {
     $.ajax({
         url: '/Risk/formGeneral',
         type: 'post',
-        data: datosFormulario,
+        data: { "IdRiesgo": $('#IdRiesgo').val(), "IdEstructura": $('#idEstructura').val(), "datosFormulario" : datosFormulario },
         success: function (data) {
             $('#modalNuevo').modal('show');
             // Redirect a RiskFicha con el idRiesgo nuevo
