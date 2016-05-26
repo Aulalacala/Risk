@@ -256,6 +256,7 @@
     <Compile Include="Codigos\TreeviewOLDController.cs" />
     <Compile Include="Controllers\AssignController.cs" />
     <Compile Include="Controllers\BD_Riesgos.cs" />
+    <Compile Include="Controllers\BD_Usuarios.cs" />
     <Compile Include="Controllers\CRUDSql.cs" />
     <Compile Include="Controllers\EncritPass.cs" />
     <Compile Include="Controllers\InicioController.cs" />
@@ -317,6 +318,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\BD_Usuarios\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

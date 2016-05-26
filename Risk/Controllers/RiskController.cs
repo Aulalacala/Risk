@@ -247,8 +247,6 @@ namespace Risk.Controllers
 
         private int insertarNuevoRiesgo(FormGeneralModel datosFormulario)
         {
-            ConnectionDB.connectionRiesgos riesgosBD = new ConnectionDB.connectionRiesgos();
-            riesgosBD.DB.Mapping.GetTables();
            
 
             PropertyInfo[] props = datosFormulario.GetType().GetProperties();
@@ -256,12 +254,17 @@ namespace Risk.Controllers
             List<Tuple<string, string>> listaValues = new List<Tuple<string, string>>();
 
             foreach (PropertyInfo item in props) {
-                Tuple<string, string> tupla = Tuple.Create(item.Name, item.GetValue(datosFormulario,null).ToString().Split(':')[0]);
+                if (item.GetValue(datosFormulario, null) != null) {
+                    Tuple<string, string> tupla = Tuple.Create(item.Name, item.GetValue(datosFormulario, null).ToString());
+                    listaValues.Add(tupla);
+                }           
             }
 
-            string tabla = props[0].GetValue(datosFormulario,null).ToString().Split(':')[1];
+            string tabla = "tRiesgos";        //props[1].GetValue(datosFormulario,null).ToString().Split(':')[1];
 
-            _CRUDSql.insert(tabla,listaValues);
+            //Riesgos_BDDataContext riesgos_BD = (Riesgos_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralRiesgos();
+
+            int idRiesgoNuevo = _CRUDSql.insert(tabla,listaValues, "riesgos");
 
             return 0;
 

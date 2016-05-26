@@ -7,36 +7,30 @@ using System.Linq;
 using System.Web;
 using Risk.Controllers;
 
-namespace Risk.Models
-{
+namespace Risk.Models {
 
-  
-    public partial class ConnectionDB
-    {
 
-       public  enum modelos {
+    public partial class ConnectionDB {
+
+        public enum modelos {
             Riesgos_BD,
             Usuarios_CB
         };
 
-        private static string _cadenaConexion;
-        public static string cadenaConexion
-        {
-            get
-            {
+        private  string _cadenaConexion;
+        public  string cadenaConexion {
+            get {
                 return _cadenaConexion;
             }
-            set
-            {
+            set {
                 _cadenaConexion = value;
             }
         }
 
 
-        private  static modelos _modelo;
+        private static modelos _modelo;
 
-        public ConnectionDB()
-        {
+        public ConnectionDB() {
             string cadena = ConfigurationManager.ConnectionStrings["RiskMVCConnectionString"].ConnectionString;
             string connectionString = cadena.Split(new[] { "Password=" }, StringSplitOptions.None)[1].Replace("\"", "");
             EncritPass encryt = new EncritPass();
@@ -44,78 +38,95 @@ namespace Risk.Models
             _cadenaConexion = cadena.Replace(connectionString, passOK);
         }
 
+        public partial class connectionGeneral{
+            private  Usuarios_BDDataContext _dbUsuarios;
+            private Riesgos_BDDataContext _dbRiesgos;
 
-        public static object conexion(modelos model) {
-            _modelo = model;
-            switch (model) {
-                case modelos.Riesgos_BD:
-                    return new Riesgos_BDDataContext();
-                case modelos.Usuarios_CB:
-                    return new Usuarios_BDDataContext();
-                default: return null;
-            }
-        }
-
-
-
-
-        public partial class connectionUsuarios
-        {
-            private Usuarios_BDDataContext _db;
-
-            public Usuarios_BDDataContext DB
-            {
-                get
-                {
-                    return _db;
+             public Usuarios_BDDataContext DbUsuarios {
+                get {
+                    return _dbUsuarios;
                 }
-                set
-                {
-                    _db = value;
+
+                set {
+                    _dbUsuarios = value;
                 }
             }
 
-
-            public connectionUsuarios()
-            {
-                ConnectionDB con = new ConnectionDB(_modelo);
-                _db = new Usuarios_BDDataContext(cadenaConexion);
-            }
-
-            public connectionUsuarios(string cadenaConexion)
-            {
-                _db = new Usuarios_BDDataContext(cadenaConexion);
-            }
-        }
-               
-
-        public partial class connectionRiesgos
-        {
-            private Riesgos_BDDataContext _db;
-
-            public Riesgos_BDDataContext DB
-            {
-                get
-                {
-                    return _db;
+            public Riesgos_BDDataContext DbRiesgos {
+                get {
+                    return _dbRiesgos;
                 }
-                set
-                {
-                    _db = value;
+
+                set {
+                    _dbRiesgos = value;
                 }
             }
 
-            public connectionRiesgos()
-            {
-                ConnectionDB con = new ConnectionDB(_modelo);
-                _db = new Riesgos_BDDataContext(cadenaConexion);
+            public connectionGeneral() {
+                ConnectionDB con = new ConnectionDB();
             }
 
-            public connectionRiesgos(string cadenaConexion)
-            {
-                _db = new Riesgos_BDDataContext(cadenaConexion);
+            public object connectionGeneralUsu() {
+                ConnectionDB con = new ConnectionDB();
+                this._dbUsuarios = new Usuarios_BDDataContext(con.cadenaConexion);
+                return _dbUsuarios;
+            }
+
+            public object connectionGeneralRiesgos() {
+                ConnectionDB con = new ConnectionDB();
+                this._dbRiesgos = new Riesgos_BDDataContext(con.cadenaConexion);
+                return _dbRiesgos;
             }
 
         }
+
+        #region Forma OLD
+        //    public partial class connectionUsuarios {
+        //        private static Usuarios_BDDataContext _db;
+
+        //        public static Usuarios_BDDataContext DB {
+        //            get {
+        //                return _db;
+        //            }
+        //            set {
+        //                _db = value;
+        //            }
+        //        }
+
+
+        //        public connectionUsuarios() {
+        //            ConnectionDB con = new ConnectionDB();
+        //            _db = new Usuarios_BDDataContext(con.cadenaConexion);
+        //        }
+
+        //        public connectionUsuarios(string cadenaConexion) {
+        //            _db = new Usuarios_BDDataContext(cadenaConexion);
+        //        }
+        //    }
+
+
+        //    public partial class connectionRiesgos {
+        //        private Riesgos_BDDataContext _db;
+
+        //        public Riesgos_BDDataContext DB {
+        //            get {
+        //                return _db;
+        //            }
+        //            set {
+        //                _db = value;
+        //            }
+        //        }
+
+        //        public connectionRiesgos() {
+        //            ConnectionDB con = new ConnectionDB();
+        //            _db = new Riesgos_BDDataContext(con.cadenaConexion);
+        //        }
+
+        //        public connectionRiesgos(string cadenaConexion) {
+        //            _db = new Riesgos_BDDataContext(cadenaConexion);
+        //        }
+
+        //    }
+        #endregion
     }
 }
