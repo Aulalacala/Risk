@@ -136,6 +136,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="claveConnectionString.txt" />
+    <Content Include="Codigos\160530_cargaTablaDatos.txt" />
     <Content Include="Codigos\ScriptComboSinLimpiar.txt" />
     <Content Include="Codigos\TablaDatosPruebas1.txt" />
     <Content Include="Content\bootstrap.css" />
@@ -320,7 +321,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Views\BD_Usuarios\" />
   </ItemGroup>
   <ItemGroup>
     <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />

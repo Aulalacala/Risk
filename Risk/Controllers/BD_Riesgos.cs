@@ -76,9 +76,11 @@ namespace Risk.Controllers {
             return nombreColumnasModif;
         }
 
-        public Dictionary<int, List<object>> cargaTablaDatos(string nombreTabla, string colVer, string colTitulos, string filtro = null, int categoria = 0, int clasificacion1 = 0, int clasificacion2 = 0, int clasificacion3 = 0, int idEstructura = 0, bool riesgoSinAsignar = false) {
+        public Dictionary<int, List<Tuple<string, string>>> cargaTablaDatos(string nombreTabla, string colVer, string colTitulos, string filtro = null, int categoria = 0, int clasificacion1 = 0, int clasificacion2 = 0, int clasificacion3 = 0, int idEstructura = 0, bool riesgoSinAsignar = false) {
             Dictionary<int, object> dic = new Dictionary<int, object>();
-            Dictionary<int, List<object>> listaDatosFinal = new Dictionary<int, List<object>>();
+
+
+            Dictionary<int, List<Tuple<string, string>>> listaDatos = new Dictionary<int, List<Tuple<string, string>>>();
 
             try {
                 string query = "select * from " + nombreTabla;
@@ -98,30 +100,35 @@ namespace Risk.Controllers {
                 // Cargar de las columnas a mostrar
                 Dictionary<string, string> nombreCols = nombresColTabla(nombreTabla, colVer, colTitulos);
 
+
                 foreach (var riesgo in dic) {
                     if (riesgo.Value != null) {
-                        List<object> camposRiesgo = new List<object>();
+                        List<Tuple<string, string>> camposTabla = new List<Tuple<string, string>>();
+
+                         var tiposColumnas = Conexion.Mapping.GetTables().Where(y => y.TableName == "dbo."+ nombreTabla).Single().RowType.DataMembers;
 
                         foreach (var col in nombreCols) {
 
                             string name;
                             System.Reflection.PropertyInfo x = riesgo.Value.GetType().GetProperty(col.Key);
 
+                            var tipo = tiposColumnas.Where(z => z.MappedName == col.Key).Single().Type.Name;
+
                             if (x.GetValue(riesgo.Value, null) == null) {
-                                name = "null";
+                                name = "";
                             } else {
                                 name = (string)((x.GetValue(riesgo.Value, null))).ToString();
                             }
-                            camposRiesgo.Add(name);
+                            camposTabla.Add(new Tuple<string, string>(tipo, name));
                         }
-                        listaDatosFinal.Add(riesgo.Key, camposRiesgo);
+                        listaDatos.Add(riesgo.Key, camposTabla);
                     }
                 }
             } catch (Exception e) {
                 var exception = e;
                 return null;
             }
-            return listaDatosFinal;
+            return listaDatos;
         }
 
 
@@ -288,6 +295,7 @@ namespace Risk.Controllers {
             try {
 
                 Conexion.ExecuteQuery<int>(query);
+                //Conexion.tRiesgos.InsertOnSubmit(riesgo);
                 //Conexion.SubmitChanges();
                 return null;
             } catch (Exception e) {

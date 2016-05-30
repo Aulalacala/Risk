@@ -13,8 +13,7 @@
 <link rel="stylesheet" href="~/Content/datetables/responsive.dataTables.min.css" type="text/css" />
 <link rel="stylesheet" href="~/Content/datetables/scroller.dataTables.min.css" type="text/css" />
 
-@{if (Model.datosTBody == null)
-    {
+@{if (Model.datosTBody == null) {
 
   <!-- TITLE & BUTTONS -->
         <span class="title bigger">@Model.titulo</span>
@@ -27,8 +26,7 @@
                     <th text-align="right">
                         Editar
                     </th>
-                    @{foreach (var item in Model.datosTHead)
-                        {
+                    @{foreach (var item in Model.datosTHead) {
                             <th class="td-large">@item.Value.ToString()</th>
                         }
                     }
@@ -36,10 +34,7 @@
 
             </thead>
         </table>
-                        }
-
-                        else
-                        {
+                        } else {
 
         <!-- TITLE & BUTTONS -->
                             <span class="title bigger">@Model.titulo</span>
@@ -48,43 +43,121 @@
                             <table rules="rows" id="tablaDatosRiesgos" class="table">
                                 <thead>
                                     <tr>
+                                        @{if (Model.editable) {
+                                                <th text-align="right">
+                                                    Editar
+                                                </th>
+                                            }
 
-                                        @{
-                                            switch (Model.vistaProcedencia)
-                                            {
-                                                case "Historical":
-                                                    break;
-
-                                                default:
-                                                    <th text-align="right">
-                                                        Editar
-                                                    </th>
-                                                    break;
+                                            if (Model.borrar) {
+                                                <th text-align="right">
+                                                    Borrar
+                                                </th>
                                             }
                                         }
+
                                         @{
-                                            foreach (var item in Model.datosTHead)
-                                            {
+                                            foreach (var item in Model.datosTHead) {
                                                 <th class="td-large">@item.Value.ToString()</th>
                                             }
 
                                         }
+
                                     </tr>
+
+
+                                    @*<tr>
+
+                                            @{
+                                                switch (Model.vistaProcedencia) {
+                                                    case "Historical":
+                                                        break;
+
+                                                    default:
+                                                        <th text-align="right">
+                                                            Editar
+                                                        </th>
+                                                        break;
+                                                }
+                                            }
+                                            @{
+                                                foreach (var item in Model.datosTHead) {
+                                                    <th class="td-large">@item.Value.ToString()</th>
+                                                }
+
+                                            }
+                                        </tr>*@
 
                                 </thead>
                                 <tbody>
+
                                     @{
-                                        switch (Model.vistaProcedencia)
-                                        {
+                                        foreach (var fila in Model.datosTBody) {
+                                            <tr>
+                                                @{if (Model.editable) {
+                                                        <td text-align="right">
+                                                            <a href="@Url.Action(Model.urlActionEditar.Item1, Model.urlActionEditar.Item2, new { id = fila.Key }) " id="@fila.Key"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                        </td>
+                                                    }
+
+                                                    if (Model.borrar) {
+                                                        <td text-align="right">
+                                                            <a href="@Url.Action(Model.urlActionBorrar.Item1, Model.urlActionBorrar.Item2, new { id = fila.Key }) " id="@fila.Key"><i class="glyphicon glyphicon-trash"></i></a>
+                                                        </td>
+                                                    }
+
+                                                    foreach (var columna in fila.Value) {
+                                                        switch (columna.Item1) {
+                                                            case "String":
+                                                                <td class="td-large">@columna.Item2</td>
+                                                                break;
+
+                                                            case "Boolean":
+                                                                if (columna.Item2 == "True") {
+                                                                    <td>
+                                                                        <input class="checkbox" type="checkbox" checked />
+                                                                    </td>
+                                                                } else {
+                                                                    <td>
+                                                                        <input class="checkbox" type="checkbox" />
+                                                                    </td>
+                                                                }
+                                                                break;
+
+                                                            case "Int":
+                                                                <td class="td-large" style="text-align:right">@columna.Item2</td>
+                                                                break;
+
+                                                            case "DateTime":
+                                                                <td class="td-large">@columna.Item2</td>
+                                                                break;
+                                                        }
+
+                                                    }
+
+
+                                                }
+
+
+
+
+
+                                            </tr>
+                                                    }
+                                    }
+
+
+
+
+
+                                    @{
+                                        switch (Model.vistaProcedencia) {
                                             case "Historical":
 
-                                                foreach (var fila in Model.datosTBody)
-                                                {
+                                                foreach (var fila in Model.datosTBody) {
                                                     <tr id="@fila.Key">
-                                                        @{foreach (var columna in fila.Value)
-                                                            {
-                                                                switch (columna.ToString())
-                                                                {
+                                                        @{foreach (var columna in fila.Value) {
+                                                                switch (columna.ToString()) {
                                                                     case "True":
                                                                         <td>
                                                                             <input class="checkbox" type="checkbox" checked />
@@ -111,15 +184,13 @@
                                                                 break;
 
                                                             default:
-                                                                foreach (var fila in Model.datosTBody)
-                                                                {
+                                                                foreach (var fila in Model.datosTBody) {
                                                                     <tr>
                                                                         <td text-align="right">
                                                                             <a href="@Url.Action("RiskFicha", "Risk", new { id = fila.Key }) " id="@fila.Key"><i class="glyphicon glyphicon-pencil"></i></a>
                                                                         </td>
                                                                         @{
-                                                                            foreach (var columna in fila.Value)
-                                                                            {
+                                                                            foreach (var columna in fila.Value) {
                                                                                 <td class="td-large">@columna.ToString()</td>
                                                                             }
                                                                         }
@@ -170,7 +241,7 @@
                 retrieve: true
             })
 
-            
+
         } else {
             var table = $('#tablaDatosRiesgos').DataTable({
                 //responsive: true,
