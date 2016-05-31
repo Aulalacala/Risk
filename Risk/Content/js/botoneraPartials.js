@@ -17,12 +17,9 @@ $('#BtnSave').click(function () {
     var datosFormulario = {
         IdRiesgo: $('#IdRiesgo').val(),
         IdEstructura: $('#idEstructura').val(),
-
     }
 
-
     datosFormulario['IdRiesgo'] = $('#IdRiesgo').val();
-
 
     $('#miForm .dirty').each(function (pos, el) {
 
@@ -89,13 +86,48 @@ $('#BtnDiscard').click(function () {
 
 $('#BtnChangeHistorical').click(function () {
     $('#financialHistoricalDiv').show();
+    $('#BtnSaveHistorical').removeAttr('disabled');
 
-    var idEvaluacion = $('#idEvaluacion').val();
+    var idEvaluacion = $('#financialImpact').attr('idEvaluacion');
     var idRiesgo = $('#idRiesgo').val();
 
     $('#financialImpactDiv').empty();
     var ruta = "http://localhost:1525/Risk/FinancialImpactCombosHelpers";
     $('#financialImpactDiv').load(ruta, { "id": idRiesgo, "idEvaluacion": idEvaluacion })
 });
+
+$('#BtnSaveHistorical').click(function () {
+    //alert('voy a salvar esta evaluacion');
+
+    var idEvaluacion = $('#financialImpact').attr('idEvaluacion');
+    var idRiesgo = $('#idRiesgo').val();
+
+    var datosEvaluacion = {
+        IdRiesgo: $('#idRiesgo').val(),
+        IdEvaluacion: $('#financialImpact').attr('idEvaluacion'),
+        idEfectividad: $('#efectividad').val(),
+        Fecha: $('#fecha').val()
+    }
+
+    $('#financialImpact select').each(function (pos, el) {
+        var propiedad = $(this).attr('id').replace('Nombre', 'Id');
+        var valor = $(this).val();
+        datosEvaluacion[propiedad] = valor;
+    })
+
+    alert('idEvaluacion=> ' + idEvaluacion + 'idRiesgo => ' + idRiesgo);
+    $.ajax({
+        url: "/Risk/guardaEvaluacion",
+        type: 'post',
+        data: { idRiesgo: idRiesgo, idEvaluacion:idEvaluacion, evaluacion: datosEvaluacion },
+        success: function (data) {
+            alert('ok')
+
+        },
+        error: function (jqXHR, textStatus, errorThrown) {
+            alert(errorThrown)
+        }
+    })
+})
 
 

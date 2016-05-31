@@ -406,9 +406,9 @@ namespace Risk.Controllers
             return j;
         }
 
-        public void guardaEvaluacion(int idEvaluacion)
+        public void guardaEvaluacion(int idRiesgo, int idEvaluacion, tRiesgosEvaluaciones evaluacion)
         {
-
+            //update de evaluacion, si llega la evaluacion
         }
 
     }

@@ -1,14 +1,14 @@
 ﻿@model Risk.ViewModels.FichaRiesgoVM
 
-@{
+@*@{
     if (Model.idEvaluacion != 0)
     {
         <input type="hidden" id="idEvaluacion" value="@Convert.ToInt32(Model.idEvaluacion)" />
     }
-}
+}*@
 
 
-<div id="financialImpact" style="background-color:#eaf7fa" class="row">
+<div id="financialImpact" style="background-color:#eaf7fa" class="row" idEvaluacion="@Model.idEvaluacion">
     <div class="col-lg-12 col-md-12">
         <span class="form-left-label"><b>FINANCIAL IMPACT</b></span>
     </div>
