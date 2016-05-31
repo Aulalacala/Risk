@@ -243,6 +243,11 @@ namespace Risk.Controllers {
             return riesgo.IdRiesgo;
 
         }
+        public int recuperaIdUltimaEvaluacion(int id)
+        {
+           return riesgosBD.DB.qRiesgosEvalVal.Where(r => r.IdRiesgo == id && r.Ultima == true).Select(r => Convert.ToInt32(r.IdEvaluacion)).SingleOrDefault();
+        }
+
 
         public int actualizaQRiesgosNombre(List<string> datosQRiesgosNombre, int IdRiesgo) {
             try {
@@ -365,6 +370,9 @@ namespace Risk.Controllers {
             codCompleto += "." + ultimoCodigoRiesgo;
 
             return codCompleto;
+
+
+
         }
 
 

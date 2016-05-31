@@ -88,7 +88,8 @@ $('#BtnDiscard').click(function () {
 });
 
 $('#BtnChangeHistorical').click(function () {
-    alert('btn');
+    $('#financialHistoricalDiv').show();
+
     var idEvaluacion = $('#idEvaluacion').val();
     var idRiesgo = $('#idRiesgo').val();
 
