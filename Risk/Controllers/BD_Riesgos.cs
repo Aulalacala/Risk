@@ -245,7 +245,7 @@ namespace Risk.Controllers {
         }
         public int recuperaIdUltimaEvaluacion(int id)
         {
-           return riesgosBD.DB.qRiesgosEvalVal.Where(r => r.IdRiesgo == id && r.Ultima == true).Select(r => Convert.ToInt32(r.IdEvaluacion)).SingleOrDefault();
+           return Conexion.qRiesgosEvalVal.Where(r => r.IdRiesgo == id && r.Ultima == true).Select(r => Convert.ToInt32(r.IdEvaluacion)).SingleOrDefault();
         }
 
 

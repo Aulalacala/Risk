@@ -359,8 +359,8 @@ namespace Risk.Controllers
                 int idRiesgoNuevoSwitch = _CRUDSql_Switch.insert(tabla, listaValues, "riesgos");
                 int idRiesgoNuevo = _CRUDSql.insert(tabla, listaValues, "riesgos");
             } else {
-                int idRiesgoUpdateSwitch = _CRUDSql_Switch.update(tabla, listaValues, "riesgos", "where idRiesgo=" + datosFormulario.IdRiesgo);
-                int idRiesgoUpdate = _CRUDSql.update(tabla, listaValues, "riesgos", "where idRiesgo=" + datosFormulario.IdRiesgo);
+                int idRiesgoUpdateSwitch = _CRUDSql_Switch.update(tabla, listaValues, "riesgos", "IdRiesgo=" + datosFormulario.IdRiesgo);
+                int idRiesgoUpdate = _CRUDSql.update(tabla, listaValues, "riesgos", "IdRiesgo=" + datosFormulario.IdRiesgo);
             }
         }
 
@@ -370,8 +370,17 @@ namespace Risk.Controllers
         [HttpPost]
         public JsonResult deleteRiesgo(int id)
         {
-            bool flag = BD_Riesgos.deleteRiesgo(id);
-            return Json(Url.Action("Risks", "Assign"));
+            if (false) {
+                _CRUDSql.delete("tRiesgos", "IdRiesgo = " + id);
+                _CRUDSql_Switch.delete("tRiesgos", "riesgos","IdRiesgo = " + id);
+            }
+
+            try {
+                bool flag = BD_Riesgos.deleteRiesgo(id);
+                return Json(Url.Action("Risks", "Assign"));
+            } catch (Exception) { return null; }
+           
+            
         }
 
 

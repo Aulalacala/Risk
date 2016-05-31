@@ -105,6 +105,8 @@
     })
 
     $('#datosTablaEvaluaciones tbody').on('click', 'tr', function () {
+
+        alert('jquery')
         if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
         }
@@ -115,7 +117,7 @@
 
         var idEvaluacion = $(this).attr('id');
         var idRiesgo = $('#idRiesgo').val();
-        //alert('idEvaluacion=> ' + idEvaluacion + 'idRiesgo => ' + idRiesgo);
+        alert('idEvaluacion=> ' + idEvaluacion + 'idRiesgo => ' + idRiesgo);
 
         $('#financialHistoricalDiv').show();
         $('#BtnDelete').removeAttr('disabled');

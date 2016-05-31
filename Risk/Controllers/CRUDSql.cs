@@ -107,7 +107,7 @@ namespace Risk.Controllers {
         }
 
 
-        public int delete(string tabla, string flag, string condicion) {
+        public int delete(string tabla, string condicion) {
             string query = "DELETE from" + tabla + " where " + condicion;
 
             try {

@@ -71,7 +71,7 @@
 
                                     @{
                                         foreach (var fila in Model.datosTBody) {
-                                            <tr>
+                                            <tr id="@fila.Key">
                                                 @{if (Model.editable) {
                                                         <td style="text-align:center">
                                                             <a href="@Url.Action(Model.urlActionEditar.Item1, Model.urlActionEditar.Item2, new { id = fila.Key }) " id="@fila.Key"><i class="glyphicon glyphicon-pencil"></i></a>
