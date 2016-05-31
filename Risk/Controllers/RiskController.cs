@@ -77,6 +77,9 @@ namespace Risk.Controllers
             datosTabla.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosEvalVal", colVer, colTitulos);
             datosTabla.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosEvalVal", colVer, colTitulos, null, 0, 0, 0, 0, Convert.ToInt32(id));
             datosTabla.vistaProcedencia = "Historical";
+            datosTabla.editable = false;
+            datosTabla.borrar = false;            
+
 
             fichaRiesgoVM.datosTabla_VM = datosTabla;
             fichaRiesgoVM.referencia = 0;

@@ -44,13 +44,13 @@
                                 <thead>
                                     <tr>
                                         @{if (Model.editable) {
-                                                <th text-align="right">
+                                                <th style="text-align:center">
                                                     Editar
                                                 </th>
                                             }
 
                                             if (Model.borrar) {
-                                                <th text-align="right">
+                                                <th style="text-align:center">
                                                     Borrar
                                                 </th>
                                             }
@@ -58,35 +58,13 @@
 
                                         @{
                                             foreach (var item in Model.datosTHead) {
-                                                <th class="td-large">@item.Value.ToString()</th>
+                                                <th class="td-large" style="text-align:center">@item.Value.ToString()</th>
                                             }
 
                                         }
 
                                     </tr>
 
-
-                                    @*<tr>
-
-                                            @{
-                                                switch (Model.vistaProcedencia) {
-                                                    case "Historical":
-                                                        break;
-
-                                                    default:
-                                                        <th text-align="right">
-                                                            Editar
-                                                        </th>
-                                                        break;
-                                                }
-                                            }
-                                            @{
-                                                foreach (var item in Model.datosTHead) {
-                                                    <th class="td-large">@item.Value.ToString()</th>
-                                                }
-
-                                            }
-                                        </tr>*@
 
                                 </thead>
                                 <tbody>
@@ -95,13 +73,13 @@
                                         foreach (var fila in Model.datosTBody) {
                                             <tr>
                                                 @{if (Model.editable) {
-                                                        <td text-align="right">
+                                                        <td style="text-align:center">
                                                             <a href="@Url.Action(Model.urlActionEditar.Item1, Model.urlActionEditar.Item2, new { id = fila.Key }) " id="@fila.Key"><i class="glyphicon glyphicon-pencil"></i></a>
                                                         </td>
                                                     }
 
                                                     if (Model.borrar) {
-                                                        <td text-align="right">
+                                                        <td style="text-align:center">
                                                             <a href="@Url.Action(Model.urlActionBorrar.Item1, Model.urlActionBorrar.Item2, new { id = fila.Key }) " id="@fila.Key"><i class="glyphicon glyphicon-trash"></i></a>
                                                         </td>
                                                     }
@@ -114,11 +92,11 @@
 
                                                             case "Boolean":
                                                                 if (columna.Item2 == "True") {
-                                                                    <td>
+                                                                    <td style="padding-left:90px">
                                                                         <input class="checkbox" type="checkbox" checked />
                                                                     </td>
                                                                 } else {
-                                                                    <td>
+                                                                    <td style="padding-left:90px">
                                                                         <input class="checkbox" type="checkbox" />
                                                                     </td>
                                                                 }
@@ -129,8 +107,13 @@
                                                                 break;
 
                                                             case "DateTime":
+                                                                <td class="td-large" style="text-align:right; padding-right:30px">@columna.Item2.Split(' ')[0]</td>
+                                                                break;
+
+                                                            default:
                                                                 <td class="td-large">@columna.Item2</td>
                                                                 break;
+
                                                         }
 
                                                     }
@@ -138,70 +121,14 @@
 
                                                 }
 
-
-
-
-
                                             </tr>
                                                     }
                                     }
 
 
-
-
-
-                                    @{
-                                        switch (Model.vistaProcedencia) {
-                                            case "Historical":
-
-                                                foreach (var fila in Model.datosTBody) {
-                                                    <tr id="@fila.Key">
-                                                        @{foreach (var columna in fila.Value) {
-                                                                switch (columna.ToString()) {
-                                                                    case "True":
-                                                                        <td>
-                                                                            <input class="checkbox" type="checkbox" checked />
-                                                                        </td>
-                                                                        break;
-
-                                                                    case "False":
-                                                                        <td>
-                                                                            <input class="checkbox" type="checkbox" />
-                                                                        </td>
-                                                                        break;
-
-                                                                    default:
-                                                                        <td class="td-large">@columna.ToString()</td>
-                                                                        break;
-                                                                }
-
-                                                            }
-                                                        }
-                                                    </tr>
-                                                                }
-
-
-                                                                break;
-
-                                                            default:
-                                                                foreach (var fila in Model.datosTBody) {
-                                                                    <tr>
-                                                                        <td text-align="right">
-                                                                            <a href="@Url.Action("RiskFicha", "Risk", new { id = fila.Key }) " id="@fila.Key"><i class="glyphicon glyphicon-pencil"></i></a>
-                                                                        </td>
-                                                                        @{
-                                                                            foreach (var columna in fila.Value) {
-                                                                                <td class="td-large">@columna.ToString()</td>
-                                                                            }
-                                                                        }
-                                                                    </tr>
-                                                                                }
-                                                                                break;
-                                                                            }
-                                    }
                                 </tbody>
                             </table>
-                                                                            }
+                                                    }
 }
 
 
@@ -219,39 +146,51 @@
         });
 
 
+        var vista = window.location.href.split('/')[4];
 
-        if (window.location.href.indexOf("Structure") > -1) {
-            var table = $('#tablaDatosRiesgos').DataTable({
-                //responsive: true,
-                scrollY: 370,
-                scrollX: true,
-                scrollCollapse: true,
-                //scroller: true,
-                "bPaginate": false,
-                "bFilter": false,
-                "bInfo": false,
-            })
+        if (vista.indexOf("#") > -1) {
+            vista = vista.split('#')[0];
+        }
 
-        } else if (window.location.href.indexOf("AssignMultipleRisks") > -1) {
+        if (vista.indexOf("?") > -1) {
+            vista = vista.split('?')[0];
+        }
 
-            var table = $('#tablaDatosRiesgos').DataTable({
-                "bPaginate": false,
-                "bFilter": false,
-                "bInfo": false,
-                retrieve: true
-            })
+        switch (vista) {
+            case "Structure":
+                var table = $('#tablaDatosRiesgos').DataTable({
+                    //responsive: true,
+                    scrollY: 370,
+                    scrollX: true,
+                    scrollCollapse: true,
+                    //scroller: true,
+                    "bPaginate": false,
+                    "bFilter": false,
+                    "bInfo": false,
+                });
+                break;
 
+            case "AssignMultipleRisks":
+                var table = $('#tablaDatosRiesgos').DataTable({
+                    "bPaginate": false,
+                    "bFilter": false,
+                    "bInfo": false,
+                    retrieve: true
+                });
+                break;
 
-        } else {
-            var table = $('#tablaDatosRiesgos').DataTable({
-                //responsive: true,
-                scrollY: 1000,
-                scrollX: true,
-                scrollCollapse: true,
-                scroller: true,
-            })
-
+            default:
+                var table = $('#tablaDatosRiesgos').DataTable({
+                    //responsive: true,
+                    scrollY: 1000,
+                    scrollX: true,
+                    scrollCollapse: true,
+                    scroller: true,
+                });
+                break;
 
         }
+
+      
     });
 </script>
