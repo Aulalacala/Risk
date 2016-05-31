@@ -12,8 +12,7 @@ namespace Risk.Codigos
     public class TreeviewOLDController : Controller
     {
         BD_Riesgos BD_Riesgos = new BD_Riesgos();
-        //Riesgos_BDDataContext riesgosBD = new Riesgos_BDDataContext();
-        //ConnectionDB.connectionRiesgos riesgosBD = new ConnectionDB.connectionRiesgos();
+        Riesgos_BDDataContext Conexion = (Riesgos_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralRiesgos();
 
         string colVer = "CodRiesgo,Nombre,Categoria,Clasif1,Clasif2,Clasif3,CodRiesgoLocalizado";
         string colTitulos = "Código Riesgo,Nombre,Categoría,Clasificación1,Clasificación2,Clasificación3,Código Localizado";
@@ -108,7 +107,7 @@ namespace Risk.Codigos
 
         public void numeroFilasStructure(int id)
         {
-            List<tEstructura> cuantosHay = BD_Riesgos.Conexion.tEstructura.Where(r => r.idPadre == id).OrderBy(r => r.Orden).ToList();
+            List<tEstructura> cuantosHay = Conexion.tEstructura.Where(r => r.idPadre == id).OrderBy(r => r.Orden).ToList();
             if (cuantosHay.Count != 0)
             {
                 //ul
@@ -125,7 +124,7 @@ namespace Risk.Codigos
         public string compruebaTieneHijos(string codCompleto)
         {
             string tieneHijos = "";
-            return tieneHijos = BD_Riesgos.Conexion.tRiesgos.Where(r => r.CodRiesgo.Contains(codCompleto)).Any() ? tieneHijos = "checked" : tieneHijos = "";
+            return tieneHijos = Conexion.tRiesgos.Where(r => r.CodRiesgo.Contains(codCompleto)).Any() ? tieneHijos = "checked" : tieneHijos = "";
         }
     }
 }

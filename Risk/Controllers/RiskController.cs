@@ -20,8 +20,6 @@ namespace Risk.Controllers
         BD_Riesgos BD_Riesgos = new BD_Riesgos();
         CRUDSql_Switch _CRUDSql_Switch = new CRUDSql_Switch();
         CRUDSql _CRUDSql = new CRUDSql();
-        CRUDModels _CRUDModels = new CRUDModels();
-
 
 
         string colVer = "Activa,Ultima,Fecha,NombreFrecAntes,NombreSeveAntes,NombreFrecDespues,NombreSeveDespues";
@@ -231,18 +229,18 @@ namespace Risk.Controllers
         }
 
         [HttpPost]
-        public ActionResult formGeneral(int IdRiesgo, int IdEstructura, List<string> datosFormulario)
+        public ActionResult formGeneral(FormGeneralModel datosFormulario)
         {
             int idRiesgo = 0;
 
-            if (IdRiesgo.Equals("0"))
+            if (datosFormulario.IdRiesgo.Equals("0"))
             {
                 idRiesgo = insertarNuevoRiesgo(datosFormulario);
             }
 
             else
             {
-                idRiesgo = updateRiesgo(IdRiesgo, IdEstructura, datosFormulario);
+                idRiesgo = updateRiesgo(datosFormulario);
             }
 
 
@@ -251,151 +249,121 @@ namespace Risk.Controllers
         }
 
 
-        private int insertarNuevoRiesgo(List<string> datosFormulario)
+        private int insertarNuevoRiesgo(FormGeneralModel datosFormulario)
         {
            
+            //INSERTAR CON CRUD-SQL
+            if (false) {
+                insertOrUpdateCRUD(datosFormulario);
+
+            //INSERTAR CON MODELOS DBML
+            } else {
+
+                tRiesgos riesgoNuevo = new tRiesgos();
+
+                riesgoNuevo.CodRiesgo = datosFormulario.CodRiesgo != null ? datosFormulario.CodRiesgo : null;
+                riesgoNuevo.CodRiesgoLocalizado = datosFormulario.CodRiesgo != null ? datosFormulario.CodRiesgo.Substring(0, 8) : null;
+                riesgoNuevo.Nombre = datosFormulario.Nombre != null ? datosFormulario.Nombre : null;
+                riesgoNuevo.IdCategoria = datosFormulario.IdCategoria != null ? int.Parse(datosFormulario.IdCategoria) : 0;
+                riesgoNuevo.IdClasificacion1 = datosFormulario.IdClasificacion1 != null ? int.Parse(datosFormulario.IdClasificacion1) : 0;
+                riesgoNuevo.IdClasificacion2 = datosFormulario.IdClasificacion2 != null ? int.Parse(datosFormulario.IdClasificacion2) : 0;
+                riesgoNuevo.IdClasificacion3 = datosFormulario.IdClasificacion3 != null ? int.Parse(datosFormulario.IdClasificacion3) : 0;
+                riesgoNuevo.Descripcion = datosFormulario.Descripcion != null ? datosFormulario.Descripcion : null;
+                riesgoNuevo.Justificacion = datosFormulario.Justificacion != null ? datosFormulario.Justificacion : null;
+                riesgoNuevo.Ejemplo = datosFormulario.Ejemplo != null ? datosFormulario.Ejemplo : null;
+                riesgoNuevo.IdSegmentacion1 = datosFormulario.IdSegmentacion1 != null ? int.Parse(datosFormulario.IdSegmentacion1) : 0;
+                riesgoNuevo.IdResponsable = datosFormulario.IdResponsable != null ? int.Parse(datosFormulario.IdResponsable) : 0;
+                riesgoNuevo.IdSupervisor = datosFormulario.IdResponsable2 != null ? int.Parse(datosFormulario.IdResponsable2) : 0;
+
+
+                // Insertar el riesgo en la BD (Devuelve el riesgo insertado con el idRiesgo autogenerado)
+                tRiesgos idRiesgo = BD_Riesgos.insertarNuevoRiesgo(riesgoNuevo);
+
+
+                if (datosFormulario.idEstructura != null) {
+                    // Crear tRelEstructuraRiesgos
+                    tRelEstructuraRiesgos estructuraNuevo = new tRelEstructuraRiesgos();
+                    estructuraNuevo.IdRiesgo = idRiesgo.IdRiesgo;
+                    estructuraNuevo.IdEstructura = int.Parse(datosFormulario.idEstructura);
+
+                }
+
+                return idRiesgo.IdRiesgo;
+
+            }
+         
+        }
+
+
+      
+
+        private int updateRiesgo(FormGeneralModel datosFormulario)
+        {
+
+            //INSERTAR CON CRUD-SQL
+            if (false) {
+                insertOrUpdateCRUD(datosFormulario);
+
+                //INSERTAR CON MODELOS DBML
+            } else {
+
+                tRiesgos riesgoUpdate = BD_Riesgos.recuperarTRiesgo(Convert.ToInt32(datosFormulario.IdRiesgo));
+
+                riesgoUpdate.CodRiesgo = datosFormulario.CodRiesgo != null ? datosFormulario.CodRiesgo : riesgoUpdate.CodRiesgo;
+                riesgoUpdate.CodRiesgoLocalizado = datosFormulario.CodRiesgo != null ? datosFormulario.CodRiesgo.Substring(0, 8) : riesgoUpdate.CodRiesgoLocalizado;
+                riesgoUpdate.Nombre = datosFormulario.Nombre != null ? datosFormulario.Nombre : riesgoUpdate.Nombre;
+                riesgoUpdate.IdCategoria = datosFormulario.IdCategoria != null ? int.Parse(datosFormulario.IdCategoria) : riesgoUpdate.IdCategoria;
+                riesgoUpdate.IdClasificacion1 = datosFormulario.IdClasificacion1 != null ? int.Parse(datosFormulario.IdClasificacion1) : riesgoUpdate.IdClasificacion1;
+                riesgoUpdate.IdClasificacion2 = datosFormulario.IdClasificacion2 != null ? int.Parse(datosFormulario.IdClasificacion2) : riesgoUpdate.IdClasificacion2;
+                riesgoUpdate.IdClasificacion3 = datosFormulario.IdClasificacion3 != null ? int.Parse(datosFormulario.IdClasificacion3) : riesgoUpdate.IdClasificacion3;
+                riesgoUpdate.Descripcion = datosFormulario.Descripcion != null ? datosFormulario.Descripcion : riesgoUpdate.Descripcion;
+                riesgoUpdate.Justificacion = datosFormulario.Justificacion != null ? datosFormulario.Justificacion : riesgoUpdate.Justificacion;
+                riesgoUpdate.Ejemplo = datosFormulario.Ejemplo != null ? datosFormulario.Ejemplo : riesgoUpdate.Ejemplo;
+                riesgoUpdate.IdSegmentacion1 = datosFormulario.IdSegmentacion1 != null ? int.Parse(datosFormulario.IdSegmentacion1) : riesgoUpdate.IdSegmentacion1;
+                riesgoUpdate.IdResponsable = datosFormulario.IdResponsable != null ? int.Parse(datosFormulario.IdResponsable) : riesgoUpdate.IdResponsable;
+                riesgoUpdate.IdSupervisor = datosFormulario.IdResponsable2 != null ? int.Parse(datosFormulario.IdResponsable2) : riesgoUpdate.IdSupervisor;
+
+                // Insertar el riesgo en la BD (Devuelve el riesgo insertado con el idRiesgo autogenerado)
+                int idRiesgo = BD_Riesgos.updateRiesgo(riesgoUpdate);
+
+                return idRiesgo;
+            }
+        }
+
+
+
+        /// <summary>
+        /// Método para hacer insert o update de un riesgo a través de las clases CRUDSql y CRUDSql_Switch con sentencias SQL tradicionales
+        /// Entran los datos desde JQuery en botoneraPartials.js al método formGeneral que bifurca a insert o update
+        /// </summary>
+        /// <param name="datosFormulario"></param>
+        private void insertOrUpdateCRUD(FormGeneralModel datosFormulario) {
 
             PropertyInfo[] props = datosFormulario.GetType().GetProperties();
-
             List<Tuple<string, string>> listaValues = new List<Tuple<string, string>>();
 
             foreach (PropertyInfo item in props) {
                 if (item.GetValue(datosFormulario, null) != null) {
-                    Tuple<string, string> tupla = Tuple.Create(item.Name, item.GetValue(datosFormulario, null).ToString());
-                    listaValues.Add(tupla);
-                }           
+                    if (item.Name == "IdRiesgo" || item.Name == "idEstructura") { continue; } else {
+                        Tuple<string, string> tupla = Tuple.Create(item.Name, item.GetValue(datosFormulario, null).ToString());
+                        listaValues.Add(tupla);
+                    }
+                }
             }
 
-            string tabla = "tRiesgos";        //props[1].GetValue(datosFormulario,null).ToString().Split(':')[1];
+            string tabla = "tRiesgos";
 
-            //Riesgos_BDDataContext riesgos_BD = (Riesgos_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralRiesgos();
-
-            if (false) {
-                int idRiesgoNuevoSwitch = _CRUDSql_Switch.insert(tabla, listaValues, "riesgos"); 
+            if (datosFormulario.IdRiesgo.Equals("0")) {
+                int idRiesgoNuevoSwitch = _CRUDSql_Switch.insert(tabla, listaValues, "riesgos");
                 int idRiesgoNuevo = _CRUDSql.insert(tabla, listaValues, "riesgos");
             } else {
-               // int idRiesgoNuevoModels = _CRUDModels.insert(tabla, listaValues, "riesgos", "tRiesgo");
-
+                int idRiesgoUpdateSwitch = _CRUDSql_Switch.update(tabla, listaValues, "riesgos", "where idRiesgo=" + datosFormulario.IdRiesgo);
+                int idRiesgoUpdate = _CRUDSql.update(tabla, listaValues, "riesgos", "where idRiesgo=" + datosFormulario.IdRiesgo);
             }
-
-
-            return 0;
-
-            //bool insert = false;
-
-            //tRiesgos riesgoNuevo = new tRiesgos();
-
-            //string queryvalues = "";
-            //string queryproperties = "";
-            //string valorCodRiesgoLocalizado = "";
-
-            //foreach (PropertyInfo item in props) {
-            //    if (item.GetValue(datosFormulario, null) != null) {
-
-            //        if(item.Name == "IdRiesgo" || item.Name == "idEstructura") { continue; }
-            //        else {
-
-            //            string propiedad = item.Name;
-            //            string valor = "";
-
-            //            if (item.Name == "CodRiesgo") {
-            //                valor = item.GetValue(datosFormulario, null).ToString().Split(':')[0];
-            //                valorCodRiesgoLocalizado = item.GetValue(datosFormulario, null).ToString().Split(':')[0].Substring(0, 8);
-            //            } else {
-            //                valor = item.GetValue(datosFormulario, null).ToString().Split(':')[0];
-
-            //            }
-
-            //            queryproperties += propiedad + ",";
-            //            queryvalues += "'" + valor + "',";
-            //        }
-            //    }
-            //}
-
-            //queryproperties = queryproperties.Substring(0, queryproperties.Length - 1);
-            //queryvalues = queryvalues.Substring(0, queryvalues.Length - 1);
-            //string query = "Insert into tRiesgos (" + queryproperties + ",CodRiesgoLocalizado) values (" + queryvalues + ",'" + valorCodRiesgoLocalizado + "')";
-
-
-            //riesgoNuevo.CodRiesgo = datosFormulario.CodRiesgo != null ? datosFormulario.CodRiesgo.Split(':')[0] : null;
-            //riesgoNuevo.CodRiesgoLocalizado = datosFormulario.CodRiesgo != null ? datosFormulario.CodRiesgo.Substring(0, 8) : null;
-            //riesgoNuevo.Nombre = datosFormulario.Nombre != null ? datosFormulario.Nombre.Split(':')[0] : null;
-            //riesgoNuevo.IdCategoria = datosFormulario.IdCategoria != null ? int.Parse(datosFormulario.IdCategoria.Split(':')[0]) : 0;
-            //riesgoNuevo.IdClasificacion1 = datosFormulario.IdClasificacion1 != null ? int.Parse(datosFormulario.IdClasificacion1.Split(':')[0]) : 0;
-            //riesgoNuevo.IdClasificacion2 = datosFormulario.IdClasificacion2 != null ? int.Parse(datosFormulario.IdClasificacion2.Split(':')[0]) : 0;
-            //riesgoNuevo.IdClasificacion3 = datosFormulario.IdClasificacion3 != null ? int.Parse(datosFormulario.IdClasificacion3.Split(':')[0]) : 0;
-            //riesgoNuevo.Descripcion = datosFormulario.Descripcion != null ? datosFormulario.Descripcion.Split(':')[0] : null;
-            //riesgoNuevo.Justificacion = datosFormulario.Justificacion != null ? datosFormulario.Justificacion.Split(':')[0] : null;
-            //riesgoNuevo.Ejemplo = datosFormulario.Ejemplo != null ? datosFormulario.Ejemplo.Split(':')[0] : null;
-            //riesgoNuevo.IdSegmentacion1 = datosFormulario.IdSegmentacion1 != null ? int.Parse(datosFormulario.IdSegmentacion1.Split(':')[0]) : 0;
-            //riesgoNuevo.IdResponsable = datosFormulario.IdResponsable != null ? int.Parse(datosFormulario.IdResponsable.Split(':')[0]) : 0;
-            //riesgoNuevo.IdSupervisor = datosFormulario.IdResponsable2 != null ? int.Parse(datosFormulario.IdResponsable2.Split(':')[0]) : 0;
-
-
-            //Insertar el riesgo en la BD (Devuelve el riesgo insertado con el idRiesgo autogenerado)
-            //tRiesgos riesgoInsertado = BD_Riesgos.insertarNuevoRiesgo(query);
-
-
-            //if (datosFormulario.idEstructura != null)
-            //{
-            //    // Crear tRelEstructuraRiesgos
-            //    tRelEstructuraRiesgos estructuraNuevo = new tRelEstructuraRiesgos();
-            //    estructuraNuevo.IdRiesgo = riesgoInsertado.IdRiesgo;
-            //    estructuraNuevo.IdEstructura = int.Parse(datosFormulario.idEstructura.Split(':')[0]);
-
-
-            //    // Insertar tRelEstructuraRiesgo devuelve true si está todo OK
-            //    insert = BD_Riesgos.insertarTRelEstructuraRiesgoNuevo(estructuraNuevo);
-            //}
-
-            //BD_Riesgos.insertarTRiesgosEvaluaciones(riesgoInsertado.IdRiesgo);
-
-            //return riesgoInsertado.IdRiesgo;
         }
 
-        private int updateRiesgo(int IdRiesgo, int IdEstructura, List<string> datosFormulario)
-        {
 
-            List<string> datosQRiesgosNombre = new List<string>();
-            List<string> datosQRiesgosEvaluacionesValores = new List<string>();
 
-            PropertyInfo[] props = datosFormulario.GetType().GetProperties();
-
-            foreach (PropertyInfo item in props)
-            {
-                if (item.GetValue(datosFormulario, null) != null)
-                {
-                    try
-                    {
-
-                        string tabla = item.GetValue(datosFormulario, null).ToString().Split(':')[1];
-
-                        switch (tabla)
-                        {
-                            case "qRiesgosNombre":
-                                datosQRiesgosNombre.Add(item.Name + ":" + item.GetValue(datosFormulario, null).ToString().Split(':')[0]);
-                                break;
-                            case "qRiesgosEvalVal":
-                                datosQRiesgosEvaluacionesValores.Add(item.Name + ":" + item.GetValue(datosFormulario, null).ToString().Split(':')[0]);
-                                break;
-                        }
-
-                    }
-                    catch (Exception) { }
-                }
-            }
-
-            qRiesgosNombres riesgoActualizar = new qRiesgosNombres();
-
-            foreach (var item in props) {
-                switch (item.Name) {
-                  
-                }
-            }
-
-            return 0;
-           // return BD_Riesgos.actualizaQRiesgosNombre(datosQRiesgosNombre, int.Parse(datosFormulario.IdRiesgo));
-        }
 
         [HttpPost]
         public JsonResult deleteRiesgo(int id)

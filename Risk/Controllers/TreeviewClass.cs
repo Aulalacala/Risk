@@ -9,15 +9,16 @@ namespace Risk.Controllers
     public class TreeviewClass
     {
 
-        //public static ConnectionDB.connectionRiesgos riesgosBD = new ConnectionDB.connectionRiesgos();
 
         public static BD_Riesgos BD_Riesgos = new BD_Riesgos();
+        public static Riesgos_BDDataContext Conexion = (Riesgos_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralRiesgos();
+
 
         public static List<TreeViewLocation> GetLocations(int id)
         {
             var locations = new List<TreeViewLocation>();
 
-            List<tEstructura> cuantosHay = BD_Riesgos.Conexion.tEstructura.Where(r => r.idPadre == id).OrderBy(r => r.Orden).ToList();
+            List<tEstructura> cuantosHay = Conexion.tEstructura.Where(r => r.idPadre == id).OrderBy(r => r.Orden).ToList();
             if (cuantosHay.Count != 0)
             {
                 for (int i = 0; i < cuantosHay.Count; i++)
@@ -46,16 +47,16 @@ namespace Risk.Controllers
         public static bool tienesHijos(int idPadre)
         {
             bool tieneHijos = false;
-            return tieneHijos = BD_Riesgos.Conexion.tEstructura.Where(r => r.idPadre == idPadre).Any() ? tieneHijos = true : tieneHijos = false;
+            return tieneHijos = Conexion.tEstructura.Where(r => r.idPadre == idPadre).Any() ? tieneHijos = true : tieneHijos = false;
         }
 
         //PARA BUSCAR LOS HIJOS HAY QUE METER EL ID DE SU SANTO PADRE
         public static string tienesHijosRiesgos(int idEstructura)
         {
             string tieneHijosString = "";
-            BD_Riesgos.Conexion.tRelEstructuraRiesgos.Where(r => r.IdEstructura == idEstructura).ToList().ForEach(x =>
+            Conexion.tRelEstructuraRiesgos.Where(r => r.IdEstructura == idEstructura).ToList().ForEach(x =>
             {
-                tieneHijosString = BD_Riesgos.Conexion.qRiesgosNombres.Where(c => c.IdRiesgo == x.IdRiesgo).Any() ? tieneHijosString = "checked" : tieneHijosString = "";
+                tieneHijosString = Conexion.qRiesgosNombres.Where(c => c.IdRiesgo == x.IdRiesgo).Any() ? tieneHijosString = "checked" : tieneHijosString = "";
             });
             return tieneHijosString;
         }

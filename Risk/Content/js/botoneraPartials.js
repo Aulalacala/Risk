@@ -21,9 +21,6 @@ $('#BtnSave').click(function () {
     }
 
 
-
-
-
     datosFormulario['IdRiesgo'] = $('#IdRiesgo').val();
 
 
@@ -41,7 +38,7 @@ $('#BtnSave').click(function () {
     $.ajax({
         url: '/Risk/formGeneral',
         type: 'post',
-        data: { "IdRiesgo": $('#IdRiesgo').val(), "IdEstructura": $('#idEstructura').val(), "datosFormulario" : datosFormulario },
+        data: { "datosFormulario" : datosFormulario },
         success: function (data) {
             $('#modalNuevo').modal('show');
             // Redirect a RiskFicha con el idRiesgo nuevo

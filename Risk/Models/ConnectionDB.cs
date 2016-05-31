@@ -28,8 +28,7 @@ namespace Risk.Models {
         }
 
 
-        private static modelos _modelo;
-
+    
         public ConnectionDB() {
             string cadena = ConfigurationManager.ConnectionStrings["RiskMVCConnectionString"].ConnectionString;
             string connectionString = cadena.Split(new[] { "Password=" }, StringSplitOptions.None)[1].Replace("\"", "");

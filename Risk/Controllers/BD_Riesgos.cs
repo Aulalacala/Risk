@@ -12,24 +12,7 @@ using System.Reflection;
 namespace Risk.Controllers {
     public class BD_Riesgos {
 
-        private Riesgos_BDDataContext _conexion;
-
-        public Riesgos_BDDataContext Conexion {
-            get {
-                Riesgos_BDDataContext riesgos_BD = (Riesgos_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralRiesgos();
-                return riesgos_BD;
-            }
-
-            set {
-                _conexion = value;
-            }
-        }
-
-        //ConnectionDB.connectionRiesgos riesgosBD = new ConnectionDB.connectionRiesgos();
-        //ConnectionDB con1 = new ConnectionDB();
-        //ConnectionDB.connectionRiesgos riesgosBD = con1.conecta("Riesgos");
-
-
+        Riesgos_BDDataContext Conexion = (Riesgos_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralRiesgos();
 
 
 
@@ -111,8 +94,7 @@ namespace Risk.Controllers {
 
                             string name;
                             System.Reflection.PropertyInfo x = riesgo.Value.GetType().GetProperty(col.Key);
-
-                            var tipo = ""; //= tiposColumnas.Where(z => z.MappedName == col.Key).Single().Type.Name;
+                            var tipo = ""; 
 
                             if (x.GetValue(riesgo.Value, null) == null) {
      
@@ -256,8 +238,7 @@ namespace Risk.Controllers {
         }
 
 
-        public int actualizaQRiesgosNombre(qRiesgosNombres riesgo) {
-            Conexion.qRiesgosNombres.InsertOnSubmit(riesgo);
+        public int updateRiesgo(tRiesgos riesgo) {
             Conexion.SubmitChanges();
             return riesgo.IdRiesgo;
 
@@ -292,14 +273,18 @@ namespace Risk.Controllers {
         }
 
 
-        public tRiesgos insertarNuevoRiesgo(string query) {
+        public tRiesgos recuperarTRiesgo (int idRiesgo) {
+            return Conexion.tRiesgos.Where(r => r.IdRiesgo == idRiesgo).SingleOrDefault();
+        }
+
+
+        public tRiesgos insertarNuevoRiesgo(tRiesgos riesgoNuevo) {
 
             try {
 
-                Conexion.ExecuteQuery<int>(query);
-                //Conexion.tRiesgos.InsertOnSubmit(riesgo);
-                //Conexion.SubmitChanges();
-                return null;
+                Conexion.tRiesgos.InsertOnSubmit(riesgoNuevo);
+                Conexion.SubmitChanges();
+                return Conexion.tRiesgos.Where(r => r.IdRiesgo == riesgoNuevo.IdRiesgo).SingleOrDefault();
             } catch (Exception e) {
                 return null;
             }
