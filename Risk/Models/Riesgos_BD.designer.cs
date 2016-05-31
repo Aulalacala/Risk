@@ -601,7 +601,7 @@ namespace Risk.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Activa", DbType="Bit NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Activa", DbType ="Bit NOT NULL")]
 		public bool Activa
 		{
 			get

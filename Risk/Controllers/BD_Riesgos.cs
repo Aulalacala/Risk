@@ -112,11 +112,13 @@ namespace Risk.Controllers {
                             string name;
                             System.Reflection.PropertyInfo x = riesgo.Value.GetType().GetProperty(col.Key);
 
-                            var tipo = tiposColumnas.Where(z => z.MappedName == col.Key).Single().Type.Name;
+                            var tipo = ""; //= tiposColumnas.Where(z => z.MappedName == col.Key).Single().Type.Name;
 
                             if (x.GetValue(riesgo.Value, null) == null) {
-                                name = "";
+     
+                                name = " ";
                             } else {
+                                tipo = x.GetValue(riesgo.Value, null).GetType().Name;
                                 name = (string)((x.GetValue(riesgo.Value, null))).ToString();
                             }
                             camposTabla.Add(new Tuple<string, string>(tipo, name));

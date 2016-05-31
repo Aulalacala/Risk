@@ -60,6 +60,10 @@ namespace Risk.Controllers {
 
             DatosTablaModel datosTabla = datosTablaGeneral;
             datosTabla.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos, null, 0, 0, 0, 0, Convert.ToInt32(id));
+            datosTabla.editable = true;
+            datosTabla.borrar = true;
+            datosTabla.urlActionEditar = new Tuple<string, string>("RiskFicha", "Risk");
+            datosTabla.urlActionBorrar = new Tuple<string, string>("RiskFicha", "Risk"); // Crear action para borrar fila
 
             return PartialView("~/Views/PartialViews/TablaDatos.cshtml", datosTabla);
         }
@@ -86,6 +90,9 @@ namespace Risk.Controllers {
             datosTablaAsignados.datosTHead = datosTablaGeneral.datosTHead;
             datosTablaAsignados.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos, null, 0, 0, 0, 0, Convert.ToInt32(idEstructura));
             datosTablaAsignados.titulo = "Riesgos de la estructura";
+            datosTablaAsignados.editable = true;
+            datosTablaAsignados.borrar = false;
+            datosTablaAsignados.urlActionEditar = new Tuple<string, string>("RiskFicha","Risk");
 
 
             DatosTablaModel datosTablaSinAsignar = new DatosTablaModel();
@@ -93,6 +100,9 @@ namespace Risk.Controllers {
             datosTablaSinAsignar.datosTHead = datosTablaGeneral.datosTHead;
             datosTablaSinAsignar.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos, null, 0, 0, 0, 0,0, true);
             datosTablaSinAsignar.titulo = "Riesgos sin asignación de estructura";
+            datosTablaSinAsignar.editable = true;
+            datosTablaSinAsignar.borrar = false;
+            datosTablaSinAsignar.urlActionEditar = new Tuple<string, string>("RiskFicha", "Risk");
 
             datosTablas.datosTablaAsignados = datosTablaAsignados;
             datosTablas.datosTablaSinAsignar = datosTablaSinAsignar;
