@@ -1,0 +1,89 @@
+﻿ //Recuperar THEAD tabla Datos Risk-----------------
+        public Dictionary<string, string> nombresColTabla(string nombreTabla, string colVer, string colTitulos) {
+            Dictionary<string, string> nombreColumnasModif = new Dictionary<string, string>();
+
+            try {
+                MetaTable TablaDBO = Conexion.Mapping.GetTables().Where(t => t.TableName == "dbo." + nombreTabla).Select(t => t).SingleOrDefault();
+
+                List<string> ver = new List<string>();
+                List<string> titulos = new List<string>();
+
+                if (string.IsNullOrEmpty(colVer) && string.IsNullOrEmpty(colTitulos)) //como estan TODOS en la BD
+                {
+                    foreach (var item in TablaDBO.RowType.DataMembers) {
+                        if (!item.Name.Contains("Id")) {
+                            nombreColumnasModif.Add(item.Name, item.Name);
+                        }
+                    }
+                } else {
+                    ver = colVer.Split(',').ToList();
+
+                    if (string.IsNullOrEmpty(colTitulos)) {
+                        titulos = ver;
+                    } else {
+                        titulos = colTitulos.Split(',').ToList();
+                    }
+
+                    foreach (var columnVer in ver) {
+                        if (TablaDBO.RowType.DataMembers.Where(r => r.Name.Equals(columnVer)).Select(r => r).SingleOrDefault() != null) {
+                            nombreColumnasModif.Add(columnVer, titulos[ver.IndexOf(columnVer)]);
+                        }
+
+                    }
+                }
+            } catch (Exception e) {
+                return null;
+            }
+            return nombreColumnasModif;
+        }
+
+        public Dictionary<int, List<object>> cargaTablaDatos(string nombreTabla, string colVer, string colTitulos, string filtro = null, int categoria = 0, int clasificacion1 = 0, int clasificacion2 = 0, int clasificacion3 = 0, int idEstructura = 0, bool riesgoSinAsignar = false) {
+            Dictionary<int, object> dic = new Dictionary<int, object>();
+            Dictionary<int, List<object>> listaDatosFinal = new Dictionary<int, List<object>>();
+
+            try {
+                string query = "select * from " + nombreTabla;
+                switch (nombreTabla) {
+                    case "qRiesgosNombres":
+                        Dictionary<int, qRiesgosNombres> dicRiesgos = Conexion.ExecuteQuery<qRiesgosNombres>(query).ToDictionary(r => r.IdRiesgo, r => r);
+
+                        Dictionary<int, qRiesgosNombres> dicFiltrado = busquedasQRiesgosNombres(dicRiesgos, filtro, categoria, clasificacion1, clasificacion2, clasificacion3, idEstructura, riesgoSinAsignar);
+                        dic = dicFiltrado.ToDictionary(r => r.Key, r => (object)r.Value);
+                        break;
+                    case "qRiesgosEvalVal":
+                        Dictionary<int, qRiesgosEvalVal> dicEvaluaciones = Conexion.ExecuteQuery<qRiesgosEvalVal>(query).Where(r => r.IdRiesgo == idEstructura).ToDictionary(r => Convert.ToInt32(r.IdEvaluacion), r => r);
+                        dic = dicEvaluaciones.ToDictionary(r => r.Key, r => (object)r.Value);
+                        break;
+                }
+
+                // Cargar de las columnas a mostrar
+                Dictionary<string, string> nombreCols = nombresColTabla(nombreTabla, colVer, colTitulos);
+
+                foreach (var riesgo in dic) {
+                    if (riesgo.Value != null) {
+                        List<object> camposRiesgo = new List<object>();
+                        var tiposColumnas = Conexion.Mapping.GetTables().Where(y => y.TableName == "dbo."+ nombreTabla).Single().RowType.DataMembers;
+
+                        foreach (var col in nombreCols) {
+
+                            string name;
+                            System.Reflection.PropertyInfo x = riesgo.Value.GetType().GetProperty(col.Key);
+
+                            var tipo = tiposColumnas.Where(z => z.MappedName == col.Key).Single().Type.Name;
+
+                            if (x.GetValue(riesgo.Value, null) == null) {
+                                name = "";
+                            } else {
+                                name = (string)((x.GetValue(riesgo.Value, null))).ToString();
+                            }
+                            camposRiesgo.Add(name);
+                        }
+                        listaDatosFinal.Add(riesgo.Key, camposRiesgo);
+                    }
+                }
+            } catch (Exception e) {
+                var exception = e;
+                return null;
+            }
+            return listaDatosFinal;
+        }

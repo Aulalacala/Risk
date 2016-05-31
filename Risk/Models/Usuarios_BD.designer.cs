@@ -35,6 +35,11 @@ namespace Risk.Models
     partial void DeletetUsuario(tUsuario instance);
         #endregion
 
+        public Usuarios_BDDataContext() : 
+				base(global::System.Configuration.ConfigurationManager.ConnectionStrings["RiskMVCConnectionString1"].ConnectionString, mappingSource)
+		{
+            OnCreated();
+        }
 
         public Usuarios_BDDataContext(string connection) : 
 				base(connection, mappingSource)

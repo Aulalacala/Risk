@@ -9,92 +9,90 @@ using System.Data.Linq.Mapping;
 using Newtonsoft.Json.Linq;
 using System.Reflection;
 
-namespace Risk.Controllers
-{
-    public class BD_Riesgos
-    {
-        //Riesgos_BDDataContext riesgosBD = new Riesgos_BDDataContext();
+namespace Risk.Controllers {
+    public class BD_Riesgos {
 
-        ConnectionDB.connectionRiesgos riesgosBD = new ConnectionDB.connectionRiesgos();
+        private Riesgos_BDDataContext _conexion;
+
+        public Riesgos_BDDataContext Conexion {
+            get {
+                Riesgos_BDDataContext riesgos_BD = (Riesgos_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralRiesgos();
+                return riesgos_BD;
+            }
+
+            set {
+                _conexion = value;
+            }
+        }
+
+        //ConnectionDB.connectionRiesgos riesgosBD = new ConnectionDB.connectionRiesgos();
+        //ConnectionDB con1 = new ConnectionDB();
+        //ConnectionDB.connectionRiesgos riesgosBD = con1.conecta("Riesgos");
+
+
+
+
 
         public Dictionary<int, qRiesgosNombres> datosQ = new Dictionary<int, qRiesgosNombres>();
 
+
         #region AssignController
         //Recuperar THEAD tabla Datos Risk-----------------
-        public Dictionary<string, string> nombresColTabla(string nombreTabla, string colVer, string colTitulos)
-        {
-            //var tabla = riesgosBD.DB.Mapping.GetTables().Where(x => x.RowType.Name.Equals("qRiesgosNombres")).Select(x => x).SingleOrDefault();
-            //var pk2 = tabla.RowType.DataMembers.Where(r => r.DbType == "Int NOT NULL").Select(r => r.Name).SingleOrDefault().ToString();
-
-            //var pk = riesgosBD.DB.Mapping.GetTables().Where(x => x.TableName.Equals("dbo.qRiesgosNombres")).Select(x => x.RowType.DataMembers.Where(k => k.IsPrimaryKey).Select(k => k.Name).Single().ToString()).Single().ToString();
-
+        public Dictionary<string, string> nombresColTabla(string nombreTabla, string colVer, string colTitulos) {
             Dictionary<string, string> nombreColumnasModif = new Dictionary<string, string>();
 
-            try
-            {
-                MetaTable TablaDBO = riesgosBD.DB.Mapping.GetTables().Where(t => t.TableName == "dbo." + nombreTabla).Select(t => t).SingleOrDefault();
+            try {
+                MetaTable TablaDBO = Conexion.Mapping.GetTables().Where(t => t.TableName == "dbo." + nombreTabla).Select(t => t).SingleOrDefault();
 
                 List<string> ver = new List<string>();
                 List<string> titulos = new List<string>();
 
                 if (string.IsNullOrEmpty(colVer) && string.IsNullOrEmpty(colTitulos)) //como estan TODOS en la BD
                 {
-                    foreach (var item in TablaDBO.RowType.DataMembers)
-                    {
-                        if (!item.Name.Contains("Id"))
-                        {
+                    foreach (var item in TablaDBO.RowType.DataMembers) {
+                        if (!item.Name.Contains("Id")) {
                             nombreColumnasModif.Add(item.Name, item.Name);
                         }
                     }
-                }
-                else
-                {
+                } else {
                     ver = colVer.Split(',').ToList();
 
-                    if (string.IsNullOrEmpty(colTitulos))
-                    {
+                    if (string.IsNullOrEmpty(colTitulos)) {
                         titulos = ver;
-                    }
-                    else
-                    {
+                    } else {
                         titulos = colTitulos.Split(',').ToList();
                     }
 
-                    foreach (var columnVer in ver)
-                    {
-                        if (TablaDBO.RowType.DataMembers.Where(r => r.Name.Equals(columnVer)).Select(r => r).SingleOrDefault() != null)
-                        {
+                    foreach (var columnVer in ver) {
+                        if (TablaDBO.RowType.DataMembers.Where(r => r.Name.Equals(columnVer)).Select(r => r).SingleOrDefault() != null) {
                             nombreColumnasModif.Add(columnVer, titulos[ver.IndexOf(columnVer)]);
                         }
 
                     }
                 }
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 return null;
             }
             return nombreColumnasModif;
         }
 
-        public Dictionary<int, List<object>> cargaTablaDatos(string nombreTabla, string colVer, string colTitulos, string filtro = null, int categoria = 0, int clasificacion1 = 0, int clasificacion2 = 0, int clasificacion3 = 0, int idEstructura = 0, bool riesgoSinAsignar = false)
-        {
+        public Dictionary<int, List<Tuple<string, string>>> cargaTablaDatos(string nombreTabla, string colVer, string colTitulos, string filtro = null, int categoria = 0, int clasificacion1 = 0, int clasificacion2 = 0, int clasificacion3 = 0, int idEstructura = 0, bool riesgoSinAsignar = false) {
             Dictionary<int, object> dic = new Dictionary<int, object>();
-            Dictionary<int, List<object>> listaDatosFinal = new Dictionary<int, List<object>>();
 
-            try
-            {
+
+            Dictionary<int, List<Tuple<string, string>>> listaDatos = new Dictionary<int, List<Tuple<string, string>>>();
+
+            try {
                 string query = "select * from " + nombreTabla;
-                switch (nombreTabla)
-                {
+                switch (nombreTabla) {
                     case "qRiesgosNombres":
-                        Dictionary<int, qRiesgosNombres> dicRiesgos = riesgosBD.DB.ExecuteQuery<qRiesgosNombres>(query).ToDictionary(r => r.IdRiesgo, r => r);
+                        Dictionary<int, qRiesgosNombres> dicRiesgos = Conexion.ExecuteQuery<qRiesgosNombres>(query).ToDictionary(r => r.IdRiesgo, r => r);
 
                         Dictionary<int, qRiesgosNombres> dicFiltrado = busquedasQRiesgosNombres(dicRiesgos, filtro, categoria, clasificacion1, clasificacion2, clasificacion3, idEstructura, riesgoSinAsignar);
                         dic = dicFiltrado.ToDictionary(r => r.Key, r => (object)r.Value);
                         break;
                     case "qRiesgosEvalVal":
-                        Dictionary<int, qRiesgosEvalVal> dicEvaluaciones = riesgosBD.DB.ExecuteQuery<qRiesgosEvalVal>(query).Where(r => r.IdRiesgo == idEstructura).ToDictionary(r => Convert.ToInt32(r.IdEvaluacion), r => r);
+                        Dictionary<int, qRiesgosEvalVal> dicEvaluaciones = Conexion.ExecuteQuery<qRiesgosEvalVal>(query).Where(r => r.IdRiesgo == idEstructura).ToDictionary(r => Convert.ToInt32(r.IdEvaluacion), r => r);
                         dic = dicEvaluaciones.ToDictionary(r => r.Key, r => (object)r.Value);
                         break;
                 }
@@ -102,89 +100,75 @@ namespace Risk.Controllers
                 // Cargar de las columnas a mostrar
                 Dictionary<string, string> nombreCols = nombresColTabla(nombreTabla, colVer, colTitulos);
 
-                foreach (var riesgo in dic)
-                {
-                    if (riesgo.Value != null)
-                    {
-                        List<object> camposRiesgo = new List<object>();
 
-                        foreach (var col in nombreCols)
-                        {
+                foreach (var riesgo in dic) {
+                    if (riesgo.Value != null) {
+                        List<Tuple<string, string>> camposTabla = new List<Tuple<string, string>>();
+
+                         var tiposColumnas = Conexion.Mapping.GetTables().Where(y => y.TableName == "dbo."+ nombreTabla).Single().RowType.DataMembers;
+
+                        foreach (var col in nombreCols) {
 
                             string name;
                             System.Reflection.PropertyInfo x = riesgo.Value.GetType().GetProperty(col.Key);
 
-                            if (x.GetValue(riesgo.Value, null) == null)
-                            {
-                                name = "null";
-                            }
-                            else
-                            {
+                            var tipo = tiposColumnas.Where(z => z.MappedName == col.Key).Single().Type.Name;
+
+                            if (x.GetValue(riesgo.Value, null) == null) {
+                                name = "";
+                            } else {
                                 name = (string)((x.GetValue(riesgo.Value, null))).ToString();
                             }
-                            camposRiesgo.Add(name);
+                            camposTabla.Add(new Tuple<string, string>(tipo, name));
                         }
-                        listaDatosFinal.Add(riesgo.Key, camposRiesgo);
+                        listaDatos.Add(riesgo.Key, camposTabla);
                     }
                 }
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 var exception = e;
                 return null;
             }
-            return listaDatosFinal;
+            return listaDatos;
         }
 
 
-        public Dictionary<int, qRiesgosNombres> busquedasQRiesgosNombres(Dictionary<int, qRiesgosNombres> dicDato, string filtro = null, int categoria = 0, int clasificacion1 = 0, int clasificacion2 = 0, int clasificacion3 = 0, int idEstructura = 0, bool riesgoSinAsignar = false)
-        {
-            if (!string.IsNullOrEmpty(filtro))
-            {
+        public Dictionary<int, qRiesgosNombres> busquedasQRiesgosNombres(Dictionary<int, qRiesgosNombres> dicDato, string filtro = null, int categoria = 0, int clasificacion1 = 0, int clasificacion2 = 0, int clasificacion3 = 0, int idEstructura = 0, bool riesgoSinAsignar = false) {
+            if (!string.IsNullOrEmpty(filtro)) {
 
-                dicDato = dicDato.Where(r => r.Value.Nombre.Contains(filtro) || r.Value.CodRiesgo.Contains(filtro)).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
+                dicDato = dicDato.Where(r => r.Value.Nombre.Contains(filtro)).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
             }
 
-            if (categoria != 0)
-            {
+            if (categoria != 0) {
                 dicDato = dicDato.Where(r => r.Value.IdCategoria == categoria).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
             }
 
-            if (clasificacion1 != 0)
-            {
+            if (clasificacion1 != 0) {
                 dicDato = dicDato.Where(r => r.Value.IdClasificacion1 == clasificacion1).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
             }
 
-            if (clasificacion2 != 0)
-            {
+            if (clasificacion2 != 0) {
                 dicDato = dicDato.Where(r => r.Value.IdClasificacion2 == clasificacion2).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
             }
 
-            if (clasificacion3 != 0)
-            {
+            if (clasificacion3 != 0) {
                 dicDato = dicDato.Where(r => r.Value.IdClasificacion3 == clasificacion3).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
             }
 
-            if (idEstructura != 0)
-            {
+            if (idEstructura != 0) {
                 dicDato = riesgosDescendientes(idEstructura);
             }
-            if (riesgoSinAsignar == true)
-            {
+            if (riesgoSinAsignar == true) {
                 dicDato = dicDato.Where(r => r.Value.CodRiesgo == null).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
             }
 
             return dicDato;
         }
 
-        public DescriptionStructureModel recuperaConteDefEstructura(int id)
-        {
+        public DescriptionStructureModel recuperaConteDefEstructura(int id) {
             DescriptionStructureModel description = new DescriptionStructureModel();
 
-            riesgosBD.DB.qEstructura_Contenidos_Def.Where(r => r.IdEstructura == id).ToList().ForEach(x =>
-            {
-                switch (x.Titulo)
-                {
+            Conexion.qEstructura_Contenidos_Def.Where(r => r.IdEstructura == id).ToList().ForEach(x => {
+                switch (x.Titulo) {
                     case "Department":
                         description.department = x.Contenido;
                         break;
@@ -212,33 +196,24 @@ namespace Risk.Controllers
             return description;
         }
 
-        public Dictionary<int, qRiesgosNombres> riesgosDescendientes(int id)
-        {
-            List<tEstructura> cuantosHay = riesgosBD.DB.tEstructura.Where(r => r.idPadre == id).OrderBy(r => r.Orden).ToList();
+        public Dictionary<int, qRiesgosNombres> riesgosDescendientes(int id) {
+            List<tEstructura> cuantosHay = Conexion.tEstructura.Where(r => r.idPadre == id).OrderBy(r => r.Orden).ToList();
             List<int> idRiesgos = new List<int>();
 
 
-            if (cuantosHay.Count() != 0)
-            {
-                idRiesgos = riesgosBD.DB.tEstructura.Where(x => x.idPadre == Convert.ToInt32(id)).Select(x => Convert.ToInt32(x.IdEstructura)).ToList();
-                foreach (var idR in idRiesgos)
-                {
+            if (cuantosHay.Count() != 0) {
+                idRiesgos = Conexion.tEstructura.Where(x => x.idPadre == Convert.ToInt32(id)).Select(x => Convert.ToInt32(x.IdEstructura)).ToList();
+                foreach (var idR in idRiesgos) {
                     riesgosDescendientes(idR);
                 }
-            }
-            else
-            {
-                idRiesgos = riesgosBD.DB.tRelEstructuraRiesgos.Where(x => x.IdEstructura == Convert.ToInt32(id)).Select(x => Convert.ToInt32(x.IdRiesgo)).ToList();
+            } else {
+                idRiesgos = Conexion.tRelEstructuraRiesgos.Where(x => x.IdEstructura == Convert.ToInt32(id)).Select(x => Convert.ToInt32(x.IdRiesgo)).ToList();
 
-                try
-                {
-                    foreach (var idR in idRiesgos)
-                    {
-                        datosQ.Add(riesgosBD.DB.qRiesgosNombres.Where(r => r.IdRiesgo == idR).Select(r => r.IdRiesgo).SingleOrDefault(), riesgosBD.DB.qRiesgosNombres.Where(r => r.IdRiesgo == idR).Select(r => r).SingleOrDefault());
+                try {
+                    foreach (var idR in idRiesgos) {
+                        datosQ.Add(Conexion.qRiesgosNombres.Where(r => r.IdRiesgo == idR).Select(r => r.IdRiesgo).SingleOrDefault(), Conexion.qRiesgosNombres.Where(r => r.IdRiesgo == idR).Select(r => r).SingleOrDefault());
                     }
-                }
-                catch (Exception)
-                {
+                } catch (Exception) {
                 }
 
             }
@@ -250,12 +225,10 @@ namespace Risk.Controllers
         #endregion
 
         #region RiskController
-        public qRiesgosNombres recuperarRiesgo(int id)
-        {
+        public qRiesgosNombres recuperarRiesgo(int id) {
             qRiesgosNombres riesgoRecup = new qRiesgosNombres();
-            if (id != 0)
-            {
-                riesgoRecup = riesgosBD.DB.qRiesgosNombres.Where(r => r.IdRiesgo == id).SingleOrDefault();
+            if (id != 0) {
+                riesgoRecup = Conexion.qRiesgosNombres.Where(r => r.IdRiesgo == id).SingleOrDefault();
             }
             return riesgoRecup;
         }
@@ -264,42 +237,43 @@ namespace Risk.Controllers
         //public qRiesgosEvalVal recuperaEvaluaciones(int id)
         //{
         //    qRiesgosEvalVal datosEvaluaciones = new qRiesgosEvalVal();
-        //    datosEvaluaciones = riesgosBD.DB.qRiesgosEvalVal.Where(r => r.IdRiesgo == id && r.Ultima == true).SingleOrDefault();
+        //    datosEvaluaciones = Conexion.qRiesgosEvalVal.Where(r => r.IdRiesgo == id && r.Ultima == true).SingleOrDefault();
         //    return datosEvaluaciones;
         //}
 
-        public Dictionary<int, qRiesgosEvalVal> recuperaEvaluaciones(int id, int idEvaluacion = 0)
-        {
+        public Dictionary<int, qRiesgosEvalVal> recuperaEvaluaciones(int id, int idEvaluacion = 0) {
             Dictionary<int, qRiesgosEvalVal> dicEvaluacionesRiesgo = new Dictionary<int, qRiesgosEvalVal>();
 
-            if (idEvaluacion != 0)
-            {
-                dicEvaluacionesRiesgo = riesgosBD.DB.qRiesgosEvalVal.Where(r => r.IdRiesgo == id && r.IdEvaluacion == idEvaluacion).ToDictionary(r => Convert.ToInt32(r.IdEvaluacion), r => r);
-            }else
-            {
-                dicEvaluacionesRiesgo = riesgosBD.DB.qRiesgosEvalVal.Where(r => r.IdRiesgo == id && r.Ultima == true).ToDictionary(r => Convert.ToInt32(r.IdEvaluacion), r => r);
+            if (idEvaluacion != 0) {
+                dicEvaluacionesRiesgo = Conexion.qRiesgosEvalVal.Where(r => r.IdRiesgo == id && r.IdEvaluacion == idEvaluacion).ToDictionary(r => Convert.ToInt32(r.IdEvaluacion), r => r);
+            } else {
+                dicEvaluacionesRiesgo = Conexion.qRiesgosEvalVal.Where(r => r.IdRiesgo == id && r.Ultima == true).ToDictionary(r => Convert.ToInt32(r.IdEvaluacion), r => r);
             }
 
             return dicEvaluacionesRiesgo;
         }
 
+
+        public int actualizaQRiesgosNombre(qRiesgosNombres riesgo) {
+            Conexion.qRiesgosNombres.InsertOnSubmit(riesgo);
+            Conexion.SubmitChanges();
+            return riesgo.IdRiesgo;
+
+        }
         public int recuperaIdUltimaEvaluacion(int id)
         {
            return riesgosBD.DB.qRiesgosEvalVal.Where(r => r.IdRiesgo == id && r.Ultima == true).Select(r => Convert.ToInt32(r.IdEvaluacion)).SingleOrDefault();
         }
 
 
-        public int actualizaQRiesgosNombre(List<string> datosQRiesgosNombre, int IdRiesgo)
-        {
-            try
-            {
-                qRiesgosNombres riesgo = riesgosBD.DB.qRiesgosNombres.Where(r => r.IdRiesgo == IdRiesgo).SingleOrDefault();
+        public int actualizaQRiesgosNombre(List<string> datosQRiesgosNombre, int IdRiesgo) {
+            try {
+                qRiesgosNombres riesgo = Conexion.qRiesgosNombres.Where(r => r.IdRiesgo == IdRiesgo).SingleOrDefault();
 
                 string query = "UPDATE qRiesgosNombres SET ";
 
 
-                foreach (string datos in datosQRiesgosNombre)
-                {
+                foreach (string datos in datosQRiesgosNombre) {
                     string propiedad = datos.Split(':')[0];
                     string valor = datos.Split(':')[1];
 
@@ -310,53 +284,44 @@ namespace Risk.Controllers
                 query = query.Substring(0, query.Length - 1);
                 query += " WHERE IdRiesgo = " + IdRiesgo;
 
-                riesgosBD.DB.ExecuteQuery<qRiesgosNombres>(query);
+                Conexion.ExecuteQuery<qRiesgosNombres>(query);
 
 
-                qRiesgosNombres riesgo2 = riesgosBD.DB.qRiesgosNombres.Where(r => r.IdRiesgo == IdRiesgo).SingleOrDefault();
+                qRiesgosNombres riesgo2 = Conexion.qRiesgosNombres.Where(r => r.IdRiesgo == IdRiesgo).SingleOrDefault();
                 return riesgo2.IdRiesgo;
 
-            }
-            catch (Exception) { return 0; }
+            } catch (Exception) { return 0; }
 
         }
 
 
-        public tRiesgos insertarNuevoRiesgo(tRiesgos riesgoNuevo)
-        {
+        public tRiesgos insertarNuevoRiesgo(string query) {
 
-            try
-            {
-                riesgosBD.DB.tRiesgos.InsertOnSubmit(riesgoNuevo);
-                riesgosBD.DB.SubmitChanges();
-                return riesgosBD.DB.tRiesgos.Where(r => r.IdRiesgo == riesgoNuevo.IdRiesgo).SingleOrDefault();
-            }
-            catch (Exception e)
-            {
+            try {
+
+                Conexion.ExecuteQuery<int>(query);
+                //Conexion.tRiesgos.InsertOnSubmit(riesgo);
+                //Conexion.SubmitChanges();
+                return null;
+            } catch (Exception e) {
                 return null;
             }
         }
 
 
-        public bool insertarTRelEstructuraRiesgoNuevo(tRelEstructuraRiesgos estructuraNuevo)
-        {
-            try
-            {
-                riesgosBD.DB.tRelEstructuraRiesgos.InsertOnSubmit(estructuraNuevo);
-                riesgosBD.DB.SubmitChanges();
+        public bool insertarTRelEstructuraRiesgoNuevo(tRelEstructuraRiesgos estructuraNuevo) {
+            try {
+                Conexion.tRelEstructuraRiesgos.InsertOnSubmit(estructuraNuevo);
+                Conexion.SubmitChanges();
                 return true;
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 return false;
             }
         }
 
 
-        public bool insertarTRiesgosEvaluaciones(int idRiesgo)
-        {
-            try
-            {
+        public bool insertarTRiesgosEvaluaciones(int idRiesgo) {
+            try {
                 tRiesgosEvaluaciones evaluacion = new tRiesgosEvaluaciones();
                 evaluacion.IdRiesgo = idRiesgo;
                 evaluacion.IdNivel = 0;
@@ -375,56 +340,45 @@ namespace Risk.Controllers
                 evaluacion.IdSevePlanDespues = 0;
                 evaluacion.IdSevePeorPlanDespues = 0;
 
-                riesgosBD.DB.tRiesgosEvaluaciones.InsertOnSubmit(evaluacion);
-                riesgosBD.DB.SubmitChanges();
+                Conexion.tRiesgosEvaluaciones.InsertOnSubmit(evaluacion);
+                Conexion.SubmitChanges();
                 return true;
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 return false;
             }
         }
 
-        public bool deleteRiesgo(int idRiesgo)
-        {
-            try
-            {
-                var riesgo = riesgosBD.DB.tRiesgos.Where(r => r.IdRiesgo == idRiesgo).Select(r => r).FirstOrDefault();
-                riesgosBD.DB.tRiesgos.DeleteOnSubmit(riesgo);
-                riesgosBD.DB.SubmitChanges();
+        public bool deleteRiesgo(int idRiesgo) {
+            try {
+                var riesgo = Conexion.tRiesgos.Where(r => r.IdRiesgo == idRiesgo).Select(r => r).FirstOrDefault();
+                Conexion.tRiesgos.DeleteOnSubmit(riesgo);
+                Conexion.SubmitChanges();
 
-                var riesgoTrel = riesgosBD.DB.tRelEstructuraRiesgos.Where(r => r.IdRiesgo == idRiesgo).Select(r => r).FirstOrDefault();
-                riesgosBD.DB.tRelEstructuraRiesgos.DeleteOnSubmit(riesgoTrel);
-                riesgosBD.DB.SubmitChanges();
+                var riesgoTrel = Conexion.tRelEstructuraRiesgos.Where(r => r.IdRiesgo == idRiesgo).Select(r => r).FirstOrDefault();
+                Conexion.tRelEstructuraRiesgos.DeleteOnSubmit(riesgoTrel);
+                Conexion.SubmitChanges();
 
-                var riesgoTEval = riesgosBD.DB.tRiesgosEvaluaciones.Where(r => r.IdRiesgo == idRiesgo).Select(r => r).FirstOrDefault();
-                riesgosBD.DB.tRiesgosEvaluaciones.DeleteOnSubmit(riesgoTEval);
-                riesgosBD.DB.SubmitChanges();
+                var riesgoTEval = Conexion.tRiesgosEvaluaciones.Where(r => r.IdRiesgo == idRiesgo).Select(r => r).FirstOrDefault();
+                Conexion.tRiesgosEvaluaciones.DeleteOnSubmit(riesgoTEval);
+                Conexion.SubmitChanges();
 
                 return true;
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 return false;
             }
         }
 
 
         // metodo que devuelve un string con el ultimo codigo disponible de un idEstructura
-        public string ultimoRiesgoDisponible(string idEstructura)
-        {
-         
-
-
-            int cuantosRiesgosTiene = riesgosBD.DB.tRelEstructuraRiesgos.Where(r => r.IdEstructura == Convert.ToInt32(idEstructura)).Count();
+        public string ultimoRiesgoDisponible(string idEstructura) {
+            int cuantosRiesgosTiene = Conexion.tRelEstructuraRiesgos.Where(r => r.IdEstructura == Convert.ToInt32(idEstructura)).Count();
             string ultimoCodigoRiesgo = (cuantosRiesgosTiene + 1).ToString();
 
-            if (cuantosRiesgosTiene.ToString().Length == 1)
-            {
+            if (cuantosRiesgosTiene.ToString().Length == 1) {
                 ultimoCodigoRiesgo = "0" + (cuantosRiesgosTiene + 1).ToString();
             }
 
-            string codCompleto = riesgosBD.DB.tEstructura.Where(r => r.IdEstructura == Convert.ToInt32(idEstructura)).Select(r => r.CodCompleto).SingleOrDefault();
+            string codCompleto = Conexion.tEstructura.Where(r => r.IdEstructura == Convert.ToInt32(idEstructura)).Select(r => r.CodCompleto).SingleOrDefault();
 
             codCompleto += "." + ultimoCodigoRiesgo;
 

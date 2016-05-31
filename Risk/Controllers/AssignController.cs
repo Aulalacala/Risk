@@ -153,6 +153,11 @@ namespace Risk.Controllers {
             } else {
                 modelVistaRisk.datosTabla.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
             }
+
+            modelVistaRisk.datosTabla.editable = true;
+            modelVistaRisk.datosTabla.borrar = false;
+            modelVistaRisk.datosTabla.urlActionEditar = new Tuple<string, string>("RiskFicha", "Risk");
+            modelVistaRisk.datosTabla.vistaProcedencia = "Risks";
             
             return View(modelVistaRisk);
         }

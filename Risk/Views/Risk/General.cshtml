@@ -83,7 +83,7 @@
                                         </div>
 
                                         <div class="col-lg-8 col-md-8">
-                                            @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Ejemplo, 6, 54, new { @class = "form-control w100", @campos = "campos", @id = "Ejemplo", @tabla = "qRiesgosNombre" })
+                                            @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Ejemplo, 6, 54, new { @class = "form-control w100", @campos = "campos", @id = "Ejemplo", @tabla = "qRiesgosNombres" })
                                         </div>
                                     </div>
                                     <br />
@@ -94,7 +94,7 @@
                                         </div>
 
                                         <div class="col-lg-8 col-md-8">
-                                            @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Descripcion, 6, 54, new { @class = "form-control w100", @campos = "campos", @id = "Descripcion", @tabla = "qRiesgosNombre" })
+                                            @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Descripcion, 6, 54, new { @class = "form-control w100", @campos = "campos", @id = "Descripcion", @tabla = "qRiesgosNombres" })
                                         </div>
                                     </div>
                                     <br />
@@ -104,7 +104,7 @@
                                         </div>
 
                                         <div class="col-lg-8 col-md-8">
-                                            @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Justificacion, 6, 54, new { @class = "form-control w100", @campos = "campos", @id = "Justificacion", @tabla = "qRiesgosNombre" })
+                                            @Html.TextAreaFor(model => model.qRiesgosNombre_VM.Justificacion, 6, 54, new { @class = "form-control w100", @campos = "campos", @id = "Justificacion", @tabla = "qRiesgosNombres" })
                                         </div>
                                     </div>
 
@@ -121,7 +121,7 @@
                                             </div>
 
                                             <div class="col-lg-8 col-md-8">
-                                                <select class="form-control w100" campos="campos" id="IdResponsable" tabla="qRiesgosNombre">
+                                                <select class="form-control w100" campos="campos" id="IdResponsable" tabla="qRiesgosNombres">
                                                     @{
                                                         Dictionary<int, string> responsablesDic = Model.dropDowns.datosResponsables;
 
@@ -154,7 +154,7 @@
                                             </div>
 
                                             <div class="col-lg-8 col-md-8">
-                                                <select class="form-control w100" campos="campos" id="IdResponsable2" tabla="qRiesgosNombre">
+                                                <select class="form-control w100" campos="campos" id="IdResponsable2" tabla="qRiesgosNombres">
                                                     @{
                                                         Dictionary<int, string> responsablesDic2 = Model.dropDowns.datosResponsables;
 
@@ -198,7 +198,7 @@
                                             </div>
 
                                             <div class="col-lg-10 col-md-10">
-                                                <select class="form-control w100" campos="campos" name="categoria" id="IdCategoria" filtro="IdCategoria" tabla="qRiesgosNombre">
+                                                <select class="form-control w100" campos="campos" name="categoria" id="IdCategoria" filtro="IdCategoria" tabla="qRiesgosNombres">
                                                     @{
                                                         Dictionary<int, string> dicCategorias = Model.dropDowns.datosCategorias;
 
@@ -229,7 +229,7 @@
                                             </div>
 
                                             <div class="col-lg-10 col-md-10">
-                                                <select class="form-control w100" campos="campos" name="segment" id="IdSegmentacion1" filtro="IdSegmenta1" tabla="qRiesgosNombre">
+                                                <select class="form-control w100" campos="campos" name="segment" id="IdSegmentacion1" filtro="IdSegmenta1" tabla="qRiesgosNombres">
                                                     @{
                                                         Dictionary<int, string> dicSegmenta = Model.dropDowns.datosSegmentacion;
 
@@ -270,7 +270,7 @@
                                             </div>
 
                                             <div class="col-lg-10 col-md-10">
-                                                <select class="form-control w100" campos="campos" name="clasificacion1" ref="comboDinamico" id="IdClasificacion1" sig="IdClasificacion2" tabla="qRiesgosNombre">
+                                                <select class="form-control w100" campos="campos" name="clasificacion1" ref="comboDinamico" id="IdClasificacion1" sig="IdClasificacion2" tabla="qRiesgosNombres">
                                                     @{
 
                                                         if (Model.qRiesgosNombre_VM.IdResponsable == 0 || Model.qRiesgosNombre_VM.Nombre == null)
@@ -303,7 +303,7 @@
                                             </div>
 
                                             <div class="col-lg-10 col-md-10">
-                                                <select class="form-control w100" campos="campos" name="clasificacion2" ref="comboDinamico" id="IdClasificacion2" sig="IdClasificacion3" tabla="qRiesgosNombre">
+                                                <select class="form-control w100" campos="campos" name="clasificacion2" ref="comboDinamico" id="IdClasificacion2" sig="IdClasificacion3" tabla="qRiesgosNombres">
                                                     @{
 
                                                         if (Model.qRiesgosNombre_VM.IdResponsable == 0 || Model.qRiesgosNombre_VM.Nombre == null)
@@ -335,7 +335,7 @@
                                             </div>
 
                                             <div class="col-lg-10 col-md-10">
-                                                <select class="form-control w100" campos="campos" name="clasificacion3" ref="comboDinamico" id="IdClasificacion3" tabla="qRiesgosNombre">
+                                                <select class="form-control w100" campos="campos" name="clasificacion3" ref="comboDinamico" id="IdClasificacion3" tabla="qRiesgosNombres">
                                                     @{
 
                                                         if (Model.qRiesgosNombre_VM.IdResponsable == 0 || Model.qRiesgosNombre_VM.Nombre == null)
@@ -379,7 +379,7 @@
                                             </div>
                                             <div class="col-lg-7 col-md-7">
 
-                                                <select class="form-control w100" campos="campos" id="IdControlesOportunidad" tabla="qRiesgosNombre">
+                                                <select class="form-control w100" campos="campos" id="IdControlesOportunidad" tabla="qRiesgosNombres">
                                                     @{
                                                         if (Model.qRiesgosNombre_VM.Nombre == null)
                                                         {
@@ -411,7 +411,7 @@
                                             </div>
                                             <div class="col-lg-7 col-md-7">
 
-                                                <select class="form-control w100" campos="campos" id="IdControlesEfectividad" tabla="qRiesgosNombre">
+                                                <select class="form-control w100" campos="campos" id="IdControlesEfectividad" tabla="qRiesgosNombres">
                                                     @{
                                                         if (Model.qRiesgosNombre_VM.Nombre == null)
                                                         {
