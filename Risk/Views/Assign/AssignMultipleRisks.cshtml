@@ -167,9 +167,10 @@
 
         // Guardar cambios
         $('#BtnSave').click(function () {
+
+            // LISTAS PARA IR GUARDANDO LOS RIESGOS DE CADA TABLA
             var asignados = [];
             var sinasignar = [];
-            var idEstructura;
 
             // guardar los añadidos en la tabla con riesgos SIN estructura
             // en el metodo del controlador AssignController --> borrado de CodRiesgo y CodRiesgoLocalizado de tabla tRiesgos
@@ -179,25 +180,9 @@
 
                 if ($(rowNode).hasClass('dirty')) {
                     var idRiesgo = this.data()[0].split('id="')[1].split('"')[0];
-                    idEstructura = 0;
-
                     sinasignar.push(idRiesgo);
                 }
             });
-
-            if (sinasignar.length != 0) {
-                $.ajax({
-                    url: '/Assign/guardarCambiosMultipleRisk',
-                    type: 'post',
-                    data: { riesgos: sinasignar, idEstructura: idEstructura },
-                    success: function (data) {
-                        window.location.href = data;
-                    },
-                    error: function (jqXHR, textStatus, errorThrown) {
-                        alert('ERROR ' + jqXHR + ' ' + textStatus + ' ' + errorThrown)
-                    }
-                });
-            };
 
             // guardar los añadidos en la tabla con riesgos CON estructura
             // en el metodo del controlador AssignController --> poner CodRiesgo y CodRiesgoLocalizado de tabla tRiesgos con la estructura seleccionada
@@ -207,17 +192,26 @@
 
                 if ($(rowNode).hasClass('dirty')) {
                     var idRiesgo = this.data()[0].split('id="')[1].split('"')[0];
-                    idEstructura = $('#idEstructura').val();
-
                     asignados.push(idRiesgo);
                 };
             });
 
-            if (asignados.length != 0) {
+
+            if (sinasignar.length != 0 || asignados.length != 0) {
+
+                var listaRiesgos = [];
+
+                var riesgosSin = { "Key": "0", "Value": sinasignar };               
+                var riesgosCon = { "Key": $('#idEstructura').val(), "Value": asignados }
+
+                listaRiesgos.push(riesgosSin);
+                listaRiesgos.push(riesgosCon);
+
+
                 $.ajax({
                     url: '/Assign/guardarCambiosMultipleRisk',
                     type: 'post',
-                    data: { riesgos: asignados, idEstructura: idEstructura },
+                    data: { listaRiesgos: listaRiesgos },
                     success: function (data) {
                         window.location.href = data;
                     },
@@ -226,6 +220,22 @@
                     }
                 });
             };
+
+            
+
+            //if (asignados.length != 0) {
+            //    $.ajax({
+            //        url: '/Assign/guardarCambiosMultipleRisk',
+            //        type: 'post',
+            //        data: { riesgos: asignados, idEstructura: idEstructura },
+            //        success: function (data) {
+            //            window.location.href = data;
+            //        },
+            //        error: function (jqXHR, textStatus, errorThrown) {
+            //            alert('ERROR ' + jqXHR + ' ' + textStatus + ' ' + errorThrown)
+            //        }
+            //    });
+            //};
 
         });
 
