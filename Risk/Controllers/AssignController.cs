@@ -86,7 +86,7 @@ namespace Risk.Controllers {
             AssignMultipleRiskVM datosTablas = new AssignMultipleRiskVM();
 
             DatosTablaModel datosTablaAsignados = new DatosTablaModel();
-            //Cargar tbody con los riesgos asignados
+            //CARGAR TBODY CON LOS RIESGOS ASIGNADOS
             datosTablaAsignados.datosTHead = datosTablaGeneral.datosTHead;
             datosTablaAsignados.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos, null, 0, 0, 0, 0, Convert.ToInt32(idEstructura));
             datosTablaAsignados.titulo = "Riesgos de la estructura";
@@ -96,7 +96,7 @@ namespace Risk.Controllers {
 
 
             DatosTablaModel datosTablaSinAsignar = new DatosTablaModel();
-            //Cargar tbody con riesgos sin asignar
+            //CARGAR TBODY CON RIESGOS SIN ASIGNAR
             datosTablaSinAsignar.datosTHead = datosTablaGeneral.datosTHead;
             datosTablaSinAsignar.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos, null, 0, 0, 0, 0,0, true);
             datosTablaSinAsignar.titulo = "Riesgos sin asignación de estructura";
@@ -125,13 +125,40 @@ namespace Risk.Controllers {
         /// <returns>Despues de guardar vuelve redirige a la vista actualizada</returns>
         public ActionResult guardarCambiosMultipleRisk (List<int> riesgos, int idEstructura) {
 
-            string CodRiesgo = idEstructura != 0 ? "" : null;
-            string CodRiesgoLocalizado = idEstructura != 0 ? "" : null;
+            foreach (int riesgo in riesgos) {
 
+                tRiesgos riesgoActualizar = BD_Riesgos.recuperarTRiesgo(riesgo);
 
+                if (idEstructura != 0) {
+                    riesgoActualizar.CodRiesgo = BD_Riesgos.ultimoRiesgoDisponible(idEstructura.ToString());
+                    riesgoActualizar.CodRiesgoLocalizado = riesgoActualizar.CodRiesgo.Substring(0, 8);
+
+                    // Crear la relación estructura-riesgo. 
+                    tRelEstructuraRiesgos relEstructuraRiesgo = new tRelEstructuraRiesgos();
+                    relEstructuraRiesgo.IdEstructura = idEstructura;
+                    relEstructuraRiesgo.IdRiesgo = riesgo;
+                    BD_Riesgos.insertarTRelEstructuraRiesgoNuevo(relEstructuraRiesgo);
+
+                } else {
+                    riesgoActualizar.CodRiesgo = null;
+                    riesgoActualizar.CodRiesgoLocalizado = null;
+
+                    // Borrar la relación estructura-riesgo. 
+                    BD_Riesgos.deleteTRelEstructuraRiesgos(riesgo);
+                }
+
+                int idRiesgoActualizar = BD_Riesgos.updateRiesgo(riesgoActualizar);             
+
+            }
+
+          
             return Json(Url.Action("AssignMultipleRisks", "Assign", new { idEstructura = idEstructura }));
         }
         #endregion
+
+
+
+
 
         #region View KrisIndicators
         // Vista inicial GET KrisIndicators ----------------------------------------------

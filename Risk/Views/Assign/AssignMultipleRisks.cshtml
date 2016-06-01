@@ -191,7 +191,7 @@
                     type: 'post',
                     data: { riesgos: sinasignar, idEstructura: idEstructura },
                     success: function (data) {
-                        alert(data);
+                        window.location.href = data;
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert('ERROR ' + jqXHR + ' ' + textStatus + ' ' + errorThrown)
@@ -219,7 +219,7 @@
                     type: 'post',
                     data: { riesgos: asignados, idEstructura: idEstructura },
                     success: function (data) {
-                        alert(data);
+                        window.location.href = data;
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert('ERROR ' + jqXHR + ' ' + textStatus + ' ' + errorThrown)

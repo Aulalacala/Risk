@@ -406,30 +406,30 @@ namespace Risk.Controllers
             return j;
         }
 
-        [HttpPost]
-        public ActionResult guardaEvaluacion(int idRiesgo, int idEvaluacion, tRiesgosEvaluaciones evaluacion)
-        {
-            if(idEvaluacion != 0)
-            {
-                tRiesgosEvaluaciones evaluacionRecuperada = BD_Riesgos.recuperaTRiesgosEvaluacion(idEvaluacion);
-                updateEvaluacion(evaluacionRecuperada);
-            }else
-            {
-                insertaEvaluacion(evaluacion);
-            }
+        //[HttpPost]
+        //public ActionResult guardaEvaluacion(int idRiesgo, int idEvaluacion, tRiesgosEvaluaciones evaluacion)
+        //{
+        //    if(idEvaluacion != 0)
+        //    {
+        //        tRiesgosEvaluaciones evaluacionRecuperada = BD_Riesgos.recuperaTRiesgosEvaluacion(idEvaluacion);
+        //        updateEvaluacion(evaluacionRecuperada);
+        //    }else
+        //    {
+        //        insertaEvaluacion(evaluacion);
+        //    }
 
-            return Json(Url.Action("Historical", "Risk", new { id = idRiesgo }));
-        }
+        //    return Json(Url.Action("Historical", "Risk", new { id = idRiesgo }));
+        //}
 
-        public bool updateEvaluacion(tRiesgosEvaluaciones evaluacion)
-        {
+        //public bool updateEvaluacion(tRiesgosEvaluaciones evaluacion)
+        //{
 
-        }
+        //}
 
-        public bool insertaEvaluacion(tRiesgosEvaluaciones evaluacion)
-        {
+        //public bool insertaEvaluacion(tRiesgosEvaluaciones evaluacion)
+        //{
 
-        }
+        //}
 
 
     }
