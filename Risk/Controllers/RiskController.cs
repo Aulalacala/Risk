@@ -244,10 +244,7 @@ namespace Risk.Controllers
             {
                 idRiesgo = updateRiesgo(datosFormulario);
             }
-
-
             return Json(Url.Action("RiskFicha", "Risk", new { id = idRiesgo }));
-
         }
 
 
@@ -411,8 +408,8 @@ namespace Risk.Controllers
         {
             if(idEvaluacion != 0)
             {
-                tRiesgosEvaluaciones evaluacionRecuperada = BD_Riesgos.recuperaTRiesgosEvaluacion(idEvaluacion);
-                updateEvaluacion(evaluacionRecuperada);
+               
+                updateEvaluacion(evaluacion);
             }else
             {
                 insertaEvaluacion(evaluacion);
@@ -421,16 +418,61 @@ namespace Risk.Controllers
             return Json(Url.Action("Historical", "Risk", new { id = idRiesgo }));
         }
 
-        public bool updateEvaluacion(tRiesgosEvaluaciones evaluacion)
+        public int updateEvaluacion(tRiesgosEvaluaciones evaluacion)
         {
+            tRiesgosEvaluaciones evaluacionRecuperada = BD_Riesgos.recuperaTRiesgosEvaluacion(evaluacion.IdEvaluacion);
 
+            evaluacionRecuperada.IdNivel = evaluacion.IdNivel != null ? evaluacion.IdNivel : evaluacionRecuperada.IdNivel;
+            evaluacionRecuperada.Fecha = evaluacion.Fecha != null ? evaluacion.Fecha : evaluacionRecuperada.Fecha;
+            //evaluacionUpdate.Activa = evaluacion.Activa != null ? evaluacion.Activa : evaluacionRecuperada.Activa;
+            //evaluacionUpdate.Ultima = evaluacion.Ultima != null ? evaluacion.Ultima : evaluacionRecuperada.Ultima;
+            evaluacionRecuperada.IdFrecAntes = evaluacion.IdFrecAntes != null ? evaluacion.IdFrecAntes : evaluacionRecuperada.IdFrecAntes;
+            evaluacionRecuperada.IdSeveAntes = evaluacion.IdSeveAntes != null ? evaluacion.IdSeveAntes : evaluacionRecuperada.IdSeveAntes;
+            evaluacionRecuperada.IdFrecDespues = evaluacion.IdFrecDespues != null ? evaluacion.IdFrecDespues : evaluacionRecuperada.IdFrecDespues;
+            evaluacionRecuperada.IdSeveDespues = evaluacion.IdSeveDespues != null ? evaluacion.IdSeveDespues : evaluacionRecuperada.IdSeveDespues;
+            evaluacionRecuperada.IdSevePeorAntes = evaluacion.IdSevePeorAntes != null ? evaluacion.IdSevePeorAntes : evaluacionRecuperada.IdSevePeorAntes;
+            evaluacionRecuperada.IdSevePeorDespues = evaluacion.IdSevePeorDespues != null ? evaluacion.IdSevePeorDespues : evaluacionRecuperada.IdSevePeorDespues;
+            evaluacionRecuperada.idEfectividad = evaluacion.idEfectividad != null ? evaluacion.idEfectividad : evaluacionRecuperada.idEfectividad;
+            evaluacionRecuperada.Efectividad = evaluacion.Efectividad != null ? evaluacion.Efectividad : evaluacionRecuperada.Efectividad;
+            evaluacionRecuperada.IdFrecPlanDespues = evaluacion.IdFrecPlanDespues != null ? evaluacion.IdFrecPlanDespues : evaluacionRecuperada.IdFrecPlanDespues;
+            evaluacionRecuperada.IdSevePlanDespues = evaluacion.IdSevePlanDespues != null ? evaluacion.IdSevePlanDespues : evaluacionRecuperada.IdSevePlanDespues;
+            evaluacionRecuperada.IdSevePeorPlanDespues = evaluacion.IdSevePeorPlanDespues != null ? evaluacion.IdSevePeorPlanDespues : evaluacionRecuperada.IdSevePeorPlanDespues;
+
+            // Insertar el riesgo en la BD (Devuelve el riesgo insertado con el idRiesgo autogenerado)
+            int idRiesgo = BD_Riesgos.updateTRiesgsEvaluaciones(evaluacionRecuperada);
+            return idRiesgo;
         }
 
-        public bool insertaEvaluacion(tRiesgosEvaluaciones evaluacion)
+        public int insertaEvaluacion(tRiesgosEvaluaciones evaluacion)
         {
+            tRiesgosEvaluaciones evaluacionNueva = new tRiesgosEvaluaciones();
 
+            evaluacionNueva.IdNivel = evaluacion.IdNivel != null ? evaluacion.IdNivel : 0;
+            evaluacionNueva.Fecha = evaluacion.Fecha != null ? evaluacion.Fecha : evaluacion.Fecha;
+            //evaluacionNueva.Activa = evaluacion.Activa != null ? evaluacion.Activa : evaluacionRecuperada.Activa;
+            evaluacionNueva.Ultima = true;
+            evaluacionNueva.IdFrecAntes = evaluacion.IdFrecAntes != null ? evaluacion.IdFrecAntes : 0;
+            evaluacionNueva.IdSeveAntes = evaluacion.IdSeveAntes != null ? evaluacion.IdSeveAntes : 0;
+            evaluacionNueva.IdFrecDespues = evaluacion.IdFrecDespues != null ? evaluacion.IdFrecDespues : 0;
+            evaluacionNueva.IdSeveDespues = evaluacion.IdSeveDespues != null ? evaluacion.IdSeveDespues : 0;
+            evaluacionNueva.IdSevePeorAntes = evaluacion.IdSevePeorAntes != null ? evaluacion.IdSevePeorAntes : 0;
+            evaluacionNueva.IdSevePeorDespues = evaluacion.IdSevePeorDespues != null ? evaluacion.IdSevePeorDespues : 0;
+            evaluacionNueva.idEfectividad = evaluacion.idEfectividad != null ? evaluacion.idEfectividad : 0;
+            evaluacionNueva.Efectividad = evaluacion.Efectividad != null ? evaluacion.Efectividad :0;
+            evaluacionNueva.IdFrecPlanDespues = evaluacion.IdFrecPlanDespues != null ? evaluacion.IdFrecPlanDespues : 0;
+            evaluacionNueva.IdSevePlanDespues = evaluacion.IdSevePlanDespues != null ? evaluacion.IdSevePlanDespues : 0;
+            evaluacionNueva.IdSevePeorPlanDespues = evaluacion.IdSevePeorPlanDespues != null ? evaluacion.IdSevePeorPlanDespues : 0;
+
+
+            bool cambioUltimas = BD_Riesgos.cambiaUltimasAFalseEvaluaciones(Convert.ToInt32(evaluacion.IdRiesgo));
+            tRiesgosEvaluaciones evaluacionInsertada = new tRiesgosEvaluaciones();
+
+            if (cambioUltimas)
+            {
+                evaluacionInsertada = BD_Riesgos.insertarTRiesgosEvaluaciones(evaluacionNueva);
+            }
+
+            return Convert.ToInt32(evaluacionInsertada.IdRiesgo);
         }
-
-
     }
 }

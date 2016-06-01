@@ -335,35 +335,30 @@ namespace Risk.Controllers {
 
         #region CRUD relativo a Evaluaciones
 
-        public bool insertarTRiesgosEvaluaciones(int idRiesgo)
+        public tRiesgosEvaluaciones insertarTRiesgosEvaluaciones(tRiesgosEvaluaciones evaluacion)
         {
             try
             {
-                tRiesgosEvaluaciones evaluacion = new tRiesgosEvaluaciones();
-                evaluacion.IdRiesgo = idRiesgo;
-                evaluacion.IdNivel = 0;
-                evaluacion.Fecha = DateTime.Now;
-                evaluacion.Activa = true;
-                evaluacion.Ultima = true;
-                evaluacion.IdFrecAntes = 0;
-                evaluacion.IdSeveAntes = 0;
-                evaluacion.IdFrecDespues = 0;
-                evaluacion.IdSeveDespues = 0;
-                evaluacion.IdSevePeorAntes = 0;
-                evaluacion.IdSevePeorDespues = 0;
-                evaluacion.idEfectividad = 0;
-                evaluacion.Efectividad = 0;
-                evaluacion.IdFrecPlanDespues = 0;
-                evaluacion.IdSevePlanDespues = 0;
-                evaluacion.IdSevePeorPlanDespues = 0;
-
                 Conexion.tRiesgosEvaluaciones.InsertOnSubmit(evaluacion);
                 Conexion.SubmitChanges();
-                return true;
+                return Conexion.tRiesgosEvaluaciones.Where(r => r.IdRiesgo == evaluacion.IdRiesgo).SingleOrDefault();
             }
             catch (Exception e)
             {
-                return false;
+                return null;
+            }
+        }
+
+        public int updateTRiesgsEvaluaciones(tRiesgosEvaluaciones evaluacion)
+        {
+            try
+            {
+                Conexion.SubmitChanges();
+                return Convert.ToInt32(evaluacion.IdRiesgo);
+            }
+            catch (Exception)
+            {
+                return 0;
             }
         }
 
@@ -408,6 +403,34 @@ namespace Risk.Controllers {
         public  tRiesgosEvaluaciones recuperaTRiesgosEvaluacion(int idEvaluacion)
         {
             return Conexion.tRiesgosEvaluaciones.Where(r => r.IdEvaluacion == idEvaluacion).SingleOrDefault();
+        }
+
+        public List<tRiesgosEvaluaciones> recuperaEvaluaciones(int idRiesgo)
+        {
+            return Conexion.tRiesgosEvaluaciones.Where(r => r.IdRiesgo == idRiesgo).ToList();
+        }
+
+
+        public bool cambiaUltimasAFalseEvaluaciones(int idRiesgo)
+        {
+            bool cambios = false;
+            List<tRiesgosEvaluaciones> evaluacionesPorRiesgo = recuperaEvaluaciones(idRiesgo);
+
+            foreach (var evaluacion in evaluacionesPorRiesgo)
+            {
+                evaluacion.Ultima = false;
+                try
+                {
+                    updateTRiesgsEvaluaciones(evaluacion);
+                    cambios =  true;
+                }
+                catch (Exception)
+                {
+                    cambios = false;
+                }           
+            }
+
+            return cambios;
         }
 
         #endregion
