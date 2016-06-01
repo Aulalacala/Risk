@@ -37,7 +37,7 @@ namespace Risk.Controllers
         /// <returns></returns>
         public ActionResult RiskFicha(int id, int idEstructura = 0)
         {
-            qRiesgosNombres riesgoRecup = BD_Riesgos.recuperarRiesgo(id);
+            qRiesgosNombres riesgoRecup = BD_Riesgos.recuperarQriesgoNombre(id);
             ViewBag.idEstructura = idEstructura;
             return View(riesgoRecup);
         }
@@ -188,7 +188,7 @@ namespace Risk.Controllers
             
             if (id != 0)
             {
-                riesgoRecup = BD_Riesgos.recuperarRiesgo(id);
+                riesgoRecup = BD_Riesgos.recuperarQriesgoNombre(id);
             }
 
 
@@ -406,10 +406,31 @@ namespace Risk.Controllers
             return j;
         }
 
-        public void guardaEvaluacion(int idRiesgo, int idEvaluacion, tRiesgosEvaluaciones evaluacion)
+        [HttpPost]
+        public ActionResult guardaEvaluacion(int idRiesgo, int idEvaluacion, tRiesgosEvaluaciones evaluacion)
         {
-            //update de evaluacion, si llega la evaluacion
+            if(idEvaluacion != 0)
+            {
+                tRiesgosEvaluaciones evaluacionRecuperada = BD_Riesgos.recuperaTRiesgosEvaluacion(idEvaluacion);
+                updateEvaluacion(evaluacionRecuperada);
+            }else
+            {
+                insertaEvaluacion(evaluacion);
+            }
+
+            return Json(Url.Action("Historical", "Risk", new { id = idRiesgo }));
         }
+
+        public bool updateEvaluacion(tRiesgosEvaluaciones evaluacion)
+        {
+
+        }
+
+        public bool insertaEvaluacion(tRiesgosEvaluaciones evaluacion)
+        {
+
+        }
+
 
     }
 }

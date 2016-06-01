@@ -209,106 +209,136 @@ namespace Risk.Controllers {
         #endregion
 
         #region RiskController
-        public qRiesgosNombres recuperarRiesgo(int id) {
+
+        #region CRUD relativos a Riesgos
+        public tRiesgos insertarNuevoRiesgo(tRiesgos riesgoNuevo)
+        {
+            try
+            {
+                Conexion.tRiesgos.InsertOnSubmit(riesgoNuevo);
+                Conexion.SubmitChanges();
+                return Conexion.tRiesgos.Where(r => r.IdRiesgo == riesgoNuevo.IdRiesgo).SingleOrDefault();
+            }
+            catch (Exception e)
+            {
+                return null;
+            }
+        }
+
+        public int updateRiesgo(tRiesgos riesgo)
+        {
+            try
+            {
+                Conexion.SubmitChanges();
+                return riesgo.IdRiesgo;
+            }
+            catch (Exception)
+            {
+
+                return 0;
+            }         
+        }
+
+        public bool deleteRiesgo(int idRiesgo)
+        {
+            try
+            {
+                var riesgo = Conexion.tRiesgos.Where(r => r.IdRiesgo == idRiesgo).Select(r => r).FirstOrDefault();
+                Conexion.tRiesgos.DeleteOnSubmit(riesgo);
+                Conexion.SubmitChanges();
+
+                deleteTRelEstructuraRiesgos(idRiesgo);
+
+                deleteTRiesgosEvaluaciones(idRiesgo);
+
+                return true;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+        }
+
+      
+
+        #region consultas relativas a Riesgos
+
+        public tRiesgos recuperarTRiesgo(int idRiesgo)
+        {
+            return Conexion.tRiesgos.Where(r => r.IdRiesgo == idRiesgo).SingleOrDefault();
+        }
+
+
+        public qRiesgosNombres recuperarQriesgoNombre(int id)
+        {
             qRiesgosNombres riesgoRecup = new qRiesgosNombres();
-            if (id != 0) {
+            if (id != 0)
+            {
                 riesgoRecup = Conexion.qRiesgosNombres.Where(r => r.IdRiesgo == id).SingleOrDefault();
             }
             return riesgoRecup;
         }
 
-
-        //public qRiesgosEvalVal recuperaEvaluaciones(int id)
-        //{
-        //    qRiesgosEvalVal datosEvaluaciones = new qRiesgosEvalVal();
-        //    datosEvaluaciones = Conexion.qRiesgosEvalVal.Where(r => r.IdRiesgo == id && r.Ultima == true).SingleOrDefault();
-        //    return datosEvaluaciones;
-        //}
-
-        public Dictionary<int, qRiesgosEvalVal> recuperaEvaluaciones(int id, int idEvaluacion = 0) {
-            Dictionary<int, qRiesgosEvalVal> dicEvaluacionesRiesgo = new Dictionary<int, qRiesgosEvalVal>();
-
-            if (idEvaluacion != 0) {
-                dicEvaluacionesRiesgo = Conexion.qRiesgosEvalVal.Where(r => r.IdRiesgo == id && r.IdEvaluacion == idEvaluacion).ToDictionary(r => Convert.ToInt32(r.IdEvaluacion), r => r);
-            } else {
-                dicEvaluacionesRiesgo = Conexion.qRiesgosEvalVal.Where(r => r.IdRiesgo == id && r.Ultima == true).ToDictionary(r => Convert.ToInt32(r.IdEvaluacion), r => r);
-            }
-
-            return dicEvaluacionesRiesgo;
-        }
-
-
-        public int updateRiesgo(tRiesgos riesgo) {
-            Conexion.SubmitChanges();
-            return riesgo.IdRiesgo;
-
-        }
-        public int recuperaIdUltimaEvaluacion(int id)
+        // metodo que devuelve un string con el ultimo codigo disponible de un idEstructura
+        public string ultimoRiesgoDisponible(string idEstructura)
         {
-           return Conexion.qRiesgosEvalVal.Where(r => r.IdRiesgo == id && r.Ultima == true).Select(r => Convert.ToInt32(r.IdEvaluacion)).SingleOrDefault();
-        }
+            int cuantosRiesgosTiene = Conexion.tRelEstructuraRiesgos.Where(r => r.IdEstructura == Convert.ToInt32(idEstructura)).Count();
+            string ultimoCodigoRiesgo = (cuantosRiesgosTiene + 1).ToString();
 
-
-        public int actualizaQRiesgosNombre(List<string> datosQRiesgosNombre, int IdRiesgo) {
-            try {
-                qRiesgosNombres riesgo = Conexion.qRiesgosNombres.Where(r => r.IdRiesgo == IdRiesgo).SingleOrDefault();
-
-                string query = "UPDATE qRiesgosNombres SET ";
-
-
-                foreach (string datos in datosQRiesgosNombre) {
-                    string propiedad = datos.Split(':')[0];
-                    string valor = datos.Split(':')[1];
-
-                    query += propiedad + " = '" + valor + "',";
-
-                }
-
-                query = query.Substring(0, query.Length - 1);
-                query += " WHERE IdRiesgo = " + IdRiesgo;
-
-                Conexion.ExecuteQuery<qRiesgosNombres>(query);
-
-
-                qRiesgosNombres riesgo2 = Conexion.qRiesgosNombres.Where(r => r.IdRiesgo == IdRiesgo).SingleOrDefault();
-                return riesgo2.IdRiesgo;
-
-            } catch (Exception) { return 0; }
-
-        }
-
-
-        public tRiesgos recuperarTRiesgo (int idRiesgo) {
-            return Conexion.tRiesgos.Where(r => r.IdRiesgo == idRiesgo).SingleOrDefault();
-        }
-
-
-        public tRiesgos insertarNuevoRiesgo(tRiesgos riesgoNuevo) {
-
-            try {
-
-                Conexion.tRiesgos.InsertOnSubmit(riesgoNuevo);
-                Conexion.SubmitChanges();
-                return Conexion.tRiesgos.Where(r => r.IdRiesgo == riesgoNuevo.IdRiesgo).SingleOrDefault();
-            } catch (Exception e) {
-                return null;
+            if (cuantosRiesgosTiene.ToString().Length == 1)
+            {
+                ultimoCodigoRiesgo = "0" + (cuantosRiesgosTiene + 1).ToString();
             }
+
+            string codCompleto = Conexion.tEstructura.Where(r => r.IdEstructura == Convert.ToInt32(idEstructura)).Select(r => r.CodCompleto).SingleOrDefault();
+
+            codCompleto += "." + ultimoCodigoRiesgo;
+
+            return codCompleto;
         }
 
+        #endregion
+        #endregion
 
-        public bool insertarTRelEstructuraRiesgoNuevo(tRelEstructuraRiesgos estructuraNuevo) {
-            try {
+        #region CRUD relativo a Relacion Estructura-Riesgos
+        public bool insertarTRelEstructuraRiesgoNuevo(tRelEstructuraRiesgos estructuraNuevo)
+        {
+            try
+            {
                 Conexion.tRelEstructuraRiesgos.InsertOnSubmit(estructuraNuevo);
                 Conexion.SubmitChanges();
                 return true;
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 return false;
             }
         }
 
+        public bool deleteTRelEstructuraRiesgos(int idRiesgo)
+        {
+            try
+            {
+                var riesgoTrel = Conexion.tRelEstructuraRiesgos.Where(r => r.IdRiesgo == idRiesgo).Select(r => r).FirstOrDefault();
+                Conexion.tRelEstructuraRiesgos.DeleteOnSubmit(riesgoTrel);
+                Conexion.SubmitChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+                return false;
+            }          
+        }
 
-        public bool insertarTRiesgosEvaluaciones(int idRiesgo) {
-            try {
+        #endregion
+
+
+        #region CRUD relativo a Evaluaciones
+
+        public bool insertarTRiesgosEvaluaciones(int idRiesgo)
+        {
+            try
+            {
                 tRiesgosEvaluaciones evaluacion = new tRiesgosEvaluaciones();
                 evaluacion.IdRiesgo = idRiesgo;
                 evaluacion.IdNivel = 0;
@@ -330,53 +360,59 @@ namespace Risk.Controllers {
                 Conexion.tRiesgosEvaluaciones.InsertOnSubmit(evaluacion);
                 Conexion.SubmitChanges();
                 return true;
-            } catch (Exception e) {
+            }
+            catch (Exception e)
+            {
                 return false;
             }
         }
 
-        public bool deleteRiesgo(int idRiesgo) {
-            try {
-                var riesgo = Conexion.tRiesgos.Where(r => r.IdRiesgo == idRiesgo).Select(r => r).FirstOrDefault();
-                Conexion.tRiesgos.DeleteOnSubmit(riesgo);
-                Conexion.SubmitChanges();
-
-                var riesgoTrel = Conexion.tRelEstructuraRiesgos.Where(r => r.IdRiesgo == idRiesgo).Select(r => r).FirstOrDefault();
-                Conexion.tRelEstructuraRiesgos.DeleteOnSubmit(riesgoTrel);
-                Conexion.SubmitChanges();
-
+        public bool deleteTRiesgosEvaluaciones(int idRiesgo)
+        {
+            try
+            {
                 var riesgoTEval = Conexion.tRiesgosEvaluaciones.Where(r => r.IdRiesgo == idRiesgo).Select(r => r).FirstOrDefault();
                 Conexion.tRiesgosEvaluaciones.DeleteOnSubmit(riesgoTEval);
                 Conexion.SubmitChanges();
-
                 return true;
-            } catch (Exception e) {
+            }
+            catch (Exception)
+            {
+
                 return false;
             }
         }
 
+        #region consultas relativas a Evaluaciones
+        public Dictionary<int, qRiesgosEvalVal> recuperaEvaluaciones(int id, int idEvaluacion = 0)
+        {
+            Dictionary<int, qRiesgosEvalVal> dicEvaluacionesRiesgo = new Dictionary<int, qRiesgosEvalVal>();
 
-        // metodo que devuelve un string con el ultimo codigo disponible de un idEstructura
-        public string ultimoRiesgoDisponible(string idEstructura) {
-            int cuantosRiesgosTiene = Conexion.tRelEstructuraRiesgos.Where(r => r.IdEstructura == Convert.ToInt32(idEstructura)).Count();
-            string ultimoCodigoRiesgo = (cuantosRiesgosTiene + 1).ToString();
-
-            if (cuantosRiesgosTiene.ToString().Length == 1) {
-                ultimoCodigoRiesgo = "0" + (cuantosRiesgosTiene + 1).ToString();
+            if (idEvaluacion != 0)
+            {
+                dicEvaluacionesRiesgo = Conexion.qRiesgosEvalVal.Where(r => r.IdRiesgo == id && r.IdEvaluacion == idEvaluacion).ToDictionary(r => Convert.ToInt32(r.IdEvaluacion), r => r);
+            }
+            else
+            {
+                dicEvaluacionesRiesgo = Conexion.qRiesgosEvalVal.Where(r => r.IdRiesgo == id && r.Ultima == true).ToDictionary(r => Convert.ToInt32(r.IdEvaluacion), r => r);
             }
 
-            string codCompleto = Conexion.tEstructura.Where(r => r.IdEstructura == Convert.ToInt32(idEstructura)).Select(r => r.CodCompleto).SingleOrDefault();
-
-            codCompleto += "." + ultimoCodigoRiesgo;
-
-            return codCompleto;
-
-
-
+            return dicEvaluacionesRiesgo;
         }
 
+        public int recuperaIdUltimaEvaluacion(int id)
+        {
+            return Conexion.qRiesgosEvalVal.Where(r => r.IdRiesgo == id && r.Ultima == true).Select(r => Convert.ToInt32(r.IdEvaluacion)).SingleOrDefault();
+        }
 
+        public  tRiesgosEvaluaciones recuperaTRiesgosEvaluacion(int idEvaluacion)
+        {
+            return Conexion.tRiesgosEvaluaciones.Where(r => r.IdEvaluacion == idEvaluacion).SingleOrDefault();
+        }
 
+        #endregion
+
+        #endregion
 
         #endregion
     }
