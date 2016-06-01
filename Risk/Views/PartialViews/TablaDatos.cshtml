@@ -1,17 +1,10 @@
 ﻿@using Risk.Models
 @model Risk.Models.DatosTablaModel
 
-<!-- SCRIPTS -->
 
-<script type="text/javascript" src="~/Content/js/jquery/jquery-2.1.1.min.js"></script>
-<script type="text/javascript" src="~/Content/js/jquery/jquery.browser.min.js"></script>
-<script type="text/javascript" src="~/Content/js/jquery/jquery.easing.1.3.js"></script>
-<script type="text/javascript" src="~/Content/datetables/jquery.dataTables.min.js"></script>
-<script type="text/javascript" src="~/Content/datetables/dataTables.responsive.min.js"></script>
-<script type="text/javascript" src="~/Content/datetables/dataTables.scroller.min.js"></script>
 
-<link rel="stylesheet" href="~/Content/datetables/responsive.dataTables.min.css" type="text/css" />
-<link rel="stylesheet" href="~/Content/datetables/scroller.dataTables.min.css" type="text/css" />
+
+
 
 @{if (Model.datosTBody == null) {
 
@@ -181,16 +174,17 @@
 
             default:
                 var table = $('#tablaDatosRiesgos').DataTable({
-                    //responsive: true,
+                    responsive: true,
                     scrollY: 1000,
                     scrollX: true,
                     scrollCollapse: true,
                     scroller: true,
+
                 });
                 break;
 
         }
 
-      
+
     });
 </script>
