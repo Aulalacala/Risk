@@ -4,8 +4,8 @@
 
 <form id="miForm">
     <div id="botonera" class="pull-right">
-        <input type="submit" class="btn btn-primary" name="BtnDelete" value="DELETE" id="BtnDelete" disabled/>
-        <a href="@Url.Action("nuevaEvaluacionRiesgo", "Risk", new { idEvaluacion = 0 })" class="btn btn-primary">NEW</a>
+        <input type="button" class="btn btn-primary" name="BtnDelete" value="DELETE" id="BtnDelete" disabled/>
+        <input type="button" class="btn btn-primary" name="BtnNewHistorical" value="NEW" id="BtnNewHistorical" />
         <input type="button" class="btn btn-primary" name="BtnSaveHistorical" value="SAVE" id="BtnSaveHistorical" disabled />
         <input type="button" class="btn btn-primary" name="BtnChangeHistorical" value="CHANGE" id="BtnChangeHistorical" disabled />
         <input type="button" class="btn btn-primary" name="BtnCopyLast" value="COPY LAST" id="BtnCopyLast" />
@@ -32,53 +32,9 @@
                     @Html.Partial("FinancialImpactCombosHelpers", Model)
                 </div>
 
-                <div class="col-lg-4 col-md-4" style="background-color:#eaf7fa; height:177px">
+                <div class="col-lg-4 col-md-4" style="background-color:#eaf7fa; height:177px" id="ActiveEfectivityDateDiv">
                     <br /><br />
-
-                    <!--ACTIVA-->
-                    <div class="row">
-                        <div class="col-lg-3 col-md-3">
-                            <span class="form-left-label"><b>Active: </b></span><br />
-                        </div>
-                        <div class="col-lg-9 col-md-9">
-                            <div>
-                                @{ 
-                                    var activo = true;
-                                    if (Model.idEvaluacion != 0)
-                                    {
-                                        activo =(bool)Model.qRiesgosEvalVal_Dic_VM.Values.Where(x => x.IdEvaluacion == Model.idEvaluacion).Select(x => x.Activa).Single();
-                                    }
-                                }
-
-                                @Html.CheckBox("checkActiva", activo , new { id = "checkActiva", @class = "checkbox" })
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--EFECTIVIDAD-->
-                    <div class="row">
-                        <div class="col-lg-3 col-md-3">
-                            <span class="form-left-label"><b>Efectivity: </b></span><br />
-                        </div>
-                        <div class="col-lg-9 col-md-9">
-                            <div>
-                                @Html.DropDown(Model.dropDowns.datosEvaEfectividad, "efectividad", "tEva_Efectividad", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdEfectividad).ToString(), null, null)
-                            </div>
-                        </div>
-                    </div>
-
-                    <!--FECHA-->
-                    <div class="row">
-                        <div class="col-lg-3 col-md-3">
-                            <span class="form-left-label"><b>Date: </b></span><br />
-                        </div>
-                        <div class="col-lg-9 col-md-9">
-                            <div id="divFechaEvaluacion" class="input-group">
-                                <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                                <input id="fecha" type="text" class="form-control" data-date-format="mm/dd/yyyy" value="@DateTime.Now.ToString()">
-                            </div>
-                        </div>
-                    </div>
+                    @Html.Partial("ActiveEfectivityDate", Model)                  
                 </div>
             </div>
         </div>
@@ -123,7 +79,10 @@
         $('#financialImpactDiv').empty();
 
         var ruta = "http://localhost:1525/Risk/FinancialImpactTextBox";
-        $('#financialImpactDiv').load(ruta, { "id": idRiesgo, "idEvaluacion": idEvaluacion})
+        $('#financialImpactDiv').load(ruta, { "id": idRiesgo, "idEvaluacion": idEvaluacion })
+
+        var ruta = "http://localhost:1525/Risk/ActiveEfectivityDate";
+        $('#ActiveEfectivityDateDiv').load(ruta, { "id": idRiesgo, "idEvaluacion": idEvaluacion })
     });
 
 </script>

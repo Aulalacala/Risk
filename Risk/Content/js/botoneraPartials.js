@@ -75,6 +75,15 @@ $('#BtnCloseModalNuevo').click(function () {
     window.location.href = urlRedireccion;
 });
 
+$('#BtnCloseModalNuevoEva').click(function () {
+    $('#modalNuevoEva').modal('hide');
+
+    var ruta = "http://localhost:1525/Risk/Historical/";
+    $('#contenidoDinamico').load(ruta, { "id": urlRedireccion});
+
+   //window.location.href = urlRedireccion;
+});
+
 $('#BtnDiscard').click(function () {
     var handler = $('#BtnDiscard').attr('handler').split('_')[1];
     alert(handler);
@@ -83,6 +92,24 @@ $('#BtnDiscard').click(function () {
     var ruta = "http://localhost:1525/Risk/" + handler;
     $('#contenidoDinamico').load(ruta);
 });
+
+
+/****************************************************************************/
+/*....................HISTORICAL............................................*/
+
+$('#BtnNewHistorical').click(function () {
+    if ($('#financialHistoricalDiv').attr('style').indexOf('display:none') > -1) {
+        alert('esta oculto')
+        $('#financialHistoricalDiv').show();
+    } else {
+        $('#financialHistoricalDiv').empty();
+    }
+    $('#BtnSaveHistorical').removeAttr('disabled');
+    var idRiesgo = $('#idRiesgo').val();
+    var ruta = "http://localhost:1525/Risk/FinancialImpactCombosHelpers";
+    $('#financialImpactDiv').load(ruta, { "id": idRiesgo})
+});
+
 
 $('#BtnChangeHistorical').click(function () {
     $('#financialHistoricalDiv').show();
@@ -101,12 +128,19 @@ $('#BtnSaveHistorical').click(function () {
 
     var idEvaluacion = $('#financialImpact').attr('idEvaluacion');
     var idRiesgo = $('#idRiesgo').val();
+    var activa;
+
+    if($('#checkActiva').attr('checked') == 'checked'){
+        activa = true;
+    }
+
 
     var datosEvaluacion = {
         IdRiesgo: $('#idRiesgo').val(),
         IdEvaluacion: $('#financialImpact').attr('idEvaluacion'),
         idEfectividad: $('#efectividad').val(),
-        Fecha: $('#fecha').val()
+        Fecha: $('#fecha').val(),
+        Activa: activa
     }
 
     $('#financialImpact select').each(function (pos, el) {
@@ -121,7 +155,9 @@ $('#BtnSaveHistorical').click(function () {
         type: 'post',
         data: { idRiesgo: idRiesgo, idEvaluacion:idEvaluacion, evaluacion: datosEvaluacion },
         success: function (data) {
-            alert('ok')
+            $('#modalNuevoEva').modal('show');
+            //alert(urlRedireccion + ' ' + data)
+            urlRedireccion = data;
 
         },
         error: function (jqXHR, textStatus, errorThrown) {

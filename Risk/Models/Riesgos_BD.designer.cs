@@ -601,7 +601,7 @@ namespace Risk.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Activa", DbType ="Bit NOT NULL")]
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Activa", DbType="Bit NOT NULL")]
 		public bool Activa
 		{
 			get
@@ -3528,9 +3528,11 @@ namespace Risk.Models
 		
 		private System.Nullable<bool> _Activa;
 		
-		private System.Nullable<int> _IdEfectividad;
+		private System.Nullable<int> _idEfectividad;
 		
-		private System.Nullable<double> _Efectividad;
+		private string _NombreEfectividad;
+		
+		private string _ColorEfectividad;
 		
 		public qRiesgosEvalVal()
 		{
@@ -4048,34 +4050,50 @@ namespace Risk.Models
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEfectividad", DbType="Int")]
-		public System.Nullable<int> IdEfectividad
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idEfectividad", DbType="Int")]
+		public System.Nullable<int> idEfectividad
 		{
 			get
 			{
-				return this._IdEfectividad;
+				return this._idEfectividad;
 			}
 			set
 			{
-				if ((this._IdEfectividad != value))
+				if ((this._idEfectividad != value))
 				{
-					this._IdEfectividad = value;
+					this._idEfectividad = value;
 				}
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Efectividad", DbType="Float")]
-		public System.Nullable<double> Efectividad
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NombreEfectividad", DbType="NVarChar(50)")]
+		public string NombreEfectividad
 		{
 			get
 			{
-				return this._Efectividad;
+				return this._NombreEfectividad;
 			}
 			set
 			{
-				if ((this._Efectividad != value))
+				if ((this._NombreEfectividad != value))
 				{
-					this._Efectividad = value;
+					this._NombreEfectividad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColorEfectividad", DbType="NVarChar(50)")]
+		public string ColorEfectividad
+		{
+			get
+			{
+				return this._ColorEfectividad;
+			}
+			set
+			{
+				if ((this._ColorEfectividad != value))
+				{
+					this._ColorEfectividad = value;
 				}
 			}
 		}

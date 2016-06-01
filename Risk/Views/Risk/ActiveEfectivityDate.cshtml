@@ -1,0 +1,46 @@
+﻿@model Risk.ViewModels.FichaRiesgoVM
+
+ <!--ACTIVA-->
+<div class="row">
+    <div class="col-lg-3 col-md-3">
+        <span class="form-left-label"><b>Active: </b></span><br />
+    </div>
+    <div class="col-lg-9 col-md-9">
+        <div>
+            @{
+                var activo = true;
+                if (Model.idEvaluacion != 0)
+                {
+                    activo = (bool)Model.qRiesgosEvalVal_Dic_VM.Values.Where(x => x.IdEvaluacion == Model.idEvaluacion).Select(x => x.Activa).Single();
+                }
+            }
+
+            @Html.CheckBox("checkActiva", activo, new { id = "checkActiva", @class = "checkbox" })
+        </div>
+    </div>
+</div>
+
+<!--EFECTIVIDAD-->
+<div class="row">
+    <div class="col-lg-3 col-md-3">
+        <span class="form-left-label"><b>Efectivity: </b></span><br />
+    </div>
+    <div class="col-lg-9 col-md-9">
+        <div>
+            @Html.DropDown(Model.dropDowns.datosEvaEfectividad, "efectividad", "tEva_Efectividad", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.idEfectividad).ToString(), null, null)
+        </div>
+    </div>
+</div>
+
+<!--FECHA-->
+<div class="row">
+    <div class="col-lg-3 col-md-3">
+        <span class="form-left-label"><b>Date: </b></span><br />
+    </div>
+    <div class="col-lg-9 col-md-9">
+        <div id="divFechaEvaluacion" class="input-group">
+            <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+            <input id="fecha" type="text" class="form-control" data-date-format="mm/dd/yyyy" value="@DateTime.Now.ToString()">
+        </div>
+    </div>
+</div>

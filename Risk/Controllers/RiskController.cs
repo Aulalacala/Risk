@@ -131,6 +131,30 @@ namespace Risk.Controllers
             return PartialView(fichaRiesgoVM);
         }
 
+        public ActionResult ActiveEfectivityDate (int id, int idEvaluacion = 0)
+        {
+            FichaRiesgoVM fichaRiesgoVM = new FichaRiesgoVM();
+
+            if (idEvaluacion != 0)
+            {
+                qRiesgosEvalVal qRiesgosEvalValEspecifico = new qRiesgosEvalVal();
+                fichaRiesgoVM = montaVM(id, idEvaluacion);
+                fichaRiesgoVM.idEvaluacion = idEvaluacion;
+            }
+            else
+            {
+                fichaRiesgoVM = montaVM(id);
+
+                Dictionary<int, qRiesgosEvalVal> dicEvaluaciones = new Dictionary<int, qRiesgosEvalVal>();
+                dicEvaluaciones.Add(0, new qRiesgosEvalVal());
+
+                fichaRiesgoVM.qRiesgosEvalVal_Dic_VM = dicEvaluaciones;
+                fichaRiesgoVM.idEvaluacion = 0;
+            }
+
+            return PartialView(fichaRiesgoVM);
+        }
+
 
 
 
@@ -202,8 +226,8 @@ namespace Risk.Controllers
                 evaluacion.IdSeveDespues = 0;
                 evaluacion.IdSevePeorAntes = 0;
                 evaluacion.IdSevePeorDespues = 0;
-                evaluacion.IdEfectividad = 0;
-                evaluacion.Efectividad = 0;
+                evaluacion.idEfectividad = 0;
+               //evaluacion.Efectividad = 0;
                 evaluacion.IdFrecPlanDespues = 0;
                 evaluacion.IdSevePlanDespues = 0;
                 evaluacion.IdSevePeorPlanDespues = 0;
@@ -404,7 +428,7 @@ namespace Risk.Controllers
         }
 
         [HttpPost]
-        public ActionResult guardaEvaluacion(int idRiesgo, int idEvaluacion, tRiesgosEvaluaciones evaluacion)
+        public string guardaEvaluacion(int idRiesgo, int idEvaluacion, tRiesgosEvaluaciones evaluacion)
         {
             if(idEvaluacion != 0)
             {
@@ -415,17 +439,18 @@ namespace Risk.Controllers
                 insertaEvaluacion(evaluacion);
             }
 
-            return Json(Url.Action("Historical", "Risk", new { id = idRiesgo }));
+            return JsonConvert.SerializeObject(idRiesgo);
         }
 
         public int updateEvaluacion(tRiesgosEvaluaciones evaluacion)
         {
             tRiesgosEvaluaciones evaluacionRecuperada = BD_Riesgos.recuperaTRiesgosEvaluacion(evaluacion.IdEvaluacion);
 
+            evaluacionRecuperada.IdRiesgo = evaluacion.IdRiesgo;
             evaluacionRecuperada.IdNivel = evaluacion.IdNivel != null ? evaluacion.IdNivel : evaluacionRecuperada.IdNivel;
             evaluacionRecuperada.Fecha = evaluacion.Fecha != null ? evaluacion.Fecha : evaluacionRecuperada.Fecha;
-            //evaluacionUpdate.Activa = evaluacion.Activa != null ? evaluacion.Activa : evaluacionRecuperada.Activa;
-            //evaluacionUpdate.Ultima = evaluacion.Ultima != null ? evaluacion.Ultima : evaluacionRecuperada.Ultima;
+            evaluacionRecuperada.Activa = evaluacion.Activa != evaluacionRecuperada.Activa ? evaluacion.Activa : evaluacionRecuperada.Activa;
+            evaluacionRecuperada.Ultima = evaluacion.Ultima != evaluacionRecuperada.Ultima ? evaluacion.Ultima : evaluacionRecuperada.Ultima;
             evaluacionRecuperada.IdFrecAntes = evaluacion.IdFrecAntes != null ? evaluacion.IdFrecAntes : evaluacionRecuperada.IdFrecAntes;
             evaluacionRecuperada.IdSeveAntes = evaluacion.IdSeveAntes != null ? evaluacion.IdSeveAntes : evaluacionRecuperada.IdSeveAntes;
             evaluacionRecuperada.IdFrecDespues = evaluacion.IdFrecDespues != null ? evaluacion.IdFrecDespues : evaluacionRecuperada.IdFrecDespues;
@@ -438,7 +463,6 @@ namespace Risk.Controllers
             evaluacionRecuperada.IdSevePlanDespues = evaluacion.IdSevePlanDespues != null ? evaluacion.IdSevePlanDespues : evaluacionRecuperada.IdSevePlanDespues;
             evaluacionRecuperada.IdSevePeorPlanDespues = evaluacion.IdSevePeorPlanDespues != null ? evaluacion.IdSevePeorPlanDespues : evaluacionRecuperada.IdSevePeorPlanDespues;
 
-            // Insertar el riesgo en la BD (Devuelve el riesgo insertado con el idRiesgo autogenerado)
             int idRiesgo = BD_Riesgos.updateTRiesgsEvaluaciones(evaluacionRecuperada);
             return idRiesgo;
         }
@@ -447,9 +471,10 @@ namespace Risk.Controllers
         {
             tRiesgosEvaluaciones evaluacionNueva = new tRiesgosEvaluaciones();
 
+            evaluacionNueva.IdRiesgo = evaluacion.IdRiesgo;
             evaluacionNueva.IdNivel = evaluacion.IdNivel != null ? evaluacion.IdNivel : 0;
             evaluacionNueva.Fecha = evaluacion.Fecha != null ? evaluacion.Fecha : evaluacion.Fecha;
-            //evaluacionNueva.Activa = evaluacion.Activa != null ? evaluacion.Activa : evaluacionRecuperada.Activa;
+            evaluacionNueva.Activa = evaluacion.Activa;
             evaluacionNueva.Ultima = true;
             evaluacionNueva.IdFrecAntes = evaluacion.IdFrecAntes != null ? evaluacion.IdFrecAntes : 0;
             evaluacionNueva.IdSeveAntes = evaluacion.IdSeveAntes != null ? evaluacion.IdSeveAntes : 0;
@@ -462,7 +487,6 @@ namespace Risk.Controllers
             evaluacionNueva.IdFrecPlanDespues = evaluacion.IdFrecPlanDespues != null ? evaluacion.IdFrecPlanDespues : 0;
             evaluacionNueva.IdSevePlanDespues = evaluacion.IdSevePlanDespues != null ? evaluacion.IdSevePlanDespues : 0;
             evaluacionNueva.IdSevePeorPlanDespues = evaluacion.IdSevePeorPlanDespues != null ? evaluacion.IdSevePeorPlanDespues : 0;
-
 
             bool cambioUltimas = BD_Riesgos.cambiaUltimasAFalseEvaluaciones(Convert.ToInt32(evaluacion.IdRiesgo));
             tRiesgosEvaluaciones evaluacionInsertada = new tRiesgosEvaluaciones();

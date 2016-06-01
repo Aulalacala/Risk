@@ -341,7 +341,7 @@ namespace Risk.Controllers {
             {
                 Conexion.tRiesgosEvaluaciones.InsertOnSubmit(evaluacion);
                 Conexion.SubmitChanges();
-                return Conexion.tRiesgosEvaluaciones.Where(r => r.IdRiesgo == evaluacion.IdRiesgo).SingleOrDefault();
+                return Conexion.tRiesgosEvaluaciones.Where(r => r.IdRiesgo == evaluacion.IdRiesgo && r.IdEvaluacion == evaluacion.IdEvaluacion).SingleOrDefault();
             }
             catch (Exception e)
             {
@@ -413,23 +413,26 @@ namespace Risk.Controllers {
 
         public bool cambiaUltimasAFalseEvaluaciones(int idRiesgo)
         {
-            bool cambios = false;
+            bool cambios = true;
             List<tRiesgosEvaluaciones> evaluacionesPorRiesgo = recuperaEvaluaciones(idRiesgo);
 
-            foreach (var evaluacion in evaluacionesPorRiesgo)
+            if(evaluacionesPorRiesgo.Count != 0)
             {
-                evaluacion.Ultima = false;
-                try
+                foreach (var evaluacion in evaluacionesPorRiesgo)
                 {
-                    updateTRiesgsEvaluaciones(evaluacion);
-                    cambios =  true;
+                    evaluacion.Ultima = false;
+                    try
+                    {
+                        updateTRiesgsEvaluaciones(evaluacion);
+                        cambios = true;
+                    }
+                    catch (Exception)
+                    {
+                        cambios = false;
+                    }
                 }
-                catch (Exception)
-                {
-                    cambios = false;
-                }           
             }
-
+       
             return cambios;
         }
 

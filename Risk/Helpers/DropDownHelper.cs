@@ -35,6 +35,7 @@ namespace Risk.Helpers
             combo.MergeAttribute("tabla", tabla);
             combo.MergeAttribute("campos", "campos");
             combo.MergeAttribute("combo", "true");
+            //combo.MergeAttribute("style", "color:#000000");
             combo.MergeAttribute("sig", cboSiguiente);
 
             /*Añade las opciones del tag select
