@@ -16,6 +16,26 @@
         <div class="divider"></div>
         <br />
 
+        <div class="col-lg-5 col-md-5" style="margin-left:-15px">
+
+            @* DROPDOWN CON TODOS LOS ELEMENTOS DE LA ESTRUCUTURA *@
+            <span class="form-left-label">Structure Code</span>
+            <select class="form-control w100" campos="campos" id="idEstructura">
+                @{ Dictionary<int, string> structureCode = Model.dropDownStructure.structureCode;
+
+                    foreach (var structure in structureCode) {
+                        if (structure.Key == Model.idEstructura) {
+                            <option value="@structure.Key" selected>@structure.Value </option>
+                        }
+                        <option value="@structure.Key">@structure.Value </option>
+                    }
+                }
+            </select>
+        </div>
+
+
+
+
         <div>
             <div id="botonera" class="pull-right">
                 <input type="submit" class="btn btn-primary" name="BtnSave" value="SAVE" id="BtnSave" />
@@ -46,25 +66,7 @@
                 </div>
 
 
-                <div class="col-lg-5 col-md-5" style="padding:10px;width:45%;border: 1px solid #cbcbcb">
-
-                    @* DROPDOWN CON TODOS LOS ELEMENTOS DE LA ESTRUCUTURA *@
-                    <span class="form-left-label">Structure Code</span>
-                    <select class="form-control w100" campos="campos" id="idEstructura">
-                        @{ Dictionary<int, string> structureCode = Model.dropDownStructure.structureCode;
-
-                            foreach (var structure in structureCode) {
-                                if (structure.Key == Model.idEstructura) {
-                                    <option value="@structure.Key" selected>@structure.Value </option>
-                                }
-                                <option value="@structure.Key">@structure.Value </option>
-                            }
-                        }
-                    </select>
-</div>
-
-
-
+                
 
                     <div class="col-lg-5 col-md-5" style="padding:10px;width:45%;border: 1px solid #cbcbcb">
 
@@ -92,7 +94,7 @@
         // Asignacion de las tablas a 'DataTable' para poder usar sus metodos (add)
         var tableAsignados = $('table[id=datosTablaAsignados]').DataTable({
                                 "bPaginate": false,
-                                "bFilter": false,
+                                "bFilter": true,
                                 "bInfo": false,
                                 retrieve: true
         })
@@ -100,7 +102,7 @@
 
         var tablaRiesgosSinAsignar = $('table[id=tablaRiesgosSinAsignar]').DataTable({
                                 "bPaginate": false,
-                                "bFilter": false,
+                                "bFilter": true,
                                 "bInfo": false,
                                 retrieve: true
         })
@@ -204,14 +206,17 @@
                 var riesgosSin = { "Key": "0", "Value": sinasignar };               
                 var riesgosCon = { "Key": $('#idEstructura').val(), "Value": asignados }
 
-                listaRiesgos.push(riesgosSin);
+                if (riesgosSin.Value != 0) {
+                    listaRiesgos.push(riesgosSin);
+                }
+
                 listaRiesgos.push(riesgosCon);
 
 
                 $.ajax({
                     url: '/Assign/guardarCambiosMultipleRisk',
                     type: 'post',
-                    data: { listaRiesgos: listaRiesgos },
+                    data: { listaRiesgos: listaRiesgos, idEstructura: $('#idEstructura').val() },
                     success: function (data) {
                         window.location.href = data;
                     },
@@ -221,23 +226,12 @@
                 });
             };
 
-            
-
-            //if (asignados.length != 0) {
-            //    $.ajax({
-            //        url: '/Assign/guardarCambiosMultipleRisk',
-            //        type: 'post',
-            //        data: { riesgos: asignados, idEstructura: idEstructura },
-            //        success: function (data) {
-            //            window.location.href = data;
-            //        },
-            //        error: function (jqXHR, textStatus, errorThrown) {
-            //            alert('ERROR ' + jqXHR + ' ' + textStatus + ' ' + errorThrown)
-            //        }
-            //    });
-            //};
-
         });
+
+
+        $("#idEstructura").change(function () {
+            window.location.href = '/Assign/AssignMultipleRisks?idEstructura=' + $(this).val();
+        })
 
     });
 

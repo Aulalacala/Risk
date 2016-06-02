@@ -123,7 +123,7 @@ namespace Risk.Controllers {
         /// <param name="listaRiesgos"></param> Key = idEstructura, Value = lista de idRiesgos a cambiar
         /// Si es 0 --> los riesgos que entran se quieren desvincular de la estructura // Si es !0 --> es para vincular riesgos a una estructura </param>
         /// <returns>Despues de guardar vuelve redirige a la vista actualizada</returns>
-        public ActionResult guardarCambiosMultipleRisk (Dictionary<string,List<string>> listaRiesgos) {
+        public ActionResult guardarCambiosMultipleRisk (Dictionary<string,List<string>> listaRiesgos, int idEstructura) {
 
             foreach (var riesgo in listaRiesgos) {
 
@@ -161,10 +161,7 @@ namespace Risk.Controllers {
 
             }
 
-            string idEstructura = listaRiesgos.Keys.ElementAt(0) == "0" ? listaRiesgos.Keys.ElementAt(1) : listaRiesgos.Keys.ElementAt(0); 
-
-
-            return Json(Url.Action("AssignMultipleRisks", "Assign", new { idEstructura = listaRiesgos.Keys.ElementAt(1) }));
+            return Json(Url.Action("AssignMultipleRisks", "Assign", new { idEstructura = idEstructura }));
         }
         #endregion
 
