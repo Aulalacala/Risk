@@ -157,7 +157,7 @@ namespace Risk.Controllers {
                 }
 
 
-                int idRiesgoActualizar = BD_Riesgos.updateRiesgo(riesgoActualizar);
+                BD_Riesgos.updateRiesgo(riesgoActualizar);
 
             }
 

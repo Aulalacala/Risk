@@ -257,18 +257,47 @@ namespace Risk.Controllers
         [HttpPost]
         public ActionResult formGeneral(FormGeneralModel datosFormulario)
         {
-            int idRiesgo = 0;
+            //int idRiesgo = 0;
 
-            if (datosFormulario.IdRiesgo.Equals("0"))
-            {
-                idRiesgo = insertarNuevoRiesgo(datosFormulario);
+            tRiesgos riesgoUpdate = new tRiesgos();
+
+            if(!datosFormulario.IdRiesgo.Equals("0")) {
+                riesgoUpdate = BD_Riesgos.recuperarTRiesgo(Convert.ToInt32(datosFormulario.IdRiesgo));
             }
 
-            else
-            {
-                idRiesgo = updateRiesgo(datosFormulario);
+            riesgoUpdate.CodRiesgo = datosFormulario.CodRiesgo != null ? datosFormulario.CodRiesgo : riesgoUpdate.CodRiesgo;
+            riesgoUpdate.CodRiesgoLocalizado = datosFormulario.CodRiesgo != null ? datosFormulario.CodRiesgo.Substring(0, 8) : riesgoUpdate.CodRiesgoLocalizado;
+            riesgoUpdate.Nombre = datosFormulario.Nombre != null ? datosFormulario.Nombre : riesgoUpdate.Nombre;
+            riesgoUpdate.IdCategoria = datosFormulario.IdCategoria != null ? int.Parse(datosFormulario.IdCategoria) : riesgoUpdate.IdCategoria;
+            riesgoUpdate.IdClasificacion1 = datosFormulario.IdClasificacion1 != null ? int.Parse(datosFormulario.IdClasificacion1) : riesgoUpdate.IdClasificacion1;
+            riesgoUpdate.IdClasificacion2 = datosFormulario.IdClasificacion2 != null ? int.Parse(datosFormulario.IdClasificacion2) : riesgoUpdate.IdClasificacion2;
+            riesgoUpdate.IdClasificacion3 = datosFormulario.IdClasificacion3 != null ? int.Parse(datosFormulario.IdClasificacion3) : riesgoUpdate.IdClasificacion3;
+            riesgoUpdate.Descripcion = datosFormulario.Descripcion != null ? datosFormulario.Descripcion : riesgoUpdate.Descripcion;
+            riesgoUpdate.Justificacion = datosFormulario.Justificacion != null ? datosFormulario.Justificacion : riesgoUpdate.Justificacion;
+            riesgoUpdate.Ejemplo = datosFormulario.Ejemplo != null ? datosFormulario.Ejemplo : riesgoUpdate.Ejemplo;
+            riesgoUpdate.IdSegmentacion1 = datosFormulario.IdSegmentacion1 != null ? int.Parse(datosFormulario.IdSegmentacion1) : riesgoUpdate.IdSegmentacion1;
+            riesgoUpdate.IdResponsable = datosFormulario.IdResponsable != null ? int.Parse(datosFormulario.IdResponsable) : riesgoUpdate.IdResponsable;
+            riesgoUpdate.IdSupervisor = datosFormulario.IdResponsable2 != null ? int.Parse(datosFormulario.IdResponsable2) : riesgoUpdate.IdSupervisor;
+
+
+            // Si el idRiesgo es igual a 0 => insertar
+            if (datosFormulario.IdRiesgo.Equals("0")) {
+                BD_Riesgos.insertarNuevoRiesgo(riesgoUpdate);
+
+                //if (datosFormulario.idEstructura != null) {
+                //    // Crear tRelEstructuraRiesgos
+                //    tRelEstructuraRiesgos estructuraNuevo = new tRelEstructuraRiesgos();
+                //    estructuraNuevo.IdRiesgo = idRiesgo.IdRiesgo;
+                //    estructuraNuevo.IdEstructura = int.Parse(datosFormulario.idEstructura);
+                //}
             }
-            return Json(Url.Action("RiskFicha", "Risk", new { id = idRiesgo }));
+
+            // idRiesgo != 0 => update
+            else {
+                BD_Riesgos.updateRiesgo(riesgoUpdate);
+            }
+
+            return Json(Url.Action("RiskFicha", "Risk", new { id = riesgoUpdate.IdRiesgo }));
         }
 
 
@@ -301,16 +330,16 @@ namespace Risk.Controllers
                 riesgoNuevo.IdSupervisor = datosFormulario.IdResponsable2 != null ? int.Parse(datosFormulario.IdResponsable2) : 0;
 
                 // Insertar el riesgo en la BD (Devuelve el riesgo insertado con el idRiesgo autogenerado)
-                tRiesgos idRiesgo = BD_Riesgos.insertarNuevoRiesgo(riesgoNuevo);
+                BD_Riesgos.insertarNuevoRiesgo(riesgoNuevo);
 
                 if (datosFormulario.idEstructura != null)
                 {
                     // Crear tRelEstructuraRiesgos
                     tRelEstructuraRiesgos estructuraNuevo = new tRelEstructuraRiesgos();
-                    estructuraNuevo.IdRiesgo = idRiesgo.IdRiesgo;
+                    estructuraNuevo.IdRiesgo = riesgoNuevo.IdRiesgo;
                     estructuraNuevo.IdEstructura = int.Parse(datosFormulario.idEstructura);
                 }
-                return idRiesgo.IdRiesgo;
+                return riesgoNuevo.IdRiesgo;
             }
         }
 
@@ -341,9 +370,9 @@ namespace Risk.Controllers
                 riesgoUpdate.IdSupervisor = datosFormulario.IdResponsable2 != null ? int.Parse(datosFormulario.IdResponsable2) : riesgoUpdate.IdSupervisor;
 
                 // Insertar el riesgo en la BD (Devuelve el riesgo insertado con el idRiesgo autogenerado)
-                int idRiesgo = BD_Riesgos.updateRiesgo(riesgoUpdate);
+                 BD_Riesgos.updateRiesgo(riesgoUpdate);
 
-                return idRiesgo;
+                return riesgoUpdate.IdRiesgo;
             }
         }
 

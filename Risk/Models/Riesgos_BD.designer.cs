@@ -1408,6 +1408,8 @@ namespace Risk.Models
 		
 		private string _Vigencia;
 		
+		private EntitySet<tRelEstructuraRiesgos> _tRelEstructuraRiesgos;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -1452,6 +1454,7 @@ namespace Risk.Models
 		
 		public tRiesgos()
 		{
+			this._tRelEstructuraRiesgos = new EntitySet<tRelEstructuraRiesgos>(new Action<tRelEstructuraRiesgos>(this.attach_tRelEstructuraRiesgos), new Action<tRelEstructuraRiesgos>(this.detach_tRelEstructuraRiesgos));
 			OnCreated();
 		}
 		
@@ -1815,6 +1818,19 @@ namespace Risk.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tRiesgos_tRelEstructuraRiesgos", Storage="_tRelEstructuraRiesgos", ThisKey="IdRiesgo", OtherKey="IdRiesgo")]
+		public EntitySet<tRelEstructuraRiesgos> tRelEstructuraRiesgos
+		{
+			get
+			{
+				return this._tRelEstructuraRiesgos;
+			}
+			set
+			{
+				this._tRelEstructuraRiesgos.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -1833,6 +1849,18 @@ namespace Risk.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_tRelEstructuraRiesgos(tRelEstructuraRiesgos entity)
+		{
+			this.SendPropertyChanging();
+			entity.tRiesgos = this;
+		}
+		
+		private void detach_tRelEstructuraRiesgos(tRelEstructuraRiesgos entity)
+		{
+			this.SendPropertyChanging();
+			entity.tRiesgos = null;
 		}
 	}
 	
@@ -2945,6 +2973,8 @@ namespace Risk.Models
 		
 		private string _CodCompleto;
 		
+		private EntitySet<tRelEstructuraRiesgos> _tRelEstructuraRiesgos;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -2969,6 +2999,7 @@ namespace Risk.Models
 		
 		public tEstructura()
 		{
+			this._tRelEstructuraRiesgos = new EntitySet<tRelEstructuraRiesgos>(new Action<tRelEstructuraRiesgos>(this.attach_tRelEstructuraRiesgos), new Action<tRelEstructuraRiesgos>(this.detach_tRelEstructuraRiesgos));
 			OnCreated();
 		}
 		
@@ -3132,6 +3163,19 @@ namespace Risk.Models
 			}
 		}
 		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tEstructura_tRelEstructuraRiesgos", Storage="_tRelEstructuraRiesgos", ThisKey="IdEstructura", OtherKey="IdEstructura")]
+		public EntitySet<tRelEstructuraRiesgos> tRelEstructuraRiesgos
+		{
+			get
+			{
+				return this._tRelEstructuraRiesgos;
+			}
+			set
+			{
+				this._tRelEstructuraRiesgos.Assign(value);
+			}
+		}
+		
 		public event PropertyChangingEventHandler PropertyChanging;
 		
 		public event PropertyChangedEventHandler PropertyChanged;
@@ -3150,6 +3194,18 @@ namespace Risk.Models
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+		
+		private void attach_tRelEstructuraRiesgos(tRelEstructuraRiesgos entity)
+		{
+			this.SendPropertyChanging();
+			entity.tEstructura = this;
+		}
+		
+		private void detach_tRelEstructuraRiesgos(tRelEstructuraRiesgos entity)
+		{
+			this.SendPropertyChanging();
+			entity.tEstructura = null;
 		}
 	}
 	
@@ -3228,6 +3284,10 @@ namespace Risk.Models
 		
 		private System.Nullable<int> _IdRiesgo;
 		
+		private EntityRef<tEstructura> _tEstructura;
+		
+		private EntityRef<tRiesgos> _tRiesgos;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -3242,6 +3302,8 @@ namespace Risk.Models
 		
 		public tRelEstructuraRiesgos()
 		{
+			this._tEstructura = default(EntityRef<tEstructura>);
+			this._tRiesgos = default(EntityRef<tRiesgos>);
 			OnCreated();
 		}
 		
@@ -3276,6 +3338,10 @@ namespace Risk.Models
 			{
 				if ((this._IdEstructura != value))
 				{
+					if (this._tEstructura.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnIdEstructuraChanging(value);
 					this.SendPropertyChanging();
 					this._IdEstructura = value;
@@ -3296,11 +3362,83 @@ namespace Risk.Models
 			{
 				if ((this._IdRiesgo != value))
 				{
+					if (this._tRiesgos.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
 					this.OnIdRiesgoChanging(value);
 					this.SendPropertyChanging();
 					this._IdRiesgo = value;
 					this.SendPropertyChanged("IdRiesgo");
 					this.OnIdRiesgoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tEstructura_tRelEstructuraRiesgos", Storage="_tEstructura", ThisKey="IdEstructura", OtherKey="IdEstructura", IsForeignKey=true)]
+		public tEstructura tEstructura
+		{
+			get
+			{
+				return this._tEstructura.Entity;
+			}
+			set
+			{
+				tEstructura previousValue = this._tEstructura.Entity;
+				if (((previousValue != value) 
+							|| (this._tEstructura.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tEstructura.Entity = null;
+						previousValue.tRelEstructuraRiesgos.Remove(this);
+					}
+					this._tEstructura.Entity = value;
+					if ((value != null))
+					{
+						value.tRelEstructuraRiesgos.Add(this);
+						this._IdEstructura = value.IdEstructura;
+					}
+					else
+					{
+						this._IdEstructura = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("tEstructura");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="tRiesgos_tRelEstructuraRiesgos", Storage="_tRiesgos", ThisKey="IdRiesgo", OtherKey="IdRiesgo", IsForeignKey=true)]
+		public tRiesgos tRiesgos
+		{
+			get
+			{
+				return this._tRiesgos.Entity;
+			}
+			set
+			{
+				tRiesgos previousValue = this._tRiesgos.Entity;
+				if (((previousValue != value) 
+							|| (this._tRiesgos.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._tRiesgos.Entity = null;
+						previousValue.tRelEstructuraRiesgos.Remove(this);
+					}
+					this._tRiesgos.Entity = value;
+					if ((value != null))
+					{
+						value.tRelEstructuraRiesgos.Add(this);
+						this._IdRiesgo = value.IdRiesgo;
+					}
+					else
+					{
+						this._IdRiesgo = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("tRiesgos");
 				}
 			}
 		}
