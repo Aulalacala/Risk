@@ -150,8 +150,6 @@ $('#BtnChangeHistorical').click(function () {
 });
 
 $('#BtnSaveHistorical').click(function () {
-    var idEvaluacion = $('#financialImpact').attr('idEvaluacion');
-    var idRiesgo = $('#idRiesgo').val();
     var activa;
 
     if ($('#checkActiva').attr('checked') == 'checked') {
@@ -159,8 +157,8 @@ $('#BtnSaveHistorical').click(function () {
     }
 
     var datosEvaluacion = {
-        IdRiesgo: idRiesgo,
-        IdEvaluacion: idEvaluacion,
+        IdRiesgo:  $('#idRiesgo').val(),
+        IdEvaluacion:  $('#financialImpact').attr('idEvaluacion'),
         idEfectividad: $('#efectividad').val(),
         Fecha: $('#fecha').val(),
         Activa: activa
@@ -176,7 +174,7 @@ $('#BtnSaveHistorical').click(function () {
     $.ajax({
         url: "/Risk/guardaEvaluacion",
         type: 'post',
-        data: { idRiesgo: idRiesgo, idEvaluacion: idEvaluacion, evaluacion: datosEvaluacion },
+        data: { evaluacion: datosEvaluacion },
         success: function (data) {
             $('#modalNuevoEva').modal('show');
             //alert(urlRedireccion + ' ' + data)

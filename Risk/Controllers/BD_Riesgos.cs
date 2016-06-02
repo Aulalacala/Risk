@@ -335,30 +335,30 @@ namespace Risk.Controllers {
 
         #region CRUD relativo a Evaluaciones
 
-        public tRiesgosEvaluaciones insertarTRiesgosEvaluaciones(tRiesgosEvaluaciones evaluacion)
+        public bool insertarTRiesgosEvaluaciones(tRiesgosEvaluaciones evaluacion)
         {
             try
             {
                 Conexion.tRiesgosEvaluaciones.InsertOnSubmit(evaluacion);
                 Conexion.SubmitChanges();
-                return Conexion.tRiesgosEvaluaciones.Where(r => r.IdRiesgo == evaluacion.IdRiesgo && r.IdEvaluacion == evaluacion.IdEvaluacion).SingleOrDefault();
+                return true;
             }
             catch (Exception e)
             {
-                return null;
+                return false;
             }
         }
 
-        public int updateTRiesgsEvaluaciones(tRiesgosEvaluaciones evaluacion)
+        public bool updateTRiesgsEvaluaciones(tRiesgosEvaluaciones evaluacion)
         {
             try
             {
                 Conexion.SubmitChanges();
-                return Convert.ToInt32(evaluacion.IdRiesgo);
+                return true;
             }
             catch (Exception)
             {
-                return 0;
+                return false;
             }
         }
 
