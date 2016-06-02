@@ -169,13 +169,22 @@ namespace Risk.Controllers
         //OTROS MÉTODOS NECESARIOS
         public string pintaGrafico()
         {
+            string cadena = ConfigurationManager.ConnectionStrings["RiskMVCConnectionString"].ConnectionString;
+            string connectionString = cadena.Split(new[] { "Password=" }, StringSplitOptions.None)[1].Replace("\"", "");
+            EncritPass encryt = new EncritPass();
+            string passOK = encryt.Desencrit(connectionString);
+            //conexionBD = new SqlConnection(cadena.Replace(connectionString, passOK));
+
+
+
             DataSet miDataSet = new DataSet();
-            SqlConnection conexionBD = new SqlConnection(ConfigurationManager.ConnectionStrings["RiskConnectionString"].ConnectionString);
+            //SqlConnection conexionBD = new SqlConnection(ConfigurationManager.ConnectionStrings["RiskConnectionString"].ConnectionString);
+            SqlConnection conexionBD = new SqlConnection(cadena.Replace(connectionString, passOK));
             SqlDataAdapter adaptador;
             SqlCommandBuilder builder;
             string jsonString = string.Empty;
 
-            using (conexionBD = new SqlConnection(ConfigurationManager.ConnectionStrings["RiskConnectionString"].ConnectionString))
+            using (conexionBD = new SqlConnection(cadena.Replace(connectionString, passOK)))
             {
                 try
                 {
@@ -442,10 +451,6 @@ namespace Risk.Controllers
 
         public bool updateEvaluacion(tRiesgosEvaluaciones evaluacionRecuperada, tRiesgosEvaluaciones evaluacion)
         {
-
-
-
-
             evaluacionRecuperada.IdRiesgo = evaluacion.IdRiesgo;
             evaluacionRecuperada.IdNivel = evaluacion.IdNivel != null ? evaluacion.IdNivel : evaluacionRecuperada.IdNivel;
             evaluacionRecuperada.Fecha = evaluacion.Fecha != null ? evaluacion.Fecha : evaluacionRecuperada.Fecha;
@@ -466,8 +471,6 @@ namespace Risk.Controllers
             try
             {
 
-
-
                 if (evaluacionRecuperada.IdEvaluacion != 0)
                 {
                     BD_Riesgos.updateTRiesgsEvaluaciones(evaluacionRecuperada);
@@ -482,7 +485,6 @@ namespace Risk.Controllers
                         BD_Riesgos.insertarTRiesgosEvaluaciones(evaluacionRecuperada);
                     }
 
-
                 }
                 return true;
             }
@@ -494,39 +496,7 @@ namespace Risk.Controllers
 
 
         }
-
-        //public int insertaEvaluacion(tRiesgosEvaluaciones evaluacion)
-        //{
-
-
-        //evaluacionNueva.IdRiesgo = evaluacion.IdRiesgo;
-        //evaluacionNueva.IdNivel = evaluacion.IdNivel != null ? evaluacion.IdNivel : 0;
-        //evaluacionNueva.Fecha = evaluacion.Fecha != null ? evaluacion.Fecha : evaluacion.Fecha;
-        //evaluacionNueva.Activa = evaluacion.Activa;
-        //evaluacionNueva.Ultima = true;
-        //evaluacionNueva.IdFrecAntes = evaluacion.IdFrecAntes != null ? evaluacion.IdFrecAntes : 0;
-        //evaluacionNueva.IdSeveAntes = evaluacion.IdSeveAntes != null ? evaluacion.IdSeveAntes : 0;
-        //evaluacionNueva.IdFrecDespues = evaluacion.IdFrecDespues != null ? evaluacion.IdFrecDespues : 0;
-        //evaluacionNueva.IdSeveDespues = evaluacion.IdSeveDespues != null ? evaluacion.IdSeveDespues : 0;
-        //evaluacionNueva.IdSevePeorAntes = evaluacion.IdSevePeorAntes != null ? evaluacion.IdSevePeorAntes : 0;
-        //evaluacionNueva.IdSevePeorDespues = evaluacion.IdSevePeorDespues != null ? evaluacion.IdSevePeorDespues : 0;
-        //evaluacionNueva.idEfectividad = evaluacion.idEfectividad != null ? evaluacion.idEfectividad : 0;
-        //evaluacionNueva.Efectividad = evaluacion.Efectividad != null ? evaluacion.Efectividad : 0;
-        //evaluacionNueva.IdFrecPlanDespues = evaluacion.IdFrecPlanDespues != null ? evaluacion.IdFrecPlanDespues : 0;
-        //evaluacionNueva.IdSevePlanDespues = evaluacion.IdSevePlanDespues != null ? evaluacion.IdSevePlanDespues : 0;
-        //evaluacionNueva.IdSevePeorPlanDespues = evaluacion.IdSevePeorPlanDespues != null ? evaluacion.IdSevePeorPlanDespues : 0;
-
-        //bool cambioUltimas = BD_Riesgos.cambiaUltimasAFalseEvaluaciones(Convert.ToInt32(evaluacion.IdRiesgo));
-        //tRiesgosEvaluaciones evaluacionInsertada = new tRiesgosEvaluaciones();
-
-        //if (cambioUltimas)
-        //{
-        //    evaluacionInsertada = BD_Riesgos.insertarTRiesgosEvaluaciones(evaluacionNueva);
-        //}
-
-        //return Convert.ToInt32(evaluacionInsertada.IdRiesgo);
-        //}
-
+      
         [HttpPost]
         public string recuperaIdUltimaEvaluacion(int id)
         {
