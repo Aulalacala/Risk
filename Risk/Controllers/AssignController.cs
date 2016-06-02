@@ -86,7 +86,7 @@ namespace Risk.Controllers {
             AssignMultipleRiskVM datosTablas = new AssignMultipleRiskVM();
 
             DatosTablaModel datosTablaAsignados = new DatosTablaModel();
-            //Cargar tbody con los riesgos asignados
+            //CARGAR TBODY CON LOS RIESGOS ASIGNADOS
             datosTablaAsignados.datosTHead = datosTablaGeneral.datosTHead;
             datosTablaAsignados.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos, null, 0, 0, 0, 0, Convert.ToInt32(idEstructura));
             datosTablaAsignados.titulo = "Riesgos de la estructura";
@@ -96,7 +96,7 @@ namespace Risk.Controllers {
 
 
             DatosTablaModel datosTablaSinAsignar = new DatosTablaModel();
-            //Cargar tbody con riesgos sin asignar
+            //CARGAR TBODY CON RIESGOS SIN ASIGNAR
             datosTablaSinAsignar.datosTHead = datosTablaGeneral.datosTHead;
             datosTablaSinAsignar.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos, null, 0, 0, 0, 0,0, true);
             datosTablaSinAsignar.titulo = "Riesgos sin asignación de estructura";
@@ -120,18 +120,57 @@ namespace Risk.Controllers {
         ///  idEstructura!=0 --> Asignacion del riesgo a la estructura
         ///  Viene de llamada ajax desde vista AssignMultipleRisks
         /// </summary>
-        /// <param name="riesgos"></param>
-        /// <param name="idEstructura">Si es 0 --> los riesgos que entran se quieren desvincular de la estructura // Si es !0 --> es para vincular riesgos a una estructura </param>
+        /// <param name="listaRiesgos"></param> Key = idEstructura, Value = lista de idRiesgos a cambiar
+        /// Si es 0 --> los riesgos que entran se quieren desvincular de la estructura // Si es !0 --> es para vincular riesgos a una estructura </param>
         /// <returns>Despues de guardar vuelve redirige a la vista actualizada</returns>
-        public ActionResult guardarCambiosMultipleRisk (List<int> riesgos, int idEstructura) {
+        public ActionResult guardarCambiosMultipleRisk (Dictionary<string,List<string>> listaRiesgos) {
 
-            string CodRiesgo = idEstructura != 0 ? "" : null;
-            string CodRiesgoLocalizado = idEstructura != 0 ? "" : null;
+            foreach (var riesgo in listaRiesgos) {
+
+                tRiesgos riesgoActualizar = new tRiesgos();
+
+                if (riesgo.Key == "0") { // RIESGOS A LOS QUE QUEREMOS QUITAR LA ESTRUCTURA
+                    foreach (var id in riesgo.Value) {
+                        riesgoActualizar = BD_Riesgos.recuperarTRiesgo(Convert.ToInt32(id));
+                        riesgoActualizar.CodRiesgo = null;
+                        riesgoActualizar.CodRiesgoLocalizado = null;
+
+                        // Borrar la relación estructura-riesgo. 
+                        BD_Riesgos.deleteTRelEstructuraRiesgos(Convert.ToInt32(id));
+                    }
 
 
-            return Json(Url.Action("AssignMultipleRisks", "Assign", new { idEstructura = idEstructura }));
+                }
+
+                else {  // RIESGOS CON IDESTRUCTURA EN LA KEY 
+                    foreach (var id in riesgo.Value) {
+                        riesgoActualizar = BD_Riesgos.recuperarTRiesgo(Convert.ToInt32(id));
+                        riesgoActualizar.CodRiesgo = BD_Riesgos.ultimoRiesgoDisponible(riesgo.Key);
+                        riesgoActualizar.CodRiesgoLocalizado = riesgoActualizar.CodRiesgo.Substring(0, 8);
+
+                        // Crear la relación estructura-riesgo. 
+                        tRelEstructuraRiesgos relEstructuraRiesgo = new tRelEstructuraRiesgos();
+                        relEstructuraRiesgo.IdEstructura = Convert.ToInt32(riesgo.Key);
+                        relEstructuraRiesgo.IdRiesgo = Convert.ToInt32(id);
+                        BD_Riesgos.insertarTRelEstructuraRiesgoNuevo(relEstructuraRiesgo);
+                    }
+                }
+
+
+                int idRiesgoActualizar = BD_Riesgos.updateRiesgo(riesgoActualizar);
+
+            }
+
+            string idEstructura = listaRiesgos.Keys.ElementAt(0) == "0" ? listaRiesgos.Keys.ElementAt(1) : listaRiesgos.Keys.ElementAt(0); 
+
+
+            return Json(Url.Action("AssignMultipleRisks", "Assign", new { idEstructura = listaRiesgos.Keys.ElementAt(1) }));
         }
         #endregion
+
+
+
+
 
         #region View KrisIndicators
         // Vista inicial GET KrisIndicators ----------------------------------------------
