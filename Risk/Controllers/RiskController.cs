@@ -155,10 +155,6 @@ namespace Risk.Controllers
             return PartialView(fichaRiesgoVM);
         }
 
-
-
-
-
         public ActionResult Graphic()
         {
             qRiesgosNombres riesgoRecup = (qRiesgosNombres)Session["riesgo"];
@@ -254,6 +250,8 @@ namespace Risk.Controllers
             return fichaRiesgoVM;
         }
 
+        #region RIESGOS Form General
+
         [HttpPost]
         public ActionResult formGeneral(FormGeneralModel datosFormulario)
         {
@@ -274,14 +272,16 @@ namespace Risk.Controllers
 
         private int insertarNuevoRiesgo(FormGeneralModel datosFormulario)
         {
-           
+
             //INSERTAR CON CRUD-SQL
-            if (false) {
+            if (false)
+            {
                 insertOrUpdateCRUD(datosFormulario);
 
-            //INSERTAR CON MODELOS DBML
-            } else {
-
+                //INSERTAR CON MODELOS DBML
+            }
+            else
+            {
                 tRiesgos riesgoNuevo = new tRiesgos();
 
                 riesgoNuevo.CodRiesgo = datosFormulario.CodRiesgo != null ? datosFormulario.CodRiesgo : null;
@@ -298,38 +298,30 @@ namespace Risk.Controllers
                 riesgoNuevo.IdResponsable = datosFormulario.IdResponsable != null ? int.Parse(datosFormulario.IdResponsable) : 0;
                 riesgoNuevo.IdSupervisor = datosFormulario.IdResponsable2 != null ? int.Parse(datosFormulario.IdResponsable2) : 0;
 
-
                 // Insertar el riesgo en la BD (Devuelve el riesgo insertado con el idRiesgo autogenerado)
                 tRiesgos idRiesgo = BD_Riesgos.insertarNuevoRiesgo(riesgoNuevo);
 
-
-                if (datosFormulario.idEstructura != null) {
+                if (datosFormulario.idEstructura != null)
+                {
                     // Crear tRelEstructuraRiesgos
                     tRelEstructuraRiesgos estructuraNuevo = new tRelEstructuraRiesgos();
                     estructuraNuevo.IdRiesgo = idRiesgo.IdRiesgo;
                     estructuraNuevo.IdEstructura = int.Parse(datosFormulario.idEstructura);
-
                 }
-
                 return idRiesgo.IdRiesgo;
-
             }
-         
         }
-
-
-      
 
         private int updateRiesgo(FormGeneralModel datosFormulario)
         {
-
             //INSERTAR CON CRUD-SQL
-            if (false) {
+            if (false)
+            {
                 insertOrUpdateCRUD(datosFormulario);
-
                 //INSERTAR CON MODELOS DBML
-            } else {
-
+            }
+            else
+            {
                 tRiesgos riesgoUpdate = BD_Riesgos.recuperarTRiesgo(Convert.ToInt32(datosFormulario.IdRiesgo));
 
                 riesgoUpdate.CodRiesgo = datosFormulario.CodRiesgo != null ? datosFormulario.CodRiesgo : riesgoUpdate.CodRiesgo;
@@ -353,21 +345,23 @@ namespace Risk.Controllers
             }
         }
 
-
-
         /// <summary>
         /// Método para hacer insert o update de un riesgo a través de las clases CRUDSql y CRUDSql_Switch con sentencias SQL tradicionales
         /// Entran los datos desde JQuery en botoneraPartials.js al método formGeneral que bifurca a insert o update
         /// </summary>
         /// <param name="datosFormulario"></param>
-        private void insertOrUpdateCRUD(FormGeneralModel datosFormulario) {
-
+        private void insertOrUpdateCRUD(FormGeneralModel datosFormulario)
+        {
             PropertyInfo[] props = datosFormulario.GetType().GetProperties();
             List<Tuple<string, string>> listaValues = new List<Tuple<string, string>>();
 
-            foreach (PropertyInfo item in props) {
-                if (item.GetValue(datosFormulario, null) != null) {
-                    if (item.Name == "IdRiesgo" || item.Name == "idEstructura") { continue; } else {
+            foreach (PropertyInfo item in props)
+            {
+                if (item.GetValue(datosFormulario, null) != null)
+                {
+                    if (item.Name == "IdRiesgo" || item.Name == "idEstructura") { continue; }
+                    else
+                    {
                         Tuple<string, string> tupla = Tuple.Create(item.Name, item.GetValue(datosFormulario, null).ToString());
                         listaValues.Add(tupla);
                     }
@@ -376,42 +370,39 @@ namespace Risk.Controllers
 
             string tabla = "tRiesgos";
 
-            if (datosFormulario.IdRiesgo.Equals("0")) {
+            if (datosFormulario.IdRiesgo.Equals("0"))
+            {
                 int idRiesgoNuevoSwitch = _CRUDSql_Switch.insert(tabla, listaValues, "riesgos");
                 int idRiesgoNuevo = _CRUDSql.insert(tabla, listaValues, "riesgos");
-            } else {
+            }
+            else
+            {
                 int idRiesgoUpdateSwitch = _CRUDSql_Switch.update(tabla, listaValues, "riesgos", "IdRiesgo=" + datosFormulario.IdRiesgo);
                 int idRiesgoUpdate = _CRUDSql.update(tabla, listaValues, "riesgos", "IdRiesgo=" + datosFormulario.IdRiesgo);
             }
         }
 
-
-
-
         [HttpPost]
         public JsonResult deleteRiesgo(int id)
         {
-            if (false) {
+            if (false)
+            {
                 _CRUDSql.delete("tRiesgos", "IdRiesgo = " + id);
-                _CRUDSql_Switch.delete("tRiesgos", "riesgos","IdRiesgo = " + id);
+                _CRUDSql_Switch.delete("tRiesgos", "riesgos", "IdRiesgo = " + id);
             }
-
-            try {
+            try
+            {
                 bool flag = BD_Riesgos.deleteRiesgo(id);
                 return Json(Url.Action("Risks", "Assign"));
-            } catch (Exception) { return null; }
-           
-            
+            }
+            catch (Exception) { return null; }
         }
-
-
 
         [HttpPost]
         public ActionResult nuevoRiskDesdeStructure(int idEstructura)
         {
             return Json(Url.Action("RiskFicha", "Risk", new { id = 0, idEstructura = idEstructura }));
         }
-
 
         // Metodo (llamada desde scripts2.js) para recuperar el siguiente riesgo disponible y rellenar Particle Code en un riesgo nuevo
         public string dameUltimoRiesgoDisponible(string idEstructura)
@@ -426,15 +417,19 @@ namespace Risk.Controllers
             var j = JsonConvert.SerializeObject(dicEnvio);
             return j;
         }
+        #endregion
+
+        #region HISTORICAL
 
         [HttpPost]
         public string guardaEvaluacion(int idRiesgo, int idEvaluacion, tRiesgosEvaluaciones evaluacion)
         {
-            if(idEvaluacion != 0)
+            if (idEvaluacion != 0)
             {
-               
+
                 updateEvaluacion(evaluacion);
-            }else
+            }
+            else
             {
                 insertaEvaluacion(evaluacion);
             }
@@ -483,7 +478,7 @@ namespace Risk.Controllers
             evaluacionNueva.IdSevePeorAntes = evaluacion.IdSevePeorAntes != null ? evaluacion.IdSevePeorAntes : 0;
             evaluacionNueva.IdSevePeorDespues = evaluacion.IdSevePeorDespues != null ? evaluacion.IdSevePeorDespues : 0;
             evaluacionNueva.idEfectividad = evaluacion.idEfectividad != null ? evaluacion.idEfectividad : 0;
-            evaluacionNueva.Efectividad = evaluacion.Efectividad != null ? evaluacion.Efectividad :0;
+            evaluacionNueva.Efectividad = evaluacion.Efectividad != null ? evaluacion.Efectividad : 0;
             evaluacionNueva.IdFrecPlanDespues = evaluacion.IdFrecPlanDespues != null ? evaluacion.IdFrecPlanDespues : 0;
             evaluacionNueva.IdSevePlanDespues = evaluacion.IdSevePlanDespues != null ? evaluacion.IdSevePlanDespues : 0;
             evaluacionNueva.IdSevePeorPlanDespues = evaluacion.IdSevePeorPlanDespues != null ? evaluacion.IdSevePeorPlanDespues : 0;
@@ -498,5 +493,20 @@ namespace Risk.Controllers
 
             return Convert.ToInt32(evaluacionInsertada.IdRiesgo);
         }
+
+        [HttpPost]
+        public string recuperaIdUltimaEvaluacion(int id)
+        {
+            int idRecuerado = BD_Riesgos.recuperaIdUltimaEvaluacion(id);
+            return JsonConvert.SerializeObject(idRecuerado);
+        }
+
+        [HttpPost]
+        public string deleteEvaluacion(int idRiesgo, int idEvaluacion)
+        {
+            bool delete = BD_Riesgos.deleteEvaluacion(idRiesgo, idEvaluacion);
+            return JsonConvert.SerializeObject(delete); ;
+        }
+        #endregion
     }
 }

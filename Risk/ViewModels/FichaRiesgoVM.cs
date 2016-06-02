@@ -9,7 +9,7 @@ namespace Risk.ViewModels
     public class FichaRiesgoVM
     {
         public qRiesgosNombres qRiesgosNombre_VM { get; set; }
-        public qRiesgosEvalVal qRiesgosEvalVal_VM { get; set; }
+        //public qRiesgosEvalVal qRiesgosEvalVal_VM { get; set; }
 
         public Dictionary<int, qRiesgosEvalVal> qRiesgosEvalVal_Dic_VM { get; set; }
         public DropDownModel dropDowns { get; set; }

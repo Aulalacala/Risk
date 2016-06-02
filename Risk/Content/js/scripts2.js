@@ -32,7 +32,7 @@ $('a[id^="mnu_"]').click(function () {
     if ($(this).parent().hasClass('disabled')) {
         //alert($(this).attr('id'));
         $('#modalAviso').modal('show');
-        $('#BtnDiscard').attr('handler', $(this).attr('id'));
+        $('#BtnDiscardModal').attr('handler', $(this).attr('id'));
         return false;
     }
     else {

@@ -4,11 +4,14 @@
 
 <form id="miForm">
     <div id="botonera" class="pull-right">
-        <input type="button" class="btn btn-primary" name="BtnDelete" value="DELETE" id="BtnDelete" disabled/>
+        <input type="button" class="btn btn-primary" name="BtnDeleteHistorical" value="DELETE" id="BtnDeleteHistorical" disabled/>
         <input type="button" class="btn btn-primary" name="BtnNewHistorical" value="NEW" id="BtnNewHistorical" />
         <input type="button" class="btn btn-primary" name="BtnSaveHistorical" value="SAVE" id="BtnSaveHistorical" disabled />
         <input type="button" class="btn btn-primary" name="BtnChangeHistorical" value="CHANGE" id="BtnChangeHistorical" disabled />
         <input type="button" class="btn btn-primary" name="BtnCopyLast" value="COPY LAST" id="BtnCopyLast" />
+
+        
+
     </div>
     <div class="clearfix"></div>
     <div class="divider"></div>
@@ -44,10 +47,7 @@
 
 
 <script>
-    $('#divFechaEvaluacion input').datepicker({
-        todayHighlight: true
-    })
-    
+       
     $('#datosTablaEvaluaciones table').attr('id', 'datosTablaEvaluaciones');
     var table = $('table[id=datosTablaEvaluaciones]').DataTable({
         //responsive: true,
@@ -56,24 +56,30 @@
         scrollCollapse: true,
         scroller: true,
         retrieve: true
-    })
+    });
+
+    $('#financialImpactDiv').change(function () {
+        alert('cambio')
+        $('#BtnSaveHistorical').removeClass('btn-primary').addClass('btn-danger');
+        $('#Menu li:not([class*="active"])').addClass('disabled');
+    });
 
     $('#datosTablaEvaluaciones tbody').on('click', 'tr', function () {
 
-        if ($(this).hasClass('selected')) {
-            $(this).removeClass('selected');
-        }
-        else {
-            table.$('tr.selected').removeClass('selected');
-            $(this).addClass('selected');
-        }
+        $('tbody tr').each(function (pos, el) {
+            $(this).css('background-color', '#ffffff');
+            $(this).removeAttr('selected')
+        })
 
+        $(this).css('background-color', '#eaf7fa');
+        $(this).attr('selected', 'selected')
+      
         var idEvaluacion = $(this).attr('id');
         var idRiesgo = $('#idRiesgo').val();
         //alert('idEvaluacion=> ' + idEvaluacion + 'idRiesgo => ' + idRiesgo);
 
         $('#financialHistoricalDiv').show();
-        $('#BtnDelete').removeAttr('disabled');
+        //$('#BtnDelete').removeAttr('disabled');
         $('#BtnChangeHistorical').removeAttr('disabled');
 
         $('#financialImpactDiv').empty();
@@ -81,9 +87,12 @@
         var ruta = "http://localhost:1525/Risk/FinancialImpactTextBox";
         $('#financialImpactDiv').load(ruta, { "id": idRiesgo, "idEvaluacion": idEvaluacion })
 
-        var ruta = "http://localhost:1525/Risk/ActiveEfectivityDate";
-        $('#ActiveEfectivityDateDiv').load(ruta, { "id": idRiesgo, "idEvaluacion": idEvaluacion })
+        var ruta2 = "http://localhost:1525/Risk/ActiveEfectivityDate";
+        $('#ActiveEfectivityDateDiv').load(ruta2, { "id": idRiesgo, "idEvaluacion": idEvaluacion })
     });
+
+
+
 
 </script>
 

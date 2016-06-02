@@ -378,6 +378,22 @@ namespace Risk.Controllers {
             }
         }
 
+        public bool deleteEvaluacion(int idRiesgo, int idEvaluacion)
+        {
+            try
+            {
+                var evaluacion= Conexion.tRiesgosEvaluaciones.Where(r => r.IdRiesgo == idRiesgo && r.IdEvaluacion == idEvaluacion).Select(r => r).FirstOrDefault();
+                Conexion.tRiesgosEvaluaciones.DeleteOnSubmit(evaluacion);
+                Conexion.SubmitChanges();
+                return true;
+            }
+            catch (Exception)
+            {
+
+                return false;
+            }
+        }
+
         #region consultas relativas a Evaluaciones
         public Dictionary<int, qRiesgosEvalVal> recuperaEvaluaciones(int id, int idEvaluacion = 0)
         {

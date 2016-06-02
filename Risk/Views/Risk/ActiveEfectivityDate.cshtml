@@ -27,7 +27,7 @@
     </div>
     <div class="col-lg-9 col-md-9">
         <div>
-            @Html.DropDown(Model.dropDowns.datosEvaEfectividad, "efectividad", "tEva_Efectividad", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.idEfectividad).ToString(), null, null)
+            @Html.DropDown(Model.dropDowns.datosEvaEfectividad, "efectividad", "tEva_Efectividad", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.idEfectividad).Single().ToString(), null, null)
         </div>
     </div>
 </div>
@@ -40,7 +40,24 @@
     <div class="col-lg-9 col-md-9">
         <div id="divFechaEvaluacion" class="input-group">
             <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-            <input id="fecha" type="text" class="form-control" data-date-format="mm/dd/yyyy" value="@DateTime.Now.ToString()">
+            @{ 
+                var fecha = "";
+                if (Model.qRiesgosEvalVal_Dic_VM.Values.Select(x=>x.Fecha).Single().ToString() != null)
+                {
+                    fecha = Model.qRiesgosEvalVal_Dic_VM.Values.Select(x => x.Fecha).Single().ToString();
+                }else
+                {
+                    fecha = @DateTime.Now.ToString("dd/mm/yyyy");
+                }
+            }
+
+            <input id="fecha" type="text" class="form-control" data-date-format="dd/mm/yyyy" value=@fecha>
         </div>
     </div>
 </div>
+
+<script>
+    $('#divFechaEvaluacion input').datepicker({
+        todayHighlight: true
+    })
+</script>
