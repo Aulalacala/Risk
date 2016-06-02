@@ -81,6 +81,49 @@
     </div>
 </div>
 
+
+<!--MODAL AVISO CAMBIOS btExit-->
+<div id="modalAviso" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">WARNING!!</h4>
+            </div>
+
+            <div class="modal-body text-center">
+                <p>There are changes in the actual structure. Please, save this changes or discard them.</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-warning" id="BtnContinueModal">CONTINUE</button>
+                <button type="button" class="btn btn-primary" id="BtnDiscard">DISCARD CHANGES AND EXIT</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+<!--MODAL AVISO CAMBIOS CREADOS-->
+<div id="modalNuevo" class="modal fade" tabindex="-1" role="dialog">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h4 class="modal-title">CHANGE ASSIGN MULTIPLES RISKS OK!</h4>
+            </div>
+
+            <div class="modal-body text-center">
+                <p>The changes have been created correctly!!</p>
+            </div>
+
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="BtnCloseModal">CLOSE</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <script>
     $(document).ready(function () {
 
@@ -167,6 +210,8 @@
         })
 
 
+        var urlRedireccion;
+
         // Guardar cambios
         $('#BtnSave').click(function () {
 
@@ -218,7 +263,8 @@
                     type: 'post',
                     data: { listaRiesgos: listaRiesgos, idEstructura: $('#idEstructura').val() },
                     success: function (data) {
-                        window.location.href = data;
+                        $('#modalNuevo').modal('show');
+                        urlRedireccion = data;
                     },
                     error: function (jqXHR, textStatus, errorThrown) {
                         alert('ERROR ' + jqXHR + ' ' + textStatus + ' ' + errorThrown)
@@ -231,6 +277,29 @@
 
         $("#idEstructura").change(function () {
             window.location.href = '/Assign/AssignMultipleRisks?idEstructura=' + $(this).val();
+        });
+
+
+        $("#BtnExit").click(function () {
+            if ($("#BtnSave").hasClass('btn-danger')) {
+                $('#modalAviso').modal('show');
+            }
+        })
+
+
+        $('#BtnCloseModal').click(function () {
+            $('#modalNuevo').modal('hide');
+            window.location.href = urlRedireccion;
+        });
+
+
+        $('#BtnDiscard').click(function () {
+            $('#modalAviso').modal('hide');
+            window.location.href = "http://localhost:1525/Assign/Structure/";
+        });
+
+        $("#BtnContinueModal").click(function () {
+            $('#modalAviso').modal('hide');
         })
 
     });
