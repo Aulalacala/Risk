@@ -47,7 +47,7 @@ $('a[id^="mnu_"]').click(function () {
         var pagina = $(this).attr("id").replace('mnu_', '');
         var id = $('#IdRiesgo').val();
 
-        var vista = window.location.href.split('/')[4];
+        var vista = window.location.href.split('/')[3];
 
         var ruta = "http://localhost:1525/" + vista + "/" + pagina;
 

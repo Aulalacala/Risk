@@ -118,6 +118,11 @@ namespace Risk.Controllers
             Dictionary<int, List<Tuple<string, string>>> dicBody = new Dictionary<int, List<Tuple<string, string>>>();
             Dictionary<int, List<Tuple<string, string>>> dic = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
 
+            //TODO: Unicamente se pasaría el diccionario que devuelve => BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
+            //Se ha hecho ahora, de esta manera porque aun no existe esta tabla, y asi visualizar datos
+            //Asi : ↓↓↓
+            // datosTabla.datosTBody =  BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
+
             foreach (var item in dic.Take(3))
             {
                 dicBody.Add(item.Key, item.Value);

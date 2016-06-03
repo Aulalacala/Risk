@@ -1,0 +1,64 @@
+﻿@model Risk.Models.DatosTablaModel
+
+
+<div class="panel">
+    <div id="partialViewsArchiveTabla" class="panel-body">
+        <div id="krisTabla" style="background-color:#eaf7fa" class="row">
+            <div class="col-lg-12 col-md-12">
+                <span class="form-left-label"><b>ARCHIVE</b></span>
+            </div>
+            <div style="background-color:#eaf7fa; height:500px;">
+                <div class="divDelGrid center-block table-responsive" id="datosTablaArchive" style="width:87%">
+                    @Html.Partial("~/Views/PartialViews/TablaDatos.cshtml", Model)
+                </div>
+            </div>
+
+            <script>
+                $('#datosTablaArchive table').attr('id', 'datosTablaArchive');
+                var table = $('table[id=datosTablaArchive]').DataTable({
+                    //responsive: true,
+                    scrollY: 1000,
+                    scrollX: true,
+                    scrollCollapse: true,
+                    scroller: true,
+                    retrieve: true,
+                    "bPaginate": false,
+                    "bFilter": false,
+                    "bInfo": false,
+                });
+            </script>
+        </div>
+    </div>
+</div>
+
+<div class="divider-20"></div>
+
+<div class="panel">
+    <div id="partialViewsArchiveGrafico" class="panel-body">
+        <div id="krisGrafico" style="background-color:#eaf7fa" class="row">
+            <div class="col-lg-12 col-md-12">
+                <span class="form-left-label"><b>GRAPHIC</b></span>
+            </div>
+
+            <div id="grafico" style="height: 250px">
+            </div>
+
+            <script>
+                $(document).ready(function () {
+                    $.getJSON('/KRIS/pintaGrafico',
+                       function (data) {
+                           Morris.Line({
+                               element: 'grafico',
+                               data: data,
+                               xkey: 'year',
+                               ykeys: ['value'],
+                               labels: ['value']
+                           });
+                       }
+                    );
+
+                })
+            </script>
+        </div>
+    </div>
+</div>
