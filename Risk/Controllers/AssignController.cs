@@ -165,10 +165,6 @@ namespace Risk.Controllers {
         }
         #endregion
 
-
-
-
-
         #region View KrisIndicators
         // Vista inicial GET KrisIndicators ----------------------------------------------
         public ActionResult KRISIndicators() {
