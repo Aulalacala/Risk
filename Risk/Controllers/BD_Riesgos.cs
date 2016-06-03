@@ -216,13 +216,8 @@ namespace Risk.Controllers {
             {
                 Conexion.tRiesgos.InsertOnSubmit(riesgoNuevo);
                 Conexion.SubmitChanges();
-                //return Conexion.tRiesgos.Where(r => r.IdRiesgo == riesgoNuevo.IdRiesgo).SingleOrDefault();
-
             }
-            catch (Exception e)
-            {
-                //return null;
-            }
+            catch (Exception e) {}
         }
 
         public void updateRiesgo(tRiesgos riesgo)
@@ -230,13 +225,8 @@ namespace Risk.Controllers {
             try
             {
                 Conexion.SubmitChanges();
-                //return riesgo.IdRiesgo;
             }
-            catch (Exception)
-            {
-
-                //return 0;
-            }         
+            catch (Exception){}         
         }
 
         public bool deleteRiesgo(int idRiesgo)
