@@ -77,6 +77,7 @@
       <Column Name="IdControlesOportunidad" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
       <Column Name="IdControlesEfectividad" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Vigencia" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Association Name="tRiesgos_tRelEstructuraRiesgos" Member="tRelEstructuraRiesgos" ThisKey="IdRiesgo" OtherKey="IdRiesgo" Type="tRelEstructuraRiesgos" />
     </Type>
   </Table>
   <Table Name="dbo.tRiesgos_Categorias" Member="tRiesgos_Categorias">
@@ -156,6 +157,7 @@
       <Column Name="idPadre" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="Orden" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="CodCompleto" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Association Name="tEstructura_tRelEstructuraRiesgos" Member="tRelEstructuraRiesgos" ThisKey="IdEstructura" OtherKey="IdEstructura" Type="tRelEstructuraRiesgos" />
     </Type>
   </Table>
   <Table Name="dbo.qEstructura_Contenidos_Def" Member="qEstructura_Contenidos_Def">
@@ -170,6 +172,8 @@
       <Column Name="IdEstruturaRiesgo" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="IdEstructura" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="IdRiesgo" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Association Name="tEstructura_tRelEstructuraRiesgos" Member="tEstructura" ThisKey="IdEstructura" OtherKey="IdEstructura" Type="tEstructura" IsForeignKey="true" />
+      <Association Name="tRiesgos_tRelEstructuraRiesgos" Member="tRiesgos" ThisKey="IdRiesgo" OtherKey="IdRiesgo" Type="tRiesgos" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.tEva_Efectividad" Member="tEva_Efectividad">

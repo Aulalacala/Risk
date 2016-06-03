@@ -15,7 +15,6 @@ namespace Risk.Controllers {
         Riesgos_BDDataContext Conexion = (Riesgos_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralRiesgos();
 
 
-
         public Dictionary<int, qRiesgosNombres> datosQ = new Dictionary<int, qRiesgosNombres>();
 
 
@@ -212,32 +211,23 @@ namespace Risk.Controllers {
         #region RiskController
 
         #region CRUD relativos a Riesgos
-        public tRiesgos insertarNuevoRiesgo(tRiesgos riesgoNuevo)
+        public void insertarNuevoRiesgo(tRiesgos riesgoNuevo)
         {
             try
             {
                 Conexion.tRiesgos.InsertOnSubmit(riesgoNuevo);
                 Conexion.SubmitChanges();
-                return Conexion.tRiesgos.Where(r => r.IdRiesgo == riesgoNuevo.IdRiesgo).SingleOrDefault();
             }
-            catch (Exception e)
-            {
-                return null;
-            }
+            catch (Exception e) {}
         }
 
-        public int updateRiesgo(tRiesgos riesgo)
+        public void updateRiesgo(tRiesgos riesgo)
         {
             try
             {
                 Conexion.SubmitChanges();
-                return riesgo.IdRiesgo;
             }
-            catch (Exception)
-            {
-
-                return 0;
-            }         
+            catch (Exception){}         
         }
 
         public bool deleteRiesgo(int idRiesgo)
