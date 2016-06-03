@@ -156,8 +156,6 @@ namespace Risk.Controllers
             datosTabla.editable = false;
             datosTabla.borrar = false;
 
-
-
             return PartialView(datosTabla);
         }
 

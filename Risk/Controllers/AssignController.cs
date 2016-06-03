@@ -165,14 +165,33 @@ namespace Risk.Controllers {
         }
         #endregion
 
-
-
-
-
         #region View KrisIndicators
         // Vista inicial GET KrisIndicators ----------------------------------------------
         public ActionResult KRISIndicators() {
-            return View();
+
+            string colVer = "CodRiesgo,Nombre,Categoria,Clasif1,Clasif2,Clasif3,CodRiesgoLocalizado";
+            string colTitulos = "Código Riesgo,Nombre,Categoría,Clasificación1,Clasificación2,Clasificación3,Código Localizado";
+
+            DatosTablaModel datosTabla = new DatosTablaModel();
+            datosTabla.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosNombres", colVer, colTitulos);
+
+            Dictionary<int, List<Tuple<string, string>>> dicBody = new Dictionary<int, List<Tuple<string, string>>>();
+            Dictionary<int, List<Tuple<string, string>>> dic = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
+
+            foreach (var item in dic.Take(3))
+            {
+                dicBody.Add(item.Key, item.Value);
+            }
+
+            datosTabla.datosTBody = dicBody;
+            datosTabla.vistaProcedencia = "Scoopes";
+            datosTabla.editable = true;
+            datosTabla.urlActionEditar = new Tuple<string, string>("KrisFicha", "KRIS");
+            datosTabla.borrar = true;
+            datosTabla.urlActionBorrar = new Tuple<string, string>("DeleteKris", "KRIS");
+
+
+            return View(datosTabla);
         }
         #endregion
 

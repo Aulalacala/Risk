@@ -1,4 +1,4 @@
-﻿
+﻿@model Risk.Models.DatosTablaModel
 @{
     ViewBag.Title = "KRISIndicators";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,3 +6,58 @@
 
 <h2>KRISIndicators</h2>
 
+<div class="panel Incidencias_lista_divPagina">
+    <div class="panel-body">
+
+        <!-- TITLE & BUTTONS -->
+        <span class="title">SEARCH CRITERIA</span>
+        <input type="submit" class="btn btn-primary pull-right" name="BtnBuscarKRIS" value="SEARCH" id="BtnBuscarKRIS" />
+        <div class="clearfix"></div>
+        <div class="divider"></div>
+
+        <!-- SEARCH FORM -->
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-12">
+
+                <!-- DIVIDER -->
+                <div class="divider-30"></div>
+
+                <!-- ROW FILTER -->
+                <div class="row row-no-padding">
+                    <div class="col-lg-2 col-md-2">
+                        <span class="form-left-label" id="labelFilters">Filters</span>
+                    </div>
+
+                    <div class="col-lg-10 col-md-10">
+                        <input type="text" class="form-control w50" name="filtro" />
+                    </div>
+                </div>
+
+                <div class="divider-20"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RESULTS -->
+    <div class="panel">
+        <div class="panel-body">
+            <!-- RESULTS TABLE -->
+            <div class="row">
+                <div class="col-lg-12 col-md-12">
+                    <!-- DIVIDER -->
+                    <div class="divider-30"></div>
+                    <!-- TABLE DIV -->
+                </div>
+
+                <div>
+                    <div class="divDelGrid center-block table-responsive" style="width:95%">
+                        @Html.Partial("~/Views/PartialViews/TablaDatos.cshtml", Model)
+                    </div>
+                </div>
+                <!-- END RESULTS -->
+            </div>
+        </div> <!-- END TABLE DIV -->
+
+
+    </div> <!-- END RESULTS TABLE -->
+</div>

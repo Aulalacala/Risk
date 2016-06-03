@@ -263,6 +263,7 @@
     <Compile Include="Controllers\CRUDSql_Switch.cs" />
     <Compile Include="Controllers\EncritPass.cs" />
     <Compile Include="Controllers\InicioController.cs" />
+    <Compile Include="Controllers\KRISController.cs" />
     <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\RiskController.cs" />
     <Compile Include="Controllers\TreeviewClass.cs" />
@@ -316,6 +317,7 @@
     <Content Include="Views\Risk\ActiveEfectivityDate.cshtml" />
     <Content Include="Views\Risk\Scoope.cshtml" />
     <Content Include="Views\Risk\ReputationalImpact.cshtml" />
+    <Content Include="Views\KRIS\KrisFicha.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
