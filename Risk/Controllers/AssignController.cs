@@ -18,8 +18,6 @@ namespace Risk.Controllers {
         string colVer = "CodRiesgo,Nombre,Categoria,Clasif1,Clasif2,Clasif3,CodRiesgoLocalizado";
         string colTitulos = "Código Riesgo,Nombre,Categoría,Clasificación1,Clasificación2,Clasificación3,Código Localizado";
 
-
-
         /// <summary>
         /// Atributo para cargar inicialmente los datos de la tabla con los riesgos y así no tener que cargar constantemente la cabecera que siempre es igual en este controlador
         /// </summary>
@@ -168,22 +166,35 @@ namespace Risk.Controllers {
         #region View KrisIndicators
         // Vista inicial GET KrisIndicators ----------------------------------------------
         public ActionResult KRISIndicators() {
-
+            DatosTablaModel datosTabla = new DatosTablaModel();
             string colVer = "CodRiesgo,Nombre,Categoria,Clasif1,Clasif2,Clasif3,CodRiesgoLocalizado";
             string colTitulos = "Código Riesgo,Nombre,Categoría,Clasificación1,Clasificación2,Clasificación3,Código Localizado";
 
-            DatosTablaModel datosTabla = new DatosTablaModel();
-            datosTabla.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosNombres", colVer, colTitulos);
-
             Dictionary<int, List<Tuple<string, string>>> dicBody = new Dictionary<int, List<Tuple<string, string>>>();
-            Dictionary<int, List<Tuple<string, string>>> dic = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
 
-            foreach (var item in dic.Take(3))
+            if (TempData["datosTablaGeneralBusqueda"] != null)
             {
-                dicBody.Add(item.Key, item.Value);
+                DatosTablaModel datosTablaGeneralBusqueda = (DatosTablaModel)TempData["datosTablaGeneralBusqueda"];
+                datosTabla.datosTBody = datosTablaGeneralBusqueda.datosTBody;
+            }
+            else
+            {
+                //TODO: Unicamente se pasaría el diccionario que devuelve => BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
+                //Se ha hecho ahora, de esta manera porque aun no existe esta tabla, y asi visualizar datos
+                //Asi : ↓↓↓
+                //datosTabla.datosTBody =  BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
+
+                Dictionary<int, List<Tuple<string, string>>> dic = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
+
+                foreach (var item in dic.Take(17))
+                {
+                    dicBody.Add(item.Key, item.Value);
+                }
+                datosTabla.datosTBody = dicBody;
             }
 
-            datosTabla.datosTBody = dicBody;
+            datosTabla.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosNombres", colVer, colTitulos);
+                
             datosTabla.vistaProcedencia = "Scoopes";
             datosTabla.editable = true;
             datosTabla.urlActionEditar = new Tuple<string, string>("KrisFicha", "KRIS");
@@ -192,6 +203,16 @@ namespace Risk.Controllers {
 
 
             return View(datosTabla);
+        }
+
+
+        public ActionResult BusquedaKRIS(string filtro)
+        {
+            DatosTablaModel datosTablaGeneralBusqueda = datosTablaGeneral;
+            datosTablaGeneralBusqueda.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos, filtro);
+            TempData["datosTablaGeneralBusqueda"] = datosTablaGeneralBusqueda;
+            return RedirectToAction("KRISIndicators", "Assign");
+
         }
         #endregion
 

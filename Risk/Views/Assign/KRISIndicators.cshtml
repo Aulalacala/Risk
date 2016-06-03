@@ -11,7 +11,11 @@
 
         <!-- TITLE & BUTTONS -->
         <span class="title">SEARCH CRITERIA</span>
-        <input type="submit" class="btn btn-primary pull-right" name="BtnBuscarKRIS" value="SEARCH" id="BtnBuscarKRIS" />
+
+        <div id="botonera" class="pull-right">
+            <a href="@Url.Action("KrisFicha", "KRIS", new { id = 0 })" class="btn btn-primary">NEW</a>
+        </div>
+
         <div class="clearfix"></div>
         <div class="divider"></div>
 
@@ -23,15 +27,23 @@
                 <div class="divider-30"></div>
 
                 <!-- ROW FILTER -->
-                <div class="row row-no-padding">
-                    <div class="col-lg-2 col-md-2">
-                        <span class="form-left-label" id="labelFilters">Filters</span>
-                    </div>
 
-                    <div class="col-lg-10 col-md-10">
-                        <input type="text" class="form-control w50" name="filtro" />
+                @using (Html.BeginForm("BusquedaKRIS", "Assign", FormMethod.Post))
+                {
+                    <div class="row row-no-padding">
+                        <div class="col-lg-2 col-md-2">
+                            <span class="form-left-label" id="labelFilters">Filters</span>
+                        </div>
+
+                        <div class="col-lg-8 col-md-8">
+                            <input type="text" class="form-control w90" name="filtro" />
+                        </div>
+
+                        <div class="col-lg-2 col-md-2">
+                            <input type="submit" class="btn btn-primary" name="BtnBuscarKRIS" value="SEARCH" id="BtnBuscarKRIS" />
+                        </div>
                     </div>
-                </div>
+                }
 
                 <div class="divider-20"></div>
             </div>
@@ -48,7 +60,6 @@
                     <div class="divider-30"></div>
                     <!-- TABLE DIV -->
                 </div>
-
                 <div>
                     <div class="divDelGrid center-block table-responsive" style="width:95%">
                         @Html.Partial("~/Views/PartialViews/TablaDatos.cshtml", Model)

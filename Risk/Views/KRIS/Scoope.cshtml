@@ -1,0 +1,80 @@
+﻿@model Risk.Models.DatosTablaModel
+
+<div id="risks" style="background-color:#eaf7fa" class="row">
+    <div class="col-lg-12 col-md-12">
+        <span class="form-left-label"><b>RISKS</b></span>
+    </div>
+
+    <div style="background-color:#eaf7fa; height:500px;">
+        <div class="divDelGrid center-block table-responsive" id="datosTablaRisks" style="width:87%">
+            @Html.Partial("~/Views/PartialViews/TablaDatos.cshtml", Model)
+        </div>
+    </div>
+
+    <script>
+        $('#datosTablaRisks table').attr('id', 'datosTablaRisks');
+        var table = $('table[id=datosTablaRisks]').DataTable({
+            //responsive: true,
+            scrollY: 1000,
+            scrollX: true,
+            scrollCollapse: true,
+            scroller: true,
+            retrieve: true,
+            "bPaginate": false,
+            "bFilter": false,
+            "bInfo": false,
+        });
+    </script>
+
+</div>
+<div id="plans" style="background-color:#eaf7fa" class="row">
+    <div class="col-lg-12 col-md-12">
+        <span class="form-left-label"><b>PLANS</b></span>
+    </div>
+    <div style="background-color:#eaf7fa; height:500px;">
+        <div class="divDelGrid center-block table-responsive" id="datosTablaPlans" style="width:87%">
+            @Html.Partial("~/Views/PartialViews/TablaDatos.cshtml", Model)
+        </div>
+    </div>
+    <script>
+        $('#datosTablaPlans table').attr('id', 'datosTablaPlans');
+        var table = $('table[id=datosTablaPlans]').DataTable({
+            //responsive: true,
+            scrollY: 1000,
+            scrollX: true,
+            scrollCollapse: true,
+            scroller: true,
+            retrieve: true,
+            "bPaginate": false,
+            "bFilter": false,
+            "bInfo": false,
+        });
+    </script>
+
+</div>
+<div id="localizacion" style="background-color:#eaf7fa" class="row">
+    <div class="col-lg-12 col-md-12">
+        <span class="form-left-label"><b>LOCALIZACION</b></span>
+    </div>
+    <div style="background-color:#eaf7fa; height:500px;">
+        <div class="divDelGrid center-block table-responsive" id="datosTablaLocalizacion" style="width:87%">
+            @Html.Partial("~/Views/PartialViews/TablaDatos.cshtml", Model)
+        </div>
+    </div>
+    <script>
+        $('#datosTablaLocalizacion table').attr('id', 'datosTablaLocalizacion');
+        var table = $('table[id=datosTablaLocalizacion]').DataTable({
+            //responsive: true,
+            scrollY: 1000,
+            scrollX: true,
+            scrollCollapse: true,
+            scroller: true,
+            retrieve: true,
+            "bPaginate": false,
+            "bFilter": false,
+            "bInfo": false,
+        });
+    </script>
+</div>
+
+
