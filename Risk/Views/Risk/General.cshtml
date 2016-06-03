@@ -10,7 +10,6 @@
 <form id="miForm">
     <div id="botonera" class="pull-right">
         <input type="button" class="btn btn-primary" name="BtnDelete" value="DELETE" id="BtnDelete" />
-        @*<a href=@Url.Action("deleteRiesgo", "Risk", new { id = Model.qRiesgosNombre_VM.IdRiesgo}) class="btn btn-primary" id="BtnDelete">DELETE @Model.qRiesgosNombre_VM.IdRiesgo</a>*@
         <a href="@Url.Action("RiskFicha", "Risk", new { id = 0 })" class="btn btn-primary">NEW</a>
         <input type="button" class="btn btn-primary" name="BtnSave" value="SAVE" id="BtnSave" />
     </div>
@@ -453,5 +452,3 @@
 
 </script>
 
-<script type="text/javascript" src="~/Content/js/botoneraPartials.js"></script>
-<script type="text/javascript" src="~/Content/js/scripts2.js"></script>

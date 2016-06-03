@@ -87,6 +87,34 @@ namespace Risk.Controllers
         }
 
 
+        public ActionResult ReputationalImpact(int id) {
+            OperationalAndReputationalVM datosOperational = new OperationalAndReputationalVM();
+
+            DatosTablaModel datosTablaSuperior = new DatosTablaModel();
+            DatosTablaModel datosTablaInferior = new DatosTablaModel();
+
+            string colVerOpe = "Activa,Fecha,NombreFrecAntes";
+            string colTitulosOpe = "Activa,Fecha,FrecuenciaA";
+
+            datosTablaSuperior.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosEvalVal", colVerOpe, colTitulosOpe);
+            datosTablaSuperior.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosEvalVal", colVerOpe, colTitulosOpe, null, 0, 0, 0, 0, Convert.ToInt32(id));
+            datosTablaSuperior.vistaProcedencia = "Operational Impact";
+            datosTablaSuperior.editable = false;
+            datosTablaSuperior.borrar = false;
+
+            datosTablaInferior.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosEvalVal", colVerOpe, colTitulosOpe);
+            datosTablaInferior.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosEvalVal", colVerOpe, colTitulosOpe, null, 0, 0, 0, 0, Convert.ToInt32(id));
+            datosTablaInferior.vistaProcedencia = "Operational Impact";
+            datosTablaInferior.editable = false;
+            datosTablaInferior.borrar = false;
+
+            datosOperational.datosTablaSuperior = datosTablaSuperior;
+            datosOperational.datosTablaInferior = datosTablaInferior;
+
+            return PartialView(datosOperational);
+        }
+
+
         public ActionResult Historical(int id)
         {
             FichaRiesgoVM fichaRiesgoVM = montaVM(id);

@@ -315,6 +315,7 @@
     <Content Include="Views\Assign\AssignMultipleRisks.cshtml" />
     <Content Include="Views\Risk\ActiveEfectivityDate.cshtml" />
     <Content Include="Views\Risk\Scoope.cshtml" />
+    <Content Include="Views\Risk\ReputationalImpact.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
