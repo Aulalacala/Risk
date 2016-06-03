@@ -42,9 +42,6 @@ namespace Risk.Controllers
             return View(riesgoRecup);
         }
 
-
-
-
         public ActionResult General(int id, int idEstructura = 0)
         {
 
@@ -84,6 +81,35 @@ namespace Risk.Controllers
 
             return PartialView(fichaRiesgoVM);
         }
+
+
+        public ActionResult Scoope()
+        {
+
+            string colVer = "CodRiesgo,Nombre,Categoria,Clasif1,Clasif2,Clasif3,CodRiesgoLocalizado";
+            string colTitulos = "Código Riesgo,Nombre,Categoría,Clasificación1,Clasificación2,Clasificación3,Código Localizado";
+
+            DatosTablaModel datosTabla = new DatosTablaModel();
+            datosTabla.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosNombres", colVer, colTitulos);
+
+            Dictionary<int, List<Tuple<string, string>>> dicBody = new Dictionary<int, List<Tuple<string, string>>>();
+            Dictionary<int, List<Tuple<string, string>>> dic = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
+
+            foreach (var item in dic.Take(3))
+            {
+                dicBody.Add(item.Key, item.Value);
+            }
+
+            datosTabla.datosTBody = dicBody;
+            datosTabla.vistaProcedencia = "Scoopes";
+            datosTabla.editable = false;
+            datosTabla.borrar = false;
+
+
+
+            return PartialView(datosTabla);
+        }
+
 
 
         public ActionResult FinancialImpactCombos(int id)
@@ -173,12 +199,8 @@ namespace Risk.Controllers
             string connectionString = cadena.Split(new[] { "Password=" }, StringSplitOptions.None)[1].Replace("\"", "");
             EncritPass encryt = new EncritPass();
             string passOK = encryt.Desencrit(connectionString);
-            //conexionBD = new SqlConnection(cadena.Replace(connectionString, passOK));
-
-
 
             DataSet miDataSet = new DataSet();
-            //SqlConnection conexionBD = new SqlConnection(ConfigurationManager.ConnectionStrings["RiskConnectionString"].ConnectionString);
             SqlConnection conexionBD = new SqlConnection(cadena.Replace(connectionString, passOK));
             SqlDataAdapter adaptador;
             SqlCommandBuilder builder;
@@ -496,7 +518,7 @@ namespace Risk.Controllers
 
 
         }
-      
+
         [HttpPost]
         public string recuperaIdUltimaEvaluacion(int id)
         {
