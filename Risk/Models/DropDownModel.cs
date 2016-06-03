@@ -31,6 +31,11 @@ namespace Risk.Models
         private Dictionary<int, string> _structureCode;
         //----------------------------------------------------------------------------------------------------
 
+        public Dictionary<int, string> cboCategorias (){
+            return Conexion.tRiesgos_Categorias.ToDictionary(r => r.IdCategoria, r => r.Categoria);
+        }
+
+
         public Dictionary<int, string> datosCategorias
         {
             get

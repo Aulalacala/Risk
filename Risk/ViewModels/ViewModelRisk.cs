@@ -9,5 +9,11 @@ namespace Risk.ViewModels {
 
         public DropDownModel dropDownModel { get; set; }
         public DatosTablaModel datosTabla { get; set; }
+
+
+
     }
+
+
+
 }

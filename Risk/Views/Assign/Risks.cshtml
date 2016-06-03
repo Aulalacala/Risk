@@ -52,7 +52,7 @@
                             <select class="form-control w50" name="categoria" id="selectCategoria" filtro="IdCategoria">
                                 <option selected="selected" value="0"> </option>
                                 @{
-                                    Dictionary<int, string> dicCategorias = Model.dropDownModel.datosCategorias;
+                                    Dictionary<int, string> dicCategorias = Model.dropDownModel.cboCategorias();
                                     foreach (var categoria in dicCategorias)
                                     {
                                         <option value="@categoria.Key">@categoria.Value </option>
