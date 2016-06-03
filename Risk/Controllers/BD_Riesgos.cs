@@ -66,13 +66,16 @@ namespace Risk.Controllers {
 
             try {
                 string query = "select * from " + nombreTabla;
+
+                
+
                 switch (nombreTabla) {
                     case "qRiesgosNombres":
                         Dictionary<int, qRiesgosNombres> dicRiesgos = Conexion.ExecuteQuery<qRiesgosNombres>(query).ToDictionary(r => r.IdRiesgo, r => r);
-
                         Dictionary<int, qRiesgosNombres> dicFiltrado = busquedasQRiesgosNombres(dicRiesgos, filtro, categoria, clasificacion1, clasificacion2, clasificacion3, idEstructura, riesgoSinAsignar);
                         dic = dicFiltrado.ToDictionary(r => r.Key, r => (object)r.Value);
                         break;
+
                     case "qRiesgosEvalVal":
                         Dictionary<int, qRiesgosEvalVal> dicEvaluaciones = Conexion.ExecuteQuery<qRiesgosEvalVal>(query).Where(r => r.IdRiesgo == idEstructura).ToDictionary(r => Convert.ToInt32(r.IdEvaluacion), r => r);
                         dic = dicEvaluaciones.ToDictionary(r => r.Key, r => (object)r.Value);
@@ -86,8 +89,6 @@ namespace Risk.Controllers {
                 foreach (var riesgo in dic) {
                     if (riesgo.Value != null) {
                         List<Tuple<string, string>> camposTabla = new List<Tuple<string, string>>();
-
-                         var tiposColumnas = Conexion.Mapping.GetTables().Where(y => y.TableName == "dbo."+ nombreTabla).Single().RowType.DataMembers;
 
                         foreach (var col in nombreCols) {
 
