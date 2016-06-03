@@ -18,5 +18,10 @@ namespace Risk.Controllers
             qRiesgosNombres riesgoRecup = BD_Riesgos.recuperarQriesgoNombre(id);
             return View(riesgoRecup);
         }
+
+
+        public ActionResult Main(int id) {
+            return PartialView();
+        }
     }
 }

@@ -318,6 +318,7 @@
     <Content Include="Views\Risk\Scoope.cshtml" />
     <Content Include="Views\Risk\ReputationalImpact.cshtml" />
     <Content Include="Views\KRIS\KrisFicha.cshtml" />
+    <Content Include="Views\KRIS\Main.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

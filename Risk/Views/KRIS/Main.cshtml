@@ -1,0 +1,195 @@
+﻿<!-- INDICATORS PARTIAL VIEW MAIN -->
+<!-- TITLE & BUTTONS -->
+@*<span class="title">DATA SHEET</span>*@
+
+<form id="miForm">
+    <div id="botonera" class="pull-right">
+        <input type="button" class="btn btn-primary" name="BtnDelete" value="DELETE" id="BtnDelete" />
+        <a href="@Url.Action("KrisFicha", "KRIS", new { id = 0 })" class="btn btn-primary">NEW</a>
+        <input type="button" class="btn btn-primary" name="BtnSave" value="SAVE" id="BtnSave" />
+    </div>
+
+    <div class="clearfix"></div>
+    <div class="divider"></div>
+
+    <br />
+    <div style="background-color:#eaf7fa; padding-bottom:26px" class="row col-lg-12 col-md-12 center-block">
+
+        <div class="col-lg-12 col-md-12 row">
+            <span class="form-left-label"><b>DATA SHEET</b></span>
+        </div>
+
+        <div class="row col-lg-12 col-md-12 pull-left" style="margin-bottom:10px">
+            <!-- CODE -->
+            <div class="col-lg-4 col-md-4">
+                <span class="form-left-label">Code: </span>
+                <input type="text" id="code" class="form-control w100" />
+            </div>
+
+            <!-- STATE -->
+            <div class="col-lg-4 col-md-4">
+                <span class="form-left-label">State: </span>
+                <input type="text" id="state" class="form-control w100" />
+            </div>
+
+            <!-- STATUS -->
+            <div class="col-lg-4 col-md-4">
+                <span class="form-left-label">Status: </span>
+                <input id="status" type="text" class="form-control w100" />
+            </div>
+        </div>
+
+
+        <div class="col-lg-12 col-md-12 row" style="margin-bottom:10px">
+            <!-- INDICATOR NAME -->
+
+            <div class="col-lg-6 col-md-6">
+                <span class="form-left-label">Indicator Name: </span>
+                <input type="text" class="form-control w100" />
+            </div>
+
+
+            <!-- CATEGORY 1 -->
+            <div class="col-lg-3 col-md-3">
+                <span class="form-left-label">Category 1: </span>
+
+                <select class="form-control w100" campos="campos" id="category1">
+                    <option value="" selected>Prueba</option>
+                </select>
+
+            </div>
+
+            <!-- CATGORY 2 -->
+            <div class="col-lg-3 col-md-3">
+                <span class="form-left-label">Category 2: </span>
+
+                <select class="form-control w100" campos="campos" id="category2">
+                    <option value="" selected>Prueba</option>
+                </select>
+
+            </div>
+        </div>
+
+
+        <div class="col-lg-12 col-md-12 row" style="margin-bottom:10px">
+            <!-- FRECUENCY -->
+            <div class="col-lg-12 col-md-12">
+                <span class="form-left-label">Frecuency: </span>
+
+                <select class="form-control w100" campos="campos" id="frecuency">
+                    <option value="" selected>Prueba</option>
+                </select>
+            </div>
+        </div>
+
+
+        <div class="col-lg-12 col-md-12 row" style="margin-bottom:10px">
+            <!-- OWNER -->
+            <div class="col-lg-12 col-md-12">
+                <span class="form-left-label">Owner: </span>
+
+                <select class="form-control w100" campos="campos" id="owner">
+                    <option value="" selected>Prueba</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 row" style="margin-bottom:10px">
+            <!-- CALCULATION FORMU -->
+            <div class="col-lg-12 col-md-12">
+                <span class="form-left-label">Calculation Formu: </span>
+                <input type="text" id="calculationFormu" class="form-control w100" />
+            </div>
+        </div>
+
+        <!-- CUADRO DESTACADO -->
+        <div>
+            <div class="col-lg-12 col-md-12 row" style="margin-bottom:10px;"> 
+
+                <div class="col-lg-2 col-md-2">
+                    <!-- DATEPICKER -->
+                    <div id="divFechaIndicator" class="input-group">
+                        <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
+                        <input id="fecha" type="text" class="form-control" data-date-format="dd/mm/yyyy" value="">
+                    </div>
+                </div>
+
+                <div class="col-lg-10 col-md-10">
+                    <!-- BARRA  --><input type="text" id="barra" class="form-control w100" />
+                </div>
+
+            </div>
+        </div>
+
+        <div class="col-lg-12 col-md-12 row" style="margin-bottom:10px">
+
+            <!-- VALUE -->
+            <div class="col-lg-4 col-md-4">
+                <span class="form-left-label">Value: </span>         
+                <input type="text" id="value" class="form-control w100" />
+            </div>
+
+
+            <!-- CAUTION LEVEL -->
+            <div class="col-lg-4 col-md-4">
+                <span class="form-left-label">Caution Level: </span>           
+                <input type="text" id="caution" class="form-control w100" />
+            </div>
+
+            <!-- ALARM LEVEL -->
+            <div class="col-lg-4 col-md-4">
+                <span class="form-left-label">Alarm Level: </span>         
+                <input type="text" id="alarm" class="form-control w100" />
+            </div>
+
+        </div>
+
+        <div class="col-lg-12 col-md-12 row" style="margin-bottom:10px">
+
+            <!-- ACTION GIVEN ALARM -->
+            <div class="col-lg-6 col-md-6">
+                <span class="form-left-label">Action given alarm: </span>
+                <textarea rows="6" cols="54" id="actiongiven" class="form-control w100" />
+            </div>
+
+
+            <!-- SCALATION GIVEN ALARM -->
+            <div class="col-lg-6 col-md-6">
+                <span class="form-left-label">Scalation given alarm: </span>
+                <textarea rows="6" cols="54" id="scalationgiven " class="form-control w100" />
+            </div>
+
+         
+        </div>
+
+        <div class="col-lg-12 col-md-12 row" style="margin-bottom:10px">
+
+            <!-- ACTION GIVEN CAUTION -->
+            <div class="col-lg-6 col-md-6">
+                <span class="form-left-label">Action given caution: </span>
+                <textarea rows="6" cols="54" id="actiongiven" class="form-control w100" />
+            </div>
+
+
+            <!--  SCALATION GIVEN CAUTION -->
+            <div class="col-lg-6 col-md-6">
+                <span class="form-left-label">Scalation given caution: </span>
+                <textarea rows="6" cols="54" id="scalationgiven " class="form-control w100" />
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+</form>
+
+<script>
+    $('#divFechaIndicator input').datepicker({
+        todayHighlight: true
+    })
+</script>
