@@ -252,17 +252,22 @@ namespace Risk.Controllers
             modelVistaRisk.datosTabla.titulo = "INSTANCES SEARCH";
 
             //Si es nulo es xq se acaba de inicializar arriba. Si no lo es, es xq viene cargado desde la busqueda
-            if (TempData["datosTBody"] == null)
+
+            Dictionary<int, List<Tuple<string, string>>> datosTbody = new Dictionary<int, List<Tuple<string, string>>>();
+            Dictionary < int, List < Tuple < string, string>>> datosDesdeBuscador = (Dictionary<int, List<Tuple<string, string>>>)TempData["datosTBody"];
+
+            if (datosDesdeBuscador == null)
             {
-                datosTabla.datosTBody = new Dictionary<int, List<Tuple<string, string>>>(BD_MontaDatosTabledata.cargaTBody(creaDictionaryDatosRiesgos(datosTabla.filtros), datosTabla.datosTHead));
-                modelVistaRisk.datosTabla.datosTBody = datosTabla.datosTBody;
+                Dictionary<int, object> datos = BD_MontaDatosTabledata.filtrosRiesgos(null);
+                datosTbody = BD_MontaDatosTabledata.cargaTBody(datos, datosTabla.datosTHead);
             }
             else
             {
-                datosTabla.datosTBody = new Dictionary<int, List<Tuple<string, string>>>((Dictionary<int, List<Tuple<string, string>>>)TempData["datosTBody"]);
-                modelVistaRisk.datosTabla.datosTBody = datosTabla.datosTBody;
+                datosTbody = datosDesdeBuscador;
             }
 
+            datosTabla.datosTBody = new Dictionary<int, List<Tuple<string, string>>>(datosTbody);
+            modelVistaRisk.datosTabla.datosTBody = datosTabla.datosTBody;
             modelVistaRisk.datosTabla.editable = true;
             modelVistaRisk.datosTabla.urlActionEditar = new Tuple<string, string>("RiskFicha", "Risk");
             modelVistaRisk.datosTabla.borrar = false;
@@ -272,21 +277,21 @@ namespace Risk.Controllers
         }
 
 
-        public Dictionary<int, object> creaDictionaryDatosRiesgos(Dictionary<string, object> filtros)
-        {
-            Dictionary<int, object> dicDevolver = new Dictionary<int, object>();
-                   
-            if (filtros != null)
-            {
-                dicDevolver = BD_MontaDatosTabledata.filtrosRiesgos(filtros, datosTablaGeneral.nombreTablaBD);
-            }
-            else
-            {
-                dicDevolver = ConexionRiesgos.qRiesgosNombres.ToDictionary(r => r.IdRiesgo, r => (object)r);
-            }
-       
-            return dicDevolver;
-        }
+        //public Dictionary<int, object> creaDictionaryDatosRiesgos(Dictionary<string, object> filtros)
+        //{
+        //    Dictionary<int, object> dicDevolver = new Dictionary<int, object>();
+
+        //    if (filtros != null)
+        //    {
+        //        dicDevolver = BD_MontaDatosTabledata.filtrosRiesgos(filtros, datosTablaGeneral.nombreTablaBD);
+        //    }
+        //    else
+        //    {
+        //        dicDevolver = ConexionRiesgos.qRiesgosNombres.ToDictionary(r => r.IdRiesgo, r => (object)r);
+        //    }
+
+        //    return dicDevolver;
+        //}
 
 
         // Recuperar clasificaciones segun idEstructura, llamada desde metodo jquery en fichero Scripts2.js ---------------
@@ -301,6 +306,8 @@ namespace Risk.Controllers
 
         public ActionResult BusquedaRiks(string filtro, int categoria, int clasificacion1, int clasificacion2, int clasificacion3)
         {
+
+
             DatosTablaModel datosTablaGeneralBusqueda = datosTablaGeneral;
             datosTablaGeneral.filtros = new Dictionary<string, object>();
 
@@ -329,7 +336,7 @@ namespace Risk.Controllers
                 datosTablaGeneralBusqueda.filtros.Add("IdClasificacion3", clasificacion3);
             }
 
-            Dictionary<int, object> dicDevolver = creaDictionaryDatosRiesgos(datosTablaGeneralBusqueda.filtros);
+            Dictionary<int, object> dicDevolver = BD_MontaDatosTabledata.filtrosRiesgos(datosTablaGeneralBusqueda.filtros);
             TempData["datosTBody"] = BD_MontaDatosTabledata.cargaTBody(dicDevolver, datosTablaGeneral.datosTHead);
 
             return RedirectToAction("Risks", "Assign");
