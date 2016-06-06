@@ -30,14 +30,12 @@ $("select[ref=comboDinamico]").change(function () {
 $('a[id^="mnu_"]').click(function () {
 
     if ($(this).parent().hasClass('disabled')) {
-        //alert($(this).attr('id'));
         $('#modalAviso').modal('show');
         $('#BtnDiscardModal').attr('handler', $(this).attr('id'));
         return false;
     }
     else {
 
-       // alert('pasando por else');
         $('#mnu li').removeClass('active');
         $(this).parent().addClass('active');
 

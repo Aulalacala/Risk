@@ -128,17 +128,7 @@
 <script>
     $(document).ready(function () {
 
-        $('#tablaDatosRiesgos tbody').on('click', 'tr', function () {
-            if ($(this).hasClass('selected')) {
-                $(this).removeClass('selected');
-            }
-            else {
-                table.$('tr.selected').removeClass('selected');
-                $(this).addClass('selected');
-            }
-        });
-
-
+        //var table = $('#tablaDatosRiesgos').DataTable();
         var vista = window.location.href.split('/')[4];
 
         if (vista.indexOf("#") > -1) {
@@ -160,6 +150,7 @@
                     "bPaginate": false,
                     "bFilter": false,
                     "bInfo": false,
+                    retrieve: true
                 });
                 break;
 
@@ -181,6 +172,26 @@
                     scroller: true,
                 });
                 break;
+            case "KRISIndicators":
+                var table = $('#tablaDatosRiesgos').DataTable({
+                    responsive: true,
+                    scrollY: 1000,
+                    scrollX: true,
+                    scrollCollapse: true,
+                    scroller: true,
+                });
+                break;
         }
+
+
+        $('#tablaDatosRiesgos tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            }
+            else {
+                $('#tablaDatosRiesgos tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
     });
 </script>
