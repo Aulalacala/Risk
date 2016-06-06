@@ -36,7 +36,7 @@
             </div>
             @*NombreFrecAntes*@
 
-            @Html.DropDown(Model.dropDowns.datosEvaFrecuencia, "NombreFrecAntes", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r=>r.IdFrecAntes).Single().ToString(), null, "NombreFrecDespues")
+            @Html.DropDown(Model.dropDowns.cboEvaFrecuencia(), "NombreFrecAntes", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r=>r.IdFrecAntes).Single().ToString(), null, "NombreFrecDespues")
         </div>
 
         <div class="col-lg-3 col-md-3">
@@ -45,7 +45,7 @@
             </div>
             @*NombreFrecDespues*@
 
-            @Html.DropDown(Model.dropDowns.datosEvaFrecuencia, "NombreFrecDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdFrecDespues).Single().ToString(), null, "NombreFrecPlanDespues")
+            @Html.DropDown(Model.dropDowns.cboEvaFrecuencia(), "NombreFrecDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdFrecDespues).Single().ToString(), null, "NombreFrecPlanDespues")
         </div>
 
         <div class="col-lg-3 col-md-3">
@@ -54,7 +54,7 @@
             </div>
             @*NombreFrecPlanDespues*@
 
-            @Html.DropDown(Model.dropDowns.datosEvaFrecuencia, "NombreFrecPlanDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdFrecPlanDespues).Single().ToString())
+            @Html.DropDown(Model.dropDowns.cboEvaFrecuencia(), "NombreFrecPlanDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdFrecPlanDespues).Single().ToString())
         </div>
     </div>
 
@@ -69,7 +69,7 @@
             </div>
             @*NombreSeveAntes*@
 
-            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSeveAntes", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSeveAntes).Single().ToString(), null, "NombreSeveDespues:NombreSevePeorAntes")
+            @Html.DropDown(Model.dropDowns.cboEvaSeveridad(), "NombreSeveAntes", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSeveAntes).Single().ToString(), null, "NombreSeveDespues:NombreSevePeorAntes")
         </div>
 
         <div class="col-lg-3 col-md-3">
@@ -78,7 +78,7 @@
             </div>
             @*NombreSeveDespues*@
 
-            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSeveDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSeveDespues).Single().ToString(), null, "NombreSevePlanDespues:NombreSevePeorDespues")
+            @Html.DropDown(Model.dropDowns.cboEvaSeveridad(), "NombreSeveDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSeveDespues).Single().ToString(), null, "NombreSevePlanDespues:NombreSevePeorDespues")
         </div>
 
         <div class="col-lg-3 col-md-3">
@@ -87,7 +87,7 @@
             </div>
             @*NombreSevePlanDespues*@
 
-            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSevePlanDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSevePlanDespues).Single().ToString(), null, ":NombreSevePeorPlanDespues")
+            @Html.DropDown(Model.dropDowns.cboEvaSeveridad(), "NombreSevePlanDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSevePlanDespues).Single().ToString(), null, ":NombreSevePeorPlanDespues")
         </div>
     </div>
     <!--SEVERIDAD DESPUES PLAN-->
@@ -101,7 +101,7 @@
             </div>
             @*NombreSevePeorAntes*@
 
-            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSevePeorAntes", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSevePeorAntes).Single().ToString(), null, "NombreSevePeorDespues")
+            @Html.DropDown(Model.dropDowns.cboEvaSeveridad(), "NombreSevePeorAntes", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSevePeorAntes).Single().ToString(), null, "NombreSevePeorDespues")
         </div>
         <div class="col-lg-3 col-md-3">
             <div class="visible-sm">
@@ -109,7 +109,7 @@
             </div>
             @*NombreSevePeorDespues*@
 
-            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSevePeorDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSevePeorDespues).Single().ToString(), null, "NombreSevePeorPlanDespues")
+            @Html.DropDown(Model.dropDowns.cboEvaSeveridad(), "NombreSevePeorDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSevePeorDespues).Single().ToString(), null, "NombreSevePeorPlanDespues")
         </div>
         <div class="col-lg-3 col-md-3">
             <div class="visible-sm">
@@ -117,7 +117,7 @@
             </div>
             @*NombreSevePeorPlanDespues*@
 
-            @Html.DropDown(Model.dropDowns.datosEvaSeveridad, "NombreSevePeorPlanDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSevePeorPlanDespues).Single().ToString())
+            @Html.DropDown(Model.dropDowns.cboEvaSeveridad(), "NombreSevePeorPlanDespues", "qRiesgosEvalVal_VM", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.IdSevePeorPlanDespues).Single().ToString())
         </div>
     </div>
 </div>

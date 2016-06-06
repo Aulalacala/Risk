@@ -452,7 +452,7 @@ namespace Risk.Controllers
         public string recuperaDrop(string nombre)
         {
             DropDownModel dropdown = new DropDownModel();
-            Dictionary<int, List<string>> dicEnvio = nombre == ("datosEvaFrecuencia") ? dropdown.datosEvaFrecuencia : dropdown.datosEvaSeveridad;
+            Dictionary<int, List<string>> dicEnvio = nombre == ("datosEvaFrecuencia") ? dropdown.cboEvaFrecuencia() : dropdown.cboEvaSeveridad();
             var j = JsonConvert.SerializeObject(dicEnvio);
             return j;
         }

@@ -40,7 +40,7 @@
             </div>
             @{
                 //NombreFrecAntes
-                Dictionary<int, List<string>> dicFrecuencia = Model.dropDowns.datosEvaFrecuencia;
+                Dictionary<int, List<string>> dicFrecuencia = Model.dropDowns.cboEvaFrecuencia();
                 var id = 0; var color = "#eee"; var text = "";
 
                 if (Model.qRiesgosEvalVal_Dic_VM != null)
@@ -146,7 +146,7 @@
             </div>
             @{
                 //NombreSeveAntes
-                Dictionary<int, List<string>> dicSeveridad = Model.dropDowns.datosEvaSeveridad;
+                Dictionary<int, List<string>> dicSeveridad = Model.dropDowns.cboEvaSeveridad();
 
                 if (Model.qRiesgosEvalVal_Dic_VM != null)
                 {

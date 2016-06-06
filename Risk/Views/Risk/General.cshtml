@@ -39,7 +39,7 @@
                 <span class="form-left-label">Structure Code</span>
                 <select class="form-control w100" campos="campos" id="idEstructura">
                     @{
-                        Dictionary<int, string> structureCode = Model.dropDowns.structureCode;
+                        Dictionary<int, string> structureCode = Model.dropDowns.cboStructureCode();
                         <option selected></option>
                         foreach (var structure in structureCode) {
                             if (Model.qRiesgosNombre_VM.CodRiesgoLocalizado != null && Model.qRiesgosNombre_VM.CodRiesgoLocalizado.Equals(@structure.Value.Substring(0,8))) {
@@ -122,7 +122,7 @@
                                             <div class="col-lg-8 col-md-8">
                                                 <select class="form-control w100" campos="campos" id="IdResponsable" tabla="qRiesgosNombres">
                                                     @{
-                                                        Dictionary<int, string> responsablesDic = Model.dropDowns.datosResponsables;
+                                                        Dictionary<int, string> responsablesDic = Model.dropDowns.cboResponsables();
 
                                                         if (Model.qRiesgosNombre_VM.IdResponsable == 0 || Model.qRiesgosNombre_VM.Nombre == null)
                                                         {
@@ -155,7 +155,7 @@
                                             <div class="col-lg-8 col-md-8">
                                                 <select class="form-control w100" campos="campos" id="IdResponsable2" tabla="qRiesgosNombres">
                                                     @{
-                                                        Dictionary<int, string> responsablesDic2 = Model.dropDowns.datosResponsables;
+                                                        Dictionary<int, string> responsablesDic2 = Model.dropDowns.cboResponsables();
 
                                                         if (Model.qRiesgosNombre_VM.IdResponsable == 0 || Model.qRiesgosNombre_VM.Nombre == null)
                                                         {
@@ -199,7 +199,7 @@
                                             <div class="col-lg-10 col-md-10">
                                                 <select class="form-control w100" campos="campos" name="categoria" id="IdCategoria" filtro="IdCategoria" tabla="qRiesgosNombres">
                                                     @{
-                                                        Dictionary<int, string> dicCategorias = Model.dropDowns.datosCategorias;
+                                                        Dictionary<int, string> dicCategorias = Model.dropDowns.cboCategorias();
 
                                                         if (Model.qRiesgosNombre_VM.Nombre == null)
                                                         {
@@ -230,7 +230,7 @@
                                             <div class="col-lg-10 col-md-10">
                                                 <select class="form-control w100" campos="campos" name="segment" id="IdSegmentacion1" filtro="IdSegmenta1" tabla="qRiesgosNombres">
                                                     @{
-                                                        Dictionary<int, string> dicSegmenta = Model.dropDowns.datosSegmentacion;
+                                                        Dictionary<int, string> dicSegmenta = Model.dropDowns.cboSegmentacion();
 
                                                         if (Model.qRiesgosNombre_VM.IdSegmentacion1 == 0 || Model.qRiesgosNombre_VM.Nombre == null)
                                                         {
@@ -277,7 +277,7 @@
                                                             <option value="0" selected="selected"></option>
                                                         }
 
-                                                        Dictionary<int, string> dicClasificacion1 = Model.dropDowns.datosClasificacion1;
+                                                        Dictionary<int, string> dicClasificacion1 = Model.dropDowns.cboClasificacion1();
                                                         foreach (var clasif1 in dicClasificacion1)
                                                         {
                                                             if (clasif1.Key.Equals(Model.qRiesgosNombre_VM.IdClasificacion1))
@@ -386,7 +386,7 @@
                                                         }
                                                         Dictionary
                                                         <int, string>
-                                                            datosOportunidad = Model.dropDowns.datosOportunidad;
+                                                            datosOportunidad = Model.dropDowns.cboOportunidad();
                                                         foreach (var oportunidad in datosOportunidad)
                                                         {
                                                             if (oportunidad.Key.Equals(Model.qRiesgosNombre_VM.IdControlesOportunidad))
@@ -418,7 +418,7 @@
                                                         }
                                                         Dictionary
                                                         <int, string>
-                                                            datosEfectividad = Model.dropDowns.datosEfectividad;
+                                                            datosEfectividad = Model.dropDowns.cboEfectividad();
                                                         foreach (var efectividad in datosEfectividad)
                                                         {
                                                             if (efectividad.Key.Equals(Model.qRiesgosNombre_VM.IdControlesEfectividad))
@@ -452,3 +452,5 @@
 
 </script>
 
+<script type="text/javascript" src="~/Content/js/botoneraPartials.js"></script>
+<script type="text/javascript" src="~/Content/js/scripts2.js"></script>

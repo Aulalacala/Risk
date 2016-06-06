@@ -72,7 +72,7 @@
                             <select class="form-control w50" name="clasificacion1" ref="comboDinamico" id="selectClasif_1" sig="selectClasif_2">
                                 <option selected="selected" value="0"> </option>
                                 @{
-                                    Dictionary<int, string> dicClasificacion1 = Model.dropDownModel.datosClasificacion1;
+                                    Dictionary<int, string> dicClasificacion1 = Model.dropDownModel.cboClasificacion1();
                                     foreach (var clasif1 in dicClasificacion1)
                                     {
                                         <option value="@clasif1.Key">@clasif1.Value </option>

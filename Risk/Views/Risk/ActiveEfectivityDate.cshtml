@@ -27,7 +27,7 @@
     </div>
     <div class="col-lg-9 col-md-9">
         <div>
-            @Html.DropDown(Model.dropDowns.datosEvaEfectividad, "efectividad", "tEva_Efectividad", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.idEfectividad).Single().ToString(), null, null)
+            @Html.DropDown(Model.dropDowns.cboEvaEfectividad(), "efectividad", "tEva_Efectividad", Model.qRiesgosEvalVal_Dic_VM.Values.Select(r => r.idEfectividad).Single().ToString(), null, null)
         </div>
     </div>
 </div>

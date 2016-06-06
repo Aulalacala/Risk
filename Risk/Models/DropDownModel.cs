@@ -13,108 +13,45 @@ namespace Risk.Models
         public Riesgos_BDDataContext Conexion = (Riesgos_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralRiesgos();
 
         private BD_Riesgos BD_Riesgos = new BD_Riesgos();
-        private Dictionary<int, string> _datosCategorias;
-        private Dictionary<int, string> _datosClasificacion1;
+       
         private Dictionary<int, string> _datosClasificacion2;
         private Dictionary<int, string> _datosClasificacion3;
-        private Dictionary<int, string> _datosOportunidad;
-        private Dictionary<int, string> _datosEfectividad;
-        private Dictionary<int, string> _datosResponsables;
-        private Dictionary<int, string> _datosSegmentacion;
-        private Dictionary<int, List<string>> _datosEvaSeveridad;
-        private Dictionary<int, List<string>> _datosEvaFrecuencia;
-        private Dictionary<int, List<string>> _datosEvaEfectividad;
-
         private Dictionary<string, string> _htmlAttributes;
 
-        // Dropdowns de estructura para los nuevos riesgos --------------------------------------------------
-        private Dictionary<int, string> _structureCode;
-        //----------------------------------------------------------------------------------------------------
-
+       
         public Dictionary<int, string> cboCategorias (){
             return Conexion.tRiesgos_Categorias.ToDictionary(r => r.IdCategoria, r => r.Categoria);
         }
 
-
-        public Dictionary<int, string> datosCategorias
-        {
-            get
-            {
-                return Conexion.tRiesgos_Categorias.ToDictionary(r => r.IdCategoria, r => r.Categoria);
-            }
-            set
-            {
-                _datosCategorias = value;
-            }
+        public Dictionary<int, string> cboClasificacion1() {
+            return Conexion.tRiesgos_Clasificaciones.Where(r => r.Nivel == 2).ToDictionary(r => r.IdEstructura, r => r.CodCompleto + " " + r.Nombre);
         }
 
-        public Dictionary<int, string> datosClasificacion1
-        {
-            get
-            {
-                return Conexion.tRiesgos_Clasificaciones.Where(r => r.Nivel == 2).ToDictionary(r => r.IdEstructura, r => r.CodCompleto + " " + r.Nombre);
-            }
-            set
-            {
-                _datosClasificacion1 = value;
-            }
-        }
 
         public Dictionary<int, string> datosClasificacion2 { get; set; }
         public Dictionary<int, string> datosClasificacion3 { get; set; }
 
-        public Dictionary<int, string> datosOportunidad
-        {
-            get
-            {
-                return Conexion.tRiesgos_ControlOportunidad.ToDictionary(r => r.IdControlOportunidad, r => r.Oportunidad);
-            }
-            set
-            {
-                _datosOportunidad = value;
-            }
+        public Dictionary<int, string> cboOportunidad() {
+            return Conexion.tRiesgos_ControlOportunidad.ToDictionary(r => r.IdControlOportunidad, r => r.Oportunidad);
         }
 
-        public Dictionary<int, string> datosEfectividad
-        {
-            get
-            {
-                return Conexion.tRiesgos_ControlEfectividad.ToDictionary(r => r.IdControlEfectividad, r => r.Efectividad);
-            }
-            set
-            {
-                _datosEfectividad = value;
-            }
+        public Dictionary<int, string> cboEfectividad() {
+            return Conexion.tRiesgos_ControlEfectividad.ToDictionary(r => r.IdControlEfectividad, r => r.Efectividad);
         }
 
-        public Dictionary<int, string> datosResponsables
-        {
-            get
-            {
-                return Conexion.tResponsables.ToDictionary(r => r.IdResponsable, r => r.Nombre);
-            }
-            set
-            {
-                _datosResponsables = value;
-            }
+        public Dictionary<int, string> cboResponsables() {
+            return Conexion.tResponsables.ToDictionary(r => r.IdResponsable, r => r.Nombre);
         }
 
-        public Dictionary<int, string> datosSegmentacion
-        {
-            get
-            {
-                return Conexion.tRiesgos_Segmentacion1.ToDictionary(r => r.IdSegmenta1, r => r.Segmentacion);
-            }
-            set
-            {
-                _datosSegmentacion = value;
-            }
+        public Dictionary<int, string> cboSegmentacion() {
+            return Conexion.tRiesgos_Segmentacion1.ToDictionary(r => r.IdSegmenta1, r => r.Segmentacion);
         }
 
-        public Dictionary<int, List<string>> datosEvaSeveridad
+
+
+        public Dictionary<int, List<string>> cboEvaSeveridad ()
         {
-            get
-            {
+          
                 Dictionary<int, List<string>> dicSeveridad = new Dictionary<int, List<string>>();
                 dicSeveridad.Add(0, new List<string> { "#ffffff", "" });
 
@@ -134,17 +71,13 @@ namespace Risk.Models
 
                 return dicSeveridad;
             }
-            set
-            {
-                _datosEvaSeveridad = value;
-            }
-        }
+           
+        
 
 
-        public Dictionary<int, List<string>> datosEvaFrecuencia
+        public Dictionary<int, List<string>> cboEvaFrecuencia ()
         {
-            get
-            {
+           
                 Dictionary<int, List<string>> dicFrecuencia = new Dictionary<int, List<string>>();
                 dicFrecuencia.Add(0, new List<string> { "#ffffff", "" });
 
@@ -163,17 +96,13 @@ namespace Risk.Models
                 }
               
                 return dicFrecuencia;
-            }
-            set
-            {
-                _datosEvaSeveridad = value;
-            }
+            
+           
         }
 
-        public Dictionary<int, List<string>> datosEvaEfectividad
+        public Dictionary<int, List<string>> cboEvaEfectividad ()
         {
-            get
-            {
+            
                 Dictionary<int, List<string>> dicEfectividad = new Dictionary<int, List<string>>();
                 dicEfectividad.Add(0, new List<string> { "#ffffff", "" });
 
@@ -192,11 +121,7 @@ namespace Risk.Models
                 }
 
                 return dicEfectividad;
-            }
-            set
-            {
-                _datosEvaSeveridad = value;
-            }
+            
         }
 
 
@@ -228,13 +153,10 @@ namespace Risk.Models
 
 
         // METODOS PARA LA CARGAR DE LOS DROPDOWS STRUCTURE CODE(valores de Nivel 3) 
-        public Dictionary<int, string> structureCode {
-            get {
+        public Dictionary<int, string> cboStructureCode (){
+           
                 return Conexion.tEstructura.Where(r=>r.Nivel==3).ToDictionary(r => r.IdEstructura, r => r.CodCompleto + " " + r.Nombre);
-            }
-            set {
-                _structureCode = value;
-            }
+           
         }
     }
 }
