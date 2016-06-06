@@ -1,0 +1,12 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="Consultas_BD">
+  <DataContextMoniker Name="/Consultas_BDDataContext" />
+  <nestedChildShapes>
+    <classShape Id="f9ee7348-b941-4905-a363-000ffddb64cc" absoluteBounds="1.375, 0.625, 2, 5.4246240234375">
+      <DataClassMoniker Name="/Consultas_BDDataContext/qPlanes" />
+      <nestedChildShapes>
+        <elementListCompartment Id="59dc76a1-c93b-4e12-9d9b-0bb755799961" absoluteBounds="1.3900000000000001, 1.085, 1.9700000000000002, 4.8646240234375" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+  </nestedChildShapes>
+</ordesignerObjectsDiagram>

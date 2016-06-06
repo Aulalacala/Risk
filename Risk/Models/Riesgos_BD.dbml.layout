@@ -98,14 +98,14 @@
         <elementListCompartment Id="d12eb5c6-3d54-4957-b082-4d4025d005cf" absoluteBounds="6.64, 1.335, 1.9700000000000002, 6.979939778645833" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
-    <associationConnector edgePoints="[(12.75 : 6.09780110677083); (12.375 : 6.47280110677083); (12.375 : 13.4431469726562); (11.75 : 13.4431469726562)]" fixedFrom="NotFixed" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(12.75 : 6.09780110677083); (12.375 : 6.47280110677083); (12.375 : 13.4431469726562); (11.75 : 13.4431469726562)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/Riesgos_BDDataContext/tEstructura/tEstructura_tRelEstructuraRiesgos" />
       <nodes>
         <classShapeMoniker Id="01e0222e-886b-491d-8570-0f7559cf43ba" />
         <classShapeMoniker Id="7892ebf5-4100-4f4d-8b46-bffecda3c2d2" />
       </nodes>
     </associationConnector>
-    <associationConnector edgePoints="[(7.75 : 13.0208154296875); (7.75 : 13.5785551875); (9.75 : 13.5785551875)]" fixedFrom="Algorithm" fixedTo="Algorithm">
+    <associationConnector edgePoints="[(7.75 : 13.0208154296875); (7.75 : 13.5785551875); (9.75 : 13.5785551875)]" fixedFrom="NotFixed" fixedTo="NotFixed">
       <AssociationMoniker Name="/Riesgos_BDDataContext/tRiesgos/tRiesgos_tRelEstructuraRiesgos" />
       <nodes>
         <classShapeMoniker Id="a13376a7-57c1-4750-b37f-c3672f357823" />

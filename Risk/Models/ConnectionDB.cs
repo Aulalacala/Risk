@@ -40,8 +40,9 @@ namespace Risk.Models {
         public partial class connectionGeneral{
             private  Usuarios_BDDataContext _dbUsuarios;
             private Riesgos_BDDataContext _dbRiesgos;
+            private Consultas_BDDataContext _dbConsultas;
 
-             public Usuarios_BDDataContext DbUsuarios {
+            public Usuarios_BDDataContext DbUsuarios {
                 get {
                     return _dbUsuarios;
                 }
@@ -61,6 +62,19 @@ namespace Risk.Models {
                 }
             }
 
+            public Consultas_BDDataContext DbConsultas
+            {
+                get
+                {
+                    return _dbConsultas;
+                }
+
+                set
+                {
+                    _dbConsultas = value;
+                }
+            }
+
             public connectionGeneral() {
                 ConnectionDB con = new ConnectionDB();
             }
@@ -75,6 +89,13 @@ namespace Risk.Models {
                 ConnectionDB con = new ConnectionDB();
                 this._dbRiesgos = new Riesgos_BDDataContext(con.cadenaConexion);
                 return _dbRiesgos;
+            }
+
+            public object connectionGeneralConsultas()
+            {
+                ConnectionDB con = new ConnectionDB();
+                this._dbConsultas = new Consultas_BDDataContext(con.cadenaConexion);
+                return _dbConsultas;
             }
 
         }
