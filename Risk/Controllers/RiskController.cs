@@ -118,13 +118,6 @@ namespace Risk.Controllers
         public ActionResult Historical(int id)
         {
             FichaRiesgoVM fichaRiesgoVM = montaVM(id);
-
-
-
-
-
-
-
             DatosTablaModel datosTabla = new DatosTablaModel();
             datosTabla.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosEvalVal", colVer, colTitulos);
             datosTabla.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosEvalVal", colVer, colTitulos, null, 0, 0, 0, 0, Convert.ToInt32(id));

@@ -291,6 +291,7 @@
       <DependentUpon>Consultas_BD.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\DatosTablaModel.cs" />
+    <Compile Include="Models\DatosTablaModelInterface.cs" />
     <Compile Include="Models\DescriptionStructureModel.cs" />
     <Compile Include="Models\DropDownModel.cs" />
     <Compile Include="Models\FormGeneralModel.cs" />
@@ -299,6 +300,8 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Riesgos_BD.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\TablaRiesgos.cs" />
+    <Compile Include="Models\TablaRiesgos2.cs" />
     <Compile Include="Models\Usuarios_BD.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

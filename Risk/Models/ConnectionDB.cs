@@ -12,11 +12,6 @@ namespace Risk.Models {
 
     public partial class ConnectionDB {
 
-        public enum modelos {
-            Riesgos_BD,
-            Usuarios_CB
-        };
-
         private  string _cadenaConexion;
         public  string cadenaConexion {
             get {

@@ -18,11 +18,10 @@ namespace Risk.Controllers
 
         BD_Riesgos BD_Riesgos = new BD_Riesgos();
         BD_MontaDatosTabledata BD_MontaDatosTabledata = new BD_MontaDatosTabledata();
+        Riesgos_BDDataContext ConexionRiesgos = (Riesgos_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralRiesgos();
 
         string colVer = "CodRiesgo,Nombre,Categoria,Clasif1,Clasif2,Clasif3,CodRiesgoLocalizado";
         string colTitulos = "Código Riesgo,Nombre,Categoría,Clasificación1,Clasificación2,Clasificación3,Código Localizado";
-
-        Riesgos_BDDataContext ConexionRiesgos = (Riesgos_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralRiesgos();
 
         /// <summary>
         /// Atributo para cargar inicialmente los datos de la tabla con los riesgos y así no tener que cargar constantemente la cabecera que siempre es igual en este controlador
@@ -34,9 +33,8 @@ namespace Risk.Controllers
             get
             {
                 _datosTablaGeneral.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosNombres", colVer, colTitulos);
-                _datosTablaGeneral.colVer = "CodRiesgo,Nombre,Categoria,Clasif1,Clasif2,Clasif3,CodRiesgoLocalizado";
-                _datosTablaGeneral.colTitulo = "Código Riesgo,Nombre,Categoría,Clasificación1,Clasificación2,Clasificación3,Código Localizado";
-                _datosTablaGeneral.nombreTablaBD = "qRiesgosNombres";
+                _datosTablaGeneral.datosTBody = null;
+                _datosTablaGeneral.titulo = null;
                 return this._datosTablaGeneral;
             }
             set
@@ -242,57 +240,55 @@ namespace Risk.Controllers
         public ActionResult Risks()
         {
             DropDownModel dropdowns = new DropDownModel();
-            DatosTablaModel datosTabla = datosTablaGeneral;
+            TablaRiesgos3 tabla = new TablaRiesgos3();
 
-            ViewModelRisk modelVistaRisk = new ViewModelRisk();
-            modelVistaRisk.dropDownModel = dropdowns;
+            DatosTablaModel tabla2 = tabla.dameTabla((Dictionary<string, object>)TempData["filtros"]);
 
-            modelVistaRisk.datosTabla = datosTabla;
+            ViewModelRisk viewModel = new ViewModelRisk();
+            viewModel.dropDownModel = dropdowns;
+            viewModel.datosTabla = tabla2;
+            viewModel.breadcrumbSearch = (Dictionary<string, object>)TempData["filtros"];
 
-            modelVistaRisk.datosTabla.titulo = "INSTANCES SEARCH";
-
-            //Si es nulo es xq se acaba de inicializar arriba. Si no lo es, es xq viene cargado desde la busqueda
-
-            Dictionary<int, List<Tuple<string, string>>> datosTbody = new Dictionary<int, List<Tuple<string, string>>>();
-            Dictionary < int, List < Tuple < string, string>>> datosDesdeBuscador = (Dictionary<int, List<Tuple<string, string>>>)TempData["datosTBody"];
-
-            if (datosDesdeBuscador == null)
-            {
-                Dictionary<int, object> datos = BD_MontaDatosTabledata.filtrosRiesgos(null);
-                datosTbody = BD_MontaDatosTabledata.cargaTBody(datos, datosTabla.datosTHead);
-            }
-            else
-            {
-                datosTbody = datosDesdeBuscador;
-            }
-
-            datosTabla.datosTBody = new Dictionary<int, List<Tuple<string, string>>>(datosTbody);
-            modelVistaRisk.datosTabla.datosTBody = datosTabla.datosTBody;
-            modelVistaRisk.datosTabla.editable = true;
-            modelVistaRisk.datosTabla.urlActionEditar = new Tuple<string, string>("RiskFicha", "Risk");
-            modelVistaRisk.datosTabla.borrar = false;
-            modelVistaRisk.datosTabla.vistaProcedencia = "Risks";
-
-            return View(modelVistaRisk);
+            return View(viewModel);
         }
 
 
-        //public Dictionary<int, object> creaDictionaryDatosRiesgos(Dictionary<string, object> filtros)
-        //{
-        //    Dictionary<int, object> dicDevolver = new Dictionary<int, object>();
 
-        //    if (filtros != null)
-        //    {
-        //        dicDevolver = BD_MontaDatosTabledata.filtrosRiesgos(filtros, datosTablaGeneral.nombreTablaBD);
-        //    }
-        //    else
-        //    {
-        //        dicDevolver = ConexionRiesgos.qRiesgosNombres.ToDictionary(r => r.IdRiesgo, r => (object)r);
-        //    }
+        public ActionResult TablaEnRisk(string Nombre = null, int IdCategoria = 0, int IdClasificacion1 = 0, int IdClasificacion2 = 0, int IdClasificacion3 = 0)
+        {
+            Dictionary<string, object> dictionaryFiltros = new Dictionary<string, object>();
 
-        //    return dicDevolver;
-        //}
+            if (Nombre != null)
+            {
+                dictionaryFiltros.Add("Nombre", Nombre);
+            }
 
+            if (IdCategoria != 0)
+            {
+                dictionaryFiltros.Add("IdCategoria", IdCategoria);
+            }
+
+            if (IdClasificacion1 != 0)
+            {
+                dictionaryFiltros.Add("IdClasificacion1", IdClasificacion1);
+            }
+
+            if (IdClasificacion2 != 0)
+            {
+                dictionaryFiltros.Add("IdClasificacion2", IdClasificacion2);
+            }
+
+            if (IdClasificacion3 != 0)
+            {
+                dictionaryFiltros.Add("IdClasificacion3", IdClasificacion3);
+            }
+
+            TablaRiesgos3 tabla = new TablaRiesgos3();
+            DatosTablaModel tabla2 = tabla.dameTabla(dictionaryFiltros);
+            //  DatosTablaModel tabla2 = tabla.dameTabla(filtros);
+
+            return PartialView("~/Views/PartialViews/TablaDatos.cshtml", tabla2);
+        }
 
         // Recuperar clasificaciones segun idEstructura, llamada desde metodo jquery en fichero Scripts2.js ---------------
         public string recuperaListClasif(int idEstructura)
@@ -304,46 +300,39 @@ namespace Risk.Controllers
         }
 
 
-        public ActionResult BusquedaRiks(string filtro, int categoria, int clasificacion1, int clasificacion2, int clasificacion3)
-        {
+        //public ActionResult BusquedaRiks(string Nombre, int IdCategoria, int IdClasificacion1, int IdClasificacion2, int IdClasificacion3)
+        //{
+        //    Dictionary<string, object> dictionaryFiltros = new Dictionary<string, object>();
 
+        //    if (Nombre != null)
+        //    {
+        //        dictionaryFiltros.Add("Nombre", Nombre);
+        //    }
 
-            DatosTablaModel datosTablaGeneralBusqueda = datosTablaGeneral;
-            datosTablaGeneral.filtros = new Dictionary<string, object>();
+        //    if (IdCategoria != 0)
+        //    {
+        //        dictionaryFiltros.Add("IdCategoria", IdCategoria);
+        //    }
 
-            if (filtro != null)
-            {
-                datosTablaGeneralBusqueda.filtros.Add("Nombre", filtro);
-            }
+        //    if (IdClasificacion1 != 0)
+        //    {
+        //        dictionaryFiltros.Add("IdClasificacion1", IdClasificacion1);
+        //    }
 
-            if (categoria != 0)
-            {
-                datosTablaGeneralBusqueda.filtros.Add("IdCategoria", categoria);
-            }
+        //    if (IdClasificacion2 != 0)
+        //    {
+        //        dictionaryFiltros.Add("IdClasificacion2", IdClasificacion2);
+        //    }
 
-            if (clasificacion1 != 0)
-            {
-                datosTablaGeneralBusqueda.filtros.Add("IdClasificacion1", clasificacion1);
-            }
+        //    if (IdClasificacion3 != 0)
+        //    {
+        //        dictionaryFiltros.Add("IdClasificacion3", IdClasificacion3);
+        //    }
 
-            if (clasificacion2 != 0)
-            {
-                datosTablaGeneralBusqueda.filtros.Add("IdClasificacion2", clasificacion2);
-            }
+        //    TempData["filtros"] = dictionaryFiltros;
+        //    return RedirectToAction("Risks", "Assign");
+        //    }
 
-            if (clasificacion3 != 0)
-            {
-                datosTablaGeneralBusqueda.filtros.Add("IdClasificacion3", clasificacion3);
-            }
-
-            Dictionary<int, object> dicDevolver = BD_MontaDatosTabledata.filtrosRiesgos(datosTablaGeneralBusqueda.filtros);
-            TempData["datosTBody"] = BD_MontaDatosTabledata.cargaTBody(dicDevolver, datosTablaGeneral.datosTHead);
-
-            return RedirectToAction("Risks", "Assign");
-        }
-
-
-        #endregion
-
+          #endregion
     }
 }
