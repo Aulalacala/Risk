@@ -133,7 +133,7 @@ namespace Risk.Models
 
             Dictionary<int, object> resultadosBusqueda = new Dictionary<int, object>();
 
-            if (filtros == null)
+            if (filtros.Count == 0)
             {
                 result = ConexionRiesgos.qRiesgosNombres.ToDictionary(r => r.IdRiesgo, r => r);
             }

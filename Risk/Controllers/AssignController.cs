@@ -240,16 +240,7 @@ namespace Risk.Controllers
         public ActionResult Risks()
         {
             DropDownModel dropdowns = new DropDownModel();
-            TablaRiesgos3 tabla = new TablaRiesgos3();
-
-            DatosTablaModel tabla2 = tabla.dameTabla((Dictionary<string, object>)TempData["filtros"]);
-
-            ViewModelRisk viewModel = new ViewModelRisk();
-            viewModel.dropDownModel = dropdowns;
-            viewModel.datosTabla = tabla2;
-            viewModel.breadcrumbSearch = (Dictionary<string, object>)TempData["filtros"];
-
-            return View(viewModel);
+            return View(dropdowns);
         }
 
 
@@ -284,10 +275,9 @@ namespace Risk.Controllers
             }
 
             TablaRiesgos3 tabla = new TablaRiesgos3();
-            DatosTablaModel tabla2 = tabla.dameTabla(dictionaryFiltros);
-            //  DatosTablaModel tabla2 = tabla.dameTabla(filtros);
-
-            return PartialView("~/Views/PartialViews/TablaDatos.cshtml", tabla2);
+            DatosTablaModel tablafiltrada = tabla.dameTabla(dictionaryFiltros);
+            
+            return PartialView("~/Views/PartialViews/TablaDatos.cshtml", tablafiltrada);
         }
 
         // Recuperar clasificaciones segun idEstructura, llamada desde metodo jquery en fichero Scripts2.js ---------------

@@ -342,6 +342,7 @@
     <Content Include="Views\KRIS\Archive.cshtml" />
     <Content Include="Views\KRIS\Main.cshtml" />
     <Content Include="Views\Plan\Plans.cshtml" />
+    <Content Include="Views\Assign\TablaEnRisk.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

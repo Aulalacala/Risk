@@ -1,9 +1,11 @@
 ﻿@using Risk.Models
-@model Risk.ViewModels.ViewModelRisk
+@model Risk.Models.DropDownModel
+
 
 @{
     ViewBag.Title = "Risks";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
 }
 
 <h2>Risks</h2>
@@ -14,7 +16,7 @@
         <form id="busquedaRiskForm">
             <!-- TITLE & BUTTONS -->
             <span class="title">SEARCH CRITERIA</span>
-            <input type="submit" class="btn btn-primary pull-right" name="BtnBuscarRisk" value="SEARCH" id="BtnBuscarRisk" />
+            <input type="button" class="btn btn-primary pull-right" name="BtnBuscarRisk" value="SEARCH" id="BtnBuscarRisk" />
             <a href="@Url.Action("RiskFicha", "Risk", new { id = 0 })" class="btn btn-primary pull-right">NEW</a>
             <div class="clearfix"></div>
             <div class="divider"></div>
@@ -47,7 +49,7 @@
                             <select class="form-control w50" name="IdCategoria" id="selectCategoria" filtro="IdCategoria">
                                 <option selected="selected" value="0"> </option>
                                 @{
-                                    Dictionary<int, string> dicCategorias = Model.dropDownModel.datosCategorias;
+                                    Dictionary<int, string> dicCategorias = Model.datosCategorias;
                                     foreach (var categoria in dicCategorias)
                                     {
                                         <option value="@categoria.Key">@categoria.Value </option>
@@ -67,7 +69,7 @@
                             <select class="form-control w50" name="IdClasificacion1" ref="comboDinamico" id="selectClasif_1" sig="selectClasif_2">
                                 <option selected="selected" value="0"> </option>
                                 @{
-                                    Dictionary<int, string> dicClasificacion1 = Model.dropDownModel.datosClasificacion1;
+                                    Dictionary<int, string> dicClasificacion1 = Model.datosClasificacion1;
                                     foreach (var clasif1 in dicClasificacion1)
                                     {
                                         <option value="@clasif1.Key">@clasif1.Value </option>
@@ -126,10 +128,12 @@
                 <!-- TABLE DIV -->
             </div>
 
-            <div id="tablaRiesgosDiv" class="divDelGrid center-block table-responsive" style="width:95%">
-                @Html.Partial("~/Views/PartialViews/TablaDatos.cshtml", Model.datosTabla)
-             </div>
+ 
+            <div id="tablaRiesgosDiv"></div>
 
+            
+
+           
             <!-- END RESULTS -->
         </div>
     </div> <!-- END TABLE DIV -->
@@ -143,17 +147,24 @@
 <script>
 
 
-    $('#busquedaRiskForm').submit(function () {
-        alert('submit')
+    $(document).ready(function () {
+        var ruta2 = "http://localhost:1525/Assign/TablaEnRisk";
+        //$('#tablaPrimaria').remove();
+        $('#tablaRiesgosDiv').load(ruta2);
 
-        var Nombre;
-        var IdCategoria;
-        var IdClasificacion1;
-        var IdClasificacion2;
-        var IdClasificacion3;
 
-        $('#busquedaRiskForm input:text,select').each(function (pos, el) {
-           
+
+        $('#BtnBuscarRisk').click(function () {
+            alert('submit')
+
+            var Nombre;
+            var IdCategoria;
+            var IdClasificacion1;
+            var IdClasificacion2;
+            var IdClasificacion3;
+
+            $('#busquedaRiskForm input:text,select').each(function (pos, el) {
+
                 switch ($(this).attr('name')) {
                     case "Nombre":
                         Nombre = $(this).val();
@@ -170,11 +181,17 @@
                     case "IdClasificacion3":
                         IdClasificacion3 = $(this).val();
                         break;
-                }          
-            
-        })      
-        var ruta2 = "http://localhost:1525/Assign/TablaEnRisk";
-        $('#tablaRiesgosDiv').load(ruta2, { "Nombre": Nombre, "IdCategoria": IdCategoria, "IdClasificacion1": IdClasificacion1, "IdClasificacion2": IdClasificacion2, "IdClasificacion3": IdClasificacion3 });
-    });
+                }
+
+            })
+            var ruta2 = "http://localhost:1525/Assign/TablaEnRisk";
+            //$('#tablaPrimaria').remove();
+            $('#tablaRiesgosDiv').load(ruta2, { "Nombre": Nombre, "IdCategoria": IdCategoria, "IdClasificacion1": IdClasificacion1, "IdClasificacion2": IdClasificacion2, "IdClasificacion3": IdClasificacion3 });
+        });
+
+    })
+
+
+    
 
 </script>
