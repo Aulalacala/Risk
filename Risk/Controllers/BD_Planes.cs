@@ -12,6 +12,10 @@ namespace Risk.Controllers
 
         #region PlanController
 
+        #region Consultas relativas a Planes de accion
+
+        #endregion
+
         #endregion
     }
 }

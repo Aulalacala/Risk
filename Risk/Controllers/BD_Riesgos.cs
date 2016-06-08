@@ -16,9 +16,7 @@ namespace Risk.Controllers
 
         Riesgos_BDDataContext ConexionRiesgos = (Riesgos_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralRiesgos();
         Consultas_BDDataContext ConexionConsultas = (Consultas_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralConsultas();
-
-        public Dictionary<int, qRiesgosNombres> datosQ = new Dictionary<int, qRiesgosNombres>();
-
+       // public Dictionary<int, qRiesgosNombres> datosQ = new Dictionary<int, qRiesgosNombres>();
 
         #region AssignController
         //Recuperar THEAD tabla Datos Risk-----------------
@@ -493,38 +491,8 @@ namespace Risk.Controllers
 
         #endregion
 
-        #region KRISController
+        
 
-        #region CRUD relativo a KRIS
-
-        //TODO: Cambiar la tabla.Tiene que ser de KRIS
-        public bool deleteKRIS(int id)
-        {
-            try
-            {
-                var KRIS = ConexionRiesgos.tRiesgos.Where(r => r.IdRiesgo == id).Select(r => r).FirstOrDefault();
-                ConexionRiesgos.tRiesgos.DeleteOnSubmit(KRIS);
-                ConexionRiesgos.SubmitChanges();
-
-                return true;
-            }
-            catch (Exception e)
-            {
-                return false;
-            }
-        }
-
-        #endregion
-
-
-        #endregion
-
-        #region PlanController
-
-        #region Consultas relativas a Planes de accion
-
-        #endregion
-
-        #endregion
+        
     }
 }
