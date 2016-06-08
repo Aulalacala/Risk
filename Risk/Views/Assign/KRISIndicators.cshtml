@@ -1,4 +1,4 @@
-﻿@model Risk.Models.DatosTablaModel
+﻿@*@model Risk.Models.DatosTablaModel*@
 @{
     ViewBag.Title = "KRISIndicators";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -61,8 +61,8 @@
                     <!-- TABLE DIV -->
                 </div>
                 <div>
-                    <div class="divDelGrid center-block table-responsive" style="width:95%">
-                        @Html.Partial("~/Views/PartialViews/TablaDatos.cshtml", Model)
+                    <div id="tablaEnKRIS" class="divDelGrid center-block table-responsive" style="width:95%">
+                        @*@Html.Partial("~/Views/PartialViews/TablaDatos.cshtml", Model)*@
                     </div>
                 </div>
                 <!-- END RESULTS -->

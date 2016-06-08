@@ -220,7 +220,7 @@ namespace Risk.Controllers
             datosTabla.urlActionBorrar = new Tuple<string, string>("DeleteKris", "KRIS");
 
 
-            return View(datosTabla);
+            return View();
         }
 
 
