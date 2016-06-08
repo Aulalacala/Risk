@@ -265,6 +265,7 @@
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Codigos\TreeviewOLDController.cs" />
     <Compile Include="Controllers\AssignController.cs" />
+    <Compile Include="Controllers\BD_IndicadoresKRIS.cs" />
     <Compile Include="Controllers\BD_MontaDatosTabledata.cs" />
     <Compile Include="Controllers\BD_Planes.cs" />
     <Compile Include="Controllers\BD_Riesgos.cs" />
