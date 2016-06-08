@@ -21,7 +21,7 @@
             @* DROPDOWN CON TODOS LOS ELEMENTOS DE LA ESTRUCUTURA *@
             <span class="form-left-label">Structure Code</span>
             <select class="form-control w100" campos="campos" id="idEstructura">
-                @{ Dictionary<int, string> structureCode = Model.dropDownStructure.structureCode;
+                @{ Dictionary<int, string> structureCode = Model.dropDownStructure.cboStructureCode();
 
                     foreach (var structure in structureCode) {
                         if (structure.Key == Model.idEstructura) {

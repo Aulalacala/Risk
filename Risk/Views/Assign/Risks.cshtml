@@ -49,7 +49,7 @@
                             <select class="form-control w50" name="IdCategoria" id="selectCategoria" filtro="IdCategoria">
                                 <option selected="selected" value="0"> </option>
                                 @{
-                                    Dictionary<int, string> dicCategorias = Model.datosCategorias;
+                                    Dictionary<int, string> dicCategorias = Model.cboCategorias();
                                     foreach (var categoria in dicCategorias)
                                     {
                                         <option value="@categoria.Key">@categoria.Value </option>
@@ -69,7 +69,7 @@
                             <select class="form-control w50" name="IdClasificacion1" ref="comboDinamico" id="selectClasif_1" sig="selectClasif_2">
                                 <option selected="selected" value="0"> </option>
                                 @{
-                                    Dictionary<int, string> dicClasificacion1 = Model.datosClasificacion1;
+                                    Dictionary<int, string> dicClasificacion1 = Model.cboClasificacion1();
                                     foreach (var clasif1 in dicClasificacion1)
                                     {
                                         <option value="@clasif1.Key">@clasif1.Value </option>

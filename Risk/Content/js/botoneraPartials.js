@@ -99,7 +99,7 @@ $('#BtnDiscardModal').click(function () {
     var handler = $('#BtnDiscardModal').attr('handler').split('_')[1];
     var idRiesgo = $('#IdRiesgo').val();
 
-    alert(handler + ' ' + idRiesgo)
+    //alert(handler + ' ' + idRiesgo)
     $('#modalAviso').modal('hide');
 
     $('#mnu li').removeClass('active');
