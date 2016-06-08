@@ -27,7 +27,17 @@ namespace Risk.Controllers
 
             try
             {
-                MetaTable TablaDBO = ConexionRiesgos.Mapping.GetTables().Where(t => t.TableName == "dbo." + nombreTabla).Select(t => t).SingleOrDefault();
+                MetaTable TablaDBO;
+
+                if (nombreTabla.Contains("Indicadores"))
+                {
+                    TablaDBO = ConexionConsultas.Mapping.GetTables().Where(t => t.TableName == "dbo." + nombreTabla).Select(t => t).SingleOrDefault();
+                }
+                else
+                {
+                    TablaDBO = ConexionRiesgos.Mapping.GetTables().Where(t => t.TableName == "dbo." + nombreTabla).Select(t => t).SingleOrDefault();
+                }
+              
 
                 List<string> ver = new List<string>();
                 List<string> titulos = new List<string>();

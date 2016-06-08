@@ -28,4 +28,33 @@
       <Column Name="ColorM" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
     </Type>
   </Table>
+  <Table Name="dbo.qIndicadores" Member="qIndicadores">
+    <Type Name="qIndicadores">
+      <Column Name="Estado" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Color" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="CodEstado" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="IdIndicador" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CodIndicador" Type="System.String" DbType="NVarChar(20)" CanBeNull="true" />
+      <Column Name="Indicador" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="FormulaCalculo" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="UltimoValor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NivelAlarma" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NivelPrecaucion" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="UltimaFecha" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="NivelAlarmaAccion" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="IdEstado" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="NivelAlarmaEscalamiento" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="NivelPrecaucionAccion" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="NivelPrecaucionEscalamiento" Type="System.String" DbType="NVarChar(250)" CanBeNull="true" />
+      <Column Name="IdNivelAlarmaAccion" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="idResponsable" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="IdNivelAlarmaEscalamiento" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IndiiEvolucion" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdSelec1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdSelec2" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdPeriodicidad" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="EstadoPeriodicidad" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
 </Database>

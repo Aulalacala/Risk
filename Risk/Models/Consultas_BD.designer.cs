@@ -69,6 +69,14 @@ namespace Risk.Models
 				return this.GetTable<qPlanes>();
 			}
 		}
+		
+		public System.Data.Linq.Table<qIndicadores> qIndicadores
+		{
+			get
+			{
+				return this.GetTable<qIndicadores>();
+			}
+		}
 	}
 	
 	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.qPlanes")]
@@ -507,6 +515,465 @@ namespace Risk.Models
 				if ((this._ColorM != value))
 				{
 					this._ColorM = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.qIndicadores")]
+	public partial class qIndicadores
+	{
+		
+		private string _Estado;
+		
+		private string _Color;
+		
+		private string _CodEstado;
+		
+		private int _IdIndicador;
+		
+		private string _CodIndicador;
+		
+		private string _Indicador;
+		
+		private string _FormulaCalculo;
+		
+		private System.Nullable<int> _UltimoValor;
+		
+		private System.Nullable<int> _NivelAlarma;
+		
+		private System.Nullable<int> _NivelPrecaucion;
+		
+		private System.Nullable<System.DateTime> _UltimaFecha;
+		
+		private string _NivelAlarmaAccion;
+		
+		private System.Nullable<int> _IdEstado;
+		
+		private string _NivelAlarmaEscalamiento;
+		
+		private string _NivelPrecaucionAccion;
+		
+		private string _NivelPrecaucionEscalamiento;
+		
+		private System.Nullable<int> _IdNivelAlarmaAccion;
+		
+		private System.Nullable<int> _idResponsable;
+		
+		private string _Nombre;
+		
+		private System.Nullable<int> _IdNivelAlarmaEscalamiento;
+		
+		private System.Nullable<int> _IndiiEvolucion;
+		
+		private System.Nullable<int> _IdSelec1;
+		
+		private System.Nullable<int> _IdSelec2;
+		
+		private System.Nullable<int> _IdPeriodicidad;
+		
+		private string _EstadoPeriodicidad;
+		
+		public qIndicadores()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estado", DbType="NVarChar(50)")]
+		public string Estado
+		{
+			get
+			{
+				return this._Estado;
+			}
+			set
+			{
+				if ((this._Estado != value))
+				{
+					this._Estado = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Color", DbType="NVarChar(50)")]
+		public string Color
+		{
+			get
+			{
+				return this._Color;
+			}
+			set
+			{
+				if ((this._Color != value))
+				{
+					this._Color = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodEstado", DbType="NVarChar(10)")]
+		public string CodEstado
+		{
+			get
+			{
+				return this._CodEstado;
+			}
+			set
+			{
+				if ((this._CodEstado != value))
+				{
+					this._CodEstado = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdIndicador", DbType="Int NOT NULL")]
+		public int IdIndicador
+		{
+			get
+			{
+				return this._IdIndicador;
+			}
+			set
+			{
+				if ((this._IdIndicador != value))
+				{
+					this._IdIndicador = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodIndicador", DbType="NVarChar(20)")]
+		public string CodIndicador
+		{
+			get
+			{
+				return this._CodIndicador;
+			}
+			set
+			{
+				if ((this._CodIndicador != value))
+				{
+					this._CodIndicador = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Indicador", DbType="NVarChar(50)")]
+		public string Indicador
+		{
+			get
+			{
+				return this._Indicador;
+			}
+			set
+			{
+				if ((this._Indicador != value))
+				{
+					this._Indicador = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FormulaCalculo", DbType="NVarChar(250)")]
+		public string FormulaCalculo
+		{
+			get
+			{
+				return this._FormulaCalculo;
+			}
+			set
+			{
+				if ((this._FormulaCalculo != value))
+				{
+					this._FormulaCalculo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UltimoValor", DbType="Int")]
+		public System.Nullable<int> UltimoValor
+		{
+			get
+			{
+				return this._UltimoValor;
+			}
+			set
+			{
+				if ((this._UltimoValor != value))
+				{
+					this._UltimoValor = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NivelAlarma", DbType="Int")]
+		public System.Nullable<int> NivelAlarma
+		{
+			get
+			{
+				return this._NivelAlarma;
+			}
+			set
+			{
+				if ((this._NivelAlarma != value))
+				{
+					this._NivelAlarma = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NivelPrecaucion", DbType="Int")]
+		public System.Nullable<int> NivelPrecaucion
+		{
+			get
+			{
+				return this._NivelPrecaucion;
+			}
+			set
+			{
+				if ((this._NivelPrecaucion != value))
+				{
+					this._NivelPrecaucion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_UltimaFecha", DbType="DateTime")]
+		public System.Nullable<System.DateTime> UltimaFecha
+		{
+			get
+			{
+				return this._UltimaFecha;
+			}
+			set
+			{
+				if ((this._UltimaFecha != value))
+				{
+					this._UltimaFecha = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NivelAlarmaAccion", DbType="NVarChar(250)")]
+		public string NivelAlarmaAccion
+		{
+			get
+			{
+				return this._NivelAlarmaAccion;
+			}
+			set
+			{
+				if ((this._NivelAlarmaAccion != value))
+				{
+					this._NivelAlarmaAccion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEstado", DbType="Int")]
+		public System.Nullable<int> IdEstado
+		{
+			get
+			{
+				return this._IdEstado;
+			}
+			set
+			{
+				if ((this._IdEstado != value))
+				{
+					this._IdEstado = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NivelAlarmaEscalamiento", DbType="NVarChar(250)")]
+		public string NivelAlarmaEscalamiento
+		{
+			get
+			{
+				return this._NivelAlarmaEscalamiento;
+			}
+			set
+			{
+				if ((this._NivelAlarmaEscalamiento != value))
+				{
+					this._NivelAlarmaEscalamiento = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NivelPrecaucionAccion", DbType="NVarChar(250)")]
+		public string NivelPrecaucionAccion
+		{
+			get
+			{
+				return this._NivelPrecaucionAccion;
+			}
+			set
+			{
+				if ((this._NivelPrecaucionAccion != value))
+				{
+					this._NivelPrecaucionAccion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_NivelPrecaucionEscalamiento", DbType="NVarChar(250)")]
+		public string NivelPrecaucionEscalamiento
+		{
+			get
+			{
+				return this._NivelPrecaucionEscalamiento;
+			}
+			set
+			{
+				if ((this._NivelPrecaucionEscalamiento != value))
+				{
+					this._NivelPrecaucionEscalamiento = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdNivelAlarmaAccion", DbType="Int")]
+		public System.Nullable<int> IdNivelAlarmaAccion
+		{
+			get
+			{
+				return this._IdNivelAlarmaAccion;
+			}
+			set
+			{
+				if ((this._IdNivelAlarmaAccion != value))
+				{
+					this._IdNivelAlarmaAccion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_idResponsable", DbType="Int")]
+		public System.Nullable<int> idResponsable
+		{
+			get
+			{
+				return this._idResponsable;
+			}
+			set
+			{
+				if ((this._idResponsable != value))
+				{
+					this._idResponsable = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="NVarChar(100)")]
+		public string Nombre
+		{
+			get
+			{
+				return this._Nombre;
+			}
+			set
+			{
+				if ((this._Nombre != value))
+				{
+					this._Nombre = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdNivelAlarmaEscalamiento", DbType="Int")]
+		public System.Nullable<int> IdNivelAlarmaEscalamiento
+		{
+			get
+			{
+				return this._IdNivelAlarmaEscalamiento;
+			}
+			set
+			{
+				if ((this._IdNivelAlarmaEscalamiento != value))
+				{
+					this._IdNivelAlarmaEscalamiento = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IndiiEvolucion", DbType="Int")]
+		public System.Nullable<int> IndiiEvolucion
+		{
+			get
+			{
+				return this._IndiiEvolucion;
+			}
+			set
+			{
+				if ((this._IndiiEvolucion != value))
+				{
+					this._IndiiEvolucion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSelec1", DbType="Int")]
+		public System.Nullable<int> IdSelec1
+		{
+			get
+			{
+				return this._IdSelec1;
+			}
+			set
+			{
+				if ((this._IdSelec1 != value))
+				{
+					this._IdSelec1 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdSelec2", DbType="Int")]
+		public System.Nullable<int> IdSelec2
+		{
+			get
+			{
+				return this._IdSelec2;
+			}
+			set
+			{
+				if ((this._IdSelec2 != value))
+				{
+					this._IdSelec2 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPeriodicidad", DbType="Int")]
+		public System.Nullable<int> IdPeriodicidad
+		{
+			get
+			{
+				return this._IdPeriodicidad;
+			}
+			set
+			{
+				if ((this._IdPeriodicidad != value))
+				{
+					this._IdPeriodicidad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_EstadoPeriodicidad", DbType="NVarChar(255)")]
+		public string EstadoPeriodicidad
+		{
+			get
+			{
+				return this._EstadoPeriodicidad;
+			}
+			set
+			{
+				if ((this._EstadoPeriodicidad != value))
+				{
+					this._EstadoPeriodicidad = value;
 				}
 			}
 		}

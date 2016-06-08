@@ -36,11 +36,11 @@
                         </div>
 
                         <div class="col-lg-8 col-md-8">
-                            <input type="text" class="form-control w90" name="filtro" />
+                            <input type="text" class="form-control w90" name="filtro" id="filtro"/>
                         </div>
 
                         <div class="col-lg-2 col-md-2">
-                            <input type="submit" class="btn btn-primary" name="BtnBuscarKRIS" value="SEARCH" id="BtnBuscarKRIS" />
+                            <input type="button" class="btn btn-primary" name="BtnBuscarKRIS" value="SEARCH" id="BtnBuscarKRIS" />
                         </div>
                     </div>
                 }
@@ -61,7 +61,7 @@
                     <!-- TABLE DIV -->
                 </div>
                 <div>
-                    <div id="tablaEnKRIS" class="divDelGrid center-block table-responsive" style="width:95%">
+                    <div id="tablaKRISDiv" class="divDelGrid center-block table-responsive" style="width:95%">
                         @*@Html.Partial("~/Views/PartialViews/TablaDatos.cshtml", Model)*@
                     </div>
                 </div>
@@ -72,3 +72,17 @@
 
     </div> <!-- END RESULTS TABLE -->
 </div>
+
+<script>
+    $(document).ready(function () {
+        var ruta2 = "http://localhost:1525/Assign/BusquedaKRIS";
+        $('#tablaKRISDiv').load(ruta2);
+
+        $('#BtnBuscarKRIS').click(function () {
+            var ruta2 = "http://localhost:1525/Assign/BusquedaKRIS";
+
+            $('#tablaKRISDiv').load(ruta2, { "Indicador": $('#filtro').val() });
+        });
+
+    });
+</script>
