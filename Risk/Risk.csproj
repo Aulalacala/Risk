@@ -300,8 +300,11 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Riesgos_BD.dbml</DependentUpon>
     </Compile>
+    <Compile Include="Models\TablaEvaluaciones_Historical.cs" />
+    <Compile Include="Models\TablaIndicadores_KRIS.cs" />
     <Compile Include="Models\TablaRiesgos.cs" />
     <Compile Include="Models\TablaRiesgos2.cs" />
+    <Compile Include="Models\TablaRiesgos_Risks.cs" />
     <Compile Include="Models\Usuarios_BD.designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>

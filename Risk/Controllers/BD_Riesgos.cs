@@ -247,11 +247,8 @@ namespace Risk.Controllers
                 catch (Exception)
                 {
                 }
-
             }
-
             return datosQ;
-
         }
 
         #endregion

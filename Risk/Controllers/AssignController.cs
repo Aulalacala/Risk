@@ -66,15 +66,9 @@ namespace Risk.Controllers
 
         public ActionResult TablaDatos(string id)
         {
-
-            DatosTablaModel datosTabla = datosTablaGeneral;
-            datosTabla.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos, null, 0, 0, 0, 0, Convert.ToInt32(id));
-            datosTabla.editable = true;
-            datosTabla.borrar = true;
-            datosTabla.urlActionEditar = new Tuple<string, string>("RiskFicha", "Risk");
-            datosTabla.urlActionBorrar = new Tuple<string, string>("RiskFicha", "Risk"); // Crear action para borrar fila
-
-            return PartialView("~/Views/PartialViews/TablaDatos.cshtml", datosTabla);
+            TablaRiesgos_Risks tabla = new TablaRiesgos_Risks();
+            DatosTablaModel tablafiltrada = tabla.dameTablaPorIdEstructura(Convert.ToInt32(id));
+            return PartialView("~/Views/PartialViews/TablaDatos.cshtml", tablafiltrada);
         }
 
         #endregion
@@ -94,24 +88,13 @@ namespace Risk.Controllers
 
             AssignMultipleRiskVM datosTablas = new AssignMultipleRiskVM();
 
-            DatosTablaModel datosTablaAsignados = new DatosTablaModel();
-            //CARGAR TBODY CON LOS RIESGOS ASIGNADOS
-            datosTablaAsignados.datosTHead = datosTablaGeneral.datosTHead;
-            datosTablaAsignados.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos, null, 0, 0, 0, 0, Convert.ToInt32(idEstructura));
-            datosTablaAsignados.titulo = "Riesgos de la estructura";
-            datosTablaAsignados.editable = true;
-            datosTablaAsignados.borrar = false;
-            datosTablaAsignados.urlActionEditar = new Tuple<string, string>("RiskFicha", "Risk");
+            TablaRiesgos_Risks tablaAsignados = new TablaRiesgos_Risks();
+            DatosTablaModel datosTablaAsignados = tablaAsignados.dameTablaPorIdEstructura(Convert.ToInt32(idEstructura));
 
-
-            DatosTablaModel datosTablaSinAsignar = new DatosTablaModel();
-            //CARGAR TBODY CON RIESGOS SIN ASIGNAR
-            datosTablaSinAsignar.datosTHead = datosTablaGeneral.datosTHead;
-            datosTablaSinAsignar.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos, null, 0, 0, 0, 0, 0, true);
-            datosTablaSinAsignar.titulo = "Riesgos sin asignación de estructura";
-            datosTablaSinAsignar.editable = true;
-            datosTablaSinAsignar.borrar = false;
-            datosTablaSinAsignar.urlActionEditar = new Tuple<string, string>("RiskFicha", "Risk");
+            TablaRiesgos_Risks tablaSinAsignar = new TablaRiesgos_Risks();
+            Dictionary<string, object> filtro = new Dictionary<string, object>();
+            filtro.Add("CodRiesgo", null);
+            DatosTablaModel datosTablaSinAsignar = tablaSinAsignar.dameTabla(filtro);
 
             datosTablas.datosTablaAsignados = datosTablaAsignados;
             datosTablas.datosTablaSinAsignar = datosTablaSinAsignar;
@@ -134,10 +117,8 @@ namespace Risk.Controllers
         /// <returns>Despues de guardar vuelve redirige a la vista actualizada</returns>
         public ActionResult guardarCambiosMultipleRisk(Dictionary<string, List<string>> listaRiesgos, int idEstructura)
         {
-
             foreach (var riesgo in listaRiesgos)
             {
-
                 tRiesgos riesgoActualizar = new tRiesgos();
 
                 if (riesgo.Key == "0")
@@ -274,7 +255,7 @@ namespace Risk.Controllers
                 dictionaryFiltros.Add("IdClasificacion3", IdClasificacion3);
             }
 
-            TablaRiesgos3 tabla = new TablaRiesgos3();
+            TablaRiesgos_Risks tabla = new TablaRiesgos_Risks();
             DatosTablaModel tablafiltrada = tabla.dameTabla(dictionaryFiltros);
             
             return PartialView("~/Views/PartialViews/TablaDatos.cshtml", tablafiltrada);
