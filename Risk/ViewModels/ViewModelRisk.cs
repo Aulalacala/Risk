@@ -8,10 +8,8 @@ namespace Risk.ViewModels {
     public class ViewModelRisk {
 
         public DropDownModel dropDownModel { get; set; }
-        public DatosTablaModel datosTabla { get; set; }
-
-
-
+       // public DatosTablaModel datosTabla { get; set; }
+       // public Dictionary<string,object> breadcrumbSearch { get; set; }
     }
 
 

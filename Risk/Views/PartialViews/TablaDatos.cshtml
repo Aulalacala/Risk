@@ -64,7 +64,7 @@
 
                                     @{
                                         foreach (var fila in Model.datosTBody) {
-                                            <tr id="@fila.Key">
+                                            <tr id="@fila.Key" >
                                                 @{if (Model.editable) {
                                                         <td style="text-align:center">
                                                             <a href="@Url.Action(Model.urlActionEditar.Item1, Model.urlActionEditar.Item2, new { id = fila.Key }) " id="@fila.Key"><i class="glyphicon glyphicon-pencil"></i></a>
@@ -128,7 +128,17 @@
 <script>
     $(document).ready(function () {
 
-        //var table = $('#tablaDatosRiesgos').DataTable();
+        $('#tablaDatosRiesgos tbody').on('click', 'tr', function () {
+            if ($(this).hasClass('selected')) {
+                $(this).removeClass('selected');
+            }
+            else {
+                $('#tablaDatosRiesgos tr.selected').removeClass('selected');
+                $(this).addClass('selected');
+            }
+        });
+
+
         var vista = window.location.href.split('/')[4];
 
         if (vista.indexOf("#") > -1) {

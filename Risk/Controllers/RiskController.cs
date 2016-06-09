@@ -118,14 +118,8 @@ namespace Risk.Controllers
         public ActionResult Historical(int id)
         {
             FichaRiesgoVM fichaRiesgoVM = montaVM(id);
-
-            DatosTablaModel datosTabla = new DatosTablaModel();
-            datosTabla.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosEvalVal", colVer, colTitulos);
-            datosTabla.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosEvalVal", colVer, colTitulos, null, 0, 0, 0, 0, Convert.ToInt32(id));
-            datosTabla.vistaProcedencia = "Historical";
-            datosTabla.editable = false;
-            datosTabla.borrar = false;
-
+            TablaEvaluaciones_Historical tabla= new TablaEvaluaciones_Historical();
+            DatosTablaModel datosTabla= tabla.dameTablaPorIdRiesgo(id);
 
             fichaRiesgoVM.datosTabla_VM = datosTabla;
             fichaRiesgoVM.referencia = 0;
@@ -164,13 +158,6 @@ namespace Risk.Controllers
             return PartialView(datosTabla);
         }
 
-
-
-        public ActionResult FinancialImpactCombos(int id)
-        {
-            FichaRiesgoVM fichaRiesgoVM = montaVM(id);
-            return PartialView(fichaRiesgoVM);
-        }
 
         public ActionResult FinancialImpactTextBox(int id, int idEvaluacion = 0)
         {

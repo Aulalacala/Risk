@@ -15,6 +15,12 @@ namespace Risk.Models
         public bool borrar { get; set; }
         public Tuple<string,string> urlActionEditar { get; set; }
         public Tuple<string, string> urlActionBorrar { get; set; }
+
+        public string nombreTablaBD { get; set; }
+        public string colVer { get; set; }
+        public string colTitulo { get; set; }
+        public Dictionary<string, object> filtros { get; set; }
+
         //La tupla se montaria => item1 = vista // item2 = controlador
     }
 }

@@ -1,10 +1,9 @@
-﻿@*@model Risk.Models.DatosTablaModel*@
+﻿@model Risk.Models.qPlanes
 @{
-    ViewBag.Title = "KRISIndicators";
+    ViewBag.Title = "Plans";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
-
-<h2>KRISIndicators</h2>
+<h2>ACTION PLANS</h2>
 
 <div class="panel Incidencias_lista_divPagina">
     <div class="panel-body">
@@ -13,7 +12,7 @@
         <span class="title">SEARCH CRITERIA</span>
 
         <div id="botonera" class="pull-right">
-            <a href="@Url.Action("KrisFicha", "KRIS", new { id = 0 })" class="btn btn-primary">NEW</a>
+            <a href="@Url.Action("PlanFicha", "Plan", new { id = 0 })" class="btn btn-primary">NEW</a>
         </div>
 
         <div class="clearfix"></div>
@@ -28,7 +27,7 @@
 
                 <!-- ROW FILTER -->
 
-                @using (Html.BeginForm("BusquedaKRIS", "Assign", FormMethod.Post))
+                @using (Html.BeginForm("BusquedaPlan", "Plan", FormMethod.Post))
                 {
                     <div class="row row-no-padding">
                         <div class="col-lg-2 col-md-2">
@@ -36,11 +35,11 @@
                         </div>
 
                         <div class="col-lg-8 col-md-8">
-                            <input type="text" class="form-control w90" name="filtro" id="filtro"/>
+                            <input type="text" class="form-control w90" name="filtro" />
                         </div>
 
                         <div class="col-lg-2 col-md-2">
-                            <input type="button" class="btn btn-primary" name="BtnBuscarKRIS" value="SEARCH" id="BtnBuscarKRIS" />
+                            <input type="submit" class="btn btn-primary" name="BtnBuscarPlan" value="SEARCH" id="BtnBuscarPlan" />
                         </div>
                     </div>
                 }
@@ -61,8 +60,8 @@
                     <!-- TABLE DIV -->
                 </div>
                 <div>
-                    <div id="tablaKRISDiv" class="divDelGrid center-block table-responsive" style="width:95%">
-                        @*@Html.Partial("~/Views/PartialViews/TablaDatos.cshtml", Model)*@
+                    <div class="divDelGrid center-block table-responsive" style="width:95%">
+                        @Html.Partial("~/Views/PartialViews/TablaDatos.cshtml", Model)
                     </div>
                 </div>
                 <!-- END RESULTS -->
@@ -73,16 +72,3 @@
     </div> <!-- END RESULTS TABLE -->
 </div>
 
-<script>
-    $(document).ready(function () {
-        var ruta2 = "http://localhost:1525/Assign/BusquedaKRIS";
-        $('#tablaKRISDiv').load(ruta2);
-
-        $('#BtnBuscarKRIS').click(function () {
-            var ruta2 = "http://localhost:1525/Assign/BusquedaKRIS";
-
-            $('#tablaKRISDiv').load(ruta2, { "Indicador": $('#filtro').val() });
-        });
-
-    });
-</script>
