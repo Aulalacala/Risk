@@ -35,7 +35,7 @@
                         </div>
 
                         <div class="col-lg-8 col-md-8">
-                            <input type="text" class="form-control w90" name="filtro" />
+                            <input type="text" class="form-control w90" name="filtro" id="filtro"/>
                         </div>
 
                         <div class="col-lg-2 col-md-2">
@@ -60,8 +60,7 @@
                     <!-- TABLE DIV -->
                 </div>
                 <div>
-                    <div class="divDelGrid center-block table-responsive" style="width:95%">
-                        @Html.Partial("~/Views/PartialViews/TablaDatos.cshtml", Model)
+                    <div id="tablaPlanesDiv" class="divDelGrid center-block table-responsive" style="width:95%">
                     </div>
                 </div>
                 <!-- END RESULTS -->
@@ -72,3 +71,15 @@
     </div> <!-- END RESULTS TABLE -->
 </div>
 
+<script>
+    $(document).ready(function () {
+        var ruta2 = "http://localhost:1525/Plan/BusquedaPlanes";
+        $('#tablaPlanesDiv').load(ruta2);
+
+        $('#BtnBuscarPlan').click(function () {
+            var ruta2 = "http://localhost:1525/Plan/BusquedaPlanes";
+
+            $('#tablaPlanesDiv').load(ruta2, { "Nombre": $('#filtro').val() });
+        });
+    });
+</script>

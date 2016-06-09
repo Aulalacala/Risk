@@ -62,26 +62,30 @@ namespace Risk.Controllers
         {
             OperationalAndReputationalVM datosOperational = new OperationalAndReputationalVM();
 
-            DatosTablaModel datosTablaSuperior = new DatosTablaModel();
-            DatosTablaModel datosTablaInferior = new DatosTablaModel();
+            TablaRiesgos_Risks tabla = new TablaRiesgos_Risks();
+            Dictionary<string, object> filtros = new Dictionary<string, object>();
+            DatosTablaModel tablaR = tabla.dameTabla(filtros);
 
-            string colVerOpe = "Activa,Fecha,NombreFrecAntes";
-            string colTitulosOpe = "Activa,Fecha,FrecuenciaA";
+            //DatosTablaModel datosTablaSuperior = new DatosTablaModel();
+            //DatosTablaModel datosTablaInferior = new DatosTablaModel();
 
-            datosTablaSuperior.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosEvalVal", colVerOpe, colTitulosOpe);
-            datosTablaSuperior.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosEvalVal", colVerOpe, colTitulosOpe, null, 0, 0, 0, 0, Convert.ToInt32(id));
-            datosTablaSuperior.vistaProcedencia = "Operational Impact";
-            datosTablaSuperior.editable = false;
-            datosTablaSuperior.borrar = false;
+            //string colVerOpe = "Activa,Fecha,NombreFrecAntes";
+            //string colTitulosOpe = "Activa,Fecha,FrecuenciaA";
 
-            datosTablaInferior.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosEvalVal", colVerOpe, colTitulosOpe);
-            datosTablaInferior.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosEvalVal", colVerOpe, colTitulosOpe, null, 0, 0, 0, 0, Convert.ToInt32(id));
-            datosTablaInferior.vistaProcedencia = "Operational Impact";
-            datosTablaInferior.editable = false;
-            datosTablaInferior.borrar = false;
+            //datosTablaSuperior.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosEvalVal", colVerOpe, colTitulosOpe);
+            //datosTablaSuperior.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosEvalVal", colVerOpe, colTitulosOpe, null, 0, 0, 0, 0, Convert.ToInt32(id));
+            //datosTablaSuperior.vistaProcedencia = "Operational Impact";
+            //datosTablaSuperior.editable = false;
+            //datosTablaSuperior.borrar = false;
 
-            datosOperational.datosTablaSuperior = datosTablaSuperior;
-            datosOperational.datosTablaInferior = datosTablaInferior;
+            //datosTablaInferior.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosEvalVal", colVerOpe, colTitulosOpe);
+            //datosTablaInferior.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosEvalVal", colVerOpe, colTitulosOpe, null, 0, 0, 0, 0, Convert.ToInt32(id));
+            //datosTablaInferior.vistaProcedencia = "Operational Impact";
+            //datosTablaInferior.editable = false;
+            //datosTablaInferior.borrar = false;
+
+            datosOperational.datosTablaSuperior = tablaR;
+            datosOperational.datosTablaInferior = tablaR;
 
             return PartialView(datosOperational);
         }
@@ -89,27 +93,30 @@ namespace Risk.Controllers
 
         public ActionResult ReputationalImpact(int id) {
             OperationalAndReputationalVM datosOperational = new OperationalAndReputationalVM();
+            TablaRiesgos_Risks tabla = new TablaRiesgos_Risks();
+            Dictionary<string, object> filtros = new Dictionary<string, object>();
+            DatosTablaModel tablaR = tabla.dameTabla(filtros);
 
-            DatosTablaModel datosTablaSuperior = new DatosTablaModel();
-            DatosTablaModel datosTablaInferior = new DatosTablaModel();
+            //DatosTablaModel datosTablaSuperior = new DatosTablaModel();
+            //DatosTablaModel datosTablaInferior = new DatosTablaModel();
 
-            string colVerOpe = "Activa,Fecha,NombreFrecAntes";
-            string colTitulosOpe = "Activa,Fecha,FrecuenciaA";
+            //string colVerOpe = "Activa,Fecha,NombreFrecAntes";
+            //string colTitulosOpe = "Activa,Fecha,FrecuenciaA";
 
-            datosTablaSuperior.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosEvalVal", colVerOpe, colTitulosOpe);
-            datosTablaSuperior.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosEvalVal", colVerOpe, colTitulosOpe, null, 0, 0, 0, 0, Convert.ToInt32(id));
-            datosTablaSuperior.vistaProcedencia = "Operational Impact";
-            datosTablaSuperior.editable = false;
-            datosTablaSuperior.borrar = false;
+            //datosTablaSuperior.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosEvalVal", colVerOpe, colTitulosOpe);
+            //datosTablaSuperior.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosEvalVal", colVerOpe, colTitulosOpe, null, 0, 0, 0, 0, Convert.ToInt32(id));
+            //datosTablaSuperior.vistaProcedencia = "Operational Impact";
+            //datosTablaSuperior.editable = false;
+            //datosTablaSuperior.borrar = false;
 
-            datosTablaInferior.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosEvalVal", colVerOpe, colTitulosOpe);
-            datosTablaInferior.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosEvalVal", colVerOpe, colTitulosOpe, null, 0, 0, 0, 0, Convert.ToInt32(id));
-            datosTablaInferior.vistaProcedencia = "Operational Impact";
-            datosTablaInferior.editable = false;
-            datosTablaInferior.borrar = false;
+            //datosTablaInferior.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosEvalVal", colVerOpe, colTitulosOpe);
+            //datosTablaInferior.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosEvalVal", colVerOpe, colTitulosOpe, null, 0, 0, 0, 0, Convert.ToInt32(id));
+            //datosTablaInferior.vistaProcedencia = "Operational Impact";
+            //datosTablaInferior.editable = false;
+            //datosTablaInferior.borrar = false;
 
-            datosOperational.datosTablaSuperior = datosTablaSuperior;
-            datosOperational.datosTablaInferior = datosTablaInferior;
+            datosOperational.datosTablaSuperior = tablaR;
+            datosOperational.datosTablaInferior = tablaR;
 
             return PartialView(datosOperational);
         }
@@ -130,32 +137,35 @@ namespace Risk.Controllers
 
         public ActionResult Scoope()
         {
+            TablaRiesgos_Risks tabla = new TablaRiesgos_Risks();
+            Dictionary<string, object> filtros = new Dictionary<string, object>();
+            DatosTablaModel tablaR = tabla.dameTabla(filtros);
 
-            string colVer = "CodRiesgo,Nombre,Categoria,Clasif1,Clasif2,Clasif3,CodRiesgoLocalizado";
-            string colTitulos = "Código Riesgo,Nombre,Categoría,Clasificación1,Clasificación2,Clasificación3,Código Localizado";
+            //string colVer = "CodRiesgo,Nombre,Categoria,Clasif1,Clasif2,Clasif3,CodRiesgoLocalizado";
+            //string colTitulos = "Código Riesgo,Nombre,Categoría,Clasificación1,Clasificación2,Clasificación3,Código Localizado";
 
-            DatosTablaModel datosTabla = new DatosTablaModel();
-            datosTabla.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosNombres", colVer, colTitulos);
+            //DatosTablaModel datosTabla = new DatosTablaModel();
+            //datosTabla.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosNombres", colVer, colTitulos);
 
-            Dictionary<int, List<Tuple<string, string>>> dicBody = new Dictionary<int, List<Tuple<string, string>>>();
-            Dictionary<int, List<Tuple<string, string>>> dic = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
+            //Dictionary<int, List<Tuple<string, string>>> dicBody = new Dictionary<int, List<Tuple<string, string>>>();
+            //Dictionary<int, List<Tuple<string, string>>> dic = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
 
-            //TODO: Unicamente se pasaría el diccionario que devuelve => BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
-            //Se ha hecho ahora, de esta manera porque aun no existe esta tabla, y asi visualizar datos
-            //Asi : ↓↓↓
-            // datosTabla.datosTBody =  BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
+            ////TODO: Unicamente se pasaría el diccionario que devuelve => BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
+            ////Se ha hecho ahora, de esta manera porque aun no existe esta tabla, y asi visualizar datos
+            ////Asi : ↓↓↓
+            //// datosTabla.datosTBody =  BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
 
-            foreach (var item in dic.Take(3))
-            {
-                dicBody.Add(item.Key, item.Value);
-            }
+            //foreach (var item in dic.Take(3))
+            //{
+            //    dicBody.Add(item.Key, item.Value);
+            //}
 
-            datosTabla.datosTBody = dicBody;
-            datosTabla.vistaProcedencia = "Scoopes";
-            datosTabla.editable = false;
-            datosTabla.borrar = false;
+            //datosTabla.datosTBody = dicBody;
+            //datosTabla.vistaProcedencia = "Scoopes";
+            //datosTabla.editable = false;
+            //datosTabla.borrar = false;
 
-            return PartialView(datosTabla);
+            return PartialView(tablaR);
         }
 
 

@@ -129,11 +129,7 @@
             </div>
 
  
-            <div id="tablaRiesgosDiv"></div>
-
-            
-
-           
+            <div id="tablaRiesgosDiv"></div>          
             <!-- END RESULTS -->
         </div>
     </div> <!-- END TABLE DIV -->
@@ -149,11 +145,7 @@
 
     $(document).ready(function () {
         var ruta2 = "http://localhost:1525/Assign/TablaEnRisk";
-        //$('#tablaPrimaria').remove();
         $('#tablaRiesgosDiv').load(ruta2);
-
-
-
         $('#BtnBuscarRisk').click(function () {
             alert('submit')
 
@@ -185,13 +177,8 @@
 
             })
             var ruta2 = "http://localhost:1525/Assign/TablaEnRisk";
-            //$('#tablaPrimaria').remove();
             $('#tablaRiesgosDiv').load(ruta2, { "Nombre": Nombre, "IdCategoria": IdCategoria, "IdClasificacion1": IdClasificacion1, "IdClasificacion2": IdClasificacion2, "IdClasificacion3": IdClasificacion3 });
         });
 
     })
-
-
-    
-
 </script>

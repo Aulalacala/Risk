@@ -10,6 +10,25 @@ using System.Web.Mvc;
 
 namespace Risk.Controllers
 {
+
+    public class MyHeaderFooterEvent : PdfPageEventHelper
+    {
+        Font FONT = new Font(Font.FontFamily.HELVETICA, 18, Font.BOLD);
+
+        public override void OnEndPage(PdfWriter writer, Document document)
+        {
+            PdfContentByte canvas = writer.DirectContent;
+            ColumnText.ShowTextAligned(
+              canvas, Element.ALIGN_LEFT,
+              new Phrase("Header", FONT), 10, 760, 0
+            );
+            ColumnText.ShowTextAligned(
+              canvas, Element.ALIGN_LEFT,
+              new Phrase("Footer", FONT), 10, 10, 0
+            );
+        }
+    }
+
     public class ReportsController : Controller
     {
         // GET: Reports
@@ -18,15 +37,21 @@ namespace Risk.Controllers
             return View();
         }
 
-        public void generaReport()
+        public ActionResult pdfOK()
         {
+            return View();
+        }
 
+        public ActionResult generaReport()
+        {
+            //Datos de Riesgos que vamos a insertar
             TablaRiesgos_Risks tabla = new TablaRiesgos_Risks();
             Dictionary<string, object> filtros = new Dictionary<string, object>();
-            DatosTablaModel tablafiltrada = tabla.dameTabla(filtros);
+            DatosTablaModel tablaR = tabla.dameTabla(filtros);
+           
 
             // Creamos el documento con el tamaño de página tradicional
-            Document doc = new Document(PageSize.LETTER);
+            Document doc = new Document(iTextSharp.text.PageSize.LEDGER, 10, 10, 42, 35);
             // Indicamos donde vamos a guardar el documento
             PdfWriter writer = PdfWriter.GetInstance(doc,
                                         new FileStream(@"C:\Users\Sony\Desktop\Rg_Datos_" + DateTime.Now.Year + "_" + DateTime.Now.Month + "_" + DateTime.Now.Day + ".pdf", FileMode.Create));
@@ -38,8 +63,9 @@ namespace Risk.Controllers
 
             // Abrimos el archivo
             doc.Open();
+            writer.PageEvent = new MyHeaderFooterEvent();
 
-            // Escribimos el encabezamiento en el documento
+            // Escribimos el encabezamiento en el documento                    
             doc.Add(new Paragraph("DATOS  RIESGOS"));
             doc.Add(Chunk.NEWLINE);
 
@@ -48,79 +74,77 @@ namespace Risk.Controllers
             // Creamos una tabla que contendrá el nombre, apellido y país 
             // de nuestros visitante.
 
-            PdfPTable tblPrueba = new PdfPTable(tablafiltrada.datosTHead.Count());
+            PdfPTable tblPrueba = new PdfPTable(tablaR.datosTHead.Count());
             tblPrueba.WidthPercentage = 100;
 
 
             PdfPCell cl;
-            foreach (var columna in tablafiltrada.datosTHead)
+            // Configuramos el título de las columnas de la tabla
+            foreach (var columna in tablaR.datosTHead)
             {
                 cl = new PdfPCell(new Phrase(columna.Value, _standardFont));
                 cl.BorderWidth = 0;
                 cl.BorderWidthBottom = 0.75f;
+                // Añadimos las celdas a la tabla
                 tblPrueba.AddCell(cl);
             }
-
-            //// Configuramos el título de las columnas de la tabla
-            //PdfPCell clNombre = new PdfPCell(new Phrase("Nombre", _standardFont));
-            //clNombre.BorderWidth = 0;
-            //clNombre.BorderWidthBottom = 0.75f;
-
-            //PdfPCell clApellido = new PdfPCell(new Phrase("Apellido", _standardFont));
-            //clApellido.BorderWidth = 0;
-            //clApellido.BorderWidthBottom = 0.75f;
-
-            //PdfPCell clPais = new PdfPCell(new Phrase("País", _standardFont));
-            //clPais.BorderWidth = 0;
-            //clPais.BorderWidthBottom = 0.75f;
-
-            //// Añadimos las celdas a la tabla
-            //tblPrueba.AddCell(clNombre);
-            //tblPrueba.AddCell(clApellido);
-            //tblPrueba.AddCell(clPais);
-
+                    
             // Llenamos la tabla con información
-
-            foreach (var body in tablafiltrada.datosTBody)
+            foreach (var body in tablaR.datosTBody.Values)
             {
-                cl = new PdfPCell(new Phrase("Roberto", _standardFont));
-                cl.BorderWidth = 0;
+                foreach (var item in body)
+                {
+                    cl = new PdfPCell(new Phrase(item.Item2 , _standardFont));
+                    cl.BorderWidth = 0;
+                    // Añadimos las celdas a la tabla
+                    tblPrueba.AddCell(cl);
+                }               
             }
-
-            //clNombre = new PdfPCell(new Phrase("Roberto", _standardFont));
-            //clNombre.BorderWidth = 0;
-
-            //clApellido = new PdfPCell(new Phrase("Torres", _standardFont));
-            //clApellido.BorderWidth = 0;
-
-            //clPais = new PdfPCell(new Phrase("Puerto Rico", _standardFont));
-            //clPais.BorderWidth = 0;
-
-            //// Añadimos las celdas a la tabla
-            //tblPrueba.AddCell(clNombre);
-            //tblPrueba.AddCell(clApellido);
-            //tblPrueba.AddCell(clPais);
-
-            //clNombre = new PdfPCell(new Phrase("Juan", _standardFont));
-            //clNombre.BorderWidth = 0;
-
-            //clApellido = new PdfPCell(new Phrase("Rodríguez", _standardFont));
-            //clApellido.BorderWidth = 0;
-
-            //clPais = new PdfPCell(new Phrase("México", _standardFont));
-            //clPais.BorderWidth = 0;
-
-            //tblPrueba.AddCell(clNombre);
-            //tblPrueba.AddCell(clApellido);
-            //tblPrueba.AddCell(clPais);
 
             // Finalmente, añadimos la tabla al documento PDF y cerramos el documento
             doc.Add(tblPrueba);
 
+            /***********************OTRA TABLA CON OTRAS INFORMACIONES**********************************/
+
+            //Datos de KRIS que vamos a insertar
+            TablaIndicadores_KRIS tablaIndicadores = new TablaIndicadores_KRIS();
+            DatosTablaModel tablaK = tablaIndicadores.dameTabla(filtros);
+
+            doc.NewPage();
+            doc.Add(new Paragraph("DATOS  KRIS"));
+            doc.Add(Chunk.NEWLINE);
+            PdfPTable tblPruebaK = new PdfPTable(tablaK.datosTHead.Count());
+            tblPruebaK.WidthPercentage = 100;
+            PdfPCell cl2;
+            // Configuramos el título de las columnas de la tabla
+            foreach (var columna in tablaK.datosTHead)
+            {
+                cl2 = new PdfPCell(new Phrase(columna.Value, _standardFont));
+                cl2.BorderWidth = 0;
+                cl2.BorderWidthBottom = 0.75f;
+                // Añadimos las celdas a la tabla
+                tblPruebaK.AddCell(cl2);
+            }
+
+            // Llenamos la tabla con información
+            foreach (var body in tablaK.datosTBody.Values)
+            {
+                foreach (var item in body)
+                {
+                    cl2 = new PdfPCell(new Phrase(item.Item2, _standardFont));
+                    cl2.BorderWidth = 0;
+                    // Añadimos las celdas a la tabla
+                    tblPruebaK.AddCell(cl2);
+                }
+            }
+
+            // Finalmente, añadimos la tabla al documento PDF y cerramos el documento
+            doc.Add(tblPruebaK);
+
             doc.Close();
             writer.Close();
 
-            //MessageBox.Show("¡PDF creado!");
+            return RedirectToAction("pdfOK", "Reports");
         }
     }
 }

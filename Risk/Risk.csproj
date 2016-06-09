@@ -308,8 +308,7 @@
     </Compile>
     <Compile Include="Models\TablaEvaluaciones_Historical.cs" />
     <Compile Include="Models\TablaIndicadores_KRIS.cs" />
-    <Compile Include="Models\TablaRiesgos.cs" />
-    <Compile Include="Models\TablaRiesgos2.cs" />
+    <Compile Include="Models\TablaPlanes_Planes.cs" />
     <Compile Include="Models\TablaRiesgos_Risks.cs" />
     <Compile Include="Models\Usuarios_BD.designer.cs">
       <AutoGen>True</AutoGen>
@@ -352,6 +351,8 @@
     <Content Include="Views\KRIS\Main.cshtml" />
     <Content Include="Views\Plan\Plans.cshtml" />
     <Content Include="Views\Reports\Report.cshtml" />
+    <Content Include="Views\Reports\pdfOK.cshtml" />
+    <Content Include="Views\Plan\PlanFicha.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

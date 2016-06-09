@@ -10,52 +10,30 @@ namespace Risk.Controllers
     public class PlanController : Controller
     {
 
-        BD_Riesgos BD_Riesgos = new BD_Riesgos();
-        string colVer = "CodPlanAccion,Nombre,Medidas,Activa,FechaFinTeorica,FechaFinReal,Responsable";
-        string colTitulos = "CodPlanAccion,Nombre,Medidas,Activa,FechaFinTeorica,FechaFinReal,Responsable";
-
-        private DatosTablaModel _datosTablaGeneral = new DatosTablaModel();
-
-        public DatosTablaModel datosTablaGeneral
-        {
-            get
-            {
-                _datosTablaGeneral.datosTHead = BD_Riesgos.nombresColTabla("qPlanes", colVer, colTitulos);
-                _datosTablaGeneral.datosTBody = null;
-                _datosTablaGeneral.titulo = null;
-                return this._datosTablaGeneral;
-            }
-            set
-            {
-                _datosTablaGeneral = value;
-            }
-        }
-
-
-
-
-        // GET: Plan
         public ActionResult Plans()
         {
-            DatosTablaModel datosTabla = new DatosTablaModel();
+            return View();
+        }
 
-            datosTabla.titulo = "ACTION PLANS";
+        public ActionResult BusquedaPlanes(string filtro = null)
+        {
+            TablaPlanes_Planes tabla = new TablaPlanes_Planes();
+            Dictionary<string, object> filtros = new Dictionary<string, object>();
 
-            if (TempData["datosTablaGeneralBusqueda"] != null)
+            if (filtro != null)
             {
-                DatosTablaModel datosTablaGeneralBusqueda = (DatosTablaModel)TempData["datosTablaGeneralBusqueda"];
-                datosTabla.datosTBody = datosTablaGeneralBusqueda.datosTBody;
-            }
-            else
-            {
-               datosTabla.datosTBody = BD_Riesgos.cargaTablaDatos("qPlanes", colVer, colTitulos);
+                filtros.Add("Nombre", filtro);
             }
 
-            datosTabla.editable = true;
-            datosTabla.urlActionEditar = new Tuple<string, string>("PlanFicha", "Plan");
-            datosTabla.borrar = false;          
-            datosTabla.vistaProcedencia = "Plans";
+            DatosTablaModel tablafiltrada = tabla.dameTabla(filtros);
 
+            return PartialView("~/Views/PartialViews/TablaDatos.cshtml", tablafiltrada);
+        }
+
+        public ActionResult PlanFicha(string id)
+        {
+            //Buscar plan en la base de datos
+            //Pasarselo a la vista
             return View();
         }
     }

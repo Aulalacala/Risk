@@ -29,7 +29,7 @@ namespace Risk.Controllers
             {
                 MetaTable TablaDBO;
 
-                if (nombreTabla.Contains("Indicadores"))
+                if (nombreTabla.Contains("Indicadores") || nombreTabla.Contains("Planes"))
                 {
                     TablaDBO = ConexionConsultas.Mapping.GetTables().Where(t => t.TableName == "dbo." + nombreTabla).Select(t => t).SingleOrDefault();
                 }
@@ -89,27 +89,6 @@ namespace Risk.Controllers
 
             try
             {
-                //string query = "select * from " + nombreTabla;
-
-                //switch (nombreTabla)
-                //{
-                //    case "qRiesgosNombres":
-                //        Dictionary<int, qRiesgosNombres> dicRiesgos = ConexionRiesgos.ExecuteQuery<qRiesgosNombres>(query).ToDictionary(r => r.IdRiesgo, r => r);
-                //        Dictionary<int, qRiesgosNombres> dicFiltrado = busquedasQRiesgosNombres(dicRiesgos, filtro, categoria, clasificacion1, clasificacion2, clasificacion3, idEstructura, riesgoSinAsignar);
-                //        dic = dicFiltrado.ToDictionary(r => r.Key, r => (object)r.Value);
-                //        break;
-
-                //    case "qRiesgosEvalVal":
-                //        Dictionary<int, qRiesgosEvalVal> dicEvaluaciones = ConexionRiesgos.ExecuteQuery<qRiesgosEvalVal>(query).Where(r => r.IdRiesgo == idEstructura).ToDictionary(r => Convert.ToInt32(r.IdEvaluacion), r => r);
-                //        dic = dicEvaluaciones.ToDictionary(r => r.Key, r => (object)r.Value);
-                //        break;
-
-                //    case "qPlanes":
-                //        Dictionary<int, qPlanes> dicPlanes = ConexionConsultas.ExecuteQuery<qPlanes>(query).ToDictionary(r => Convert.ToInt32(r.IdPlanAccion), r => r);
-                //        dic = dicPlanes.ToDictionary(r => r.Key, r => (object)r.Value);
-                //        break;
-                //}
-
                 // Cargar de las columnas a mostrar
                 Dictionary<string, string> nombreCols = dicThead;
 
@@ -151,44 +130,7 @@ namespace Risk.Controllers
         }
 
 
-        //public Dictionary<int, qRiesgosNombres> busquedasQRiesgosNombres(Dictionary<int, qRiesgosNombres> dicDato, string filtro = null, int categoria = 0, int clasificacion1 = 0, int clasificacion2 = 0, int clasificacion3 = 0, int idEstructura = 0, bool riesgoSinAsignar = false)
-        //{
-        //    if (!string.IsNullOrEmpty(filtro))
-        //    {
-        //        dicDato = dicDato.Where(r => r.Value.Nombre.Contains(filtro)).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
-        //    }
-
-        //    if (categoria != 0)
-        //    {
-        //        dicDato = dicDato.Where(r => r.Value.IdCategoria == categoria).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
-        //    }
-
-        //    if (clasificacion1 != 0)
-        //    {
-        //        dicDato = dicDato.Where(r => r.Value.IdClasificacion1 == clasificacion1).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
-        //    }
-
-        //    if (clasificacion2 != 0)
-        //    {
-        //        dicDato = dicDato.Where(r => r.Value.IdClasificacion2 == clasificacion2).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
-        //    }
-
-        //    if (clasificacion3 != 0)
-        //    {
-        //        dicDato = dicDato.Where(r => r.Value.IdClasificacion3 == clasificacion3).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
-        //    }
-
-        //    if (idEstructura != 0)
-        //    {
-        //        dicDato = BD_Riesgos.riesgosDescendientes(idEstructura);
-        //    }
-        //    if (riesgoSinAsignar == true)
-        //    {
-        //        dicDato = dicDato.Where(r => r.Value.CodRiesgo == null).ToDictionary(r => r.Value.IdRiesgo, r => r.Value);
-        //    }
-
-        //    return dicDato;
-        //}
+  
 
         public Dictionary<int, object> filtrosRiesgos(Dictionary<string, object> filtros)
         {

@@ -30,7 +30,7 @@ namespace Risk.Codigos
             List<tEstructura> datosEstructuraOrdenados = _datosEstructuraOrdenados;
             ViewBag.datosEstructura = pintaLista(datosEstructuraOrdenados);
 
-            ViewBag.datosthead = BD_Riesgos.nombresColTabla("dbo.qRiesgosNombres", colVer, colTitulos);
+            //ViewBag.datosthead = BD_Riesgos.nombresColTabla("dbo.qRiesgosNombres", colVer, colTitulos);
 
             if (TempData["datostbody"] == null)
             {

@@ -30,50 +30,59 @@ namespace Risk.Controllers
 
         public ActionResult Scoope()
         {
-            string colVer = "CodRiesgo,Nombre,Categoria,Clasif1,Clasif2,Clasif3,CodRiesgoLocalizado";
-            string colTitulos = "Código Riesgo,Nombre,Categoría,Clasificación1,Clasificación2,Clasificación3,Código Localizado";
+            //string colVer = "CodRiesgo,Nombre,Categoria,Clasif1,Clasif2,Clasif3,CodRiesgoLocalizado";
+            //string colTitulos = "Código Riesgo,Nombre,Categoría,Clasificación1,Clasificación2,Clasificación3,Código Localizado";
 
-            DatosTablaModel datosTabla = new DatosTablaModel();
-            datosTabla.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosNombres", colVer, colTitulos);
+            //DatosTablaModel datosTabla = new DatosTablaModel();
+            //datosTabla.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosNombres", colVer, colTitulos);
 
-            Dictionary<int, List<Tuple<string, string>>> dicBody = new Dictionary<int, List<Tuple<string, string>>>();
-            Dictionary<int, List<Tuple<string, string>>> dic = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
+            //Dictionary<int, List<Tuple<string, string>>> dicBody = new Dictionary<int, List<Tuple<string, string>>>();
+            //Dictionary<int, List<Tuple<string, string>>> dic = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
 
-            foreach (var item in dic.Take(3))
-            {
-                dicBody.Add(item.Key, item.Value);
-            }
+            //foreach (var item in dic.Take(3))
+            //{
+            //    dicBody.Add(item.Key, item.Value);
+            //}
 
-            datosTabla.datosTBody = dicBody;
-            datosTabla.vistaProcedencia = "Scoopes";
-            datosTabla.editable = false;
-            datosTabla.borrar = false;
+            //datosTabla.datosTBody = dicBody;
+            //datosTabla.vistaProcedencia = "Scoopes";
+            //datosTabla.editable = false;
+            //datosTabla.borrar = false;
 
-            return PartialView(datosTabla);
+            TablaRiesgos_Risks tabla = new TablaRiesgos_Risks();
+            Dictionary<string, object> filtros = new Dictionary<string, object>();
+            DatosTablaModel tablaR = tabla.dameTabla(filtros);
+
+            return PartialView(tabla);
         }
 
         public ActionResult Archive()
         {
-            string colVer = "CodRiesgo,Nombre,Categoria,Clasif1,Clasif2,Clasif3,CodRiesgoLocalizado";
-            string colTitulos = "Código Riesgo,Nombre,Categoría,Clasificación1,Clasificación2,Clasificación3,Código Localizado";
-
-            DatosTablaModel datosTabla = new DatosTablaModel();
-            datosTabla.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosNombres", colVer, colTitulos);
-
-            Dictionary<int, List<Tuple<string, string>>> dicBody = new Dictionary<int, List<Tuple<string, string>>>();
-            Dictionary<int, List<Tuple<string, string>>> dic = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
+            TablaRiesgos_Risks tabla = new TablaRiesgos_Risks();
+            Dictionary<string, object> filtros = new Dictionary<string, object>();
+            DatosTablaModel tablaR = tabla.dameTabla(filtros);
 
 
-            foreach (var item in dic.Take(3))
-            {
-                dicBody.Add(item.Key, item.Value);
-            }
+            //string colVer = "CodRiesgo,Nombre,Categoria,Clasif1,Clasif2,Clasif3,CodRiesgoLocalizado";
+            //string colTitulos = "Código Riesgo,Nombre,Categoría,Clasificación1,Clasificación2,Clasificación3,Código Localizado";
 
-            datosTabla.datosTBody = dicBody;
-            datosTabla.vistaProcedencia = "Scoopes";
-            datosTabla.editable = false;
-            datosTabla.borrar = false;
-            return PartialView(datosTabla);
+            //DatosTablaModel datosTabla = new DatosTablaModel();
+            //datosTabla.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosNombres", colVer, colTitulos);
+
+            //Dictionary<int, List<Tuple<string, string>>> dicBody = new Dictionary<int, List<Tuple<string, string>>>();
+            //Dictionary<int, List<Tuple<string, string>>> dic = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
+
+
+            //foreach (var item in dic.Take(3))
+            //{
+            //    dicBody.Add(item.Key, item.Value);
+            //}
+
+            //datosTabla.datosTBody = dicBody;
+            //datosTabla.vistaProcedencia = "Scoopes";
+            //datosTabla.editable = false;
+            //datosTabla.borrar = false;
+            return PartialView(tablaR);
         }
 
 
@@ -117,9 +126,9 @@ namespace Risk.Controllers
         }
 
         public ActionResult DeleteKris(int id)
-        { 
-           // bool delete = BD_Riesgos.deleteKRIS(id);
-       
+        {
+            // bool delete = BD_Riesgos.deleteKRIS(id);
+
             return RedirectToAction("KRISIndicators", "Assign");
         }
     }

@@ -15,43 +15,26 @@ namespace Risk.Controllers
 {
     public class AssignController : Controller
     {
+        //Este controlador hace referencia a la parte del menu lateral llamada Assign
+        //El controlador se divide en tantas regiones como items hay dentro del submenu de Assign
 
+        //Inicialización de variables que harán falta en este controlador
         BD_Riesgos BD_Riesgos = new BD_Riesgos();
         BD_MontaDatosTabledata BD_MontaDatosTabledata = new BD_MontaDatosTabledata();
         Riesgos_BDDataContext ConexionRiesgos = (Riesgos_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralRiesgos();
 
-        string colVer = "CodRiesgo,Nombre,Categoria,Clasif1,Clasif2,Clasif3,CodRiesgoLocalizado";
-        string colTitulos = "Código Riesgo,Nombre,Categoría,Clasificación1,Clasificación2,Clasificación3,Código Localizado";
-
-        /// <summary>
-        /// Atributo para cargar inicialmente los datos de la tabla con los riesgos y así no tener que cargar constantemente la cabecera que siempre es igual en este controlador
-        /// </summary>
-        private DatosTablaModel _datosTablaGeneral = new DatosTablaModel();
-
-        public DatosTablaModel datosTablaGeneral
-        {
-            get
-            {
-                _datosTablaGeneral.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosNombres", colVer, colTitulos);
-                _datosTablaGeneral.datosTBody = null;
-                _datosTablaGeneral.titulo = null;
-                return this._datosTablaGeneral;
-            }
-            set
-            {
-                _datosTablaGeneral = value;
-            }
-        }
-
         #region View Structure
-        // Vista inicial Structure GET -----------------------------------------------------------
+        // Vista inicial Structure GET 
+        //En esta vista se carga el TreeView donde esta definida la estructura
         public ActionResult Structure()
         {
             var locations = TreeviewClass.GetLocations(0);
             return View(locations);
         }
 
-        //Partial View Structure GET
+        //Partial View Structure Description GET
+        //Esta partialView se llama a través de jquery => scripts2. A través del método load(), se carga esta partial en el div seleccionado
+        //Muestra la descripción del nodo de árbol seleccionado
         public ActionResult Description(string id)
         {
             DescriptionStructureModel description = new DescriptionStructureModel();
@@ -63,7 +46,9 @@ namespace Risk.Controllers
             return PartialView(description);
         }
 
-
+        //Partial View Structure TablaDatos GET
+        //Esta partialView se llama a través de jquery => scripts2. A través del método load(), se carga esta partial en el div seleccionado
+        //Muestra en una tabla los riesgos hijos del nodo seleccionado 
         public ActionResult TablaDatos(string id)
         {
             TablaRiesgos_Risks tabla = new TablaRiesgos_Risks();
@@ -85,7 +70,7 @@ namespace Risk.Controllers
 
         public ActionResult AssignMultipleRisks(int idEstructura)
         {
-
+            //Uso del ViewModel, para pasar varios modelos/objetos a una misma vista
             AssignMultipleRiskVM datosTablas = new AssignMultipleRiskVM();
 
             TablaRiesgos_Risks tablaAsignados = new TablaRiesgos_Risks();
@@ -132,8 +117,6 @@ namespace Risk.Controllers
                         // Borrar la relación estructura-riesgo. 
                         BD_Riesgos.deleteTRelEstructuraRiesgos(Convert.ToInt32(id));
                     }
-
-
                 }
 
                 else
@@ -165,52 +148,12 @@ namespace Risk.Controllers
         // Vista inicial GET KrisIndicators ----------------------------------------------
         public ActionResult KRISIndicators()
         {
-            //DatosTablaModel datosTabla = new DatosTablaModel();
-            //string colVer = "CodRiesgo,Nombre,Categoria,Clasif1,Clasif2,Clasif3,CodRiesgoLocalizado";
-            //string colTitulos = "Código Riesgo,Nombre,Categoría,Clasificación1,Clasificación2,Clasificación3,Código Localizado";
-
-            //Dictionary<int, List<Tuple<string, string>>> dicBody = new Dictionary<int, List<Tuple<string, string>>>();
-
-            //if (TempData["datosTablaGeneralBusqueda"] != null)
-            //{
-            //    DatosTablaModel datosTablaGeneralBusqueda = (DatosTablaModel)TempData["datosTablaGeneralBusqueda"];
-            //    datosTabla.datosTBody = datosTablaGeneralBusqueda.datosTBody;
-            //}
-            //else
-            //{
-            //    //TODO: Unicamente se pasaría el diccionario que devuelve => BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
-            //    //Se ha hecho ahora, de esta manera porque aun no existe esta tabla, y asi visualizar datos
-            //    //Asi : ↓↓↓
-            //    //datosTabla.datosTBody =  BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
-
-            //    Dictionary<int, List<Tuple<string, string>>> dic = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos);
-
-            //    foreach (var item in dic.Take(17))
-            //    {
-            //        dicBody.Add(item.Key, item.Value);
-            //    }
-            //    datosTabla.datosTBody = dicBody;
-            //}
-
-            //datosTabla.datosTHead = BD_Riesgos.nombresColTabla("qRiesgosNombres", colVer, colTitulos);
-
-            //datosTabla.vistaProcedencia = "Scoopes";
-            //datosTabla.editable = true;
-            //datosTabla.urlActionEditar = new Tuple<string, string>("KrisFicha", "KRIS");
-            //datosTabla.borrar = true;
-            //datosTabla.urlActionBorrar = new Tuple<string, string>("DeleteKris", "KRIS");
-
-
             return View();
         }
 
-
+        //Este método se invoc 
         public ActionResult BusquedaKRIS(string filtro = null)
         {
-            //DatosTablaModel datosTablaGeneralBusqueda = datosTablaGeneral;
-            //datosTablaGeneralBusqueda.datosTBody = BD_Riesgos.cargaTablaDatos("qRiesgosNombres", colVer, colTitulos, filtro);
-            //TempData["datosTablaGeneralBusqueda"] = datosTablaGeneralBusqueda;
-
             TablaIndicadores_KRIS tabla = new TablaIndicadores_KRIS();
             Dictionary<string, object> filtros = new Dictionary<string, object>();
 
@@ -279,40 +222,6 @@ namespace Risk.Controllers
             var j = JsonConvert.SerializeObject(dicClasificacion2);
             return j;
         }
-
-
-        //public ActionResult BusquedaRiks(string Nombre, int IdCategoria, int IdClasificacion1, int IdClasificacion2, int IdClasificacion3)
-        //{
-        //    Dictionary<string, object> dictionaryFiltros = new Dictionary<string, object>();
-
-        //    if (Nombre != null)
-        //    {
-        //        dictionaryFiltros.Add("Nombre", Nombre);
-        //    }
-
-        //    if (IdCategoria != 0)
-        //    {
-        //        dictionaryFiltros.Add("IdCategoria", IdCategoria);
-        //    }
-
-        //    if (IdClasificacion1 != 0)
-        //    {
-        //        dictionaryFiltros.Add("IdClasificacion1", IdClasificacion1);
-        //    }
-
-        //    if (IdClasificacion2 != 0)
-        //    {
-        //        dictionaryFiltros.Add("IdClasificacion2", IdClasificacion2);
-        //    }
-
-        //    if (IdClasificacion3 != 0)
-        //    {
-        //        dictionaryFiltros.Add("IdClasificacion3", IdClasificacion3);
-        //    }
-
-        //    TempData["filtros"] = dictionaryFiltros;
-        //    return RedirectToAction("Risks", "Assign");
-        //    }
 
           #endregion
     }
