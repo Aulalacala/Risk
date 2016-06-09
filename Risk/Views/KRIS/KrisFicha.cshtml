@@ -1,4 +1,4 @@
-﻿@model Risk.Models.qRiesgosNombres
+﻿@model Risk.Models.qIndicadores
 @{
     ViewBag.Title = "KrisFicha";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -6,57 +6,16 @@
 
 <h2>KrisFicha</h2>
 
-<h3 class="darker"><strong>@Model.CodRiesgo</strong></h3>
-<input id="IdRiesgo" type="hidden" value="@Model.IdRiesgo" />
+<h3 class="darker"><strong>@Model.CodIndicador</strong></h3>
+<input id="IdIndicador" type="hidden" value="@Model.IdIndicador" />
 
 <!-- GENERAL DATA OF RISK -->
 <div class="panel">
     <div class="panel-body">
         <!-- TITLE & ATTRIBUTES -->
-        <span class="title">GENERAL DATA RISK</span>
+        <span class="title">GENERAL KRIS INDICATOR</span>
         <div class="clearfix"></div>
         <div class="divider"></div>
-
-        <!-- FORM -->
-        <div class="row">
-
-            <!-- COLUMN LEFT -->
-            <div class="col-lg-6 col-md-8">
-
-                <!-- DIVIDER -->
-                <div class="divider-30"></div>
-
-                <!-- ROW BP -->
-                <div class="row no-field">
-                    <div class="col-lg-3 col-md-4">
-                        <span class="form-left-label"><b>STRUCTURE CODE</b></span>
-                    </div>
-
-                    <div class="col-lg-9 col-md-8">
-                        <span>@Model.CodRiesgoLocalizado</span>
-                    </div>
-                </div>
-                <div class="row no-field">
-                    <div class="col-lg-3 col-md-4">
-                        <span class="form-left-label"><b>NAME</b></span>
-                    </div>
-
-                    <div class="col-lg-9 col-md-8">
-                        <span>@Model.Nombre</span>
-                    </div>
-                </div>
-                <div class="row no-field">
-                    <div class="col-lg-3 col-md-4">
-                        <span class="form-left-label"><b>DESCRIPTION</b></span>
-                    </div>
-
-                    <div class="col-lg-9 col-md-8">
-                        <span>@Model.Descripcion</span>
-                    </div>
-                </div>
-
-            </div>
-        </div>
     </div>
 </div>
 
@@ -88,10 +47,9 @@
 
         $(document).ready(function () {
             $('#Menu li').removeClass('disabled');
-            var id = $('#IdRiesgo').val();
             var ruta = "http://localhost:1525/KRIS/Main/";
 
-            $('#contenidoDinamico').load(ruta, { "id": id , "idEstructura" : $('#estructura').val()});
+            $('#contenidoDinamico').load(ruta, { "id": $('#IdIndicador').val() });
         })
 </script>
 

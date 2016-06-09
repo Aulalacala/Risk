@@ -20,6 +20,7 @@ namespace Risk.Models
         public string colVer { get; set; }
         public string colTitulo { get; set; }
         public Dictionary<string, object> filtros { get; set; }
+        public List<string> color { get; set; }
 
         //La tupla se montaria => item1 = vista // item2 = controlador
     }

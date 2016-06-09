@@ -1,6 +1,5 @@
-﻿<!-- INDICATORS PARTIAL VIEW MAIN -->
-<!-- TITLE & BUTTONS -->
-@*<span class="title">DATA SHEET</span>*@
+﻿@using Risk.Models
+@model Risk.Models.qIndicadores
 
 <form id="miForm">
     <div id="botonera" class="pull-right">
@@ -23,19 +22,19 @@
             <!-- CODE -->
             <div class="col-lg-4 col-md-4">
                 <span class="form-left-label">Code: </span>
-                <input type="text" id="code" class="form-control w100" />
+                <input type="text" id="code" class="form-control w100" value="@Model.CodIndicador" />
             </div>
 
             <!-- STATE -->
             <div class="col-lg-4 col-md-4">
                 <span class="form-left-label">State: </span>
-                <input type="text" id="state" class="form-control w100" />
+                <input type="text" id="state" class="form-control w100" style="background-color:rgb(@Model.Color.Replace(';',','))" value="@Model.CodEstado (@Model.Estado)"/>
             </div>
 
             <!-- STATUS -->
             <div class="col-lg-4 col-md-4">
                 <span class="form-left-label">Status: </span>
-                <input id="status" type="text" class="form-control w100" />
+                <input id="status" type="text" class="form-control w100" value=@Model.UltimoValor />
             </div>
         </div>
 
@@ -45,14 +44,13 @@
 
             <div class="col-lg-6 col-md-6">
                 <span class="form-left-label">Indicator Name: </span>
-                <input type="text" class="form-control w100" />
+                <input type="text" class="form-control w100" value="@Model.Indicador" />
             </div>
 
 
             <!-- CATEGORY 1 -->
             <div class="col-lg-3 col-md-3">
                 <span class="form-left-label">Category 1: </span>
-
                 <select class="form-control w100" campos="campos" id="category1">
                     <option value="" selected>Prueba</option>
                 </select>
@@ -110,7 +108,15 @@
                     <!-- DATEPICKER -->
                     <div id="divFechaIndicator" class="input-group">
                         <span class="input-group-addon"><i class="fa fa-calendar" aria-hidden="true"></i></span>
-                        <input id="fecha" type="text" class="form-control" data-date-format="dd/mm/yyyy" value="">
+                        @{
+                            var fecha = "";
+                            if (Model.UltimaFecha.ToString() != null) {
+                                fecha = Model.UltimaFecha.ToString();
+                            } else {
+                                fecha = @DateTime.Now.ToString("dd/mm/yyyy");
+                            }
+                        }
+                        <input id="fecha" type="text" class="form-control" data-date-format="dd/mm/yyyy" value=@fecha>
                     </div>
                 </div>
 
@@ -126,7 +132,7 @@
             <!-- VALUE -->
             <div class="col-lg-4 col-md-4">
                 <span class="form-left-label">Value: </span>         
-                <input type="text" id="value" class="form-control w100" />
+                <input type="text" id="value" style="background-color:rgb(@Model.Color.Replace(';',','))" class="form-control w100" />
             </div>
 
 

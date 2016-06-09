@@ -36,6 +36,7 @@
                             <table rules="rows" id="tablaDatosRiesgos" class="table">
                                 <thead>
                                     <tr>
+
                                         @{if (Model.editable) {
                                                 <th style="text-align:center">
                                                     Editar
@@ -63,11 +64,22 @@
                                 <tbody>
 
                                     @{
+                                        int contador = 0;
                                         foreach (var fila in Model.datosTBody) {
-                                            <tr id="@fila.Key" >
+
+                                            // La variable color es para recoger si en la tabla existe el atributo color que pinta la fila. Usado en TablaIndicadoresKRIS
+                                            var color = "";
+                                            var colorLapiz = "";
+
+                                            if (Model.color != null) {
+                                                color = Model.color.ElementAt(contador);
+                                                colorLapiz = "white";
+                                            }
+
+                                            <tr id="@fila.Key">
                                                 @{if (Model.editable) {
-                                                        <td style="text-align:center">
-                                                            <a href="@Url.Action(Model.urlActionEditar.Item1, Model.urlActionEditar.Item2, new { id = fila.Key }) " id="@fila.Key"><i class="glyphicon glyphicon-pencil"></i></a>
+                                                        <td style="text-align:center;background-color:rgb(@color);">
+                                                            <a href="@Url.Action(Model.urlActionEditar.Item1, Model.urlActionEditar.Item2, new { id = fila.Key }) " id="@fila.Key"><i style="color:@colorLapiz" class="glyphicon glyphicon-pencil"></i></a>
                                                         </td>
                                                     }
 
@@ -78,6 +90,8 @@
                                                     }
 
                                                     foreach (var columna in fila.Value) {
+
+
                                                         switch (columna.Item1) {
                                                             case "String":
                                                                 <td class="td-large">@columna.Item2</td>
@@ -115,7 +129,7 @@
                                                 }
 
                                             </tr>
-                                                    }
+                                                        contador += 1;    }
                                     }
 
 
@@ -127,16 +141,6 @@
 
 <script>
     $(document).ready(function () {
-
-        $('#tablaDatosRiesgos tbody').on('click', 'tr', function () {
-            if ($(this).hasClass('selected')) {
-                $(this).removeClass('selected');
-            }
-            else {
-                $('#tablaDatosRiesgos tr.selected').removeClass('selected');
-                $(this).addClass('selected');
-            }
-        });
 
 
         var vista = window.location.href.split('/')[4];
@@ -173,7 +177,7 @@
                 });
                 break;
 
-            case "Risks":            
+            case "Risks":
                 var table = $('#tablaDatosRiesgos').DataTable({
                     responsive: true,
                     scrollY: 1000,
@@ -191,6 +195,15 @@
                     scroller: true,
                 });
                 break;
+
+            case "KRISFicha":
+                var table = $('#tablaDatosRiesgos').DataTable({
+                    "bPaginate": false,
+                    "bFilter": false,
+                    "bInfo": false,
+                    retrieve: true
+                });
+                break;
         }
 
 
@@ -203,5 +216,7 @@
                 $(this).addClass('selected');
             }
         });
+
+
     });
 </script>

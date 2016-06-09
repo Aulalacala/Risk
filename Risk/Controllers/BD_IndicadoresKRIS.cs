@@ -8,14 +8,18 @@ namespace Risk.Controllers
 {
     public class BD_IndicadoresKRIS
     {
-        Consultas_BDDataContext Conexion = (Consultas_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralConsultas();
-
-
-
-
-
+        Consultas_BDDataContext ConexionIndicadores = (Consultas_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralConsultas();
 
         #region KRISController
+
+        public qIndicadores recuperarQIndicadores(int id) {
+
+            qIndicadores indicadorRecup = new qIndicadores();
+            if (id != 0) {
+                indicadorRecup = ConexionIndicadores.qIndicadores.Where(i => i.IdIndicador == id).SingleOrDefault();
+            }
+            return indicadorRecup;
+        }
 
         #region CRUD relativo a KRIS
 
