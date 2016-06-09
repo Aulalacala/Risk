@@ -154,6 +154,7 @@ namespace Risk.Controllers
         //Este método se invoc 
         public ActionResult BusquedaKRIS(string filtro = null)
         {
+            
             TablaIndicadores_KRIS tabla = new TablaIndicadores_KRIS();
             Dictionary<string, object> filtros = new Dictionary<string, object>();
 

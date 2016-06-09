@@ -8,7 +8,7 @@
                 <span class="form-left-label"><b>ARCHIVE</b></span>
             </div>
             <div style="background-color:#eaf7fa; height:500px;">
-                <div class="divDelGrid center-block table-responsive" id="datosTablaArchive" style="width:87%">
+                <div class="divDelGrid center-block table-responsive" id="datosTablaArchive" style="width:90%">
                     @Html.Partial("~/Views/PartialViews/TablaDatos.cshtml", Model)
                 </div>
             </div>
@@ -16,7 +16,7 @@
             <script>
                 $('#datosTablaArchive table').attr('id', 'datosTablaArchive');
                 var table = $('table[id=datosTablaArchive]').DataTable({
-                    //responsive: true,
+                    responsive: true,
                     scrollY: 1000,
                     scrollX: true,
                     scrollCollapse: true,
@@ -62,3 +62,8 @@
         </div>
     </div>
 </div>
+
+
+<script type="text/javascript" src="~/Content/js/botoneraPartials.js"></script>
+<script type="text/javascript" src="~/Content/js/scripts2.js"></script>
+<script type="text/javascript" src="~/Content/datetables/jquery.dataTables.min.js"></script>

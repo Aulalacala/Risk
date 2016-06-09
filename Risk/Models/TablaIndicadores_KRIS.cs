@@ -14,6 +14,7 @@ namespace Risk.Models
         DatosTablaModel datosTabla = new DatosTablaModel();
         BD_MontaDatosTabledata BD_MontaDatosTabledata = new BD_MontaDatosTabledata();
 
+
         public TablaIndicadores_KRIS()
         {
             datosTabla.titulo = "KRIS INDICATORS";
@@ -24,18 +25,52 @@ namespace Risk.Models
             datosTabla.borrar = false;
             datosTabla.vistaProcedencia = "Kris";
             datosTabla.datosTHead = BD_MontaDatosTabledata.nombresColTabla("qIndicadores", datosTabla.colVer, datosTabla.colTitulo);
+            datosTabla.color = dameColoresTuplas();
+
+        }
+
+
+        
+        public TablaIndicadores_KRIS(string colVer, string colTitulo) {
+            datosTabla.titulo = "KRIS INDICATORS";
+            datosTabla.colTitulo = colTitulo;
+            datosTabla.colVer = colVer;
+            datosTabla.editable = false;
+            datosTabla.borrar = false;
+            datosTabla.vistaProcedencia = "Kris";
+            datosTabla.datosTHead = BD_MontaDatosTabledata.nombresColTabla("qIndicadores", datosTabla.colVer, datosTabla.colTitulo);
+        }
+
+
+
+
+        private List<string> dameColoresTuplas() {
+            List<string> colores = new List<string>();
+
+            colores = ConexionConsultas.qIndicadores.Select(i => i.Color.Replace(';', ',')).ToList();
+
+            return colores;
         }
 
         public DatosTablaModel dameTabla(Dictionary<string, object> filtros)
         {
-            var filtrosVar = filtrosRiesgos(filtros);
+            var filtrosVar = filtrosIndicadores(filtros);
             var transformacionTBody = BD_MontaDatosTabledata.cargaTBody(filtrosVar, datosTabla.datosTHead);
 
             datosTabla.datosTBody = transformacionTBody;
             return datosTabla;
         }
 
-        public Dictionary<int, object> filtrosRiesgos(Dictionary<string, object> filtros)
+        public DatosTablaModel dameTablaPorIdIndicador(int idIndicador) {
+            Dictionary<int, object> result = new Dictionary<int, object>();
+            result = ConexionConsultas.qIndicadores.Where(x => x.IdIndicador == idIndicador).Select(r => r).ToDictionary(r => r.IdIndicador, r => (object)r);
+            var transformacionTBody = BD_MontaDatosTabledata.cargaTBody(result, datosTabla.datosTHead);
+            datosTabla.datosTBody = transformacionTBody;
+
+            return datosTabla;
+        }
+
+        public Dictionary<int, object> filtrosIndicadores(Dictionary<string, object> filtros)
         {
 
             Dictionary<int, qIndicadores> result = new Dictionary<int, qIndicadores>();

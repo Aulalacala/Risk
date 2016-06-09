@@ -30,14 +30,12 @@ $("select[ref=comboDinamico]").change(function () {
 $('a[id^="mnu_"]').click(function () {
 
     if ($(this).parent().hasClass('disabled')) {
-        //alert($(this).attr('id'));
         $('#modalAviso').modal('show');
         $('#BtnDiscardModal').attr('handler', $(this).attr('id'));
         return false;
     }
     else {
 
-       // alert('pasando por else');
         $('#mnu li').removeClass('active');
         $(this).parent().addClass('active');
 
@@ -45,9 +43,17 @@ $('a[id^="mnu_"]').click(function () {
         $(this).attr('aria-expanded', 'true');
 
         var pagina = $(this).attr("id").replace('mnu_', '');
-        var id = $('#IdRiesgo').val();
+        var id = "";
 
         var vista = window.location.href.split('/')[3];
+
+        switch (vista) {
+
+            case "Risk": id = $('#IdRiesgo').val();
+                break;
+            case "KRIS": id = $('#IdIndicador').val();
+                break;
+        }
 
         var ruta = "http://localhost:1525/" + vista + "/" + pagina;
 
@@ -71,26 +77,26 @@ $('#idEstructura').change(function () {
 
 // DropDowns Financial Impact => Cambio de color
 
-$('select[combo=true]').change(function () {
+//$('select[combo=true]').change(function () {
 
-    var idSeleccionado = $(this).val();
-    var color;
-    var idCombo = $(this).attr('id');
+//    var idSeleccionado = $(this).val();
+//    var color;
+//    var idCombo = $(this).attr('id');
 
-    $('select[id=' + idCombo + ']').children().each(function (pos, el) {
-        //if ($(this).attr('selected') == 'selected') {
-        //    $(this).removeAttr('selected');
-        //}
+//    $('select[id=' + idCombo + ']').children().each(function (pos, el) {
+//        //if ($(this).attr('selected') == 'selected') {
+//        //    $(this).removeAttr('selected');
+//        //}
 
-        if ($(this).val() == idSeleccionado) {
-            color = $(this).attr('style').split(':')[2];
-            //$(this).attr('selected', 'selected');
-        }
-    })
+//        if ($(this).val() == idSeleccionado) {
+//            color = $(this).attr('style').split(':')[2];
+//            //$(this).attr('selected', 'selected');
+//        }
+//    })
 
-    $(this).css('background-color', '');
-    $(this).css('background-color', color);
-})
+//    $(this).css('background-color', '');
+//    $(this).css('background-color', color);
+//})
 
 
 /* ************************************************************************************************************** */
