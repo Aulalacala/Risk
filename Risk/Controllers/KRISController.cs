@@ -118,7 +118,7 @@ namespace Risk.Controllers
 
         public ActionResult DeleteKris(int id)
         { 
-            bool delete = BD_Riesgos.deleteKRIS(id);
+           // bool delete = BD_Riesgos.deleteKRIS(id);
        
             return RedirectToAction("KRISIndicators", "Assign");
         }
