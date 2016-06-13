@@ -8,6 +8,8 @@ using System.IO;
 
 namespace Risk.Controllers
 {
+
+    //Clase que sirve para encriptar y desencriptar contraseñas de usuarios, o la conexión a la Base de Datos (connectionString)
     public class EncritPass
     {
         byte[] _key;

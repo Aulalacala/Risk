@@ -23,15 +23,14 @@ namespace Risk.Controllers
 
         #region CRUD relativo a KRIS
 
-        //TODO: Cambiar la tabla.Tiene que ser de KRIS
         public bool deleteKRIS(int id)
         {
             try
             {
-                //var KRIS = ConexionRiesgos.tRiesgos.Where(r => r.IdRiesgo == id).Select(r => r).FirstOrDefault();
-                //ConexionRiesgos.tRiesgos.DeleteOnSubmit(KRIS);
-                //ConexionRiesgos.SubmitChanges();
+                var indicador = ConexionIndicadores.qIndicadores.Where(r=>r.IdIndicador== id).Select(r => r).FirstOrDefault();
 
+                ConexionIndicadores.qIndicadores.DeleteOnSubmit(indicador);
+                ConexionIndicadores.SubmitChanges();
                 return true;
             }
             catch (Exception e)

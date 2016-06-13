@@ -6,13 +6,11 @@ using System.Web;
 
 namespace Risk.Controllers
 {
+    //Clase en la que recursivamente se construye la Lista de TreeViewLocation necesaria para el helper del treeView y pintar el árbol de la estructura
     public class TreeviewClass
     {
-
-
         public static BD_Riesgos BD_Riesgos = new BD_Riesgos();
         public static Riesgos_BDDataContext Conexion = (Riesgos_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralRiesgos();
-
 
         public static List<TreeViewLocation> GetLocations(int id)
         {
@@ -40,17 +38,14 @@ namespace Risk.Controllers
             return locations;
         }
 
-
-
-
-        //PARA BUSCAR LOS HIJOS HAY QUE METER EL ID DE SU SANTO PADRE
+        //PARA BUSCAR LOS HIJOS HAY QUE METER EL ID DE SU PADRE
         public static bool tienesHijos(int idPadre)
         {
             bool tieneHijos = false;
             return tieneHijos = Conexion.tEstructura.Where(r => r.idPadre == idPadre).Any() ? tieneHijos = true : tieneHijos = false;
         }
 
-        //PARA BUSCAR LOS HIJOS HAY QUE METER EL ID DE SU SANTO PADRE
+        //PARA BUSCAR LOS HIJOS HAY QUE METER EL ID DE SU PADRE
         public static string tienesHijosRiesgos(int idEstructura)
         {
             string tieneHijosString = "";
@@ -62,9 +57,7 @@ namespace Risk.Controllers
         }
     }
 
-
-
-
+    //Definición de un TreeViewLocation
     public class TreeViewLocation
     {
         public TreeViewLocation()

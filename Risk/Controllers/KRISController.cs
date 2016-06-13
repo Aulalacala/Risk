@@ -18,8 +18,7 @@ namespace Risk.Controllers
         BD_IndicadoresKRIS BD_IndicadoresKRIS = new BD_IndicadoresKRIS();
         BD_MontaDatosTabledata BD_MontaDatosTabledata = new BD_MontaDatosTabledata();
 
-
-        // GET: KRIS
+        #region Vista
         public ActionResult KrisFicha(int id)
         {
             qIndicadores indicadorRecup = BD_IndicadoresKRIS.recuperarQIndicadores(id);
@@ -34,12 +33,10 @@ namespace Risk.Controllers
         }
 
         public ActionResult Scoope(int id)
-        {
-            
+        {          
             TablaRiesgos_Risks tabla = new TablaRiesgos_Risks();
             Dictionary<string, object> filtros = new Dictionary<string, object>();
             DatosTablaModel tablaR = tabla.dameTabla(filtros);
-
             return PartialView(tablaR);
         }
 
@@ -48,15 +45,16 @@ namespace Risk.Controllers
             string colVer = "Estado,IndiiEvolucion,UltimaFecha,UltimoValor,NivelAlarma,NivelPrecaucion";
             string colTitulo = "Estado,IndiiEvolucion,UltimaFecha,UltimoValor,NivelAlarma,NivelPrecaucion";
 
+            //Esta tabla, se carga con un constructor sobrecargado, para reutilizar la tabla que ya teníamos
+            //Como necesita otros datos, se carga la cabecera y el cuerpo de manera diferente
             TablaIndicadores_KRIS tablaIndicadores = new TablaIndicadores_KRIS(colVer,colTitulo);
-            DatosTablaModel modelTablaIndicadores = tablaIndicadores.dameTablaPorIdIndicador(id);
-              
-
+            DatosTablaModel modelTablaIndicadores = tablaIndicadores.dameTablaPorIdIndicador(id);            
             return PartialView(modelTablaIndicadores);
         }
 
+        #endregion
 
-
+        //TODO: Cuidado!! Esta tabla es de prueba, no existía en la base de datos original
         public string pintaGrafico()
         {
             string cadena = ConfigurationManager.ConnectionStrings["RiskMVCConnectionString"].ConnectionString;
@@ -95,10 +93,10 @@ namespace Risk.Controllers
             return jsonString;
         }
 
+        //Borra un Indicador
         public ActionResult DeleteKris(int id)
         {
-            // bool delete = BD_Riesgos.deleteKRIS(id);
-
+            bool delete = BD_IndicadoresKRIS.deleteKRIS(id);
             return RedirectToAction("KRISIndicators", "Assign");
         }
     }

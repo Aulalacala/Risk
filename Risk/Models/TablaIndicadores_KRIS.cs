@@ -9,12 +9,12 @@ namespace Risk.Models
 {
     public class TablaIndicadores_KRIS
     {
+        //Variables
         Consultas_BDDataContext ConexionConsultas = (Consultas_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralConsultas();
-
         DatosTablaModel datosTabla = new DatosTablaModel();
         BD_MontaDatosTabledata BD_MontaDatosTabledata = new BD_MontaDatosTabledata();
 
-
+        //Constructor donde se definen los atributos fijos del DatosTablaModel
         public TablaIndicadores_KRIS()
         {
             datosTabla.titulo = "KRIS INDICATORS";
@@ -24,13 +24,13 @@ namespace Risk.Models
             datosTabla.urlActionEditar = new Tuple<string, string>("KRISFicha", "KRIS");
             datosTabla.borrar = false;
             datosTabla.vistaProcedencia = "Kris";
-            datosTabla.datosTHead = BD_MontaDatosTabledata.nombresColTabla("qIndicadores", datosTabla.colVer, datosTabla.colTitulo);
+            datosTabla.datosTHead = BD_MontaDatosTabledata.cargaTHead("qIndicadores", datosTabla.colVer, datosTabla.colTitulo);
             datosTabla.color = dameColoresTuplas();
 
         }
-
-
-        
+      
+        //Constructor sobrecargado
+        //Misma tabla en la base de datos, pero en la aplicación necesitan verse otras columnas diferentes a las especificadas en el constuctor general
         public TablaIndicadores_KRIS(string colVer, string colTitulo) {
             datosTabla.titulo = "KRIS INDICATORS";
             datosTabla.colTitulo = colTitulo;
@@ -38,11 +38,8 @@ namespace Risk.Models
             datosTabla.editable = false;
             datosTabla.borrar = false;
             datosTabla.vistaProcedencia = "Kris";
-            datosTabla.datosTHead = BD_MontaDatosTabledata.nombresColTabla("qIndicadores", datosTabla.colVer, datosTabla.colTitulo);
+            datosTabla.datosTHead = BD_MontaDatosTabledata.cargaTHead("qIndicadores", datosTabla.colVer, datosTabla.colTitulo);
         }
-
-
-
 
         private List<string> dameColoresTuplas() {
             List<string> colores = new List<string>();
@@ -70,19 +67,21 @@ namespace Risk.Models
             return datosTabla;
         }
 
+        //Método donde se realiza el filtrado de los datos de la base, dependiendo de si el dictionary recibido está lleno o no
         public Dictionary<int, object> filtrosIndicadores(Dictionary<string, object> filtros)
         {
-
             Dictionary<int, qIndicadores> result = new Dictionary<int, qIndicadores>();
 
             Dictionary<int, object> resultadosBusqueda = new Dictionary<int, object>();
 
+            //Si el dictionary está vacío se cogen todos los datos de la base de datos
             if (filtros.Count == 0)
             {
                 result = ConexionConsultas.qIndicadores.ToDictionary(r => Convert.ToInt32(r.IdIndicador), r => r);
             }
             else
             {
+                //Si no, nos recorremos el Dictionary
                 for (int i = 0; i < filtros.Count(); i++)
                 {
                     var item = filtros.ElementAt(i);
@@ -92,13 +91,14 @@ namespace Risk.Models
                         var tipo = "== @0";
                         if (item.Value != null)
                         {
+                            //Tenemos en cuenta que si el tipo del elemento es un String, para su búsqueda haremos un Contains, no un ==
                             if (item.Value.GetType().Name == "String")
                             {
                                 tipo = ".Contains(@0)";
                             }
                         }
 
-
+                        //lambda con Dynamic Linq
                         result = ConexionConsultas.qIndicadores
                     .Where(item.Key + tipo, item.Value)
                     .ToDictionary(r =>Convert.ToInt32(r.IdIndicador), r => r);
@@ -113,7 +113,7 @@ namespace Risk.Models
 
                 }
             }
-
+            //Volcado del dictionary obtenido a uno nuevo, cuyo Value es de tipo object, para que sea genérico
             resultadosBusqueda = result.ToDictionary(r => r.Key, r => (object)r.Value);
             return resultadosBusqueda;
         }

@@ -5,6 +5,7 @@ using System.Web;
 
 namespace Risk.Models
 {
+    //Objeto o Modelo necesario para pintar la partialView description de la vista de estructura
     public class DescriptionStructureModel
     {
         public string department { get; set; }
@@ -14,6 +15,5 @@ namespace Risk.Models
         public string controls { get; set; }
         public string inputs { get; set; }
         public string outputs { get; set; }
-
     }
 }

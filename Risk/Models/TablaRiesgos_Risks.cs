@@ -9,10 +9,12 @@ namespace Risk.Models
 {
     public class TablaRiesgos_Risks
     {
+        //Variables
         Riesgos_BDDataContext ConexionRiesgos = (Riesgos_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralRiesgos();
         DatosTablaModel datosTabla = new DatosTablaModel();
         BD_MontaDatosTabledata BD_MontaDatosTabledata = new BD_MontaDatosTabledata();
 
+        //Constructor donde se definen los atributos fijos del DatosTablaModel
         public TablaRiesgos_Risks()
         {
             datosTabla.titulo = "INSTANCES SEARCH";
@@ -22,7 +24,7 @@ namespace Risk.Models
             datosTabla.urlActionEditar = new Tuple<string, string>("RiskFicha", "Risk");
             datosTabla.borrar = false;
             datosTabla.vistaProcedencia = "Risks";
-            datosTabla.datosTHead = BD_MontaDatosTabledata.nombresColTabla("qRiesgosNombres", datosTabla.colVer, datosTabla.colTitulo);
+            datosTabla.datosTHead = BD_MontaDatosTabledata.cargaTHead("qRiesgosNombres", datosTabla.colVer, datosTabla.colTitulo);
         }
 
         public DatosTablaModel dameTabla(Dictionary<string, object> filtros)
@@ -56,6 +58,7 @@ namespace Risk.Models
             return datosTabla;
         }
 
+        //Método donde se realiza el filtrado de los datos de la base, dependiendo de si el dictionary recibido está lleno o no
         public Dictionary<int, object> filtrosRiesgos(Dictionary<string, object> filtros)
         {
 
@@ -63,12 +66,14 @@ namespace Risk.Models
 
             Dictionary<int, object> resultadosBusqueda = new Dictionary<int, object>();
 
+            //Si el dictionary está vacío se cogen todos los datos de la base de datos
             if (filtros.Count == 0)
             {
                 result = ConexionRiesgos.qRiesgosNombres.ToDictionary(r => r.IdRiesgo, r => r);
             }
             else
             {
+                //Si no, nos recorremos el Dictionary
                 for (int i = 0; i < filtros.Count(); i++)
                 {
                     var item = filtros.ElementAt(i);
@@ -78,13 +83,14 @@ namespace Risk.Models
                         var tipo = "== @0";
                         if(item.Value != null)
                         {
+                            //Tenemos en cuenta que si el tipo del elemento es un String, para su búsqueda haremos un Contains, no un ==
                             if (item.Value.GetType().Name == "String")
                             {
                                 tipo = ".Contains(@0)";
                             }
                         }
-                       
 
+                        //lambda con Dynamic Linq
                         result = ConexionRiesgos.qRiesgosNombres
                     .Where(item.Key + tipo, item.Value)
                     .ToDictionary(r => r.IdRiesgo, r => r);
@@ -99,7 +105,7 @@ namespace Risk.Models
 
                 }
             }
-
+            //Volcado del dictionary obtenido a uno nuevo, cuyo Value es de tipo object, para que sea genérico
             resultadosBusqueda = result.ToDictionary(r => r.Key, r => (object)r.Value);
             return resultadosBusqueda;
         }

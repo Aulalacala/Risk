@@ -7,11 +7,10 @@ using System.Web;
 
 namespace Risk.Models
 {
+    //Clase donde se reunen los métodos necesarios para cargar los DropDown de la apliación, es decir, buscar su contenido en la base de datos
     public class DropDownModel
     {
-
         public Riesgos_BDDataContext Conexion = (Riesgos_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralRiesgos();
-
         private BD_Riesgos BD_Riesgos = new BD_Riesgos();
 
         private Dictionary<int, string> _datosClasificacion2;
@@ -53,8 +52,6 @@ namespace Risk.Models
             return Conexion.tRiesgos_Segmentacion1.ToDictionary(r => r.IdSegmenta1, r => r.Segmentacion);
         }
 
-
-
         public Dictionary<int, List<string>> cboEvaSeveridad()
         {
 
@@ -77,9 +74,6 @@ namespace Risk.Models
 
             return dicSeveridad;
         }
-
-
-
 
         public Dictionary<int, List<string>> cboEvaFrecuencia()
         {
@@ -154,9 +148,6 @@ namespace Risk.Models
             var j = JsonConvert.SerializeObject(dicClasificacion2);
             return j;
         }
-
-
-
 
         // METODOS PARA LA CARGAR DE LOS DROPDOWS STRUCTURE CODE(valores de Nivel 3) 
         public Dictionary<int, string> cboStructureCode()

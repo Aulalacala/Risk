@@ -9,12 +9,14 @@ namespace Risk.Controllers
 {
     public class PlanController : Controller
     {
-
+        #region Vistas
+        //Vista Ppal
         public ActionResult Plans()
         {
             return View();
         }
 
+        //Método invocado desde jQuery en Plans.cshtml
         public ActionResult BusquedaPlanes(string filtro = null)
         {
             TablaPlanes_Planes tabla = new TablaPlanes_Planes();
@@ -30,11 +32,12 @@ namespace Risk.Controllers
             return PartialView("~/Views/PartialViews/TablaDatos.cshtml", tablafiltrada);
         }
 
+        //Especificación del plan elegido
         public ActionResult PlanFicha(string id)
         {
-            //Buscar plan en la base de datos
-            //Pasarselo a la vista
+            //TODO:PlanFicha Buscar plan en la base de datos Pasarselo a la vista
             return View();
         }
+        #endregion
     }
 }

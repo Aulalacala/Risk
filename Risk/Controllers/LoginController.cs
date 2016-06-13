@@ -9,16 +9,8 @@ namespace Risk.Controllers
 {
     public class LoginController : Controller
     {
-
-        
-        
-        //Usuarios_BDDataContext usuario_BD = new Usuarios_BDDataContext();
-        // ConnectionDB connectionDB = new ConnectionDB();
-
-        // ConnectionDB.connectionUsuarios usuario_BD = new ConnectionDB.connectionUsuarios();
         Usuarios_BDDataContext usuario_BD = (Usuarios_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralUsu();
 
-        // GET: Login
         public ActionResult Login()
         {
             return View();
@@ -31,7 +23,6 @@ namespace Risk.Controllers
         {
             if (ModelState.IsValid)
             {
-
                 EncritPass encriptar = new EncritPass();
                 string passencript = encriptar.Encrit(tUsuario.Clave);
 
@@ -55,7 +46,6 @@ namespace Risk.Controllers
                             ViewBag.errorUsuarioBloqueado = "Su usuario está bloqueado. Póngase en contacto con el administrador";
                             return View("Login");
                         }
-
                     }
                     catch
                     {

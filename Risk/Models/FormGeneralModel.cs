@@ -5,6 +5,7 @@ using System.Web;
 
 namespace Risk.Models
 {
+    //Objeto o Modelo construido para faciliar el trasiego de Datos entre RiskFicha y el controlador
     public class FormGeneralModel
     {
         public string IdRiesgo { get; set; }
@@ -29,7 +30,6 @@ namespace Risk.Models
         public string NombreSevePeorPlanDespues { get; set; }
         public string IdControlesOportunidad { get; set; }
         public string IdControlesEfectividad { get; set; }
-
 
         // Atributos para un riesgo nuevo
         public string Nombre { get; set; }

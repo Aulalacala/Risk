@@ -194,7 +194,6 @@
     <Content Include="Content\js\bootstrap\bootstrap-metis.menu.min.js" />
     <Content Include="Content\js\bootstrap\bootstrap.min.js" />
     <Content Include="Content\js\botoneraPartials.js" />
-    <Content Include="Content\js\cambiaDropDowns.js" />
     <Content Include="Content\js\fastclick\fastclick.js" />
     <Content Include="Content\js\jquery\jquery-2.1.1.min.js" />
     <Content Include="Content\js\jquery\jquery.browser.min.js" />
@@ -297,7 +296,6 @@
       <DependentUpon>Consultas_BD.dbml</DependentUpon>
     </Compile>
     <Compile Include="Models\DatosTablaModel.cs" />
-    <Compile Include="Models\DatosTablaModelInterface.cs" />
     <Compile Include="Models\DescriptionStructureModel.cs" />
     <Compile Include="Models\DropDownModel.cs" />
     <Compile Include="Models\FormGeneralModel.cs" />

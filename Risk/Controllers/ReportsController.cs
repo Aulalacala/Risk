@@ -10,6 +10,7 @@ using System.Web.Mvc;
 
 namespace Risk.Controllers
 {
+    //Esta clase es la encargada de generar un PDF 
 
     public class MyHeaderFooterEvent : PdfPageEventHelper
     {
@@ -31,17 +32,21 @@ namespace Risk.Controllers
 
     public class ReportsController : Controller
     {
-        // GET: Reports
+        #region Vistas
+        //Vista de inicio
         public ActionResult Report()
         {
             return View();
         }
 
+        //Vista que indica que el pdf ha salido correctamente
         public ActionResult pdfOK()
         {
             return View();
         }
+        #endregion
 
+        //Método invocado mediante un Url.Action en la vista Report.cshtml
         public ActionResult generaReport()
         {
             //Datos de Riesgos que vamos a insertar

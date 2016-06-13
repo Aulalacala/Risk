@@ -151,7 +151,7 @@ namespace Risk.Controllers
             return View();
         }
 
-        //Este método se invoc 
+        //Este método se invoca desde jquery en la vista KRISIndicators.cshtml
         public ActionResult BusquedaKRIS(string filtro = null)
         {
             
@@ -179,7 +179,7 @@ namespace Risk.Controllers
         }
 
 
-
+        //Este método se invoca desde jquery en la vista Risks.cshtml
         public ActionResult TablaEnRisk(string Nombre = null, int IdCategoria = 0, int IdClasificacion1 = 0, int IdClasificacion2 = 0, int IdClasificacion3 = 0)
         {
             Dictionary<string, object> dictionaryFiltros = new Dictionary<string, object>();

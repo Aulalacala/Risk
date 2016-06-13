@@ -22,7 +22,7 @@ namespace Risk.Models
             datosTabla.urlActionEditar = new Tuple<string, string>("PlanFicha", "Plan");
             datosTabla.borrar = false;
             datosTabla.vistaProcedencia = "Plans";
-            datosTabla.datosTHead = BD_MontaDatosTabledata.nombresColTabla("qPlanes", datosTabla.colVer, datosTabla.colTitulo);
+            datosTabla.datosTHead = BD_MontaDatosTabledata.cargaTHead("qPlanes", datosTabla.colVer, datosTabla.colTitulo);
         }
 
         public DatosTablaModel dameTabla(Dictionary<string, object> filtros)

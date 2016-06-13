@@ -8,10 +8,12 @@ namespace Risk.Models
 {
     public class TablaEvaluaciones_Historical
     {
+        //Variables
         Riesgos_BDDataContext ConexionRiesgos = (Riesgos_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralRiesgos();
         DatosTablaModel datosTabla = new DatosTablaModel();
         BD_MontaDatosTabledata BD_MontaDatosTabledata = new BD_MontaDatosTabledata();
 
+        //Constructor donde se definen los atributos fijos del DatosTablaModel
         public TablaEvaluaciones_Historical()
         {
             datosTabla.colTitulo = "Activa,Ultima,Fecha,FrecuenciaA,SeveridadA,FrecuenciaD,SeveridadD";
@@ -19,7 +21,7 @@ namespace Risk.Models
             datosTabla.editable = false;
             datosTabla.borrar = false;
             datosTabla.vistaProcedencia = "Historicals";
-            datosTabla.datosTHead = BD_MontaDatosTabledata.nombresColTabla("qRiesgosEvalVal", datosTabla.colVer, datosTabla.colTitulo);
+            datosTabla.datosTHead = BD_MontaDatosTabledata.cargaTHead("qRiesgosEvalVal", datosTabla.colVer, datosTabla.colTitulo);
         }
 
         public DatosTablaModel dameTablaPorIdRiesgo(int idRiesgo)

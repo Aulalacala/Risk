@@ -9,10 +9,6 @@ using System.Data.Linq;
 
 namespace Risk.Controllers
 {
-
-
-
-
     public class BD_MontaDatosTabledata
     {
         Riesgos_BDDataContext ConexionRiesgos = (Riesgos_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralRiesgos();
@@ -20,15 +16,15 @@ namespace Risk.Controllers
 
         BD_Riesgos BD_Riesgos = new BD_Riesgos();
 
-        //Recuperar THEAD tabla Datos Risk-----------------
-        public Dictionary<string, string> nombresColTabla(string nombreTabla, string colVer, string colTitulos)
+        //HEAD DE LA TABLA
+        public Dictionary<string, string> cargaTHead(string nombreTabla, string colVer, string colTitulos)
         {
             Dictionary<string, string> nombreColumnasModif = new Dictionary<string, string>();
-
             try
             {
                 MetaTable TablaDBO;
 
+                //Manera de bifurcar la conexión. Depende de en que archivo .dbml esté la tabla o vista
                 if (nombreTabla.Contains("Indicadores") || nombreTabla.Contains("Planes"))
                 {
                     TablaDBO = ConexionConsultas.Mapping.GetTables().Where(t => t.TableName == "dbo." + nombreTabla).Select(t => t).SingleOrDefault();
@@ -128,53 +124,5 @@ namespace Risk.Controllers
             }
             return listaDatos;
         }
-
-
-  
-
-        public Dictionary<int, object> filtrosRiesgos(Dictionary<string, object> filtros)
-        {
-
-            Dictionary<int, qRiesgosNombres> result = new Dictionary<int, qRiesgosNombres>();
-
-            Dictionary<int, object> resultadosBusqueda = new Dictionary<int, object>();
-
-            if (filtros.Count == 0)
-            {
-                result = ConexionRiesgos.qRiesgosNombres.ToDictionary(r => r.IdRiesgo, r => r);
-            }
-            else
-            {
-                for (int i = 0; i < filtros.Count(); i++)
-                {
-                    var item = filtros.ElementAt(i);
-
-                    if (i == 0)
-                    {
-                        var tipo = "== @0";
-                        if (item.Value.GetType().Name == "String")
-                        {
-                            tipo = ".Contains(@0)";
-                        }
-
-                        result = ConexionRiesgos.qRiesgosNombres
-                    .Where(item.Key + tipo, item.Value)
-                    .ToDictionary(r => r.IdRiesgo, r => r);
-
-                    }
-                    else
-                    {
-                        result = result.Values
-                        .Where(item.Key + "== @0", item.Value)
-                        .ToDictionary(r => r.IdRiesgo, r => r);
-                    }
-
-                }
-            }
-
-            resultadosBusqueda = result.ToDictionary(r => r.Key, r => (object)r.Value);
-            return resultadosBusqueda;
-        }
-
     }
 }
