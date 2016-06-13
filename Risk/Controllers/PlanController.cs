@@ -4,11 +4,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using Risk.ViewModels;
 
 namespace Risk.Controllers
 {
     public class PlanController : Controller
     {
+        BD_Planes BD_Planes = new BD_Planes();
+        
         #region Vistas
         //Vista Ppal
         public ActionResult Plans()
@@ -28,15 +31,27 @@ namespace Risk.Controllers
             }
 
             DatosTablaModel tablafiltrada = tabla.dameTabla(filtros);
-
             return PartialView("~/Views/PartialViews/TablaDatos.cshtml", tablafiltrada);
         }
 
         //Especificación del plan elegido
-        public ActionResult PlanFicha(string id)
+        public ActionResult PlanFicha(int id)
         {
-            //TODO:PlanFicha Buscar plan en la base de datos Pasarselo a la vista
-            return View();
+            qPlanes planRecuperado = BD_Planes.recuperaPlan(id);
+            return View(planRecuperado);
+        }
+
+        public ActionResult Main(int id)
+        {
+            FichaPlanesVM vM = new FichaPlanesVM();
+            vM.qPlanes = BD_Planes.recuperaPlan(id);
+            vM.dropDowns = new DropDownModel();       
+            return PartialView(vM);           
+        }
+
+        public ActionResult Scoope(int id)
+        {
+            return PartialView();
         }
         #endregion
     }

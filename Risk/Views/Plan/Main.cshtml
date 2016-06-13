@@ -1,0 +1,91 @@
+﻿@model Risk.ViewModels.FichaPlanesVM
+<h2>MAIN</h2>
+
+<form id="miForm">
+    <div id="botonera" class="pull-right">
+        <input type="button" class="btn btn-primary" name="BtnDelete" value="DELETE" id="BtnDelete" />
+        <a href="@Url.Action("PlanFicha", "Plan", new { id = 0 })" class="btn btn-primary">NEW</a>
+        <input type="button" class="btn btn-primary" name="BtnSave" value="SAVE" id="BtnSave" />
+    </div>
+    <br />
+    <br />
+    <hr />
+    <!--DATA SHEET -->
+    <div id="dataSheet" style="background-color:#eaf7fa; padding-bottom:26px" class="row col-lg-12 col-md-12">
+        <div class="col-lg-12 col-md-12">
+            <span class="form-left-label"><b>DATA SHEET</b></span>
+        </div>
+        <!-- CODE-->
+        <div class="row">
+            <div class="col-lg-12 col-md-12">
+                <div class="col-lg-3 col-md-3">
+                    <div class="col-lg-4 col-md-4">
+                        <span class="form-left-label">Code</span>
+                    </div>
+                    <div class="col-lg-8 col-md-8">
+                        @Html.TextBoxFor(Model => Model.qPlanes.CodPlanAccion, new { id = "code" })
+                    </div>                                    
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    <div class="col-lg-4 col-md-4">
+                        <span class="form-left-label">State</span>
+                    </div>
+                    <div class="col-lg-8 col-md-8">
+                        @Html.DropDown(Model.dropDowns.cboPlanesAccionEstados(), "state", "qPlanes", Model.qPlanes.IdEstado.ToString())
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    <div class="col-lg-4 col-md-4">
+                        <span class="form-left-label">Priority </span>
+                    </div>
+                    <div class="col-lg-8 col-md-8">
+                        @Html.DropDown(Model.dropDowns.cboPlanesAccionPrioridades(), "priority", "qPlanes", Model.qPlanes.IdPrioridad.ToString())
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-3">
+                    <div class="col-lg-4 col-md-4">
+                        <span class="form-left-label">Mitigation </span>
+                    </div>
+                    <div class="col-lg-8 col-md-8">
+                        @Html.DropDown(Model.dropDowns.cboPlanesAccionMitigacion(), "mitigation", "qPlanes", Model.qPlanes.IdMitigacionPotencial.ToString())
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</form>
+
+<script>
+    $('select').change(function () {
+        var idDisparador = $(this).attr('id');
+        var valorSeleccionado = $(this).val();
+        var color;
+        var value;
+
+
+        /*
+        Código para cambiar el color del DropDown que ha provocado el evento, es decir, el que se ha seleccionado
+            1: Se buscan las 'option' de dicho DropDown y se recorren
+            2: Se elimina el attr 'selected' que exitiese
+            3: Cuando el loop coincide con el valor seleccionado:
+                3.1: De su attr 'style' extraemos el valor del color para pintar el DropDown adecuadamente
+                3.2: Añadimos el attr 'selected' al 'option' seleccionado
+            4: Elimina el color que existiese en el DropDown
+            5: Añade el color adecuado al DropDown
+        */
+        $('#' + idDisparador).find('option').each(function (pos, el) {
+            if ($(this).attr('selected') == 'selected') {
+                $(this).removeAttr('selected');
+            }
+
+            if ($(this).val() == valorSeleccionado) {
+                color = $(this).attr('style').split('background-color:')[1];
+                $(this).attr('selected', 'selected');
+            }
+        })
+
+        $(this).css('background-color', '');
+        $(this).css('background-color', color.split(';')[0]);
+    })
+</script>

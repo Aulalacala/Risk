@@ -22,10 +22,9 @@ $("select[ref=comboDinamico]").change(function () {
 
 
 /* ************************************************************************************************************** */
-// Risk/RiskFicha
+// Risk/RiskFicha && KRIS/KrisFicha && Plan/PlanFicha
 
 // Menu RiskFicha. Carga dinámica de partialsViews cuando click en Menu
-
 
 $('a[id^="mnu_"]').click(function () {
 
@@ -52,6 +51,8 @@ $('a[id^="mnu_"]').click(function () {
             case "Risk": id = $('#IdRiesgo').val();
                 break;
             case "KRIS": id = $('#IdIndicador').val();
+                break;
+            case "Plan": id = $('#IdPlan').val();
                 break;
         }
 

@@ -44,7 +44,7 @@ namespace Risk.Models
         private List<string> dameColoresTuplas() {
             List<string> colores = new List<string>();
 
-            colores = ConexionConsultas.qIndicadores.Select(i => i.Color.Replace(';', ',')).ToList();
+            colores = ConexionConsultas.qIndicadores.Select(i => i.Color).ToList();
 
             return colores;
         }

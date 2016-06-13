@@ -30,6 +30,15 @@ namespace Risk.Models
 		
     #region Extensibility Method Definitions
     partial void OnCreated();
+    partial void InserttPlanesAccion_Estados(tPlanesAccion_Estados instance);
+    partial void UpdatetPlanesAccion_Estados(tPlanesAccion_Estados instance);
+    partial void DeletetPlanesAccion_Estados(tPlanesAccion_Estados instance);
+    partial void InserttPlanesAccion_Mitigacion(tPlanesAccion_Mitigacion instance);
+    partial void UpdatetPlanesAccion_Mitigacion(tPlanesAccion_Mitigacion instance);
+    partial void DeletetPlanesAccion_Mitigacion(tPlanesAccion_Mitigacion instance);
+    partial void InserttPlanesAccion_Prioridades(tPlanesAccion_Prioridades instance);
+    partial void UpdatetPlanesAccion_Prioridades(tPlanesAccion_Prioridades instance);
+    partial void DeletetPlanesAccion_Prioridades(tPlanesAccion_Prioridades instance);
     #endregion
 		
 		public Consultas_BDDataContext() : 
@@ -62,6 +71,14 @@ namespace Risk.Models
 			OnCreated();
 		}
 		
+		public System.Data.Linq.Table<qIndicadores> qIndicadores
+		{
+			get
+			{
+				return this.GetTable<qIndicadores>();
+			}
+		}
+		
 		public System.Data.Linq.Table<qPlanes> qPlanes
 		{
 			get
@@ -70,452 +87,27 @@ namespace Risk.Models
 			}
 		}
 		
-		public System.Data.Linq.Table<qIndicadores> qIndicadores
+		public System.Data.Linq.Table<tPlanesAccion_Estados> tPlanesAccion_Estados
 		{
 			get
 			{
-				return this.GetTable<qIndicadores>();
+				return this.GetTable<tPlanesAccion_Estados>();
 			}
 		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.qPlanes")]
-	public partial class qPlanes
-	{
 		
-		private int _IdPlanAccion;
-		
-		private string _CodPlanAccion;
-		
-		private string _Nombre;
-		
-		private string _IdEsructura;
-		
-		private string _Medidas;
-		
-		private System.Nullable<double> _PrevistoCosteTiempo;
-		
-		private System.Nullable<double> _PrevistoCosteEuros;
-		
-		private System.Nullable<double> _RealCosteTiempo;
-		
-		private System.Nullable<double> _RealCosteEuros;
-		
-		private System.Nullable<int> _IdPrioridad;
-		
-		private System.Nullable<int> _IdMitigacionPotencial;
-		
-		private string _Accion;
-		
-		private bool _Activa;
-		
-		private System.Nullable<int> _IdResponsable;
-		
-		private System.Nullable<System.DateTime> _FechaFinTeorica;
-		
-		private System.Nullable<System.DateTime> _FechaFinReal;
-		
-		private System.Nullable<double> _DismiSev;
-		
-		private System.Nullable<double> _DismiFrec;
-		
-		private string _Responsable;
-		
-		private System.Nullable<int> _Expr1;
-		
-		private string _Prioridad;
-		
-		private string _ColorP;
-		
-		private string _Mitigacion;
-		
-		private string _ColorM;
-		
-		public qPlanes()
-		{
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPlanAccion", DbType="Int NOT NULL")]
-		public int IdPlanAccion
+		public System.Data.Linq.Table<tPlanesAccion_Mitigacion> tPlanesAccion_Mitigacion
 		{
 			get
 			{
-				return this._IdPlanAccion;
-			}
-			set
-			{
-				if ((this._IdPlanAccion != value))
-				{
-					this._IdPlanAccion = value;
-				}
+				return this.GetTable<tPlanesAccion_Mitigacion>();
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodPlanAccion", DbType="NVarChar(50)")]
-		public string CodPlanAccion
+		public System.Data.Linq.Table<tPlanesAccion_Prioridades> tPlanesAccion_Prioridades
 		{
 			get
 			{
-				return this._CodPlanAccion;
-			}
-			set
-			{
-				if ((this._CodPlanAccion != value))
-				{
-					this._CodPlanAccion = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="NVarChar(50)")]
-		public string Nombre
-		{
-			get
-			{
-				return this._Nombre;
-			}
-			set
-			{
-				if ((this._Nombre != value))
-				{
-					this._Nombre = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEsructura", DbType="NVarChar(50)")]
-		public string IdEsructura
-		{
-			get
-			{
-				return this._IdEsructura;
-			}
-			set
-			{
-				if ((this._IdEsructura != value))
-				{
-					this._IdEsructura = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Medidas", DbType="NVarChar(MAX)")]
-		public string Medidas
-		{
-			get
-			{
-				return this._Medidas;
-			}
-			set
-			{
-				if ((this._Medidas != value))
-				{
-					this._Medidas = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrevistoCosteTiempo", DbType="Float")]
-		public System.Nullable<double> PrevistoCosteTiempo
-		{
-			get
-			{
-				return this._PrevistoCosteTiempo;
-			}
-			set
-			{
-				if ((this._PrevistoCosteTiempo != value))
-				{
-					this._PrevistoCosteTiempo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrevistoCosteEuros", DbType="Float")]
-		public System.Nullable<double> PrevistoCosteEuros
-		{
-			get
-			{
-				return this._PrevistoCosteEuros;
-			}
-			set
-			{
-				if ((this._PrevistoCosteEuros != value))
-				{
-					this._PrevistoCosteEuros = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RealCosteTiempo", DbType="Float")]
-		public System.Nullable<double> RealCosteTiempo
-		{
-			get
-			{
-				return this._RealCosteTiempo;
-			}
-			set
-			{
-				if ((this._RealCosteTiempo != value))
-				{
-					this._RealCosteTiempo = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RealCosteEuros", DbType="Float")]
-		public System.Nullable<double> RealCosteEuros
-		{
-			get
-			{
-				return this._RealCosteEuros;
-			}
-			set
-			{
-				if ((this._RealCosteEuros != value))
-				{
-					this._RealCosteEuros = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPrioridad", DbType="Int")]
-		public System.Nullable<int> IdPrioridad
-		{
-			get
-			{
-				return this._IdPrioridad;
-			}
-			set
-			{
-				if ((this._IdPrioridad != value))
-				{
-					this._IdPrioridad = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdMitigacionPotencial", DbType="Int")]
-		public System.Nullable<int> IdMitigacionPotencial
-		{
-			get
-			{
-				return this._IdMitigacionPotencial;
-			}
-			set
-			{
-				if ((this._IdMitigacionPotencial != value))
-				{
-					this._IdMitigacionPotencial = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Accion", DbType="NVarChar(MAX)")]
-		public string Accion
-		{
-			get
-			{
-				return this._Accion;
-			}
-			set
-			{
-				if ((this._Accion != value))
-				{
-					this._Accion = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Activa", DbType="Bit NOT NULL")]
-		public bool Activa
-		{
-			get
-			{
-				return this._Activa;
-			}
-			set
-			{
-				if ((this._Activa != value))
-				{
-					this._Activa = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdResponsable", DbType="Int")]
-		public System.Nullable<int> IdResponsable
-		{
-			get
-			{
-				return this._IdResponsable;
-			}
-			set
-			{
-				if ((this._IdResponsable != value))
-				{
-					this._IdResponsable = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaFinTeorica", DbType="DateTime")]
-		public System.Nullable<System.DateTime> FechaFinTeorica
-		{
-			get
-			{
-				return this._FechaFinTeorica;
-			}
-			set
-			{
-				if ((this._FechaFinTeorica != value))
-				{
-					this._FechaFinTeorica = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaFinReal", DbType="DateTime")]
-		public System.Nullable<System.DateTime> FechaFinReal
-		{
-			get
-			{
-				return this._FechaFinReal;
-			}
-			set
-			{
-				if ((this._FechaFinReal != value))
-				{
-					this._FechaFinReal = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DismiSev", DbType="Float")]
-		public System.Nullable<double> DismiSev
-		{
-			get
-			{
-				return this._DismiSev;
-			}
-			set
-			{
-				if ((this._DismiSev != value))
-				{
-					this._DismiSev = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DismiFrec", DbType="Float")]
-		public System.Nullable<double> DismiFrec
-		{
-			get
-			{
-				return this._DismiFrec;
-			}
-			set
-			{
-				if ((this._DismiFrec != value))
-				{
-					this._DismiFrec = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Responsable", DbType="NVarChar(100)")]
-		public string Responsable
-		{
-			get
-			{
-				return this._Responsable;
-			}
-			set
-			{
-				if ((this._Responsable != value))
-				{
-					this._Responsable = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Expr1", DbType="Int")]
-		public System.Nullable<int> Expr1
-		{
-			get
-			{
-				return this._Expr1;
-			}
-			set
-			{
-				if ((this._Expr1 != value))
-				{
-					this._Expr1 = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Prioridad", DbType="NVarChar(50)")]
-		public string Prioridad
-		{
-			get
-			{
-				return this._Prioridad;
-			}
-			set
-			{
-				if ((this._Prioridad != value))
-				{
-					this._Prioridad = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColorP", DbType="NVarChar(50)")]
-		public string ColorP
-		{
-			get
-			{
-				return this._ColorP;
-			}
-			set
-			{
-				if ((this._ColorP != value))
-				{
-					this._ColorP = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Mitigacion", DbType="NVarChar(50)")]
-		public string Mitigacion
-		{
-			get
-			{
-				return this._Mitigacion;
-			}
-			set
-			{
-				if ((this._Mitigacion != value))
-				{
-					this._Mitigacion = value;
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColorM", DbType="NVarChar(50)")]
-		public string ColorM
-		{
-			get
-			{
-				return this._ColorM;
-			}
-			set
-			{
-				if ((this._ColorM != value))
-				{
-					this._ColorM = value;
-				}
+				return this.GetTable<tPlanesAccion_Prioridades>();
 			}
 		}
 	}
@@ -975,6 +567,939 @@ namespace Risk.Models
 				{
 					this._EstadoPeriodicidad = value;
 				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.qPlanes")]
+	public partial class qPlanes
+	{
+		
+		private int _IdPlanAccion;
+		
+		private string _CodPlanAccion;
+		
+		private string _Nombre;
+		
+		private string _IdEsructura;
+		
+		private string _Medidas;
+		
+		private System.Nullable<double> _PrevistoCosteTiempo;
+		
+		private System.Nullable<double> _PrevistoCosteEuros;
+		
+		private System.Nullable<double> _RealCosteTiempo;
+		
+		private System.Nullable<double> _RealCosteEuros;
+		
+		private System.Nullable<int> _IdPrioridad;
+		
+		private System.Nullable<int> _IdMitigacionPotencial;
+		
+		private string _Accion;
+		
+		private bool _Activa;
+		
+		private System.Nullable<int> _IdResponsable;
+		
+		private System.Nullable<System.DateTime> _FechaFinTeorica;
+		
+		private System.Nullable<System.DateTime> _FechaFinReal;
+		
+		private System.Nullable<double> _DismiSev;
+		
+		private System.Nullable<double> _DismiFrec;
+		
+		private string _Responsable;
+		
+		private System.Nullable<int> _Expr1;
+		
+		private string _Prioridad;
+		
+		private string _ColorP;
+		
+		private string _Mitigacion;
+		
+		private string _ColorM;
+		
+		private System.Nullable<int> _IdEstado;
+		
+		public qPlanes()
+		{
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPlanAccion", DbType="Int NOT NULL")]
+		public int IdPlanAccion
+		{
+			get
+			{
+				return this._IdPlanAccion;
+			}
+			set
+			{
+				if ((this._IdPlanAccion != value))
+				{
+					this._IdPlanAccion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodPlanAccion", DbType="NVarChar(50)")]
+		public string CodPlanAccion
+		{
+			get
+			{
+				return this._CodPlanAccion;
+			}
+			set
+			{
+				if ((this._CodPlanAccion != value))
+				{
+					this._CodPlanAccion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Nombre", DbType="NVarChar(50)")]
+		public string Nombre
+		{
+			get
+			{
+				return this._Nombre;
+			}
+			set
+			{
+				if ((this._Nombre != value))
+				{
+					this._Nombre = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEsructura", DbType="NVarChar(50)")]
+		public string IdEsructura
+		{
+			get
+			{
+				return this._IdEsructura;
+			}
+			set
+			{
+				if ((this._IdEsructura != value))
+				{
+					this._IdEsructura = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Medidas", DbType="NVarChar(MAX)")]
+		public string Medidas
+		{
+			get
+			{
+				return this._Medidas;
+			}
+			set
+			{
+				if ((this._Medidas != value))
+				{
+					this._Medidas = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrevistoCosteTiempo", DbType="Float")]
+		public System.Nullable<double> PrevistoCosteTiempo
+		{
+			get
+			{
+				return this._PrevistoCosteTiempo;
+			}
+			set
+			{
+				if ((this._PrevistoCosteTiempo != value))
+				{
+					this._PrevistoCosteTiempo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_PrevistoCosteEuros", DbType="Float")]
+		public System.Nullable<double> PrevistoCosteEuros
+		{
+			get
+			{
+				return this._PrevistoCosteEuros;
+			}
+			set
+			{
+				if ((this._PrevistoCosteEuros != value))
+				{
+					this._PrevistoCosteEuros = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RealCosteTiempo", DbType="Float")]
+		public System.Nullable<double> RealCosteTiempo
+		{
+			get
+			{
+				return this._RealCosteTiempo;
+			}
+			set
+			{
+				if ((this._RealCosteTiempo != value))
+				{
+					this._RealCosteTiempo = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_RealCosteEuros", DbType="Float")]
+		public System.Nullable<double> RealCosteEuros
+		{
+			get
+			{
+				return this._RealCosteEuros;
+			}
+			set
+			{
+				if ((this._RealCosteEuros != value))
+				{
+					this._RealCosteEuros = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPrioridad", DbType="Int")]
+		public System.Nullable<int> IdPrioridad
+		{
+			get
+			{
+				return this._IdPrioridad;
+			}
+			set
+			{
+				if ((this._IdPrioridad != value))
+				{
+					this._IdPrioridad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdMitigacionPotencial", DbType="Int")]
+		public System.Nullable<int> IdMitigacionPotencial
+		{
+			get
+			{
+				return this._IdMitigacionPotencial;
+			}
+			set
+			{
+				if ((this._IdMitigacionPotencial != value))
+				{
+					this._IdMitigacionPotencial = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Accion", DbType="NVarChar(MAX)")]
+		public string Accion
+		{
+			get
+			{
+				return this._Accion;
+			}
+			set
+			{
+				if ((this._Accion != value))
+				{
+					this._Accion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Activa", DbType="Bit NOT NULL")]
+		public bool Activa
+		{
+			get
+			{
+				return this._Activa;
+			}
+			set
+			{
+				if ((this._Activa != value))
+				{
+					this._Activa = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdResponsable", DbType="Int")]
+		public System.Nullable<int> IdResponsable
+		{
+			get
+			{
+				return this._IdResponsable;
+			}
+			set
+			{
+				if ((this._IdResponsable != value))
+				{
+					this._IdResponsable = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaFinTeorica", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaFinTeorica
+		{
+			get
+			{
+				return this._FechaFinTeorica;
+			}
+			set
+			{
+				if ((this._FechaFinTeorica != value))
+				{
+					this._FechaFinTeorica = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FechaFinReal", DbType="DateTime")]
+		public System.Nullable<System.DateTime> FechaFinReal
+		{
+			get
+			{
+				return this._FechaFinReal;
+			}
+			set
+			{
+				if ((this._FechaFinReal != value))
+				{
+					this._FechaFinReal = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DismiSev", DbType="Float")]
+		public System.Nullable<double> DismiSev
+		{
+			get
+			{
+				return this._DismiSev;
+			}
+			set
+			{
+				if ((this._DismiSev != value))
+				{
+					this._DismiSev = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DismiFrec", DbType="Float")]
+		public System.Nullable<double> DismiFrec
+		{
+			get
+			{
+				return this._DismiFrec;
+			}
+			set
+			{
+				if ((this._DismiFrec != value))
+				{
+					this._DismiFrec = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Responsable", DbType="NVarChar(100)")]
+		public string Responsable
+		{
+			get
+			{
+				return this._Responsable;
+			}
+			set
+			{
+				if ((this._Responsable != value))
+				{
+					this._Responsable = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Expr1", DbType="Int")]
+		public System.Nullable<int> Expr1
+		{
+			get
+			{
+				return this._Expr1;
+			}
+			set
+			{
+				if ((this._Expr1 != value))
+				{
+					this._Expr1 = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Prioridad", DbType="NVarChar(50)")]
+		public string Prioridad
+		{
+			get
+			{
+				return this._Prioridad;
+			}
+			set
+			{
+				if ((this._Prioridad != value))
+				{
+					this._Prioridad = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColorP", DbType="NVarChar(50)")]
+		public string ColorP
+		{
+			get
+			{
+				return this._ColorP;
+			}
+			set
+			{
+				if ((this._ColorP != value))
+				{
+					this._ColorP = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Mitigacion", DbType="NVarChar(50)")]
+		public string Mitigacion
+		{
+			get
+			{
+				return this._Mitigacion;
+			}
+			set
+			{
+				if ((this._Mitigacion != value))
+				{
+					this._Mitigacion = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ColorM", DbType="NVarChar(50)")]
+		public string ColorM
+		{
+			get
+			{
+				return this._ColorM;
+			}
+			set
+			{
+				if ((this._ColorM != value))
+				{
+					this._ColorM = value;
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEstado", DbType="Int")]
+		public System.Nullable<int> IdEstado
+		{
+			get
+			{
+				return this._IdEstado;
+			}
+			set
+			{
+				if ((this._IdEstado != value))
+				{
+					this._IdEstado = value;
+				}
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tPlanesAccion_Estados")]
+	public partial class tPlanesAccion_Estados : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdEstado;
+		
+		private string _CodEstado;
+		
+		private string _Estado;
+		
+		private System.Nullable<int> _Orden;
+		
+		private string _Color;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdEstadoChanging(int value);
+    partial void OnIdEstadoChanged();
+    partial void OnCodEstadoChanging(string value);
+    partial void OnCodEstadoChanged();
+    partial void OnEstadoChanging(string value);
+    partial void OnEstadoChanged();
+    partial void OnOrdenChanging(System.Nullable<int> value);
+    partial void OnOrdenChanged();
+    partial void OnColorChanging(string value);
+    partial void OnColorChanged();
+    #endregion
+		
+		public tPlanesAccion_Estados()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdEstado", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdEstado
+		{
+			get
+			{
+				return this._IdEstado;
+			}
+			set
+			{
+				if ((this._IdEstado != value))
+				{
+					this.OnIdEstadoChanging(value);
+					this.SendPropertyChanging();
+					this._IdEstado = value;
+					this.SendPropertyChanged("IdEstado");
+					this.OnIdEstadoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CodEstado", DbType="NVarChar(10)")]
+		public string CodEstado
+		{
+			get
+			{
+				return this._CodEstado;
+			}
+			set
+			{
+				if ((this._CodEstado != value))
+				{
+					this.OnCodEstadoChanging(value);
+					this.SendPropertyChanging();
+					this._CodEstado = value;
+					this.SendPropertyChanged("CodEstado");
+					this.OnCodEstadoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Estado", DbType="NVarChar(50)")]
+		public string Estado
+		{
+			get
+			{
+				return this._Estado;
+			}
+			set
+			{
+				if ((this._Estado != value))
+				{
+					this.OnEstadoChanging(value);
+					this.SendPropertyChanging();
+					this._Estado = value;
+					this.SendPropertyChanged("Estado");
+					this.OnEstadoChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int")]
+		public System.Nullable<int> Orden
+		{
+			get
+			{
+				return this._Orden;
+			}
+			set
+			{
+				if ((this._Orden != value))
+				{
+					this.OnOrdenChanging(value);
+					this.SendPropertyChanging();
+					this._Orden = value;
+					this.SendPropertyChanged("Orden");
+					this.OnOrdenChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Color", DbType="NVarChar(50)")]
+		public string Color
+		{
+			get
+			{
+				return this._Color;
+			}
+			set
+			{
+				if ((this._Color != value))
+				{
+					this.OnColorChanging(value);
+					this.SendPropertyChanging();
+					this._Color = value;
+					this.SendPropertyChanged("Color");
+					this.OnColorChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tPlanesAccion_Mitigacion")]
+	public partial class tPlanesAccion_Mitigacion : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdMitigacion;
+		
+		private string _Mitigacion;
+		
+		private string _Color;
+		
+		private System.Nullable<int> _Valor;
+		
+		private System.Nullable<int> _Orden;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdMitigacionChanging(int value);
+    partial void OnIdMitigacionChanged();
+    partial void OnMitigacionChanging(string value);
+    partial void OnMitigacionChanged();
+    partial void OnColorChanging(string value);
+    partial void OnColorChanged();
+    partial void OnValorChanging(System.Nullable<int> value);
+    partial void OnValorChanged();
+    partial void OnOrdenChanging(System.Nullable<int> value);
+    partial void OnOrdenChanged();
+    #endregion
+		
+		public tPlanesAccion_Mitigacion()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdMitigacion", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdMitigacion
+		{
+			get
+			{
+				return this._IdMitigacion;
+			}
+			set
+			{
+				if ((this._IdMitigacion != value))
+				{
+					this.OnIdMitigacionChanging(value);
+					this.SendPropertyChanging();
+					this._IdMitigacion = value;
+					this.SendPropertyChanged("IdMitigacion");
+					this.OnIdMitigacionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Mitigacion", DbType="NVarChar(50)")]
+		public string Mitigacion
+		{
+			get
+			{
+				return this._Mitigacion;
+			}
+			set
+			{
+				if ((this._Mitigacion != value))
+				{
+					this.OnMitigacionChanging(value);
+					this.SendPropertyChanging();
+					this._Mitigacion = value;
+					this.SendPropertyChanged("Mitigacion");
+					this.OnMitigacionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Color", DbType="NVarChar(50)")]
+		public string Color
+		{
+			get
+			{
+				return this._Color;
+			}
+			set
+			{
+				if ((this._Color != value))
+				{
+					this.OnColorChanging(value);
+					this.SendPropertyChanging();
+					this._Color = value;
+					this.SendPropertyChanged("Color");
+					this.OnColorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Valor", DbType="Int")]
+		public System.Nullable<int> Valor
+		{
+			get
+			{
+				return this._Valor;
+			}
+			set
+			{
+				if ((this._Valor != value))
+				{
+					this.OnValorChanging(value);
+					this.SendPropertyChanging();
+					this._Valor = value;
+					this.SendPropertyChanged("Valor");
+					this.OnValorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int")]
+		public System.Nullable<int> Orden
+		{
+			get
+			{
+				return this._Orden;
+			}
+			set
+			{
+				if ((this._Orden != value))
+				{
+					this.OnOrdenChanging(value);
+					this.SendPropertyChanging();
+					this._Orden = value;
+					this.SendPropertyChanged("Orden");
+					this.OnOrdenChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.tPlanesAccion_Prioridades")]
+	public partial class tPlanesAccion_Prioridades : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _IdPrioridad;
+		
+		private string _Prioridad;
+		
+		private string _Color;
+		
+		private System.Nullable<int> _Valor;
+		
+		private System.Nullable<int> _Orden;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnIdPrioridadChanging(int value);
+    partial void OnIdPrioridadChanged();
+    partial void OnPrioridadChanging(string value);
+    partial void OnPrioridadChanged();
+    partial void OnColorChanging(string value);
+    partial void OnColorChanged();
+    partial void OnValorChanging(System.Nullable<int> value);
+    partial void OnValorChanged();
+    partial void OnOrdenChanging(System.Nullable<int> value);
+    partial void OnOrdenChanged();
+    #endregion
+		
+		public tPlanesAccion_Prioridades()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_IdPrioridad", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int IdPrioridad
+		{
+			get
+			{
+				return this._IdPrioridad;
+			}
+			set
+			{
+				if ((this._IdPrioridad != value))
+				{
+					this.OnIdPrioridadChanging(value);
+					this.SendPropertyChanging();
+					this._IdPrioridad = value;
+					this.SendPropertyChanged("IdPrioridad");
+					this.OnIdPrioridadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Prioridad", DbType="NVarChar(50)")]
+		public string Prioridad
+		{
+			get
+			{
+				return this._Prioridad;
+			}
+			set
+			{
+				if ((this._Prioridad != value))
+				{
+					this.OnPrioridadChanging(value);
+					this.SendPropertyChanging();
+					this._Prioridad = value;
+					this.SendPropertyChanged("Prioridad");
+					this.OnPrioridadChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Color", DbType="NVarChar(50)")]
+		public string Color
+		{
+			get
+			{
+				return this._Color;
+			}
+			set
+			{
+				if ((this._Color != value))
+				{
+					this.OnColorChanging(value);
+					this.SendPropertyChanging();
+					this._Color = value;
+					this.SendPropertyChanged("Color");
+					this.OnColorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Valor", DbType="Int")]
+		public System.Nullable<int> Valor
+		{
+			get
+			{
+				return this._Valor;
+			}
+			set
+			{
+				if ((this._Valor != value))
+				{
+					this.OnValorChanging(value);
+					this.SendPropertyChanging();
+					this._Valor = value;
+					this.SendPropertyChanged("Valor");
+					this.OnValorChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Orden", DbType="Int")]
+		public System.Nullable<int> Orden
+		{
+			get
+			{
+				return this._Orden;
+			}
+			set
+			{
+				if ((this._Orden != value))
+				{
+					this.OnOrdenChanging(value);
+					this.SendPropertyChanging();
+					this._Orden = value;
+					this.SendPropertyChanged("Orden");
+					this.OnOrdenChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
 		}
 	}

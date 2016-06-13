@@ -3,5 +3,85 @@
     ViewBag.Title = "PlanFicha";
 }
 
-<h2>PlanFicha</h2>
+<!-- MAIN CONTENT -->
+<!-- TITLE & SUBTITLE -->
+<h2>PLAN FICHA</h2>
 
+@if (Model.Nombre != null)
+{
+    <h3 class="darker"><strong>@Model.CodPlanAccion</strong></h3>
+    <input id="IdPlan" type="hidden" value="@Model.IdPlanAccion" />
+
+    <!-- GENERAL DATA OF RISK -->
+    <div class="panel">
+        <div class="panel-body">
+            <!-- TITLE & ATTRIBUTES -->
+            <span class="title">ACTION PLAN</span>
+            <div class="clearfix"></div>
+            <div class="divider"></div>
+
+            <!-- FORM -->
+            <div class="row">
+
+                <!-- COLUMN LEFT -->
+                <div class="col-lg-6 col-md-8">
+
+                    <!-- DIVIDER -->
+                    <div class="divider-30"></div>
+
+                    <!-- ROW BP -->
+                    <div class="row no-field">
+                        <div class="col-lg-3 col-md-4">
+                            <span class="form-left-label"><b>NAME</b></span>
+                        </div>
+
+                        <div class="col-lg-9 col-md-8">
+                            <span>@Model.Nombre</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+}
+else
+{
+    <input id="IdPlan" type="hidden" value="0" />
+    <h3 class="darker"><strong>New Plan</strong></h3>
+}
+
+<div class="panel">
+    <div id="partialViewsPlans" class="panel-body">
+        <!-- TABS -->
+        <div id="Menu">
+            <ul class="nav nav-tabs" id="mnu">
+                <li class="active">
+                    <a aria-expanded="false" id="mnu_Main" data-toggle="tab" href="#">Main</a>
+                </li>
+                <li>
+                    <a aria-expanded="false" id="mnu_Scoope" data-toggle="tab" href="#">Scoope</a>
+                </li>
+            </ul>
+            <hr />
+        </div> <!-- END TABS -->
+        <div id="contenidoDinamico">
+        </div>
+    </div>
+</div>
+
+<script>
+        $(document).ready(function () {
+            $('#Menu li').removeClass('disabled');
+            var id = $('#IdPlan').val();
+            var ruta = "http://localhost:1525/Plan/Main/";
+
+            $('#contenidoDinamico').load(ruta, { "id": id});
+        })
+</script>
+
+
+
+<script type="text/javascript" src="~/Content/js/botoneraPartials.js"></script>
+<script type="text/javascript" src="~/Content/js/scripts2.js"></script>

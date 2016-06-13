@@ -11,6 +11,8 @@ namespace Risk.Models
     public class DropDownModel
     {
         public Riesgos_BDDataContext Conexion = (Riesgos_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralRiesgos();
+        public Consultas_BDDataContext ConexionConsultas = (Consultas_BDDataContext)new ConnectionDB.connectionGeneral().connectionGeneralConsultas();
+
         private BD_Riesgos BD_Riesgos = new BD_Riesgos();
 
         private Dictionary<int, string> _datosClasificacion2;
@@ -123,6 +125,76 @@ namespace Risk.Models
             return dicEfectividad;
 
         }
+
+        public Dictionary<int, List<string>> cboPlanesAccionEstados()
+        {
+
+            Dictionary<int, List<string>> dicEstados = new Dictionary<int, List<string>>();
+            dicEstados.Add(0, new List<string> { "#ffffff", "" });
+
+            var dic = ConexionConsultas.tPlanesAccion_Estados
+                                .GroupBy(x => x.IdEstado)
+                                .ToDictionary(r => r.Key, r => r.Select(x => new List<string>
+                                {
+                                        x.Color,
+                                        x.Estado
+                                }
+                                ).Single());
+
+            foreach (var item in dic)
+            {
+                dicEstados.Add(item.Key, item.Value);
+            }
+
+            return dicEstados;
+        }
+
+        public Dictionary<int, List<string>> cboPlanesAccionMitigacion()
+        {
+
+            Dictionary<int, List<string>> dicMitigacion = new Dictionary<int, List<string>>();
+            dicMitigacion.Add(0, new List<string> { "#ffffff", "" });
+
+            var dic = ConexionConsultas.tPlanesAccion_Mitigacion
+                                .GroupBy(x => x.IdMitigacion)
+                                .ToDictionary(r => r.Key, r => r.Select(x => new List<string>
+                                {
+                                        x.Color,
+                                        x.Mitigacion
+                                }
+                                ).Single());
+
+            foreach (var item in dic)
+            {
+                dicMitigacion.Add(item.Key, item.Value);
+            }
+
+            return dicMitigacion;
+        }
+
+        public Dictionary<int, List<string>> cboPlanesAccionPrioridades()
+        {
+
+            Dictionary<int, List<string>> dicPrioridades = new Dictionary<int, List<string>>();
+            dicPrioridades.Add(0, new List<string> { "#ffffff", "" });
+
+            var dic = ConexionConsultas.tPlanesAccion_Prioridades
+                                .GroupBy(x => x.IdPrioridad)
+                                .ToDictionary(r => r.Key, r => r.Select(x => new List<string>
+                                {
+                                        x.Color,
+                                        x.Prioridad
+                                }
+                                ).Single());
+
+            foreach (var item in dic)
+            {
+                dicPrioridades.Add(item.Key, item.Value);
+            }
+
+            return dicPrioridades;
+        }
+
 
 
         //METODO CARGA DINÁMICA

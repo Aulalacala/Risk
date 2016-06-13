@@ -23,6 +23,16 @@ namespace Risk.Models
             datosTabla.borrar = false;
             datosTabla.vistaProcedencia = "Plans";
             datosTabla.datosTHead = BD_MontaDatosTabledata.cargaTHead("qPlanes", datosTabla.colVer, datosTabla.colTitulo);
+            datosTabla.color = dameColoresTuplas();
+        }
+
+        private List<string> dameColoresTuplas()
+        {
+            List<string> colores = new List<string>();
+
+            colores = ConexionConsultas.qPlanes.Select(i => i.ColorP.Replace(';', ',')).ToList();
+
+            return colores;
         }
 
         public DatosTablaModel dameTabla(Dictionary<string, object> filtros)

@@ -1,11 +1,5 @@
 ﻿@using Risk.Models
 @model Risk.Models.DatosTablaModel
-
-
-
-
-
-
 @{if (Model.datosTBody == null) {
 
   <!-- TITLE & BUTTONS -->
@@ -73,12 +67,12 @@
 
                                             if (Model.color != null) {
                                                 color = Model.color.ElementAt(contador);
-                                                colorLapiz = "white";
+                                                colorLapiz = "#ffffcc";
                                             }
 
                                             <tr id="@fila.Key">
                                                 @{if (Model.editable) {
-                                                        <td style="text-align:center;background-color:rgb(@color);">
+                                                        <td style="text-align:center;background-color:@color;">
                                                             <a href="@Url.Action(Model.urlActionEditar.Item1, Model.urlActionEditar.Item2, new { id = fila.Key }) " id="@fila.Key"><i style="color:@colorLapiz" class="glyphicon glyphicon-pencil"></i></a>
                                                         </td>
                                                     }

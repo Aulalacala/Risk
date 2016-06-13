@@ -315,6 +315,7 @@
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ViewModels\AssignMultipleRiskVM.cs" />
+    <Compile Include="ViewModels\FichaPlanesVM.cs" />
     <Compile Include="ViewModels\FichaRiesgoVM.cs" />
     <Compile Include="ViewModels\OperationalAndReputationalVM.cs" />
     <Compile Include="ViewModels\ViewModelRisk.cs" />
@@ -351,6 +352,8 @@
     <Content Include="Views\Reports\Report.cshtml" />
     <Content Include="Views\Reports\pdfOK.cshtml" />
     <Content Include="Views\Plan\PlanFicha.cshtml" />
+    <Content Include="Views\Plan\Main.cshtml" />
+    <Content Include="Views\Plan\Scoope.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

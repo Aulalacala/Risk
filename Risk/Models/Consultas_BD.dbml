@@ -1,33 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="RiskMVC" Class="Consultas_BDDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
   <Connection Mode="WebSettings" ConnectionString="Data Source=sql.aulariosoft.com;Initial Catalog=RiskMVC;User ID=AuRisk" SettingsObjectName="System.Configuration.ConfigurationManager.ConnectionStrings" SettingsPropertyName="RiskMVCConnectionString1" Provider="System.Data.SqlClient" />
-  <Table Name="dbo.qPlanes" Member="qPlanes">
-    <Type Name="qPlanes">
-      <Column Name="IdPlanAccion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="CodPlanAccion" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Nombre" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="IdEsructura" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Medidas" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="PrevistoCosteTiempo" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="PrevistoCosteEuros" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="RealCosteTiempo" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="RealCosteEuros" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="IdPrioridad" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="IdMitigacionPotencial" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Accion" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
-      <Column Name="Activa" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="IdResponsable" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="FechaFinTeorica" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="FechaFinReal" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
-      <Column Name="DismiSev" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="DismiFrec" Type="System.Double" DbType="Float" CanBeNull="true" />
-      <Column Name="Responsable" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="Expr1" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="Prioridad" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="ColorP" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="Mitigacion" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="ColorM" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.qIndicadores" Member="qIndicadores">
     <Type Name="qIndicadores">
       <Column Name="Estado" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
@@ -55,6 +27,62 @@
       <Column Name="IdSelec2" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="IdPeriodicidad" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Column Name="EstadoPeriodicidad" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.qPlanes" Member="qPlanes">
+    <Type Name="qPlanes">
+      <Column Name="IdPlanAccion" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="CodPlanAccion" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Nombre" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IdEsructura" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Medidas" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="PrevistoCosteTiempo" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="PrevistoCosteEuros" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RealCosteTiempo" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="RealCosteEuros" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="IdPrioridad" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="IdMitigacionPotencial" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Accion" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Activa" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="IdResponsable" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="FechaFinTeorica" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="FechaFinReal" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="DismiSev" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="DismiFrec" Type="System.Double" DbType="Float" CanBeNull="true" />
+      <Column Name="Responsable" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="Expr1" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Prioridad" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ColorP" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Mitigacion" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ColorM" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="IdEstado" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tPlanesAccion_Estados" Member="tPlanesAccion_Estados">
+    <Type Name="tPlanesAccion_Estados">
+      <Column Name="IdEstado" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="CodEstado" Type="System.String" DbType="NVarChar(10)" CanBeNull="true" />
+      <Column Name="Estado" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Orden" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Color" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tPlanesAccion_Mitigacion" Member="tPlanesAccion_Mitigacion">
+    <Type Name="tPlanesAccion_Mitigacion">
+      <Column Name="IdMitigacion" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Mitigacion" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Color" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Valor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Orden" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.tPlanesAccion_Prioridades" Member="tPlanesAccion_Prioridades">
+    <Type Name="tPlanesAccion_Prioridades">
+      <Column Name="IdPrioridad" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Prioridad" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Color" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Valor" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="Orden" Type="System.Int32" DbType="Int" CanBeNull="true" />
     </Type>
   </Table>
 </Database>
